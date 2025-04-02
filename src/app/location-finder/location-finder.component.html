@@ -1,0 +1,66 @@
+<!-- Contact Section -->
+<section id="getintouch" style="background-color: #f8f9fa; padding: 3rem 1rem; transition: all 0.3s ease;">
+  <div class="container">
+      <!-- Section Header -->
+      <div class="text-center mb-12" style="text-align: center; margin-bottom: 3rem;">
+          <h2 style="font-size: 1.875rem; font-weight: bold; color: #333; margin-bottom: 0.5rem;">Get in Touch</h2>
+          <p style="color: #666;">We'd love to hear from you! Send us a message and we'll respond as soon as possible.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: row; gap: 2rem; align-items: stretch;">
+          <!-- Contact Form -->
+          <div style="flex: 1; background-color: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); padding: 1.5rem;">
+              <form id="ajax-contact" action="assets/mailer.php" method="post">
+                  <div style="display: grid; grid-template-columns: repeat(1, 1fr); gap: 1.5rem;">
+                      <div style="display: flex; flex-direction: column; margin-bottom: 1rem;">
+                          <label for="name" style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.5rem;">Name</label>
+                          <input type="text" id="name" placeholder="Your name" required
+                              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;">
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; margin-bottom: 1rem;">
+                          <label for="email" style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.5rem;">Email</label>
+                          <input type="email" id="email" placeholder="your@email.com" required
+                              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;">
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; margin-bottom: 1rem;">
+                          <label for="phone" style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.5rem;">Phone</label>
+                          <input type="tel" id="phone" placeholder="+216 12 345 678"
+                              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;">
+                      </div>
+
+                      <div style="display: flex; flex-direction: column; margin-bottom: 1rem;">
+                          <label for="subject" style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.5rem;">Subject</label>
+                          <input type="text" id="subject" placeholder="How can we help?"
+                              style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;">
+                      </div>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column; margin-bottom: 1rem;">
+                      <label for="message" style="font-size: 0.9rem; font-weight: 600; color: #333; margin-bottom: 0.5rem;">Message</label>
+                      <textarea id="message" rows="5" placeholder="Your message..." required
+                          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;"></textarea>
+                  </div>
+
+                  <div style="text-align: center; margin-top: 1rem;">
+                      <button type="submit"
+                          style="background-color: #2563eb; color: white; padding: 12px 20px; font-size: 1rem; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; transition: all 0.3s ease;">
+                          Send Message
+                      </button>
+                  </div>
+              </form>
+          </div>
+
+          <!-- Google Map -->
+          <div style="flex: 1;">
+              <div style="border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); height: 100%;">
+                  <iframe style="width: 100%; min-height: 100%; border: none;"
+                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus"
+                      frameborder="0" allowfullscreen="" loading="lazy">
+                  </iframe>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>

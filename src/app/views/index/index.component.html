@@ -1,0 +1,542 @@
+<app-index-navbar></app-index-navbar>
+<section class="header relative pt-16 items-center flex h-screen max-h-860-px">
+  <div class="container mx-auto items-center flex flex-wrap">
+    <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
+      <div class="pt-32 sm:pt-0">
+        <h2 class="font-semibold text-4xl text-blueGray-600">
+        Welcome to MindFull        </h2>
+        <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
+          At Mindfull, we provide trusted, evidence-based mental health support through a secure and easy-to-use platform.
+
+          our app connects you with the tools and professionals you need
+          for effective care—anytime, anywhere
+
+        </p>
+        <div class="mt-12">
+          <a
+          [routerLink]="['/auth/login']"
+          target="_blank"
+            class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-red-600 active:bg-red-700 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+          >
+            Get started
+          </a>
+
+        </div>
+      </div>
+    </div>
+    <img
+    class="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860-px"
+    src="assets/img/second img.png"
+style=" max-width:500px ;" />
+  </div>
+
+
+</section>
+
+<section class="mt-48 md:mt-40 pb-40 relative bg-blueGray-100">
+  <div
+    class="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
+    style="transform: translateZ(0)"
+  >
+    <svg
+      class="absolute bottom-0 overflow-hidden"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+      version="1.1"
+      viewBox="0 0 2560 100"
+      x="0"
+      y="0"
+    >
+      <polygon
+        class="text-blueGray-100 fill-current"
+        points="2560 0 2560 100 0 100"
+      ></polygon>
+    </svg>
+  </div>
+
+  <div class="container mx-auto" >
+    <div class="flex flex-wrap items-center">
+      <!-- Left Column - Patient Testimonial -->
+      <div class="w-10/12 md:w-6/12 lg:w-4/12 px-12 md:px-4 mr-auto ml-auto -mt-32" >
+        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg bg-blue-500">
+          <img       src="/assets/img/pattern_angular.png"
+          class="w-full align-middle rounded-t-lg" alt="Patient and therapist in session"/>
+
+
+          <blockquote class="relative"  >
+            <svg
+              preserveAspectRatio="none"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 583 95"
+              class="absolute left-0 w-full block h-95-px -top-94-px"
+            >
+              <polygon
+                points="-30,95 583,95 583,65"
+                class="text-red-600 fill-current"
+              ></polygon>
+            </svg>
+            <div style="margin: 20px;">
+            <h4 class="text-xl font-bold text-white">
+              Your Journey to Wellness Starts Here
+            </h4>
+            <p class="text-md font-light mt-2 text-white">
+              At Mindfull, we blend compassionate care with clinical excellence—because healing happens best when science and support work together.            </p>
+            </div>
+          </blockquote>
+
+
+
+
+
+        </div>
+      </div>
+
+      <!-- Right Column - Core Services -->
+      <div class="w-full md:w-6/12 px-4">
+        <div class="flex flex-wrap">
+          <!-- Service Column 1 -->
+          <div class="w-full md:w-6/12 px-4">
+            <div class="relative flex flex-col mt-4">
+              <div class="px-4 py-5 flex-auto">
+                <div class="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                  <i class="fas fa-robot text-blue-500"></i>
+                </div>
+                <h6 class="text-xl mb-1 font-semibold">AI Mental Health Assistant</h6>
+                <p class="mb-4 text-blueGray-500">
+                  24/7 preliminary support with seamless escalation to human therapists when needed.
+                </p>
+              </div>
+            </div>
+
+            <div class="relative flex flex-col min-w-0">
+              <div class="px-4 py-5 flex-auto">
+                <div class="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                  <i class="fas fa-stethoscope text-blue-500"></i>
+                </div>
+                <h6 class="text-xl mb-1 font-semibold">Clinical Assessments</h6>
+                <p class="mb-4 text-blueGray-500">
+                  PHQ-9, GAD-7 and other validated screening tools with clinician review.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Service Column 2 -->
+          <div class="w-full md:w-6/12 px-4">
+            <div class="relative flex flex-col min-w-0 mt-4">
+              <div class="px-4 py-5 flex-auto">
+                <div class="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                  <i class="fas fa-video text-blue-500"></i>
+                </div>
+                <h6 class="text-xl mb-1 font-semibold">Telemedicine</h6>
+                <p class="mb-4 text-blueGray-500">
+                  HIPAA-compliant video sessions with board-certified professionals.
+                </p>
+              </div>
+            </div>
+
+            <div class="relative flex flex-col min-w-0">
+              <div class="px-4 py-5 flex-auto">
+                <div class="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-white">
+                  <i class="fas fa-pills text-blue-500"></i>
+                </div>
+                <h6 class="text-xl mb-1 font-semibold">Treatment Tracking</h6>
+                <p class="mb-4 text-blueGray-500">
+                  Medication logs, session notes, and progress metrics in one place.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--div-- class="container mx-auto px-4 pb-32 pt-48">
+    <div class="items-center flex flex-wrap">
+      <div class="w-full md:w-5/12 ml-auto px-12 md:px-4">
+        <div class="md:pr-12">
+          <div
+            class="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white"
+          >
+            <i class="fas fa-file-alt text-xl"></i>
+          </div>
+          <h3 class="text-3xl font-semibold">Complex Documentation</h3>
+          <p class="mt-4 text-lg leading-relaxed text-blueGray-500">
+            This extension comes a lot of fully coded examples that help you get
+            started faster. You can adjust the colors and also the programming
+            language. You can change the text and images and you're good to go.
+          </p>
+          <ul class="list-none mt-6">
+            <li class="py-2">
+              <div class="flex items-center">
+                <div>
+                  <span
+                    class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3"
+                  >
+                    <i class="fas fa-fingerprint"></i>
+                  </span>
+                </div>
+                <div>
+                  <h4 class="text-blueGray-500">
+                    Built by Developers for Developers
+                  </h4>
+                </div>
+              </div>
+            </li>
+            <li class="py-2">
+              <div class="flex items-center">
+                <div>
+                  <span
+                    class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3"
+                  >
+                    <i class="fab fa-html5"></i>
+                  </span>
+                </div>
+                <div>
+                  <h4 class="text-blueGray-500">
+                    Carefully crafted code for Components
+                  </h4>
+                </div>
+              </div>
+            </li>
+            <li class="py-2">
+              <div class="flex items-center">
+                <div>
+                  <span
+                    class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-blueGray-50 mr-3"
+                  >
+                    <i class="far fa-paper-plane"></i>
+                  </span>
+                </div>
+                <div>
+                  <h4 class="text-blueGray-500">
+                    Dynamic Javascript Components
+                  </h4>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="w-full md:w-6/12 mr-auto px-4 pt-24 md:pt-0">
+        <img
+          alt="..."
+          class="max-w-full rounded-lg shadow-xl"
+          style="
+            transform: scale(1) perspective(1040px) rotateY(-11deg)
+              rotateX(2deg) rotate(2deg);
+          "
+          src="assets/img/documentation.png"
+        />
+      </div>
+    </div>
+  </!--div-->
+
+  <div class="justify-center text-center flex flex-wrap mt-24">
+    <div class="w-full md:w-6/12 px-12 md:px-4">
+      <h2 class="font-semibold text-4xl">Our  Team
+      </h2>
+      <p class="text-lg leading-relaxed mt-4 mb-4 text-blueGray-500">
+        Licensed specialists and certified coaches dedicated to your emotional well-being.
+
+    </div>
+  </div>
+</section>
+
+
+<section class="block relative z-1  pb-20">
+<div class="container mx-auto">
+  <div class="justify-center flex flex-wrap">
+    <div class="w-full lg:w-10/12 px-4 -mt-24">
+      <div class="flex flex-wrap justify-center">
+
+        <!-- Chief Mental Health Officer -->
+        <div class="w-full md:w-6/12 lg:w-3/12 px-4 mb-8">
+          <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg transition-all duration-150">
+            <img class="w-full align-middle rounded-t-lg" src="assets/img/white.png"/>
+            <div class="p-6 text-center">
+              <h4 class="text-xl font-bold">Water White, MD</h4>
+              <p class="text-blue-600 font-medium">Chief Mental Health Officer</p>
+              <p class="text-sm text-blueGray-500 mt-2">
+                Trauma specialist & CBT expert
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Therapist -->
+        <div class="w-full md:w-6/12 lg:w-3/12 px-4 mb-8">
+          <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg transition-all duration-150">
+            <img alt="Sarah Jhonson" class="w-full align-middle rounded-t-lg" src="assets/img/lora.png"/>
+            <div class="p-6 text-center">
+              <h4 class="text-xl font-bold">Sarah Jhonson, PsyD</h4>
+              <p class="text-blue-600 font-medium">Clinical Psychologist</p>
+              <p class="text-sm text-blueGray-500 mt-2">
+                Anxiety disorders & mindfulness coach
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mental Health Coach -->
+        <div class="w-full md:w-6/12 lg:w-3/12 px-4 mb-8">
+          <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg transition-all duration-150">
+            <img alt="William Anderson" class="w-full align-middle rounded-t-lg" src="assets/img/jhonson.jpg"/>
+            <div class="p-6 text-center">
+              <h4 class="text-xl font-bold">William Anderson, LCSW</h4>
+              <p class="text-blue-600 font-medium">Mental Health Coach</p>
+              <p class="text-sm text-blueGray-500 mt-2">
+                Addiction recovery specialist
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Neuropsychiatrist -->
+        <div class="w-full md:w-6/12 lg:w-3/12 px-4 mb-8">
+          <div class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full shadow-lg rounded-lg transition-all duration-150">
+            <img alt="Amanda Jepson" class="w-full align-middle rounded-t-lg " src="assets/img/emma.png"/>
+            <div class="p-6 text-center">
+              <h4 class="text-xl font-bold">Amanda Jepson, MD</h4>
+              <p class="text-blue-600 font-medium">Neuropsychiatrist</p>
+              <p class="text-sm text-blueGray-500 mt-2">
+                Mood disorders & medication management
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+<div class="container mx-auto overflow-hidden pb-20 m-10">
+  <div class="flex flex-wrap items-center">
+    <div class="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
+
+      <h3 class="text-3xl mb-2 font-semibold leading-normal">
+        We Can Support You with       </h3>
+      <p
+        class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600"
+      >
+
+      </p>
+
+
+    </div>
+
+    <div class="w-full md:w-5/12 px-4 mr-auto ml-auto mt-32">
+      <div class="relative flex flex-col min-w-0 w-full mb-6 mt-48 md:mt-0">
+
+        <img
+          alt="..."
+          src="assets/img/ai chatboot.png"
+          class="w-full align-middle rounded-lg absolute shadow-lg max-w-210-px left-260-px -top-160-px"
+        />
+        <img
+          alt="..."
+          src="assets/img/appointement.png"
+          class="w-full align-middle rounded-lg absolute shadow-lg max-w-180-px left-40-px -top-225-px "
+        />
+        <img
+          alt="..."
+          src="assets/img/connect.png"
+          class="w-full align-middle rounded-lg absolute shadow-2xl max-w-200-px -left-50-px top-25-px"
+        />
+        <!--img
+        alt="..."
+        src="assets/img/jj.png"
+        class="w-full align-middle rounded absolute shadow-lg max-w-150-px left-145-px -top-44-px z-3"
+      /-->
+        <img
+          alt="..."
+          src="assets/img/comm.jpg"
+          class="w-full align-middle rounded absolute shadow-lg max-w-580-px left-20-px top-210-px"
+        />
+
+        <img
+        alt="..."
+        src="assets/img/quizz.png"
+        class="w-full align-middle rounded absolute shadow-xl max-w-120-px left-195-px top-95-px"
+      />
+      <!--img
+      alt="..."
+      src="assets/img/meditation2.png"
+      class="w-full align-middle rounded absolute shadow-xl  left-20-px "
+      style="top: 150px; max-width: 90px;"
+    /-->
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center pt-32">
+    <div class="flex flex-wrap items-center pt-32">
+      <!-- Left Column - Therapy Approach Cards -->
+      <div class="w-full md:w-6/12 px-4 mr-auto ml-auto mt-32">
+        <div class="justify-center flex flex-wrap relative">
+
+          <!-- CBT Card -->
+          <div class="my-4 w-full lg:w-6/12 px-4">
+            <a >
+              <div class="bg-blue-500 shadow-lg rounded-lg text-center p-8 hover:-mt-2 transition-all duration-200">
+                <div class="text-white p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-blue-600">
+                  <i class="fas fa-brain text-xl"></i>
+                </div>
+                <p class="text-lg text-white mt-4 font-semibold">Cognitive Behavioral Therapy</p>
+                <p class="text-white mt-2">Evidence-based treatment for anxiety, depression, and more</p>
+              </div>
+            </a>
+
+            <!-- DBT Card -->
+            <a  class="mt-8 block">
+              <div class="bg-teal-500 shadow-lg rounded-lg text-center p-8 hover:-mt-2 transition-all duration-200">
+                <div class="text-blue-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-teal-600">
+                  <i class="fas fa-balance-scale text-xl"></i>
+                </div>
+                <p class="text-lg text-blue-600 mt-4 font-semibold">Dialectical Behavior Therapy</p>
+                <p class="text-teal-100 mt-2">Specialized care for emotional regulation and relationships</p>
+              </div>
+            </a>
+
+            <!-- EMDR Card -->
+            <a  class="mt-8 block">
+              <div class="bg-purple-600 shadow-lg rounded-lg text-center p-8 hover:-mt-2 transition-all duration-200">
+                <div class="text-blueGray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-green-600">
+                  <i class="fas fa-eye text-xl"></i>
+                </div>
+                <p class="text-lg text-blueGray-600 mt-4 font-semibold">EMDR Therapy</p>
+                <p class="text-purple-100 mt-2">Trauma treatment that helps reprocess difficult memories</p>
+              </div>
+            </a>
+          </div>
+
+          <!-- Second Column -->
+          <div class="my-4 w-full lg:w-6/12 px-4 lg:mt-16">
+
+            <!-- Mindfulness Card -->
+            <a >
+              <div class="bg-green-500 shadow-lg rounded-lg text-center p-8 hover:-mt-2 transition-all duration-200">
+                <div class="text-blueGray-800 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-orange-600">
+                  <i class="fas fa-spa text-xl"></i>
+                </div>
+                <p class="text-lg text-blue-600 mt-4 font-semibold">Mindfulness Therapy</p>
+                <p class="text-green-100 mt-2">Develop present-moment awareness and stress reduction</p>
+              </div>
+            </a>
+
+            <!-- Group Therapy Card -->
+            <a  class="mt-8 block">
+              <div class="bg-blueGray-200 shadow-lg rounded-lg text-center p-8 hover:-mt-2 transition-all duration-200">
+                <div class="text-blueGray-800 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-orange-600">
+                  <i class="fas fa-users text-xl"></i>
+                </div>
+                <p class="text-lg text-blue-600 mt-4 font-semibold">Group Therapy</p>
+                <p class="text-orange-100 mt-2">Find support and connection with others</p>
+              </div>
+            </a>
+
+            <!-- Medication Management Card -->
+            <a  class="mt-8 block">
+              <div class="bg-indigo-500 shadow-lg rounded-lg text-center p-8 hover:-mt-2 transition-all duration-200">
+                <div class="text-white p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-5 shadow-lg rounded-full bg-indigo-600">
+                  <i class="fas fa-pills text-xl"></i>
+                </div>
+                <p class="text-lg text-white mt-4 font-semibold">Medication Management</p>
+                <p class="text-indigo-100 mt-2">Personalized psychiatric care when needed</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Approaches Overview -->
+      <div class="w-full md:w-4/12 px-12 md:px-4 ml-auto mr-auto mt-48">
+        <div class="text-blueGray-500 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-white">
+          <i class="fas fa-heartbeat text-xl text-blue-500"></i>
+        </div>
+        <h3 class="text-3xl mb-2 font-semibold leading-normal">
+          Our Therapeutic Approaches
+        </h3>
+        <p class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
+          We combine evidence-based therapies with innovative digital tools to create personalized treatment plans for every client.
+        </p>
+        <p class="text-lg font-light leading-relaxed mt-4 mb-4 text-blueGray-600">
+          Our methods are clinically proven to help with various mental health challenges.
+        </p>
+
+        <div class="block pb-6">
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            CBT
+          </span>
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            DBT
+          </span>
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            EMDR
+          </span>
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            Mindfulness
+          </span>
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            Trauma Therapy
+          </span>
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            Group Therapy
+          </span>
+          <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blueGray-500 bg-white uppercase last:mr-0 mr-2 mt-2">
+            Medication
+          </span>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+
+  </div>
+</div>
+
+<section class="py-20 bg-blueGray-600 overflow-hidden">
+  <div class="container mx-auto pb-64">
+    <div class="flex flex-wrap justify-center">
+
+      <app-testimonial-carousel></app-testimonial-carousel>
+    </div>
+  </div>
+</section>
+
+<section class="pb-16 bg-blueGray-200 relative pt-32">
+  <div
+    class="-mt-20 top-0 bottom-auto left-0 right-0 w-full absolute h-20"
+    style="transform: translateZ(0)"
+  >
+    <svg
+      class="absolute bottom-0 overflow-hidden"
+      xmlns="http://www.w3.org/2000/svg"
+      preserveAspectRatio="none"
+      version="1.1"
+      viewBox="0 0 2560 100"
+      x="0"
+      y="0"
+    >
+      <polygon
+        class="text-blueGray-200 fill-current"
+        points="2560 0 2560 100 0 100"
+      ></polygon>
+    </svg>
+  </div>
+
+  <div class="container mx-auto">
+    <div
+    >
+        <app-location-finder></app-location-finder>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>

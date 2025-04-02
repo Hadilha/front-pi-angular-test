@@ -1,0 +1,47 @@
+<!-- testimonial-carousel.component.html -->
+<section class="bg-blueGray-600 overflow-hidden">
+  <div class="container mx-auto px-4 ">
+    <!-- Section Header -->
+    <div class="justify-center text-center flex flex-wrap mb-16">
+      <div class="w-full md:w-6/12 px-4">
+        <h2 class="text-4xl font-semibold text-white">Patient Experiences</h2>
+        <p class="text-lg leading-relaxed mt-4 text-blueGray-300">
+          Hear from those who've walked the path to wellness with us
+        </p>
+      </div>
+    </div>
+
+    <!-- Carousel Container -->
+    <div class="relative" style="margin: 20px;">
+
+
+      <!-- Carousel Track -->
+      <div class="overflow-hidden">
+        <div class="flex transition-transform duration-300 ease-in-out" [style.transform]="'translateX(-' + (currentIndex * 100) + '%)'">
+          <!-- Testimonial Cards -->
+          <div *ngFor="let testimonial of testimonials" class="w-full md:w-4/12 px-4 flex-shrink-0">
+            <div class="relative flex flex-col min-w-0 break-words bg-white w-full shadow-xl rounded-lg p-8 h-full">
+              <div class="text-blue-500 mb-4">
+                <i class="fas fa-quote-left text-xl opacity-50"></i>
+              </div>
+              <p class="text-blueGray-600 italic mb-6">
+                "{{testimonial.quote}}"
+              </p>
+              <div class="flex items-center">
+                <img [alt]="testimonial.name" [src]="'assets/img/' + testimonial.image" class="w-12 h-12 rounded-full shadow">
+                <div class="ml-4">
+                  <h4 class="text-lg font-semibold">{{testimonial.name}}</h4>
+                  <p class="text-sm text-blueGray-500">{{testimonial.title}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+</section>
