@@ -2,24 +2,24 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
 // layouts
-import { AdminComponent } from "./layouts/admin/admin.component";
-import { AuthComponent } from "./layouts/auth/auth.component";
+import { AdminComponent } from "./frontOffice/layouts/admin/admin.component";
+import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
 
 // admin views
-import { DashboardComponent } from "./views/admin/dashboard/dashboard.component";
-import { MapsComponent } from "./views/admin/maps/maps.component";
-import { SettingsComponent } from "./views/admin/settings/settings.component";
-import { TablesComponent } from "./views/admin/tables/tables.component";
+import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
+import { MapsComponent } from "./frontOffice/views/admin/maps/maps.component";
+import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.component";
+import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
 
 // auth views
-import { LoginComponent } from "./views/auth/login/login.component";
-import { RegisterComponent } from "./views/auth/register/register.component";
+import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
+import { RegisterComponent } from "./frontOffice/views/auth/register/register.component";
 
 // no layouts views
-import { IndexComponent } from "./views/index/index.component";
-import { LandingComponent } from "./views/landing/landing.component";
-import { ProfileComponent } from "./views/profile/profile.component";
-import { PatientspaceComponent } from "./layouts/patientspace/patientspace.component";
+import { IndexComponent } from "./frontOffice/views/index/index.component";
+import { LandingComponent } from "./frontOffice/views/landing/landing.component";
+import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
+import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 
 const routes: Routes = [
   // admin views
