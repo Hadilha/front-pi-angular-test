@@ -5,7 +5,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 // layouts
-import { AdminComponent } from "./frontOffice/layouts/admin/admin.component";
+import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
 
 // admin views
@@ -25,7 +25,7 @@ import { ProfileComponent } from "./frontOffice/views/profile/profile.component"
 
 // components for views and layouts
 
-import { AdminNavbarComponent } from "./frontOffice/components/navbars/admin-navbar/admin-navbar.component";
+import { DoctorNavbarComponent } from "./frontOffice/components/navbars/doctor-navbar/doctor-navbar.component";
 import { CardBarChartComponent } from "./frontOffice/components/cards/card-bar-chart/card-bar-chart.component";
 import { CardLineChartComponent } from "./frontOffice/components/cards/card-line-chart/card-line-chart.component";
 import { CardPageVisitsComponent } from "./frontOffice/components/cards/card-page-visits/card-page-visits.component";
@@ -55,6 +55,12 @@ import { LoginNavbarComponent } from './frontOffice/components/navbars/login-nav
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 import { HomeComponent } from './frontOffice/views/home/home.component';
+import { AdminDashboardComponent } from './backOffice/admin-dashboard/admin-dashboard.component';
+import { AdminComponent } from './backOffice/admin/admin.component';
+import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.component';
+import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
+import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
+import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
 
 @NgModule({
   declarations: [
@@ -79,9 +85,9 @@ import { HomeComponent } from './frontOffice/views/home/home.component';
     CardTableComponent,
     HeaderStatsComponent,
     MapExampleComponent,
-    AdminNavbarComponent,
+    DoctorNavbarComponent,
     IndexNavbarComponent,
-    AdminComponent,
+    DoctorComponent,
     AuthComponent,
     MapsComponent,
     SettingsComponent,
@@ -99,6 +105,12 @@ import { HomeComponent } from './frontOffice/views/home/home.component';
     LocationFinderComponent,
     FooterComponent,
     HomeComponent,
+    AdminDashboardComponent,
+    AdminComponent,
+    AdminTablesComponent,
+    AdminNavbarComponent,
+    AdminSidebarComponent,
+    AdminHeaderStatsComponent
 
   ],
   imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
