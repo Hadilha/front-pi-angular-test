@@ -61,7 +61,12 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
-import { ForumSpaceComponent } from './frontOffice/layouts/forum/forum-space/forum-space.component';
+import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
+import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
+import { PostDetailComponent } from './frontOffice/layouts/forum/components/post-detail/post-detail.component';
+import { CommentListComponent } from './frontOffice/layouts/forum/components/comment-list/comment-list.component';
+import { ReactionButtonsComponent } from './frontOffice/layouts/forum/components/reaction-buttons/reaction-buttons.component';
+import { NewPostComponent } from './frontOffice/layouts/forum/components/new-post/new-post.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +117,12 @@ import { ForumSpaceComponent } from './frontOffice/layouts/forum/forum-space/for
     AdminNavbarComponent,
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
-    ForumSpaceComponent
+    ForumSpaceComponent,
+    PostListComponent,
+    PostDetailComponent,
+    CommentListComponent,
+    ReactionButtonsComponent,
+    NewPostComponent
 
   ],
   imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],

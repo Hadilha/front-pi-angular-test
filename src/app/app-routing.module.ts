@@ -26,7 +26,7 @@ import { ProfileComponent } from "./frontOffice/views/profile/profile.component"
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 import { AdminComponent } from "./backOffice/admin/admin.component";
 import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
-import { ForumSpaceComponent } from "./frontOffice/layouts/forum/forum-space/forum-space.component";
+import { ForumSpaceComponent } from "./frontOffice/layouts/forum/components/forum-space/forum-space.component";
 
 const routes: Routes = [
   // Doctor Dashboard
