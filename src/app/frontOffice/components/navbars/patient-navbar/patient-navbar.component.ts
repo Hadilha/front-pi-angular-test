@@ -15,4 +15,9 @@ export class PatientNavbarComponent {
   setNavbarOpen() {
     this.navbarOpen = !this.navbarOpen;
   }
+
+  toggleDropdown(event: Event) {
+    event.preventDefault();
+    // Add your dropdown toggle logic here
+  }
 }

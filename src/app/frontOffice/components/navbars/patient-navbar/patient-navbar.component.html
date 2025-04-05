@@ -1,16 +1,16 @@
-<nav class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-blue-600">
-  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between bg-blue-600">
+<nav class="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow-lg">
+  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between">
     <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-      <a [routerLink]="['/']" class="text-gray-500 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase flex items-center">
+      <a [routerLink]="['/']" class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold">
         <img src="assets/img/logpp.jpg" alt="MindFull Logo" class="h-8 w-8 mr-2">
-        <h6>MindFull</h6>
+        MindFull
       </a>
       <button
         class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
         type="button"
         (click)="setNavbarOpen()"
       >
-        <i class="text-gray-500 fas fa-bars"></i>
+        <i class="text-blueGray-600 fas fa-bars"></i>
       </button>
     </div>
     <div
@@ -19,62 +19,85 @@
     >
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
 
-
-
         <!-- Meditation -->
-        <li class="flex items-center group relative">
-          <button class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-            <i class="lg:text-blue-200 text-gray-500 fas fa-spa text-lg leading-lg mr-2"></i>
-            <span class="text-gray-500">Meditation</span>
-            <i class="fas fa-chevron-down ml-1 text-xs text-gray-500"></i>
-          </button>
-
-        </li>
-
-
-        <!-- Doctor Chat -->
         <li class="flex items-center">
-          <a [routerLink]="['/doctor-chat']" class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-            <i class="lg:text-blue-200 text-gray-500 fas fa-user-md text-lg leading-lg mr-2"></i>
-            <span class="text-gray-500">Chat</span>
+          <a 
+            class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold"
+            href="#pablo"
+            (click)="toggleDropdown($event)"
+            #meditationDropdownRef
+          >
+            <i class="fas fa-spa text-lg leading-lg mr-2"></i>
+            Meditation
           </a>
         </li>
 
-
+        <!-- Doctor Chat -->
+        <li class="flex items-center">
+          <a 
+            [routerLink]="['/doctor-chat']" 
+            class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold"
+          >
+            <i class="fas fa-user-md text-lg leading-lg mr-2"></i>
+            Chat
+          </a>
+        </li>
 
         <!-- Resources -->
         <li class="flex items-center">
-          <a [routerLink]="['/resources']" class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-            <i class="lg:text-blue-200 text-gray-500 fas fa-book-open text-lg leading-lg mr-2"></i>
-            <span class="text-gray-500">Resources</span>
+          <a 
+            [routerLink]="['/resources']" 
+            class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold"
+          >
+            <i class="fas fa-book-open text-lg leading-lg mr-2"></i>
+            Resources
           </a>
         </li>
 
         <!-- Community -->
         <li class="flex items-center">
-          <a [routerLink]="['/community']" class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-            <i class="lg:text-blue-200 text-gray-500 fas fa-users text-lg leading-lg mr-2"></i>
-            <span class="text-gray-500">Community</span>
+          <a 
+            [routerLink]="['/community']" 
+            class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold"
+          >
+            <i class="fas fa-users text-lg leading-lg mr-2"></i>
+            Community
           </a>
         </li>
 
+        <!-- My Space Dropdown -->
+        <li class="flex items-center">
+          <a
+            class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold"
+            href="#pablo"
+            (click)="toggleDropdown($event)"
+            #mySpaceDropdownRef
+          >
+            <i class="fas fa-user-circle text-lg leading-lg mr-2"></i>
+            My Space
+          </a>
+        </li>
 
+        <!-- Notifications -->
+        <li class="flex items-center">
+          <a 
+            class="text-blueGray-700 hover:text-blueGray-500 px-3 py-2 flex items-center text-xs uppercase font-bold"
+          >
+            <i class="fas fa-bell text-lg leading-lg"></i>
+            <span class="lg:hidden ml-2">Notifications</span>
+          </a>
+        </li>
 
-
-
-        <li class="flex items-center group relative">
-          <button class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-            <i class="lg:text-blue-200 text-gray-500 fas fa-user-circle text-lg leading-lg mr-2"></i>
-            <span class="text-gray-500">My Space</span>
-            <i class="fas fa-chevron-down ml-1 text-xs text-gray-500"></i>
-          </button>
-
-          <li class="flex items-center">
-            <a class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-              <i class="lg:text-blue-200 text-gray-500 fas fa-bell text-lg leading-lg"></i>
-              <span class="lg:hidden ml-2 text-gray-500">Notifications</span>
-            </a>
-          </li>
+        <!-- Login/User Button -->
+        <li class="flex items-center">
+          <a
+            class="bg-blueGray-700 hover:bg-blueGray-500 text-white px-4 py-2 rounded text-xs uppercase font-bold ml-3"
+            [routerLink]="['/auth/login']"
+          >
+            <i class="fas fa-arrow-alt-circle-right mr-2"></i>
+            Login
+          </a>
+        </li>
       </ul>
     </div>
   </div>

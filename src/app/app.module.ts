@@ -61,6 +61,7 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
+import { ForumSpaceComponent } from './frontOffice/layouts/forum/forum-space/forum-space.component';
 
 @NgModule({
   declarations: [
@@ -110,7 +111,8 @@ import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin
     AdminTablesComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
-    AdminHeaderStatsComponent
+    AdminHeaderStatsComponent,
+    ForumSpaceComponent
 
   ],
   imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
