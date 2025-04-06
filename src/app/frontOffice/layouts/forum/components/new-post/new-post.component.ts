@@ -1,28 +1,26 @@
 // new-post.component.ts
-import { Component, EventEmitter, Output } from '@angular/core';
-import { PostService } from '../../services/post.service';
+import { Component, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-new-post',
-  templateUrl: './new-post.component.html'
+  templateUrl: './new-post.component.html',
+  styleUrls: ['./new-post.component.css']
 })
 export class NewPostComponent {
   @Output() postCreated = new EventEmitter<void>();
   newPostContent = '';
+  
+  @ViewChild('commentInput') commentInput!: ElementRef;
 
-  constructor(private postService: PostService) {}
+  // Add this method
+  focusCommentField() {
+    this.commentInput.nativeElement.focus();
+  }
 
-  // new-post.component.ts
-submitPost() {
-  if (this.newPostContent.trim()) {
-    // Remove author from object
-    this.postService.createPost({
-      title: this.newPostContent,
-      content: this.newPostContent
-    }).subscribe(() => {
+  submitPost() {
+    if (this.newPostContent.trim()) {
       this.postCreated.emit();
       this.newPostContent = '';
-    });
+    }
   }
-}
 }

@@ -1,11 +1,13 @@
 import { User } from './user.model';
 
+// comment.model.ts
 export interface Comment {
-  id: number;
-  content: string;
-  creationTime: Date;
-  author: User;
-  postId: number;
-  parentCommentId?: number;  // For nested comments
-  edited?: boolean;          // Track edits
+    id: number;
+    content: string;
+    creationTime: Date;
+    author: User;
+    postId: number;
+    parentCommentId?: number;  // Add this property
+    depth?: number;
+    replies?: Comment[];
 }

@@ -1,11 +1,16 @@
-<div>
+<div class="min-h-screen bg-blueGray-100">
     <app-patient-navbar></app-patient-navbar>
-    <div class="main-content">
-        <!-- Existing Thread List -->
-        <!--<app-post-list></app-post-list>-->
-        
-        <!-- New Post Creation -->
-        <!--<app-new-post (postCreated)="onPostCreated()"></app-new-post>-->
-    </div>
-</div>
     
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16"> 
+      <!-- New Post Section - Now matches the card style from your template -->
+      <div class="mb-8 bg-white rounded-2xl shadow-lg overflow-hidden border border-blueGray-200">
+        <app-new-post (postCreated)="refreshPosts()"></app-new-post>
+      </div>
+  
+      <!-- Posts List - Added template's styling -->
+      <app-post-list 
+        [posts]="posts"
+        class="space-y-8 bg-white rounded-2xl shadow-lg p-6 border border-blueGray-200"
+      ></app-post-list>
+    </div>
+  </div>

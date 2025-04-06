@@ -1,1 +1,53 @@
-<p>new-post works!</p>
+<div class="bg-white rounded-2xl shadow-md hover:shadow-xl border border-gray-200 transition-all duration-300 hover:-translate-y-0.5">
+    <!-- Toolbar -->
+    <div class="border-b border-gray-200 bg-gray-50">
+      <div class="flex items-center px-6 py-3 gap-4">
+        <button class="p-2 text-gray-600 hover:text-indigo-600 rounded-lg hover:bg-white transition-colors">
+          <i class="fas fa-heading text-lg"></i>
+        </button>
+        <button class="p-2 text-gray-600 hover:text-indigo-600 rounded-lg hover:bg-white transition-colors">
+          <i class="fas fa-image text-lg"></i>
+        </button>
+        <div class="flex-1"></div>
+        <div class="text-sm font-medium text-gray-500">
+          {{ newPostContent.length }}/2000
+        </div>
+      </div>
+    </div>
+  
+    <!-- Editor -->
+    <textarea 
+      #commentInput
+      [(ngModel)]="newPostContent"
+      class="w-full px-6 py-4 min-h-[180px] resize-none bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 rounded-b-none"
+      placeholder="Share your thoughts... (Markdown supported)"
+      maxlength="2000"
+    ></textarea>
+  
+    <!-- Footer -->
+    <div class="border-t border-gray-200 px-6 py-4 bg-gray-50">
+      <div class="flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-center gap-3">
+          <button class="flex items-center gap-2 text-gray-600 hover:text-indigo-600 px-3 py-1.5 rounded-lg hover:bg-white transition-colors">
+            <i class="fas fa-poll text-lg"></i>
+            <span class="text-sm font-medium">Poll</span>
+          </button>
+          <button class="flex items-center gap-2 text-gray-600 hover:text-indigo-600 px-3 py-1.5 rounded-lg hover:bg-white transition-colors">
+            <i class="fas fa-paperclip text-lg"></i>
+            <span class="text-sm font-medium">Attach</span>
+          </button>
+        </div>
+  
+        <button 
+  (click)="submitPost()"
+  class="px-8 py-3 bg-indigo-600 text-white text-base font-semibold rounded-lg shadow hover:bg-indigo-700 hover:shadow-lg 
+         transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+  [disabled]="!newPostContent.trim()"
+>
+  <i class="fas fa-paper-plane mr-2"></i> Publish Post
+</button>
+
+      </div>
+    </div>
+  </div>
+  

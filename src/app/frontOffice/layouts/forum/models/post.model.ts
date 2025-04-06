@@ -10,7 +10,7 @@ export interface Post {
   creationTime: Date;
   comments: Comment[];
   reactions: Reaction[];
-  tags?: string[];       // Optional for categorization
+  tags: string[];       // Optional for categorization
   pinned?: boolean;      // For important posts
   views?: number;        // For popularity tracking
 }

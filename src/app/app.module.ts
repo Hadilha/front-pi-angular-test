@@ -67,6 +67,8 @@ import { PostDetailComponent } from './frontOffice/layouts/forum/components/post
 import { CommentListComponent } from './frontOffice/layouts/forum/components/comment-list/comment-list.component';
 import { ReactionButtonsComponent } from './frontOffice/layouts/forum/components/reaction-buttons/reaction-buttons.component';
 import { NewPostComponent } from './frontOffice/layouts/forum/components/new-post/new-post.component';
+import { ForumModule } from "./frontOffice/layouts/forum/module/forum.module";
+import { ForumDropdownComponent } from "./frontOffice/layouts/forum/dropdown/forum-dropdown/forum-dropdown.component";
 
 @NgModule({
   declarations: [
@@ -118,14 +120,12 @@ import { NewPostComponent } from './frontOffice/layouts/forum/components/new-pos
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
     ForumSpaceComponent,
-    PostListComponent,
     PostDetailComponent,
-    CommentListComponent,
-    ReactionButtonsComponent,
-    NewPostComponent
+    NewPostComponent,
+    ForumDropdownComponent
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule, ForumModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { Post } from '../models/post.model';
 import { User } from '../models/user.model';
-import { Comment } from '../models/comment.model'; 
-import { Reaction } from '../models/reaction.model';
-import { ReactionType } from '../models/reaction-type.enum';
+import { INITIAL_DATA } from '../mocks/mock-data';
 
 @Injectable({ providedIn: 'root' })
 export class PostService {
@@ -18,18 +16,13 @@ export class PostService {
   }
 
   private initializeMockData() {
-    this.posts = [
-      {
-        id: 1,
-        title: 'What is the future of AI?',
-        content: 'Discussion about AI advancements',
-        author: this.currentUser,
-        creationTime: new Date('2023-10-10'),
-        comments: [],
-        reactions: []
-      },
-      // Add more mock posts
-    ];
+    // Use spread operator to maintain references
+    this.posts = [...INITIAL_DATA.posts.map(post => ({
+      ...post,
+      author: this.currentUser,
+      tags: post.tags || [] // Ensure tags exist
+    }))];
+    
     this.postsSubject.next(this.posts);
   }
 
@@ -37,21 +30,25 @@ export class PostService {
     return this.postsSubject.asObservable();
   }
 
-  createPost(postData: { title: string; content: string }): Observable<Post> {
+  createPost(postData: { title: string; content: string; tags?: string[] }): Observable<Post> {
     const newPost: Post = {
       id: this.generatePostId(),
       ...postData,
       author: this.currentUser,
       creationTime: new Date(),
       comments: [],
-      reactions: []
+      reactions: [],
+      tags: postData.tags || [] // Add tags with default value
     };
+    
     this.posts = [newPost, ...this.posts];
     this.postsSubject.next(this.posts);
     return of(newPost);
   }
 
   private generatePostId(): number {
-    return Math.max(...this.posts.map(p => p.id)) + 1;
+    return this.posts.length > 0 
+      ? Math.max(...this.posts.map(p => p.id)) + 1 
+      : 1;
   }
 }

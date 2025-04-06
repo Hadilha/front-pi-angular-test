@@ -12,40 +12,39 @@ import { UserService } from '../../services/user.service';
 export class ReactionButtonsComponent {
   @Input() post!: Post;
   reactionTypes = Object.values(ReactionType);
+  currentUser: any; // Replace with your User type
 
   constructor(
     private reactionService: ReactionService,
     private userService: UserService
-  ) {}
-
-  getReactionCount(type: ReactionType): number {
-    return this.post.reactions.filter(r => r.type === type).length;
-  }
-
-  addReaction(type: ReactionType) {
+  ) {
     this.userService.getCurrentUser().subscribe(user => {
-      const existingReaction = this.post.reactions.find(r => 
-        r.type === type && r.user.id === user.id
-      );
-
-      if (existingReaction) {
-        // Remove existing reaction
-        this.post.reactions = this.post.reactions.filter(r => r !== existingReaction);
-      } else {
-        // Add new reaction
-        const newReaction = {
-          id: this.generateTempId(),
-          type,
-          creationTime: new Date(),
-          post: this.post,
-          user
-        };
-        this.post.reactions.push(newReaction);
-      }
+      this.currentUser = user;
     });
   }
 
-  private generateTempId(): number {
-    return Math.floor(Math.random() * 1000000); // Temporary ID for mock data
+  // Add these methods
+  hasReaction(type: ReactionType): boolean {
+    return this.post.reactions.some(r => 
+      r.type === type && r.user.id === this.currentUser?.id
+    );
+  }
+
+  getReactionEmoji(type: ReactionType): string {
+    switch(type) {
+      case ReactionType.UPVOTE: return '👍';
+      case ReactionType.DOWNVOTE: return '👎';
+      case ReactionType.CELEBRATE: return '🎉';
+      case ReactionType.HEART: return '❤️';
+      case ReactionType.SAD: return '😢';
+      case ReactionType.LAUGH: return '😂';
+      default: return '❔';
+    }
+  }
+
+  addReaction(type: ReactionType) {
+    this.reactionService.addReaction(this.post, type).subscribe(() => {
+      // Update local state or refresh data
+    });
   }
 }
