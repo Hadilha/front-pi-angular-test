@@ -1,0 +1,26 @@
+.form-floating textarea.form-control {
+    min-height: 150px;
+    font-family: Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.875rem;
+  }
+  
+  .code-example {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 4px;
+    font-family: Monaco, Consolas, "Courier New", monospace;
+    font-size: 0.875rem;
+  }
+  
+  .btn-success {
+    transition: all 0.2s ease;
+  }
+  
+  .btn-success:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .invalid-feedback {
+    font-size: 0.875rem;
+  }

@@ -1,0 +1,81 @@
+<div class="container mt-4 pt-4" style="margin-top: 80px;">
+  <!-- Header Section -->
+  <div class="row align-items-center mb-4 g-3">
+    <div class="col-md-6">
+      <h2 class="mb-0">Appointments</h2>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <button routerLink="/admin/appointments/new" 
+              class="btn btn-primary btn-md w-100 w-md-auto">
+        <i class="bi bi-plus-circle me-2"></i>New Appointment
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading and Error States -->
+  <div *ngIf="isLoading" class="text-center py-5 mx-3">
+    <div class="spinner-border text-primary spinner-border-lg" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger mx-3">{{ errorMessage }}</div>
+
+  <!-- Table Container -->
+  <div *ngIf="!isLoading && !errorMessage" class="mx-3">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-0">
+        <div class="table-responsive rounded-3">
+          <table class="table table-hover align-middle mb-0 table-striped">
+            <thead class="table-light">
+              <tr>
+                <th class="py-3 px-4 border-bottom fw-semibold">ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Patient ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Professional ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Start Time</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">End Time</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Status</th>
+                <th class="py-3 px-4 border-bottom fw-semibold text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appt of appointments" class="border-light">
+                <td class="px-4 py-3">{{ appt.appointmentId }}</td>
+                <td class="px-4 py-3">{{ appt.patient.userId }}</td>
+                <td class="px-4 py-3">{{ appt.professional.userId }}</td>
+                <td class="px-4 py-3">{{ appt.startTime | date:'medium' }}</td>
+                <td class="px-4 py-3">{{ appt.endTime | date:'medium' }}</td>
+                <td class="px-4 py-3">
+                  <span class="badge rounded-pill py-2 px-3 text-uppercase" [ngClass]="{
+                    'bg-warning text-dark': appt.status === 'SCHEDULED',
+                    'bg-success': appt.status === 'COMPLETED',
+                    'bg-danger': appt.status === 'CANCELLED'
+                  }">
+                    {{ appt.status | titlecase }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-end">
+                  <div class="btn-group gap-3">
+                    <button (click)="editAppointment(appt.appointmentId)" 
+                            class="btn btn-sm btn-outline-primary px-3 d-flex align-items-center">
+                      <i class="bi bi-pencil me-2"></i>Edit
+                    </button>
+                    <button (click)="deleteAppointment(appt.appointmentId)" 
+                            class="btn btn-sm btn-outline-danger px-3 d-flex align-items-center">
+                      <i class="bi bi-trash me-2"></i>Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="appointments.length === 0" class="border-light">
+                <td colspan="7" class="text-center text-muted py-5 bg-light rounded-bottom">
+                  <i class="bi bi-calendar-x me-2"></i>No appointments found
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

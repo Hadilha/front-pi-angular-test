@@ -1,6 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
+import { HttpClientModule } from "@angular/common/http";
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
@@ -50,7 +53,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
 import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
@@ -61,6 +64,16 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
+import { AppointmentListComponent } from './backOffice/appointments/appointment-list/appointment-list.component';
+import { AppointmentFormComponent } from './backOffice/appointments/appointment-form/appointment-form.component';
+import { CalendarListComponent } from './backOffice/calendars/calendar-list/calendar-list.component';
+import { CalendarFormComponent } from './backOffice/calendars/calendar-form/calendar-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatNativeDateModule } from "@angular/material/core";
+import { MatDatepickerModule } from "@angular/material/datepicker";
+import { MatSelectModule } from "@angular/material/select";
+import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatCardModule } from "@angular/material/card";
 
 @NgModule({
   declarations: [
@@ -110,10 +123,22 @@ import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin
     AdminTablesComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
-    AdminHeaderStatsComponent
+    AdminHeaderStatsComponent,
+    AppointmentListComponent,
+    AppointmentFormComponent,
+    CalendarListComponent,
+    CalendarFormComponent,
+  
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatButtonModule,
+  MatProgressSpinnerModule ],
   providers: [],
   bootstrap: [AppComponent],
 })

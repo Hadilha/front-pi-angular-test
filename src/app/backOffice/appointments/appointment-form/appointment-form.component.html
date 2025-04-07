@@ -1,0 +1,163 @@
+<div class="container mt-5">
+  <div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white py-3 rounded-top">
+      <h2 class="mb-0 h4">
+        <i class="bi bi-calendar2-plus me-2"></i>
+        {{ isEditMode ? 'Edit' : 'New' }} Appointment
+      </h2>
+    </div>
+
+    <div class="card-body p-4">
+      <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()">
+        <div class="row g-4">
+          <!-- Patient ID -->
+          <div class="col-md-6" formGroupName="patient">
+            <div class="form-floating">
+              <input type="number" class="form-control" 
+                     id="patientId" formControlName="userId"
+                     step="1" min="1"
+                     [class.is-invalid]="appointmentForm.get('patient.userId')?.invalid && 
+                                      (appointmentForm.get('patient.userId')?.dirty || 
+                                       appointmentForm.get('patient.userId')?.touched)">
+              <label for="patientId" class="form-label">
+                <i class="bi bi-person-badge me-2"></i>Patient ID
+              </label>
+              <div class="invalid-feedback">
+                <span *ngIf="appointmentForm.get('patient.userId')?.errors?.['required']">
+                  Patient ID is required
+                </span>
+                <span *ngIf="appointmentForm.get('patient.userId')?.errors?.['min']">
+                  Must be a positive number
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Professional ID -->
+          <div class="col-md-6" formGroupName="professional">
+            <div class="form-floating">
+              <input type="number" class="form-control" 
+                     id="professionalId" formControlName="userId"
+                     step="1" min="1"
+                     [class.is-invalid]="appointmentForm.get('professional.userId')?.invalid && 
+                                      (appointmentForm.get('professional.userId')?.dirty || 
+                                       appointmentForm.get('professional.userId')?.touched)">
+              <label for="professionalId" class="form-label">
+                <i class="bi bi-briefcase me-2"></i>Professional ID
+              </label>
+              <div class="invalid-feedback">
+                <span *ngIf="appointmentForm.get('professional.userId')?.errors?.['required']">
+                  Professional ID is required
+                </span>
+                <span *ngIf="appointmentForm.get('professional.userId')?.errors?.['min']">
+                  Must be a positive number
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Start Time -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="datetime-local" class="form-control" 
+                     id="startTime" formControlName="startTime"
+                     [class.is-invalid]="appointmentForm.get('startTime')?.invalid && 
+                                      (appointmentForm.get('startTime')?.dirty || 
+                                       appointmentForm.get('startTime')?.touched)">
+              <label for="startTime" class="form-label">
+                <i class="bi bi-clock me-2"></i>Start Time
+              </label>
+              <div class="invalid-feedback">
+                <span *ngIf="appointmentForm.get('startTime')?.errors?.['required']">
+                  Start time is required
+                </span>
+                <span *ngIf="appointmentForm.get('startTime')?.errors?.['pastDate']">
+                  Must be in the future
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- End Time -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="datetime-local" class="form-control" 
+                     id="endTime" formControlName="endTime"
+                     [class.is-invalid]="appointmentForm.get('endTime')?.invalid && 
+                                      (appointmentForm.get('endTime')?.dirty || 
+                                       appointmentForm.get('endTime')?.touched)">
+              <label for="endTime" class="form-label">
+                <i class="bi bi-clock-history me-2"></i>End Time
+              </label>
+              <div class="invalid-feedback">
+                <span *ngIf="appointmentForm.get('endTime')?.errors?.['required']">
+                  End time is required
+                </span>
+                <span *ngIf="appointmentForm.errors?.['dateRange']">
+                  Must be after start time
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="col-md-6">
+            <div class="form-floating">
+              <select class="form-select" id="status" formControlName="status"
+                      [class.is-invalid]="appointmentForm.get('status')?.invalid && 
+                                      (appointmentForm.get('status')?.dirty || 
+                                       appointmentForm.get('status')?.touched)">
+                <option *ngFor="let status of statusOptions" [value]="status" 
+                        [ngClass]="{
+                          'text-warning': status === AppointmentStatus.SCHEDULED,
+                          'text-success': status === AppointmentStatus.COMPLETED,
+                          'text-danger': status === AppointmentStatus.CANCELED
+                        }">
+                  {{ getStatusDisplayName(status) }}
+                </option>
+              </select>
+              <label for="status" class="form-label">
+                <i class="bi bi-flag me-2"></i>Status
+              </label>
+              <div class="invalid-feedback">
+                Status is required
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="col-12">
+            <div class="form-floating">
+              <textarea class="form-control" id="notes" 
+                        formControlName="notes" rows="4"
+                        style="height: 100px;"></textarea>
+              <label for="notes" class="form-label">
+                <i class="bi bi-card-text me-2"></i>Notes
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="mt-5 d-flex flex-column flex-md-row gap-3 justify-content-end">
+          <button type="button" class="btn btn-outline-secondary order-1 order-md-0"
+                  routerLink="/admin/appointments">
+            <i class="bi bi-x-circle me-2"></i>Cancel
+          </button>
+          
+          <button type="submit" class="btn btn-primary px-4 py-2"
+                  [disabled]="appointmentForm.invalid || isLoading">
+            <i class="bi bi-save me-2"></i>
+            {{ isEditMode ? 'Update' : 'Create' }} Appointment
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-2"></span>
+          </button>
+        </div>
+
+        <!-- Error Message -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-4">
+          <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

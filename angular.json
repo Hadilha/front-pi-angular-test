@@ -17,7 +17,8 @@
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
            "assets": [
@@ -30,12 +31,16 @@
               }
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/styles.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/app/frontOffice/assets/styles/tailwind.css",
               "node_modules/leaflet/dist/leaflet.css"
-
             ],
+            "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+      "includePaths": ["src"]
+    },
             "scripts": []
           },
           "configurations": {
@@ -103,5 +108,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

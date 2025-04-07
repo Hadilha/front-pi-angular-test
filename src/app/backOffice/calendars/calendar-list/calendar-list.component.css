@@ -1,0 +1,24 @@
+.json-preview {
+    max-height: 150px;
+    overflow-y: auto;
+    font-size: 0.875rem;
+    border: 1px solid #dee2e6;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-group .btn {
+    transition: all 0.2s ease;
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: white !important;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white !important;
+  }

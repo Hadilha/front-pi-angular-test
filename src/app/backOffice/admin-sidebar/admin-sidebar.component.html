@@ -129,23 +129,45 @@
 
         <li class="items-center">
           <a
-            [routerLink]="['/admin/settings']"
+            [routerLink]="['/admin/appointments']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
-            #appointments="routerLinkActive"
+            #appointmentsLink="routerLinkActive"
             [ngClass]="
-              appointments.isActive
+              appointmentsLink.isActive
                 ? 'text-red-600 hover:text-red-700'
                 : 'text-gray-300 hover:text-gray-500'
             "
           >
             <i
-              class="fas fa-table mr-2 text-sm"
+              class="fas fa-calendar-alt mr-2 text-sm"
               [ngClass]="
-                appointments.isActive ? 'opacity-75' : 'text-gray-500'
+                appointmentsLink.isActive ? 'opacity-75' : 'text-gray-500'
               "
             ></i>
             Appointments
+          </a>
+        </li>
+
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/calendars']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #calendarsLink="routerLinkActive"
+            [ngClass]="
+              calendarsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar mr-2 text-sm"
+              [ngClass]="
+                calendarsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Calendars
           </a>
         </li>
 

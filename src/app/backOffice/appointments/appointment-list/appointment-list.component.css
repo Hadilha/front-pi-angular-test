@@ -1,0 +1,34 @@
+/* Custom Table Styling */
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 800px;
+  }
+  
+  .table thead th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+  
+  .table tbody tr {
+    transition: background-color 0.15s ease;
+  }
+  
+  .table-hover tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .btn-group .btn {
+    transition: all 0.2s ease;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #0d6efd;
+    color: white !important;
+  }
+  
+  .btn-outline-danger:hover {
+    background-color: #dc3545;
+    color: white !important;
+  }
