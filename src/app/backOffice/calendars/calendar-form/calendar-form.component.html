@@ -36,13 +36,12 @@
           <div class="col-12">
             <div class="form-floating">
               <textarea 
-                id="events" 
-                class="form-control" 
-                formControlName="events" 
-                rows="5"
-                [class.is-invalid]="calendarForm.get('events')?.invalid"
-                placeholder='{"date": "event description"}'>
-              </textarea>
+  id="events" 
+  class="form-control" 
+  formControlName="events" 
+  rows="5"
+  [class.is-invalid]="calendarForm.get('events')?.invalid"
+  placeholder='{"date": "event description"}'></textarea>
               <label for="events" class="form-label">
                 <i class="bi bi-code-square me-2"></i>Events (JSON Format)
               </label>
