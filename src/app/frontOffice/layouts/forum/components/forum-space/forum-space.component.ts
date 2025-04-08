@@ -101,7 +101,7 @@ export class ForumSpaceComponent {
   createPost() {
     const post = {
       id: Date.now(), // 👈 or use a UUID generator for more realistic data
-      author: 'Current User',
+      author: 'John Doe',
       avatar: 'https://i.pravatar.cc/40?u=' + Math.random(),
       title: this.newPost.title,
       content: this.newPost.content,
@@ -208,6 +208,34 @@ export class ForumSpaceComponent {
       // TODO: Call backend API to delete comment
     }
   }
+
+  isEditingPost: boolean = false;
+postEditTitle: string = '';
+postEditContent: string = '';
+
+startEditingPost() {
+  if (this.selectedPost.author !== this.currentUser) return;
+  this.isEditingPost = true;
+  this.postEditTitle = this.selectedPost.title;
+  this.postEditContent = this.selectedPost.content;
+}
+
+cancelPostEdit() {
+  this.isEditingPost = false;
+  this.postEditTitle = '';
+  this.postEditContent = '';
+}
+
+savePostEdit() {
+  if (this.postEditTitle.trim() && this.postEditContent.trim()) {
+    this.selectedPost.title = this.postEditTitle.trim();
+    this.selectedPost.content = this.postEditContent.trim();
+
+    // TODO: Call backend API to update post
+    this.cancelPostEdit();
+  }
+}
+
   
 
 }
