@@ -1,16 +1,260 @@
-<div class="min-h-screen bg-blueGray-100">
-    <app-patient-navbar></app-patient-navbar>
-    
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16"> 
-      <!-- New Post Section - Now matches the card style from your template -->
-      <div class="mb-8 bg-white rounded-2xl shadow-lg overflow-hidden border border-blueGray-200">
-        <app-new-post (postCreated)="refreshPosts()"></app-new-post>
+<app-patient-navbar></app-patient-navbar>
+
+<main>
+  <!-- Hero Section -->
+  <div
+    class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
+  >
+    <div
+      class="absolute top-0 w-full h-full bg-center bg-cover"
+      style="
+        background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80');
+      "
+    >
+      <span
+        id="blackOverlay"
+        class="w-full h-full absolute opacity-75 bg-black"
+      ></span>
+    </div>
+    <div class="container relative mx-auto">
+      <div class="items-center flex flex-wrap">
+        <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+          <div class="pr-12">
+            <h1 class="text-white font-semibold text-5xl">
+              Your story starts with us.
+            </h1>
+            <p class="mt-4 text-lg text-blueGray-200">
+              This is a simple example of a Landing Page you can build using
+              Notus Angular. It features multiple CSS components based on the
+              Tailwind CSS design system.
+            </p>
+          </div>
+        </div>
       </div>
-  
-      <!-- Posts List - Added template's styling -->
-      <app-post-list 
-        [posts]="posts"
-        class="space-y-8 bg-white rounded-2xl shadow-lg p-6 border border-blueGray-200"
-      ></app-post-list>
+    </div>
+    <div
+      class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+      style="transform: translateZ(0)"
+    >
+      <svg
+        class="absolute bottom-0 overflow-hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        version="1.1"
+        viewBox="0 0 2560 100"
+        x="0"
+        y="0"
+      >
+        <polygon
+          class="text-blueGray-200 fill-current"
+          points="2560 0 2560 100 0 100"
+        ></polygon>
+      </svg>
     </div>
   </div>
+
+  <!-- Forum Section -->
+  <section class="pb-20 bg-blueGray-200 pt-12">
+    <div class="w-full px-4 mt-12">
+      <!-- Create Post Button -->
+      <!-- Create Post Form -->
+      <div class="w-full max-w-3xl mx-auto mb-12">
+        <div
+          class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
+          style="background-color: #dbeafe"
+        >
+          <div
+            class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
+          >
+            <div class="flex-auto p-6 lg:p-10">
+              <h4 class="text-2xl font-semibold text-blueGray-800">
+                Want to share something?
+              </h4>
+              <p class="leading-relaxed mt-1 mb-4 text-blueGray-500">
+                Fill in the form to post your message to the community forum.
+              </p>
+
+              <form (submit)="createPost()" #postForm="ngForm" class="mt-8">
+                <div class="mb-4">
+                  <label
+                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >Title</label
+                  >
+                  <input
+                    type="text"
+                    name="title"
+                    [(ngModel)]="newPost.title"
+                    required
+                    placeholder="Post title"
+                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+                  />
+                </div>
+
+                <div class="mb-4">
+                  <label
+                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >Content</label
+                  >
+                  <textarea
+                    name="content"
+                    [(ngModel)]="newPost.content"
+                    rows="5"
+                    required
+                    placeholder="Write your thoughts here..."
+                    class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+                  ></textarea>
+                </div>
+
+                <div class="text-center mt-6">
+                  <button
+                    type="submit"
+                    class="bg-blueGray-800 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg transition-all duration-150"
+                  >
+                    Submit Post
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100">
+        <h2
+          class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2"
+        >
+          <span class="text-4xl">🔥</span>
+          <span>Community Forum</span>
+        </h2>
+
+        <div class="space-y-8">
+          <div
+  *ngFor="let post of posts"
+  class="cursor-pointer block rounded-2xl border border-blueGray-100 bg-white px-6 py-6 shadow-md hover:shadow-lg hover:border-blue-500 transition-all duration-300"
+  (click)="openPost(post)"
+>
+  <div class="flex items-center mb-4 gap-4">
+    <img
+      [src]="post.avatar || 'https://i.pravatar.cc/60'"
+      alt="User"
+      class="w-14 h-14 rounded-full border border-blue-300 shadow"
+    />
+    <div class="leading-tight">
+      <h4 class="text-lg font-semibold text-blueGray-800">{{ post.author }}</h4>
+      <span class="text-xs text-blueGray-400 block">{{ post.createdAt }}</span>
+    </div>
+  </div>
+
+  <h3 class="text-xl font-bold text-blueGray-900 mb-2">{{ post.title }}</h3>
+  <p class="text-blueGray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+    {{ post.content }}
+  </p>
+
+  <div class="flex items-center justify-between text-sm text-blueGray-500">
+    <div class="flex space-x-6">
+      <span class="flex items-center">
+        <i class="fas fa-comments mr-2 text-blue-500"></i>
+        {{ post.replies }} replies
+      </span>
+      <span class="flex items-center">
+        <i class="fas fa-thumbs-up mr-2 text-green-500"></i>
+        {{ post.likes }} likes
+      </span>
+    </div>
+    <span class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
+      #Discussion
+    </span>
+
+    <!-- Delete Button -->
+    <button 
+      *ngIf="post.author === currentUser" 
+      (click)="deletePost(post.id)"
+      class="text-red-500 hover:text-red-700 transition-all duration-150 text-lg"
+    >
+      🗑️ Delete
+    </button>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>
+
+<!-- Post Detail Modal -->
+<div
+  *ngIf="selectedPost"
+  class="fixed top-0 left-0 w-full h-full z-[9999] bg-white/30 backdrop-blur-lg flex items-center justify-center transition-opacity duration-300 animate-fade-in"
+>
+  <div
+    class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full overflow-hidden transition-transform transform animate-scale-in"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="selectedPost = null"
+      class="absolute top-4 right-4 text-red-500 text-3xl hover:text-red-700 transition"
+    >
+      ×
+    </button>
+
+    <!-- Modal Header with Avatar -->
+    <div class="px-6 py-4 flex items-center gap-4 bg-blueGray-100">
+      <img
+        [src]="selectedPost.avatar"
+        class="w-16 h-16 rounded-full border-4 border-blue-300 shadow-lg"
+        alt="Avatar"
+      />
+      <div>
+        <h4 class="text-xl font-semibold text-blueGray-800">
+          {{ selectedPost.author }}
+        </h4>
+        <span class="text-sm text-blueGray-400">
+          {{ selectedPost.createdAt | date : "medium" }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Post Title and Content -->
+    <div class="px-6 py-4">
+      <h2 class="text-3xl font-bold text-blueGray-900 mb-4">
+        {{ selectedPost.title }}
+      </h2>
+      <p class="text-blueGray-700 leading-relaxed text-lg mb-6">
+        {{ selectedPost.content }}
+      </p>
+    </div>
+
+    <!-- Footer: Stats Section -->
+    <div
+      class="flex justify-between text-sm text-blueGray-500 bg-blueGray-50 px-6 py-4"
+    >
+      <span class="flex items-center gap-2">
+        <i class="fas fa-comments text-blue-500"></i>
+        {{ selectedPost.replies }} Replies
+      </span>
+      <span class="flex items-center gap-2">
+        <i class="fas fa-thumbs-up text-green-500"></i>
+        {{ selectedPost.likes }} Likes
+      </span>
+      <span
+        class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium text-xs"
+      >
+        #Discussion
+      </span>
+    </div>
+  </div>
+</div>
+
+<!--
+          <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-16"> 
+            <div class="mb-8 bg-white rounded-2xl shadow-lg overflow-hidden border border-blueGray-200">
+              <app-new-post (postCreated)="refreshPosts()"></app-new-post>
+            </div>
+            <app-post-list 
+            [posts]="posts"
+            class="space-y-8 bg-white rounded-2xl shadow-lg p-6 border border-blueGray-200"
+            ></app-post-list>
+          </div>-->
