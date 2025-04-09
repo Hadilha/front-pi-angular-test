@@ -62,12 +62,6 @@ import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.com
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
-import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
-import { PostDetailComponent } from './frontOffice/layouts/forum/components/post-detail/post-detail.component';
-import { CommentListComponent } from './frontOffice/layouts/forum/components/comment-list/comment-list.component';
-import { ReactionButtonsComponent } from './frontOffice/layouts/forum/components/reaction-buttons/reaction-buttons.component';
-import { NewPostComponent } from './frontOffice/layouts/forum/components/new-post/new-post.component';
-import { ForumModule } from "./frontOffice/layouts/forum/module/forum.module";
 import { ForumDropdownComponent } from "./frontOffice/layouts/forum/dropdown/forum-dropdown/forum-dropdown.component";
 
 @NgModule({
@@ -120,12 +114,10 @@ import { ForumDropdownComponent } from "./frontOffice/layouts/forum/dropdown/for
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
     ForumSpaceComponent,
-    PostDetailComponent,
-    NewPostComponent,
     ForumDropdownComponent
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule, ForumModule],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
