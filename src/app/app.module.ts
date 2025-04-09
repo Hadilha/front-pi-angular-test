@@ -74,7 +74,8 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
-
+import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 @NgModule({
   declarations: [
     AppComponent,
@@ -128,17 +129,10 @@ import { MatCardModule } from "@angular/material/card";
     AppointmentFormComponent,
     CalendarListComponent,
     CalendarFormComponent,
-  
-
+    CalendarViewComponent,
+    CalendarViewComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,MatCardModule,
-  MatFormFieldModule,
-  MatInputModule,
-  MatSelectModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
-  MatButtonModule,
-  MatProgressSpinnerModule ],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,FullCalendarModule,CommonModule ],
   providers: [],
   bootstrap: [AppComponent],
 })

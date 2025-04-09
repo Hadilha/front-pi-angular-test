@@ -29,6 +29,7 @@ import { IndexComponent } from "./frontOffice/views/index/index.component";
 import { LandingComponent } from "./frontOffice/views/landing/landing.component";
 import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
+import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -40,6 +41,7 @@ const routes: Routes = [
       { path: "settings", component: SettingsComponent },
       { path: "tables", component: TablesComponent },
       { path: "maps", component: MapsComponent },
+      { path: 'calendar-view', component: CalendarViewComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
   },

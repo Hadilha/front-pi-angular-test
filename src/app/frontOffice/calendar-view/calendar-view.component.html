@@ -1,0 +1,4 @@
+<div class="calendar-container">
+    <div *ngIf="isLoading" class="loading">Loading calendar...</div>
+    <full-calendar *ngIf="!isLoading" [options]="calendarOptions"></full-calendar>
+  </div>
