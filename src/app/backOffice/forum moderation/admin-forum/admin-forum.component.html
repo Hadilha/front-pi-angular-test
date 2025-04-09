@@ -1,0 +1,39 @@
+<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+    <div class="rounded-t px-4 py-3 border-0 flex items-center justify-between">
+      <h3 class="font-semibold text-base text-blueGray-700">Forum Posts</h3>
+      <button class="bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded">Refresh</button>
+    </div>
+  
+    <div class="block w-full overflow-x-auto">
+      <table class="items-center w-full bg-transparent border-collapse">
+        <thead class="thead-light">
+          <tr>
+            <th class="px-6 py-3 text-xs uppercase text-blueGray-500 font-semibold text-left">Title</th>
+            <th class="px-6 py-3 text-xs uppercase text-blueGray-500 font-semibold text-left">Author</th>
+            <th class="px-6 py-3 text-xs uppercase text-blueGray-500 font-semibold text-left">Date</th>
+            <th class="px-6 py-3 text-xs uppercase text-blueGray-500 font-semibold text-left">Status</th>
+            <th class="px-6 py-3 text-xs uppercase text-blueGray-500 font-semibold text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let post of posts">
+            <td class="px-6 py-4 text-sm text-blueGray-700">{{ post.title }}</td>
+            <td class="px-6 py-4 text-sm">{{ post.author }}</td>
+            <td class="px-6 py-4 text-sm">{{ post.date | date:'short' }}</td>
+            <td class="px-6 py-4 text-sm">
+              <span [ngClass]="{
+                'text-green-600': post.status === 'published',
+                'text-yellow-600': post.status === 'pending',
+                'text-red-600': post.status === 'deleted'
+              }">{{ post.status }}</span>
+            </td>
+            <td class="px-6 py-4 text-sm">
+              <button class="text-blue-500 hover:underline mr-2" (click)="viewPost(post)">View</button>
+              <button class="text-red-500 hover:underline" (click)="deletePost(post)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

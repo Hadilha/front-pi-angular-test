@@ -1,20 +1,27 @@
+/** @type {import('tailwindcss').Config} */
+
 module.exports = {
-    theme: {
-      extend: {
-        colors: {
-          purple: {
-            700: '#7b4397',
-            800: '#6c3a85',
-          },
-          red: {
-            500: '#dc2430',
-            600: '#c6202b',
-          }
+  content: ["./src/**/*.{html,ts}", "./src/app/**/*.{html,ts}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+  theme: {
+    extend: {
+      colors: {
+        purple: {
+          700: "#7b4397",
+          800: "#6c3a85",
         },
-        spacing: {
-          18: '4.5rem',
-        }
-      }
+        red: {
+          500: "#dc2430",
+          600: "#c6202b",
+        },
+      },
+      spacing: {
+        18: "4.5rem",
+      },
     },
-    // ...
-  }
+  },
+  // ...
+};
