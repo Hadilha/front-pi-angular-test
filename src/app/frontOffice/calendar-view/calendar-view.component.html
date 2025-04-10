@@ -1,4 +1,66 @@
 <div class="calendar-container">
-    <div *ngIf="isLoading" class="loading">Loading calendar...</div>
-    <full-calendar *ngIf="!isLoading" [options]="calendarOptions"></full-calendar>
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadAllEvents()">Retry</button>
   </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading calendar...</p>
+  </div>
+
+  <!-- Calendar -->
+  <full-calendar *ngIf="!isLoading && !errorMessage" [options]="calendarOptions"></full-calendar>
+
+  <!-- Appointment Modal -->
+  <div *ngIf="isModalOpen" class="modal-backdrop">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Appointment Details</h3>
+        <button class="close-btn" (click)="closeModal()">&times;</button>
+      </div>
+      
+      <div class="modal-body" *ngIf="selectedAppointment">
+        <div class="detail-row">
+          <span class="detail-label">Patient:</span>
+          <span class="detail-value">
+            {{ selectedAppointment.patient.firstName }} 
+            {{ selectedAppointment.patient.lastName }}
+          </span>
+        </div>
+        
+        <div class="detail-row">
+          <span class="detail-label">Professional:</span>
+          <span class="detail-value">
+            {{ selectedAppointment.professional.firstName }} 
+            {{ selectedAppointment.professional.lastName }}
+          </span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">Status:</span>
+          <span class="detail-value status-badge" [class]="selectedAppointment.status.toLowerCase()">
+            {{ selectedAppointment.status }}
+          </span>
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">Start:</span>
+         
+        </div>
+
+        <div class="detail-row">
+          <span class="detail-label">End:</span>
+          
+        </div>
+
+        <div class="detail-row" *ngIf="selectedAppointment.notes">
+          <span class="detail-label">Notes:</span>
+          <span class="detail-value">{{ selectedAppointment.notes }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
