@@ -50,7 +50,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
 import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
@@ -61,6 +61,16 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
+import { QuizTestComponent } from "./component/admin/quizz-test/quizz-test.component";
+import { QuizListComponent } from "./component/admin/quiz-list/quiz-list.component";
+import { QuizFormComponent } from "./component/admin/quiz-form/quiz-form.component";
+import { QuestionFormComponent } from "./component/admin/question-form/question-form.component";
+import { ChoiceFormComponent } from "./component/admin/choice-form/choice-form.component";
+import { QuizListUserComponent } from "./component/user/quiz-list-user/quiz-list-user.component";
+import { ScoreListUserComponent } from "./component/user/score-list-user/score-list-user.component";
+import { HeaderComponent } from "./component/user/header/header.component";
+import { CombatGameComponent } from "./game/combat-game/combat-game.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -110,10 +120,26 @@ import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin
     AdminTablesComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
-    AdminHeaderStatsComponent
+    AdminHeaderStatsComponent,
+    QuizTestComponent,
+    QuizListComponent,
+    QuizFormComponent,
+    QuestionFormComponent,
+    ChoiceFormComponent,
+    QuizListUserComponent,
+    ScoreListUserComponent,
+    HeaderComponent,
+    CombatGameComponent,
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
+  imports: [BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    CommonModule,],
   providers: [],
   bootstrap: [AppComponent],
 })

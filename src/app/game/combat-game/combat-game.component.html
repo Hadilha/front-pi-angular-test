@@ -1,0 +1,28 @@
+<div class="game-header">
+    <div class="timer">Time: {{ formatTime(timeElapsed) }}</div>
+    <div class="score" *ngIf="gameCompleted">Score: {{ finalScore }}</div>
+    <div class="best-score" *ngIf="bestScore !== null">Best: {{ bestScore }}</div>
+  </div>
+  
+  <div class="game-container">
+    <div 
+      *ngFor="let card of cards"
+      class="card"
+      [class.hidden]="card.isHidden"
+      [class.matched]="card.isMatched"
+      (click)="handleCardClick(card)"
+    >
+      {{ card.isHidden ? '' : card.symbol }}
+    </div>
+  </div>
+  
+  <div class="game-controls">
+    <button class="reset-button" (click)="resetGame()">Reset Game</button>
+    
+    <div class="game-complete" *ngIf="gameCompleted">
+      <h2>Congratulations!</h2>
+      <p>You completed the game in {{ formatTime(timeElapsed) }}</p>
+      <p>Your score: {{ finalScore }}</p>
+      <button (click)="resetGame()">Play Again</button>
+    </div>
+  </div>
