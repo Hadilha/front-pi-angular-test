@@ -69,8 +69,7 @@ const routes: Routes = [
   {
     path: 'forum',
     component: ForumSpaceComponent,
-    children: [{ path: '', redirectTo: 'dashboard', pathMatch: 'full' }],
-  },
+  },  
 
   { path: 'patientspace', component: PatientspaceComponent },
   { path: 'profile', component: ProfileComponent },

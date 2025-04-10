@@ -71,6 +71,8 @@ import { ConfirmDeleteDialogComponent } from './backOffice/forum moderation/conf
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -134,7 +136,8 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],
