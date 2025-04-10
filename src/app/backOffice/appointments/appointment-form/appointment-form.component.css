@@ -1,60 +1,51 @@
-/* Custom Form Styling */
+/* Card Shadow */
 .card {
-  border-radius: 0.75rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-header {
-  border-radius: 0.75rem 0.75rem 0 0 !important;
+/* Input and Select Focus */
+.form-control:focus, .form-select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
 
-.form-floating label {
-  padding-left: 2.5rem;
-}
-
-.form-control {
-  padding-left: 2.5rem;
-  transition: all 0.3s ease;
-}
-
-.form-control:focus {
-  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-}
-
-.form-floating i.bi {
-  position: absolute;
-  left: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 3;
-  color: #6c757d;
-}
-
-/* Status Select Styling */
-.form-select option {
-  padding: 0.5rem 1rem;
-}
-
-.form-select option:hover {
-  background-color: #f8f9fa !important;
-}
-
-/* Error States */
-.is-invalid {
-  border-color: #dc3545;
-  background-image: none;
-}
-
-.is-invalid:focus {
-  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
-}
-
-/* Button Spacing */
-.btn {
-  transition: all 0.3s ease;
-  gap: 0.5rem;
+/* Button Hover Effects */
+.btn-primary {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-in-out;
 }
 
 .btn-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.btn-outline-secondary {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Invalid Input Shadow */
+.form-control.is-invalid, .form-select.is-invalid {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Spinner Color */
+.spinner-border {
+  color: #fff;
+}
+
+/* Alert Shadow */
+.alert {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Validation Feedback Alignment */
+.invalid-feedback {
+  display: flex;
+  align-items: center;
 }

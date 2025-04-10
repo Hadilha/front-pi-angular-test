@@ -76,6 +76,12 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCardModule } from "@angular/material/card";
 import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import interactionPlugin from '@fullcalendar/interaction'
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -131,8 +137,10 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // must go before pl
     CalendarFormComponent,
     CalendarViewComponent,
     CalendarViewComponent,
+
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,FullCalendarModule,CommonModule ],
+  
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,CommonModule,FullCalendarModule,BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
