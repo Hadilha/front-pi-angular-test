@@ -235,7 +235,90 @@ savePostEdit() {
     this.cancelPostEdit();
   }
 }
+// Example setup
+reactionTypes = ['UPVOTE', 'DOWNVOTE', 'HEART', 'SAD', 'LAUGH', 'CELEBRATE'];
+currentUserReaction: string | null = null; // Current reaction of the user for selectedPost
 
+reactToPost(type: string): void {
+  if (!this.selectedPost) return;
+
+  // Toggle: if same reaction is clicked again, remove it
+  if (this.currentUserReaction === type) {
+    this.removeReaction(type);
+  } else {
+    this.updateReaction(type);
+  }
+}
+
+// Replace previous reaction with a new one
+updateReaction(newType: string): void {
+  if (!this.selectedPost.reactions) {
+    this.selectedPost.reactions = {};
+  }
   
+  if (!this.selectedPost) return;
+
+  // Backend call to update reaction goes here
+
+  // Decrease old reaction count if any
+  if (this.currentUserReaction) {
+    this.selectedPost.reactions[this.currentUserReaction]--;
+  }
+
+  // Set the new one
+  this.currentUserReaction = newType;
+
+  // Increase new reaction count
+  if (!this.selectedPost.reactions[newType]) {
+    this.selectedPost.reactions[newType] = 0;
+  }
+  this.selectedPost.reactions[newType]++;
+
+  this.selectedPost = { ...this.selectedPost };
+}
+
+// Remove the reaction
+removeReaction(type: string): void {
+  if (!this.selectedPost.reactions) {
+    this.selectedPost.reactions = {};
+  }
+  
+  if (!this.selectedPost) return;
+
+  // Backend call to remove reaction goes here
+
+  // Reduce count for current reaction
+  if (this.selectedPost.reactions[type] > 0) {
+    this.selectedPost.reactions[type]--;
+  }
+
+  // Clear user reaction
+  this.currentUserReaction = null;
+
+  this.selectedPost = { ...this.selectedPost };
+}
+
+// Used in template to style the selected reaction
+hasReacted(type: string): boolean {
+  return this.currentUserReaction === type;
+}
+
+// Count reactions
+getReactionCount(type: string): number {
+  return this.selectedPost?.reactions?.[type] || 0;
+}
+
+// Emoji mapping
+getReactionEmoji(type: string): string {
+  const map: { [key: string]: string } = {
+    UPVOTE: '👍',
+    DOWNVOTE: '👎',
+    HEART: '❤️',
+    SAD: '😢',
+    LAUGH: '😂',
+    CELEBRATE: '🎉'
+  };
+  return map[type] || '❓';
+}
 
 }
