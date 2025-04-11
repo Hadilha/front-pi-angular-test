@@ -31,6 +31,7 @@ export class ForumSpaceComponent implements OnInit {
 
   ngOnInit() {
     console.log('✅ Current user:', this.currentUser);
+    //this.getCommentCountForPost(this.selectedPost.id);
     this.http.get<any[]>('http://localhost:8089/forum/posts').subscribe({
       next: (data) => {
         this.posts = data.map(post => ({
@@ -178,12 +179,14 @@ export class ForumSpaceComponent implements OnInit {
     if (this.newComment.trim()) {
       const comment = {
         content: this.newComment.trim(),
-        author: this.currentUser, // backend might use session
+        author: {
+          id: 1 // Or get from session later
+        }
       };
-
+  
       this.http
         .post<any>(
-          `http://localhost:8089/forum/posts/${this.selectedPost.id}/comments`,
+          `http://localhost:8089/forum/comments?postId=${this.selectedPost.id}`,
           comment
         )
         .subscribe((createdComment) => {
@@ -195,22 +198,35 @@ export class ForumSpaceComponent implements OnInit {
         });
     }
   }
+  
 
   saveEditedComment(comment: any) {
     if (this.commentEditContent.trim()) {
-      const updated = { ...comment, content: this.commentEditContent.trim() };
-
+      const updated = {
+        content: this.commentEditContent.trim(),
+      };
+      
+      console.log('Sending update:', updated);  // Log the data to check
+      
       this.http
         .put<any>(`http://localhost:8089/forum/comments/${comment.id}`, updated)
-        .subscribe((res) => {
-          comment.content = res.content;
-          this.cancelEditing();
+        .subscribe({
+          next: (res) => {
+            comment.content = res.content;
+            this.cancelEditing();
+          },
+          error: (err) => {
+            console.error('❌ Error saving edited comment:', err);  // Log the error to the console
+          }
         });
     }
   }
+  
+  
+  
 
   deleteComment(commentToDelete: any) {
-    if (commentToDelete.author !== this.currentUser) {
+    if (commentToDelete.author?.name !== this.currentUser) {
       alert('You can only delete your own comments.');
       return;
     }
@@ -228,7 +244,7 @@ export class ForumSpaceComponent implements OnInit {
   }
 
   startEditingComment(comment: any) {
-    if (comment.author !== this.currentUser) {
+    if (comment.author?.name !== this.currentUser) {
       return; // Prevent editing if not the author
     }
     this.commentBeingEdited = comment;
@@ -239,7 +255,22 @@ export class ForumSpaceComponent implements OnInit {
     this.commentBeingEdited = null;
     this.commentEditContent = '';
   }
-
+/*
+  getCommentCount(postId: number) {
+    return this.http.get<number>(`http://localhost:8089/forum/comments/count/${postId}`);
+  }
+  
+  getCommentCountForPost(postId: number): void {
+    this.http.get<number>(`http://localhost:8089/forum/comments/count/${postId}`).subscribe(
+      (count) => {
+        this.selectedPost.commentCount = count; // Store the count on selectedPost
+      },
+      (error) => {
+        console.error('Error fetching comment count', error);
+      }
+    );
+  }*/
+  
   //* React CRUD methods
 
   updateReaction(newType: string): void {
@@ -286,6 +317,9 @@ export class ForumSpaceComponent implements OnInit {
   openPost(post: any): void {
     console.log('Selected post:', post); // To debug
     this.selectedPost = post;
+    this.http.get<Comment[]>(`http://localhost:8089/forum/comments/byPost/${post.id}`).subscribe(comments => {
+      this.selectedPost.comments = comments;
+    });
   }
 
   newComment: string = '';
