@@ -74,7 +74,7 @@
                 Fill in the form to post your message to the community forum.
               </p>
 
-              <form (submit)="createPost()" #postForm="ngForm" class="mt-8">
+              <form (ngSubmit)="createPost()" #postForm="ngForm" class="mt-8">
                 <div class="mb-4">
                   <label
                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -141,8 +141,8 @@
               />
               <div class="leading-tight">
                 <h4 class="text-lg font-semibold text-blueGray-800">
-                  {{ post.author }}
-                </h4>
+                  {{ post.author?.name || 'Unknown Author' }}
+                </h4>                
                 <span class="text-xs text-blueGray-400 block">{{
                   post.createdAt
                 }}</span>
@@ -180,7 +180,7 @@
 
               <!-- Delete Button -->
               <button
-                *ngIf="post.author === currentUser"
+                *ngIf="post.author?.name === currentUser"
                 (click)="deletePost(post.id)"
                 class="text-red-500 hover:text-red-700 transition-all duration-150 text-lg"
               >
@@ -223,7 +223,7 @@
       />
       <div>
         <h4 class="text-xl font-semibold text-blueGray-800">
-          {{ selectedPost.author }}
+          {{ selectedPost.author?.name }}
         </h4>
         <span class="text-sm text-blueGray-400">
           {{ selectedPost.createdAt | date : "medium" }}
@@ -244,7 +244,7 @@
 
         <!-- Edit Button if current user is author -->
         <button
-          *ngIf="selectedPost.author === currentUser"
+          *ngIf="selectedPost.author?.name === currentUser"
           (click)="startEditingPost()"
           class="text-sm text-blue-600 hover:underline"
         >

@@ -16,17 +16,22 @@ export class ForumSpaceComponent implements OnInit {
 
   posts: any[] = [];
   selectedPost: any = null;
-  currentUser: string = 'John Doe';
+  currentUser: string = 'Chiha';
   commentBeingEdited: any = null;
   commentEditContent: string = '';
 
   newPost = {
     title: '',
     content: '',
+    author: '',
+    createdAt: '',
+    replies: 0,
+    likes: 0
   };
 
   ngOnInit() {
-    this.http.get<any[]>('http://localhost:8080/api/posts').subscribe({
+    console.log('✅ Current user:', this.currentUser);
+    this.http.get<any[]>('http://localhost:8089/forum/posts').subscribe({
       next: (data) => {
         this.posts = data.map(post => ({
           ...post,
@@ -36,8 +41,6 @@ export class ForumSpaceComponent implements OnInit {
       },
       error: (err) => {
         console.error('Failed to load posts', err);
-        // Optionally show fallback posts:
-        // this.posts = [...mockData]
       }
     });
   }
@@ -47,35 +50,67 @@ export class ForumSpaceComponent implements OnInit {
     this.http
       .get<any[]>('http://localhost:8089/forum/posts') // adjust to your actual endpoint
       .subscribe((data) => {
-        this.posts = data;
+        this.posts = data; // Assign the fetched data to the posts array
+        console.log('Posts fetched:', this.posts); // Log the data for debugging
       });
   }
+  
 
   createPost() {
-    const post = {
+    if (!this.newPost.title || !this.newPost.content) return;
+  
+    const postPayload = {
       title: this.newPost.title,
       content: this.newPost.content,
-      author: this.currentUser, // Or handle this on backend with user context
+      tag: 'general', // or whatever tag you want
+      author: {
+        id: 1 // static user ID
+      }
     };
-
-    this.http
-      .post<any>('http://localhost:8089/forum/posts', post)
-      .subscribe((created) => {
-        this.posts.unshift(created);
-        this.newPost = { title: '', content: '' };
-      });
+  
+    this.http.post('http://localhost:8089/forum/posts', postPayload).subscribe({
+      next: (createdPost) => {
+        this.posts.unshift(createdPost);
+        this.newPost = {
+          title: '',
+          content: '',
+          author: '',
+          createdAt: '',
+          replies: 0,
+          likes: 0
+        };
+      },
+      error: (err) => {
+        console.error('❌ Failed to create post:', err);
+      }
+    });
   }
+  
+  
 
   deletePost(postId: number) {
     const confirmed = confirm('Are you sure you want to delete this post?');
     if (confirmed) {
       this.http
         .delete(`http://localhost:8089/forum/posts/${postId}`)
-        .subscribe(() => {
-          this.posts = this.posts.filter((post) => post.id !== postId);
+        .subscribe({
+          next: () => {
+            this.posts = this.posts.filter((post) => post.id !== postId);
+  
+            // ✅ Close the modal if it's the deleted post
+            if (this.selectedPost && this.selectedPost.id === postId) {
+              this.selectedPost = null;
+              this.isEditingPost = false;
+            }
+          },
+          error: (err) => {
+            console.error('❌ Failed to delete post:', err);
+          }
         });
     }
   }
+  
+  
 
   savePostEdit() {
     if (this.postEditTitle.trim() && this.postEditContent.trim()) {
@@ -84,17 +119,57 @@ export class ForumSpaceComponent implements OnInit {
         title: this.postEditTitle.trim(),
         content: this.postEditContent.trim(),
       };
-
+  
       this.http
         .put<any>(
           `http://localhost:8089/forum/posts/${updatedPost.id}`,
           updatedPost
         )
-        .subscribe((res) => {
-          Object.assign(this.selectedPost, res);
-          this.cancelPostEdit();
+        .subscribe({
+          next: (res) => {
+            // 🔁 Update the post in the list
+            const index = this.posts.findIndex((post) => post.id === res.id);
+            if (index !== -1) {
+              this.posts[index] = res;
+            }
+  
+            // 🔁 Also update selectedPost to reflect the changes in the modal
+            this.selectedPost = res;
+  
+            this.cancelPostEdit(); // Close the edit form
+          },
+          error: (err) => {
+            console.error('❌ Failed to update post:', err);
+          }
         });
     }
+  }
+  
+  
+  isEditingPost: boolean = false;
+  postEditTitle: string = '';
+  postEditContent: string = '';
+
+  startEditingPost() {
+    console.log('🛠 startEditingPost called');
+    console.log('👤 selectedPost.author:', this.selectedPost.author);
+    console.log('👤 currentUser:', this.currentUser);
+  
+    if (this.selectedPost.author?.name !== this.currentUser) {
+      console.warn('🚫 Edit not allowed: not the author');
+      return;
+    }
+  
+    this.isEditingPost = true;
+    this.postEditTitle = this.selectedPost.title;
+    this.postEditContent = this.selectedPost.content;
+  }
+  
+
+  cancelPostEdit() {
+    this.isEditingPost = false;
+    this.postEditTitle = '';
+    this.postEditContent = '';
   }
 
   //* Comment CRUD methods
@@ -152,6 +227,19 @@ export class ForumSpaceComponent implements OnInit {
       });
   }
 
+  startEditingComment(comment: any) {
+    if (comment.author !== this.currentUser) {
+      return; // Prevent editing if not the author
+    }
+    this.commentBeingEdited = comment;
+    this.commentEditContent = comment.content;
+  }
+
+  cancelEditing() {
+    this.commentBeingEdited = null;
+    this.commentEditContent = '';
+  }
+
   //* React CRUD methods
 
   updateReaction(newType: string): void {
@@ -202,35 +290,7 @@ export class ForumSpaceComponent implements OnInit {
 
   newComment: string = '';
 
-  startEditingComment(comment: any) {
-    if (comment.author !== this.currentUser) {
-      return; // Prevent editing if not the author
-    }
-    this.commentBeingEdited = comment;
-    this.commentEditContent = comment.content;
-  }
-
-  cancelEditing() {
-    this.commentBeingEdited = null;
-    this.commentEditContent = '';
-  }
-
-  isEditingPost: boolean = false;
-  postEditTitle: string = '';
-  postEditContent: string = '';
-
-  startEditingPost() {
-    if (this.selectedPost.author !== this.currentUser) return;
-    this.isEditingPost = true;
-    this.postEditTitle = this.selectedPost.title;
-    this.postEditContent = this.selectedPost.content;
-  }
-
-  cancelPostEdit() {
-    this.isEditingPost = false;
-    this.postEditTitle = '';
-    this.postEditContent = '';
-  }
+  
 
   // Example setup
   reactionTypes = ['UPVOTE', 'DOWNVOTE', 'HEART', 'SAD', 'LAUGH', 'CELEBRATE'];
