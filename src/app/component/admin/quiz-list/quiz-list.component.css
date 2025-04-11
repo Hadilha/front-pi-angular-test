@@ -1,5 +1,5 @@
-/* General Styles */
-body {
+
+  body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
     margin: 0;
@@ -300,5 +300,20 @@ h2, h4, h5, h6 {
     color: #888;
     font-style: italic;
   }
+
+  
+  .loader {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 50px auto;
+  }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   
   

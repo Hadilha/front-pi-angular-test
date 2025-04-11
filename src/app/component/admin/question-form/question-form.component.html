@@ -18,6 +18,9 @@
           Question text is required
         </div>
       </div>
+      <input type="checkbox" class="form-check-input" id="text" 
+          [checked]="questionForm.get('text')?.value" formControlName="text">
+      <label  class="form-check-label" for="text">Text </label>
   
       <div class="form-group">
         <button type="submit" class="btn btn-primary" [disabled]="questionForm.invalid">

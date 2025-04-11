@@ -25,7 +25,7 @@ export class QuizListComponent implements OnInit {
       },
       (error) => {
         console.error('Error loading quizzes:', error);
-        this.isLoading = false;
+        
       }
     );
   }

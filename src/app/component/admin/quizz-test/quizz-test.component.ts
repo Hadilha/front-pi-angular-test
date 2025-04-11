@@ -8,6 +8,7 @@ import { Question } from '../../../model/question';
 import { Score } from '../../../model/score';
 import { Choice } from '../../../model/choice';
 import { User } from 'src/app/model/user';
+import { ChoiceServiceService } from 'src/app/service/choice-service.service';
 
 @Component({
   selector: 'app-quizz-test',
@@ -26,6 +27,7 @@ export class QuizTestComponent implements OnInit, OnDestroy {
   isLoading = true;
   Loading = true;
   quizCompleted = false;
+  answers:string = "This person choose these answers: ";
   userId: number = 1; // You should get this from your auth service
   user: User = {
     id: 1,
@@ -39,6 +41,7 @@ export class QuizTestComponent implements OnInit, OnDestroy {
     private router: Router,
     private quizService: QuizzServiceService,
     private scoreService: ScoreServiceService,
+    private choiceService: ChoiceServiceService,
     //private userService: UserService
   ) {}
 
@@ -114,6 +117,15 @@ get timerPercentage(): number {
     console.log('Selected choice ID:', this.selectedChoiceId);
   }
 
+  stockanswer(id:number): void {
+    this.choiceService.getChoiceById(id).subscribe(
+      (choice) => {
+        this.answers += choice.text + " ";
+        console.log('ansewer:', this.answers);
+      }
+    );
+  }
+
   selectCorrect(correct: boolean,choiceId:number): void {
     this.isCorrect = correct;
     this.selectedChoiceId = choiceId;
@@ -133,6 +145,8 @@ get timerPercentage(): number {
       console.log('Correct answer!');
       this.score++;
     }
+
+    this.stockanswer(this.selectedChoiceId);
 
     // Move to next question or finish quiz
     if (this.quiz && this.currentQuestionIndex < (this.quiz.questions ?? []).length - 1) {
@@ -182,5 +196,9 @@ get timerPercentage(): number {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  }
+
+  containsSubstring(text: string, substring: string): boolean {
+    return text.includes(substring);
   }
 }

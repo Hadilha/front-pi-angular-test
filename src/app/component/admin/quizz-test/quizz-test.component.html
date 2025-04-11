@@ -44,7 +44,9 @@
       <div class="card question-card mb-3">
         <div class="card-body">
           <h5 class="card-title">Question {{ currentQuestionIndex + 1 }}</h5>
-          <p class="card-text">{{ currentQuestion?.questionText }}</p>
+          <img *ngIf="!currentQuestion?.text" [src]="currentQuestion?.questionText" alt="Question image" class="img-fluid rounded" style="width: 200px;">
+          <p *ngIf="!currentQuestion?.text" >What do you see ?</p>
+          <p *ngIf="currentQuestion?.text" class="card-text">{{ currentQuestion?.questionText }}</p>
           
           <div class="choices-list">
             <div *ngFor="let choice of currentQuestion?.choices" 

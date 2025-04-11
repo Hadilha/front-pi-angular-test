@@ -26,5 +26,8 @@ export class QuestionServiceService {
     return this.http.delete<Question>(`${this.apiUrl}/${id}`);
   }
   
+  updateQuestion(id: number, question: Question): Observable<Question> {
+    return this.http.put<Question>(`${this.apiUrl}/${id}`, question);
+  }
 
 }

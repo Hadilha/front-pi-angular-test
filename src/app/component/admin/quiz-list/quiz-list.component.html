@@ -1,8 +1,4 @@
-<div *ngIf="isLoading" class="text-center">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
-    </div>
-  </div>
+<div class="loader" *ngIf="isLoading" ></div>
   
   <div *ngIf="!isLoading">
     <h2>Quizzes</h2>
@@ -13,7 +9,6 @@
     <div *ngIf="quizzes.length === 0" class="alert alert-info">
       No quizzes found. Create one to get started!
     </div>
-  
     <div class="row">
       <div *ngFor="let quiz of quizzes" class="col-md-4 mb-4">
         <div class="card">
@@ -22,7 +17,7 @@
             <h5 class="card-title">{{ quiz.title }}</h5>
             <p class="card-text">{{ quiz.description }}</p>
             <div class="d-flex justify-content-between">
-              <a [routerLink]="['/admin/quizzes', quiz.quizz_id]" class="btn btn-info">View</a>
+              <a [routerLink]="['/quizzes', quiz.quizz_id]" class="btn btn-info">View</a>
               <a [routerLink]="['/quizzes/edit', quiz.quizz_id]" class="btn btn-warning">Edit</a>
               <button (click)="deleteQuiz(quiz.quizz_id!)" class="btn btn-danger">Delete</button>
             </div>

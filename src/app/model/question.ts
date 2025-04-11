@@ -6,12 +6,14 @@ export class Question {
   questionText: string;
   quizz?: Quizz;
   choices?: Choice[];
+  text: boolean = false;
 
   constructor(data: any = {}) {
     this.qq_id = data.qq_id ;
     this.questionText = data.questionText || '';
     this.quizz = data.quizz ? new Quizz(data.quizz) : undefined;
     this.choices = data.choices ? data.choices.map((c: any) => new Choice(c)) : [];
+    this.text = data.text || true;
   }
 }
 

@@ -81,7 +81,7 @@ export class ChoiceFormComponent implements OnInit {
       // Update existing choice - using createChoice as update (assuming API handles it)
       this.choiceService.createChoice(choiceData).subscribe({
         next: () => {
-          this.router.navigate(['/quizzes', this.quizId]);
+          this.router.navigate(['admin/quizzes', this.quizId]);
         },
         error: (error) => {
           console.error('Error updating choice:', error);
@@ -92,7 +92,7 @@ export class ChoiceFormComponent implements OnInit {
       // Create new choice
       this.choiceService.createChoice(choiceData).subscribe({
         next: () => {
-          this.router.navigate(['/quizzes', this.quizId]);
+          this.router.navigate(['admin/quizzes', this.quizId]);
         },
         error: (error) => {
           console.error('Error creating choice:', error);
@@ -103,6 +103,6 @@ export class ChoiceFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/quizzes', this.quizId, 'questions', this.questionId]);
+    this.router.navigate(['admin/quizzes', this.quizId, 'questions', this.questionId]);
   }
 }

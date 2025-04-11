@@ -16,6 +16,7 @@ export class QuizDetailsComponent implements OnInit {
   quiz: Quizz | null = null;
   questions: Question[] = [];
   isLoading = true;
+  colapsed = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,6 +24,10 @@ export class QuizDetailsComponent implements OnInit {
     private quizService: QuizzServiceService,
     private questionService: QuestionServiceService
   ) { }
+
+  colapsedToggle() {
+    this.colapsed = !this.colapsed;
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');

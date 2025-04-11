@@ -54,4 +54,18 @@ export class QuizListUserComponent implements OnInit {
       this.router.navigate(['/test', id]);
     }
 
+    getAIResponse() {
+      const headers = new HttpHeaders({
+        Authorization: 'Bearer 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',
+        'Content-Type': 'application/json',
+      });
+  
+      const body = {
+        model: 'openai/gpt-4o',
+        messages: [{ role: 'user', content: "how are you?" }],
+      };
+  
+      return this.http.post<any>('https://openrouter.ai/api/v1/chat/completions', body, { headers });
+    }
+
 }

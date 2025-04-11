@@ -27,7 +27,8 @@ export class QuestionFormComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.questionForm = this.fb.group({
-      questionText: ['', Validators.required]
+      questionText: ['', Validators.required],
+      text: [true],
     });
   }
 
@@ -60,8 +61,10 @@ export class QuestionFormComponent implements OnInit {
     this.questionService.getQuestionById(id).subscribe(
       (question) => {
         this.questionForm.patchValue({
-          questionText: question.questionText
+          questionText: question.questionText,
+          text: question.text
         });
+        console.table(question);
         this.isLoading = false;
       },
       (error) => {
@@ -76,10 +79,10 @@ export class QuestionFormComponent implements OnInit {
       this.isLoading = true;
       const questionData: Question = this.questionForm.value;
       questionData.quizz = { quizz_id: this.quizId } as Quizz;
-
+  
       if (this.isEditMode && this.questionId) {
         questionData.qq_id = this.questionId;
-        this.questionService.createQuestion(questionData).subscribe(
+        this.questionService.updateQuestion(this.questionId,questionData).subscribe( // Changed to updateQuestion
           () => {
             this.isLoading = false;
             this.router.navigate(['/quizzes', this.quizId]);
