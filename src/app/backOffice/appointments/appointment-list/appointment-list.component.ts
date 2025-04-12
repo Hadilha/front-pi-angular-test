@@ -89,4 +89,27 @@ export class AppointmentListComponent implements OnInit {
   editAppointment(id: number): void {
     this.router.navigate(['admin/appointments', id, 'edit']);
   }
+
+  exportToExcel(): void {
+    this.appointmentService.exportToExcel().subscribe(
+      (blob: Blob) => {
+        this.downloadFile(blob, 'appointments.xlsx');
+      },
+      (error) => {
+        console.error('Error exporting appointments to Excel:', error);
+      }
+    );
+  }
+
+  private downloadFile(data: Blob, filename: string): void {
+    const url = window.URL.createObjectURL(data);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  }
+  
 }

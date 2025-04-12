@@ -35,5 +35,10 @@ export class AppointmentService {
   getAppointmentStatistics(): Observable<Map<string, number>> {
     return this.http.get<Map<string, number>>(`${this.apiUrl}/statistics`);
   }
-  
+
+  exportToExcel(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/export/excel`, {
+      responseType: 'blob'
+  });
+}
 }
