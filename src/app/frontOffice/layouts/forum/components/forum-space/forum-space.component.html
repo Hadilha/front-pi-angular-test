@@ -281,20 +281,22 @@
     </div>
 
     <!-- Reaction Buttons -->
-    <div class="flex justify-center gap-3 mt-6 flex-wrap">
-      <button
-        *ngFor="let type of reactionTypes"
-        class="flex items-center space-x-1 px-3 py-1 rounded-full border shadow-sm transition duration-200"
-        [ngClass]="{
-          'bg-blue-100 text-blue-700 border-blue-300': hasReacted(type),
-          'bg-gray-100 text-gray-600 border-gray-300': !hasReacted(type)
-        }"
-        (click)="reactToPost(type)"
-      >
-        <span>{{ getReactionEmoji(type) }}</span>
-        <span class="text-sm">{{ getReactionCount(type) }}</span>
-      </button>
-    </div>
+    <!-- Reaction Buttons -->
+<div class="flex justify-center gap-3 mt-6 flex-wrap">
+  <button
+    *ngFor="let type of reactionTypes"
+    class="flex items-center space-x-1 px-3 py-1 rounded-full border shadow-sm transition duration-200"
+    [ngClass]="{
+      'bg-blue-100 text-blue-700 border-blue-300': hasReacted(type),
+      'bg-gray-100 text-gray-600 border-gray-300': !hasReacted(type)
+    }"
+    (click)="reactToPost(type)"
+  >
+    <span>{{ getReactionEmoji(type) }}</span>
+    <span class="text-sm">{{ getReactionCount(type) }}</span>
+  </button>
+</div>
+
 
     <!-- Footer: Stats Section -->
     <div

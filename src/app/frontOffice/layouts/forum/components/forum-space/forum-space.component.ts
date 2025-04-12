@@ -8,7 +8,6 @@ import { OnInit } from '@angular/core';
   templateUrl: './forum-space.component.html',
   styleUrls: ['./forum-space.component.css'],
 })
-
 export class ForumSpaceComponent implements OnInit {
   constructor(private http: HttpClient) {
     console.log('✅ ForumSpaceComponent constructor');
@@ -26,7 +25,7 @@ export class ForumSpaceComponent implements OnInit {
     author: '',
     createdAt: '',
     replies: 0,
-    likes: 0
+    likes: 0,
   };
 
   ngOnInit() {
@@ -34,15 +33,15 @@ export class ForumSpaceComponent implements OnInit {
     //this.getCommentCountForPost(this.selectedPost.id);
     this.http.get<any[]>('http://localhost:8089/forum/posts').subscribe({
       next: (data) => {
-        this.posts = data.map(post => ({
+        this.posts = data.map((post) => ({
           ...post,
           comments: post.comments || [],
-          reactions: post.reactions || {}
+          reactions: post.reactions || {},
         }));
       },
       error: (err) => {
         console.error('Failed to load posts', err);
-      }
+      },
     });
   }
 
@@ -55,20 +54,19 @@ export class ForumSpaceComponent implements OnInit {
         console.log('Posts fetched:', this.posts); // Log the data for debugging
       });
   }
-  
 
   createPost() {
     if (!this.newPost.title || !this.newPost.content) return;
-  
+
     const postPayload = {
       title: this.newPost.title,
       content: this.newPost.content,
       tag: 'general', // or whatever tag you want
       author: {
-        id: 1 // static user ID
-      }
+        id: 1, // static user ID
+      },
     };
-  
+
     this.http.post('http://localhost:8089/forum/posts', postPayload).subscribe({
       next: (createdPost) => {
         this.posts.unshift(createdPost);
@@ -78,16 +76,14 @@ export class ForumSpaceComponent implements OnInit {
           author: '',
           createdAt: '',
           replies: 0,
-          likes: 0
+          likes: 0,
         };
       },
       error: (err) => {
         console.error('❌ Failed to create post:', err);
-      }
+      },
     });
   }
-  
-  
 
   deletePost(postId: number) {
     const confirmed = confirm('Are you sure you want to delete this post?');
@@ -97,7 +93,7 @@ export class ForumSpaceComponent implements OnInit {
         .subscribe({
           next: () => {
             this.posts = this.posts.filter((post) => post.id !== postId);
-  
+
             // ✅ Close the modal if it's the deleted post
             if (this.selectedPost && this.selectedPost.id === postId) {
               this.selectedPost = null;
@@ -106,12 +102,10 @@ export class ForumSpaceComponent implements OnInit {
           },
           error: (err) => {
             console.error('❌ Failed to delete post:', err);
-          }
+          },
         });
     }
   }
-  
-  
 
   savePostEdit() {
     if (this.postEditTitle.trim() && this.postEditContent.trim()) {
@@ -120,7 +114,7 @@ export class ForumSpaceComponent implements OnInit {
         title: this.postEditTitle.trim(),
         content: this.postEditContent.trim(),
       };
-  
+
       this.http
         .put<any>(
           `http://localhost:8089/forum/posts/${updatedPost.id}`,
@@ -133,20 +127,19 @@ export class ForumSpaceComponent implements OnInit {
             if (index !== -1) {
               this.posts[index] = res;
             }
-  
+
             // 🔁 Also update selectedPost to reflect the changes in the modal
             this.selectedPost = res;
-  
+
             this.cancelPostEdit(); // Close the edit form
           },
           error: (err) => {
             console.error('❌ Failed to update post:', err);
-          }
+          },
         });
     }
   }
-  
-  
+
   isEditingPost: boolean = false;
   postEditTitle: string = '';
   postEditContent: string = '';
@@ -155,17 +148,16 @@ export class ForumSpaceComponent implements OnInit {
     console.log('🛠 startEditingPost called');
     console.log('👤 selectedPost.author:', this.selectedPost.author);
     console.log('👤 currentUser:', this.currentUser);
-  
+
     if (this.selectedPost.author?.name !== this.currentUser) {
       console.warn('🚫 Edit not allowed: not the author');
       return;
     }
-  
+
     this.isEditingPost = true;
     this.postEditTitle = this.selectedPost.title;
     this.postEditContent = this.selectedPost.content;
   }
-  
 
   cancelPostEdit() {
     this.isEditingPost = false;
@@ -180,10 +172,10 @@ export class ForumSpaceComponent implements OnInit {
       const comment = {
         content: this.newComment.trim(),
         author: {
-          id: 1 // Or get from session later
-        }
+          id: 1, // Or get from session later
+        },
       };
-  
+
       this.http
         .post<any>(
           `http://localhost:8089/forum/comments?postId=${this.selectedPost.id}`,
@@ -198,16 +190,15 @@ export class ForumSpaceComponent implements OnInit {
         });
     }
   }
-  
 
   saveEditedComment(comment: any) {
     if (this.commentEditContent.trim()) {
       const updated = {
         content: this.commentEditContent.trim(),
       };
-      
-      console.log('Sending update:', updated);  // Log the data to check
-      
+
+      console.log('Sending update:', updated); // Log the data to check
+
       this.http
         .put<any>(`http://localhost:8089/forum/comments/${comment.id}`, updated)
         .subscribe({
@@ -216,14 +207,11 @@ export class ForumSpaceComponent implements OnInit {
             this.cancelEditing();
           },
           error: (err) => {
-            console.error('❌ Error saving edited comment:', err);  // Log the error to the console
-          }
+            console.error('❌ Error saving edited comment:', err); // Log the error to the console
+          },
         });
     }
   }
-  
-  
-  
 
   deleteComment(commentToDelete: any) {
     if (commentToDelete.author?.name !== this.currentUser) {
@@ -255,7 +243,7 @@ export class ForumSpaceComponent implements OnInit {
     this.commentBeingEdited = null;
     this.commentEditContent = '';
   }
-/*
+  /*
   getCommentCount(postId: number) {
     return this.http.get<number>(`http://localhost:8089/forum/comments/count/${postId}`);
   }
@@ -270,81 +258,120 @@ export class ForumSpaceComponent implements OnInit {
       }
     );
   }*/
-  
+
   //* React CRUD methods
 
-  updateReaction(newType: string): void {
-    const reaction = { type: newType };
-
+  fetchCurrentUserReaction(postId: number): void {
     this.http
-      .post(
-        `http://localhost:8089/forum/posts/${this.selectedPost.id}/reactions`,
-        reaction
+      .get<string>(
+        `http://localhost:8089/forum/posts/${postId}/reactions/user-reaction?username=${this.currentUser}`
       )
-      .subscribe(() => {
-        if (!this.selectedPost.reactions) {
-          this.selectedPost.reactions = {};
-        }
-
-        if (this.currentUserReaction) {
-          this.selectedPost.reactions[this.currentUserReaction]--;
-        }
-
-        this.currentUserReaction = newType;
-
-        if (!this.selectedPost.reactions[newType]) {
-          this.selectedPost.reactions[newType] = 0;
-        }
-        this.selectedPost.reactions[newType]++;
-        this.selectedPost = { ...this.selectedPost };
+      .subscribe((reaction) => {
+        this.currentUserReaction = reaction;
       });
   }
-
-  removeReaction(type: string): void {
-    this.http
-      .delete(
-        `http://localhost:8089/forum/posts/${this.selectedPost.id}/reactions`
-      )
-      .subscribe(() => {
-        if (this.selectedPost.reactions[type] > 0) {
-          this.selectedPost.reactions[type]--;
-        }
-        this.currentUserReaction = null;
-        this.selectedPost = { ...this.selectedPost };
-      });
+  
+  reactToPost(type: string): void {
+    if (!this.selectedPost) return;
+  
+    if (this.currentUserReaction === type) {
+      // Remove existing reaction
+      this.http
+        .delete(
+          `http://localhost:8089/forum/posts/${this.selectedPost.id}/reactions?username=${this.currentUser}&type=${type}`
+        )
+        .subscribe(() => {
+          this.currentUserReaction = null;
+  
+          // Decrement count safely
+          if (this.selectedPost.reactions?.[type]) {
+            this.selectedPost.reactions[type]--;
+          }
+  
+          this.selectedPost = { ...this.selectedPost }; // Trigger UI refresh
+        });
+    } else {
+      // Add or update reaction
+      const reaction = { type };
+  
+      this.http
+        .post(
+          `http://localhost:8089/forum/posts/${this.selectedPost.id}/reactions?username=${this.currentUser}`,
+          reaction
+        )
+        .subscribe(() => {
+          // Update counts
+          if (this.currentUserReaction) {
+            // User had a previous reaction
+            if (this.selectedPost.reactions?.[this.currentUserReaction]) {
+              this.selectedPost.reactions[this.currentUserReaction]--;
+            }
+          }
+  
+          if (!this.selectedPost.reactions[type]) {
+            this.selectedPost.reactions[type] = 0;
+          }
+  
+          this.selectedPost.reactions[type]++;
+          this.currentUserReaction = type;
+          this.selectedPost = { ...this.selectedPost }; // Trigger UI refresh
+        });
+    }
   }
-
+  
   openPost(post: any): void {
-    console.log('Selected post:', post); // To debug
     this.selectedPost = post;
-    this.http.get<Comment[]>(`http://localhost:8089/forum/comments/byPost/${post.id}`).subscribe(comments => {
-      this.selectedPost.comments = comments;
-    });
+  
+    // Load comments
+    this.http
+      .get<Comment[]>(`http://localhost:8089/forum/comments/byPost/${post.id}`)
+      .subscribe((comments) => {
+        this.selectedPost.comments = comments;
+      });
+  
+    // Load reactions count first
+    this.http
+      .get<{ [key: string]: number }>(
+        `http://localhost:8089/forum/posts/${post.id}/reactions`
+      )
+      .subscribe((reactionCounts) => {
+        this.selectedPost.reactions = reactionCounts;
+  
+        // THEN load user reaction and sync if necessary
+        this.http
+          .get<string>(
+            `http://localhost:8089/forum/posts/${post.id}/reactions/user-reaction?username=${this.currentUser}`
+          )
+          .subscribe((reaction) => {
+            this.currentUserReaction = reaction;
+  
+            // Make sure the count includes the user's reaction
+            if (reaction) {
+              if (!this.selectedPost.reactions[reaction]) {
+                this.selectedPost.reactions[reaction] = 1;
+              }
+            }
+  
+            this.selectedPost = { ...this.selectedPost }; // Refresh view
+          });
+      });
   }
+  
+  
 
   newComment: string = '';
-
-  
 
   // Example setup
   reactionTypes = ['UPVOTE', 'DOWNVOTE', 'HEART', 'SAD', 'LAUGH', 'CELEBRATE'];
   currentUserReaction: string | null = null; // Current reaction of the user for selectedPost
 
-  reactToPost(type: string): void {
-    if (!this.selectedPost) return;
-
-    // Toggle: if same reaction is clicked again, remove it
-    if (this.currentUserReaction === type) {
-      this.removeReaction(type);
-    } else {
-      this.updateReaction(type);
-    }
-  }
+  
 
   // Used in template to style the selected reaction
   hasReacted(type: string): boolean {
     return this.currentUserReaction === type;
   }
+  
 
   // Count reactions
   getReactionCount(type: string): number {
