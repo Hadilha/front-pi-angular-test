@@ -51,7 +51,7 @@ export class QuizListUserComponent implements OnInit {
     }
 
     takeQuiz(id:number): void {
-      this.router.navigate(['/test', id]);
+      this.router.navigate(['/auth/test', id]);
     }
 
     getAIResponse() {

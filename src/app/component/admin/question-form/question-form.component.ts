@@ -85,7 +85,7 @@ export class QuestionFormComponent implements OnInit {
         this.questionService.updateQuestion(this.questionId,questionData).subscribe( // Changed to updateQuestion
           () => {
             this.isLoading = false;
-            this.router.navigate(['/quizzes', this.quizId]);
+            this.router.navigate(['/admin/quizzes', this.quizId]);
           },
           (error) => {
             console.error('Error updating question:', error);
@@ -96,7 +96,7 @@ export class QuestionFormComponent implements OnInit {
         this.questionService.createQuestion(questionData).subscribe(
           () => {
             this.isLoading = false;
-            this.router.navigate(['/quizzes', this.quizId]);
+            this.router.navigate(['/admin/quizzes', this.quizId]);
           },
           (error) => {
             console.error('Error creating question:', error);
@@ -108,6 +108,6 @@ export class QuestionFormComponent implements OnInit {
   }
 
   public onCancel(): void {
-    this.router.navigate(['/quizzes', this.quizId]);
+    this.router.navigate(['/admin/quizzes', this.quizId]);
   }
 }

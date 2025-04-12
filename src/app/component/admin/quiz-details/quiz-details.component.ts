@@ -79,33 +79,33 @@ export class QuizDetailsComponent implements OnInit {
 
   startQuiz(): void {
     if (this.quiz?.quizz_id) {
-      this.router.navigate(['/test', this.quiz.quizz_id]);
+      this.router.navigate(['auth/test', this.quiz.quizz_id]);
     }
   }
 
   editQuiz(quizId: number) {
-    this.router.navigate(['quizzes/edit', quizId]);
+    this.router.navigate(['admin/quizzes/edit', quizId]);
   }
 
   addNewQuestion() {
     // Navigate to the new question form
     if (this.quiz?.quizz_id) {
-      this.router.navigate(['/quizzes', this.quiz.quizz_id, 'questions','new']);
+      this.router.navigate(['/admin/quizzes', this.quiz.quizz_id, 'questions','new']);
     }
   }
   editQuestion(questionId: number, quizId: number) {
-    this.router.navigate(['/quizzes', quizId, 'questions', questionId, 'edit']);
+    this.router.navigate(['/admin/quizzes', quizId, 'questions', questionId, 'edit']);
   }
 
   navigateToAddChoice(questionId: number): void {
-    this.router.navigate(['/quizzes', this.quiz?.quizz_id, 'questions', questionId, 'choices', 'new']);
+    this.router.navigate(['/admin/quizzes', this.quiz?.quizz_id, 'questions', questionId, 'choices', 'new']);
   }
   
   navigateToEditChoice(questionId: number, choiceId: number): void {
     console.log('this choice id ',choiceId);
     console.log('this ques id ', questionId);
     console.log('this quizz id ', questionId);
-    this.router.navigate(['/quizzes', this.quiz?.quizz_id, 'questions', questionId, 'choices', choiceId, 'edit']);
+    this.router.navigate(['/admin/quizzes', this.quiz?.quizz_id, 'questions', questionId, 'choices', choiceId, 'edit']);
     
   }
 }

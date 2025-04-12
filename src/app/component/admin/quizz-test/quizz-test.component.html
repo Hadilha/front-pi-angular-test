@@ -78,7 +78,7 @@
           <h2 class="card-title">Quiz Completed!</h2>
           <p class="card-text">Your score: {{ score }} out of {{ quiz?.questions?.length || 0 }}</p>
           <p class="card-text">Percentage: {{ (score / (quiz?.questions?.length || 2) * 100).toFixed(1) }}%</p>
-          <a class="btn btn-primary" [routerLink]="['/quizzes']">
+          <a class="btn btn-primary" [routerLink]="['/admin/quizzes']">
             Back to Quizzes
           </a>
         </div>

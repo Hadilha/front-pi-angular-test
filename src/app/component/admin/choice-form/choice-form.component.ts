@@ -4,6 +4,7 @@ import { ChoiceServiceService } from '../../../service/choice-service.service';
 import { QuestionServiceService } from '../../../service/question-service.service';
 import { Choice } from '../../../model/choice';
 import { Question } from '../../../model/question';
+import { RoutingService } from 'src/app/service/routing.service';
 
 @Component({
   selector: 'app-choice-form',
@@ -28,7 +29,8 @@ export class ChoiceFormComponent implements OnInit {
     private choiceService: ChoiceServiceService,
     private questionService: QuestionServiceService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private routingService: RoutingService
   ) {}
 
   ngOnInit(): void {
@@ -79,9 +81,9 @@ export class ChoiceFormComponent implements OnInit {
 
     if (this.isEditMode) {
       // Update existing choice - using createChoice as update (assuming API handles it)
-      this.choiceService.createChoice(choiceData).subscribe({
+      this.choiceService.updateChoice(this.choice.choice_id!,choiceData).subscribe({
         next: () => {
-          this.router.navigate(['admin/quizzes', this.quizId]);
+          this.router.navigate(['/admin/quizzes', this.quizId]);
         },
         error: (error) => {
           console.error('Error updating choice:', error);
@@ -92,7 +94,7 @@ export class ChoiceFormComponent implements OnInit {
       // Create new choice
       this.choiceService.createChoice(choiceData).subscribe({
         next: () => {
-          this.router.navigate(['admin/quizzes', this.quizId]);
+          this.router.navigate(['/admin/quizzes', this.quizId]);
         },
         error: (error) => {
           console.error('Error creating choice:', error);
@@ -101,8 +103,11 @@ export class ChoiceFormComponent implements OnInit {
       });
     }
   }
+  goToQuizDetails(quizId: number) {
+    this.router.navigate(['admin/quizzes', quizId]);
+  }
 
   onCancel(): void {
-    this.router.navigate(['admin/quizzes', this.quizId, 'questions', this.questionId]);
+    this.goToQuizDetails(this.quizId!);
   }
 }

@@ -171,20 +171,20 @@ body {
 
 /* Container to hold all cards in one place */
 .card-area {
-  align-items: center;
-  display: flex;
-  flex-wrap: nowrap;
-  height: 100%;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exactly 3 columns */
+  gap: 1rem; /* Space between cards */
   padding: 1rem;
+  width: 100%;
 }
+
 
 /* Card ============================================*/
 
 /* Area to hold an individual card */
 .card-section {
   align-items: center;
-  display: flex;
+  display:flex;
   height: 100%;
   justify-content: center;
   width: 100%;
@@ -196,7 +196,8 @@ body {
   box-shadow: -.1rem 1.7rem 6.6rem -3.2rem rgba(0,0,0,0.5);
   height: 15rem;
   position: relative;
-  transition: all 1s ease;
+  display: flex;
+  transition: all 0.3s ease;
   width: 15rem;
 }
 

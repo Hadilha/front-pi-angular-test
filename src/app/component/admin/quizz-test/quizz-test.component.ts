@@ -51,7 +51,7 @@ export class QuizTestComponent implements OnInit, OnDestroy {
     if (quizId) {
       this.loadQuiz(+quizId);
     } else {
-      this.router.navigate(['/quizzes']);
+      this.router.navigate(['/admin/quizzes']);
     }
     this.loadScores();
     // Start timer

@@ -10,11 +10,16 @@ import { Quizz } from '../../../model/quizz';
 export class QuizListComponent implements OnInit {
   quizzes: Quizz[] = [];
   isLoading = true;
+  show=false;
 
   constructor(private quizService: QuizzServiceService) { }
 
   ngOnInit(): void {
     this.loadQuizzes();
+  }
+
+  showButton() {
+    this.show = !this.show;
   }
 
   loadQuizzes(): void {

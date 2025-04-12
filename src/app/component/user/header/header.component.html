@@ -8,18 +8,23 @@
       <nav class="desktop-nav" *ngIf="!isMobileView">
         <ul>
           <li >
-            <a [routerLink]="['/quizzeslist']" >
+            <a [routerLink]="['auth/quizzeslist']" >
               user quiz list
             </a>
           </li>
           <li >
-            <a [routerLink]="['/quizzes']" >
+            <a [routerLink]="['admin/quizzes']" >
               Admin Quiz List
             </a>
           </li>
           <li >
-            <a [routerLink]="['/scorelist']" >
+            <a [routerLink]="['auth/scorelist']" >
                 User Scores
+              </a>
+          </li>
+          <li >
+            <a [routerLink]="['auth/combatgame']" >
+                Game
               </a>
           </li>
         </ul>

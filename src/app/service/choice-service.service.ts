@@ -28,4 +28,8 @@ export class ChoiceServiceService {
     return this.http.get<Choice>(`${this.apiUrl}/${id}`);
   }
 
+  updateChoice(id: number, choice: Choice): Observable<Choice> {
+    return this.http.put<Choice>(`${this.apiUrl}/${id}`, choice);
+  }
+
 }

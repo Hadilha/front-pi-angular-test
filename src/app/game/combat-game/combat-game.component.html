@@ -1,9 +1,9 @@
-<div class="game-header">
-    <div class="timer">Time: {{ formatTime(timeElapsed) }}</div>
-    <div class="score" *ngIf="gameCompleted">Score: {{ finalScore }}</div>
-    <div class="best-score" *ngIf="bestScore !== null">Best: {{ bestScore }}</div>
-  </div>
-  
+<div class="game-header" >
+    <div class="timer" style="font-family: 'Courier New', Courier, monospace; font: 1em sans-serif; font-size: larger;">Time: {{ formatTime(timeElapsed) }}</div>
+    <div class="score" *ngIf="gameCompleted"><h1>Score: {{ finalScore }}</h1> </div>
+    <div style="font-family: 'Courier New', Courier, monospace; font: 1em sans-serif; font-size: larger;" *ngIf="bestScore !== null">Best score: {{ bestScore }}</div>
+</div>
+  <div style="display: flex; justify-content: center;" >
   <div class="game-container">
     <div 
       *ngFor="let card of cards"
@@ -15,8 +15,9 @@
       {{ card.isHidden ? '' : card.symbol }}
     </div>
   </div>
+</div>
   
-  <div class="game-controls">
+  <div class="game-controls" style="display: flex; justify-content: center;">
     <button class="reset-button" (click)="resetGame()">Reset Game</button>
     
     <div class="game-complete" *ngIf="gameCompleted">

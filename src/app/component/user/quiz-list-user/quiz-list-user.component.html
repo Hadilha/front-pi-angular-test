@@ -1,5 +1,8 @@
 <body>
     <main  class="main">
+        <div style="display: flex; justify-content: center;" >
+            <h1 style="margin-bottom: 50px; font-family: 'Courier New', Courier, monospace; font-size:100px;" >Quizes</h1>
+        </div>
 
         <section  class="main" class="card-area">
 
@@ -30,7 +33,7 @@
                             <p class="inside-page__text">
                                {{quizz.description}}
                             </p>
-                            <a [routerLink]="['/test',quizz.quizz_id]" class="inside-page__btn inside-page__btn--camping">Take Quiz</a>
+                            <a [routerLink]="['/auth/test',quizz.quizz_id]" class="inside-page__btn inside-page__btn--camping">Take Quiz</a>
                         </div>
                     </div>
                 </div>

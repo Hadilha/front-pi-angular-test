@@ -1,0 +1,65 @@
+<div class="game-container">
+    <div class="game-title" [class.hidden]="gameActive">
+      <div class="title-chunks">
+        <span class="title-far-left">Wha</span>
+        <span class="title-center-left">c-</span>
+        <span class="title-center">A</span>
+        <span class="title-center-right">-M</span>
+        <span class="title-far-right">ole</span>
+      </div>
+      <button class="start-button" (click)="startGame()">Play</button>
+    </div>
+  
+    <div class="game-area" [class.hidden]="!gameActive">
+      <div class="holes-container">
+        <div *ngFor="let hole of holes" 
+             class="hole" 
+             [class.damaged]="hole.damaged"
+             [class.far-left]="hole.position === 'far-left'"
+             [class.center-left]="hole.position === 'center-left'"
+             [class.center]="hole.position === 'center'"
+             [class.center-right]="hole.position === 'center-right'"
+             [class.far-right]="hole.position === 'far-right'"
+             (click)="missHole(hole.id)">
+          <div *ngFor="let mole of moles" 
+               class="mole" 
+               [class.active]="mole.active && mole.position === hole.position"
+               [class.far-left]="mole.position === 'far-left'"
+               [class.center-left]="mole.position === 'center-left'"
+               [class.center]="mole.position === 'center'"
+               [class.center-right]="mole.position === 'center-right'"
+               [class.far-right]="mole.position === 'far-right'"
+               (click)="whackMole(mole.id); $event.stopPropagation()">
+          </div>
+        </div>
+      </div>
+  
+      <div class="game-info">
+        <div class="score">Score: {{score}}</div>
+        <button class="help-button" (click)="toggleHelp()">Help</button>
+      </div>
+    </div>
+  
+    <!-- Modals -->
+    <div class="modal" *ngIf="showWinModal">
+      <div class="modal-content">
+        <p>Congratulations! You scored {{score}} points.</p>
+        <button (click)="resetGame()">Play Again</button>
+      </div>
+    </div>
+  
+    <div class="modal" *ngIf="showLossModal">
+      <div class="modal-content">
+        <p>Game Over! You scored {{score}} points.</p>
+        <button (click)="resetGame()">Try Again</button>
+      </div>
+    </div>
+  
+    <div class="modal" *ngIf="showHelpModal">
+      <div class="modal-content">
+        <p>Five moles and five holes. Click on the moles to hit them as they pop out. Be careful though—if you hit a hole when a mole isn't there, you damage the hole!</p>
+        <button (click)="toggleHelp()">Continue</button>
+        <button (click)="resetGame(); toggleHelp()">Restart</button>
+      </div>
+    </div>
+  </div>

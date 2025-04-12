@@ -1,0 +1,273 @@
+.game-container {
+  position: relative;
+  width: 39em;
+  height: 7em;
+  margin: 0 auto;
+  overflow: hidden;
+  background-color: #546269;
+  font-family: 'Titillium Web', sans-serif;
+  color: #617078;
+  text-align: center;
+}
+
+.game-title {
+  position: relative;
+  z-index: 2;
+  padding: 1em 0;
+  transition: all 0.4s ease;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.title-chunks {
+  position: relative;
+  margin: 0;
+  padding: 0.3em 0;
+  color: #546269;
+  font-size: 1.5em;
+  text-shadow: -1px -1px 0 #22282a, 1px -1px 0 #22282a, -1px 1px 0 #22282a, 1px 1px 0 #22282a;
+  letter-spacing: 0.2em;
+  word-spacing: -0.4em;
+}
+
+.title-far-left, .title-center-left {
+  display: inline-block;
+  transform-origin: bottom right;
+}
+
+.title-center-right, .title-far-right {
+  display: inline-block;
+  transform-origin: bottom left;
+}
+
+.title-far-left {
+  transform: rotate(-20deg) translate(0.2em, 0.1em);
+}
+
+.title-center-left {
+  transform: rotate(-10deg) translate(0.1em, -0.1em);
+}
+
+.title-center-right {
+  transform: rotate(10deg) translate(-0.2em, 0);
+}
+
+.title-far-right {
+  transform: rotate(20deg) translate(-0.3em, 0.3em);
+}
+
+.start-button {
+  display: inline-block;
+  border: 0.1em solid #444f55;
+  border-radius: 0.3em;
+  padding: 0.5em 1em;
+  background-color: #617078;
+  color: #3d484c;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1em;
+
+  &:hover {
+    background-color: #6f828b;
+  }
+}
+
+.game-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.4s;
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.holes-container {
+  position: relative;
+  height: 100%;
+}
+
+.hole {
+  position: absolute;
+  width: 4.4em;
+  height: 2.7em;
+  border: 0.3em solid #30383b;
+  border-bottom-width: 0;
+  border-radius: 50%;
+  background-color: #22282a;
+  cursor: crosshair;
+
+  &.damaged {
+    border-color: #444f55;
+    background-color: #30383b;
+    cursor: not-allowed;
+
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      left: -0.3em;
+      width: 5.83em;
+      height: 0.3em;
+      background-color: #22282a;
+    }
+
+    &::before {
+      top: -0.3em;
+      transform: rotate(28deg);
+      transform-origin: top left;
+    }
+
+    &::after {
+      bottom: 0;
+      transform: rotate(-28deg);
+      transform-origin: bottom left;
+    }
+  }
+
+  &.far-left, &.center, &.far-right {
+    top: 2.5em;
+  }
+
+  &.center-left, &.center-right {
+    top: 1em;
+  }
+
+  &.far-left {
+    left: 5em;
+  }
+
+  &.center-left {
+    left: 11em;
+  }
+
+  &.center {
+    left: 17em;
+  }
+
+  &.center-right {
+    left: 23em;
+  }
+
+  &.far-right {
+    left: 29em;
+  }
+}
+
+.mole {
+  position: absolute;
+  width: 5em;
+  height: 3em;
+  cursor: crosshair;
+  display: none;
+
+  &.active {
+    display: block;
+    animation: molePop 0.3s forwards;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0.25em;
+      left: 1.25em;
+      width: 2.5em;
+      height: 2.5em;
+      border-radius: 1em 1em 0.5em 0.5em;
+      background-color: #30383b;
+    }
+
+    &::after {
+      content: '..';
+      position: absolute;
+      top: 0.5em;
+      left: 1.75em;
+      width: 1.5em;
+      height: 1em;
+      border-radius: 0.5em;
+      background-color: #444f55;
+      font-weight: bold;
+    }
+  }
+}
+
+.game-info {
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.5em;
+}
+
+.score {
+  color: #30383b;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.help-button {
+  border: 0.1em solid #444f55;
+  border-radius: 0.3em;
+  padding: 0.3em;
+  background-color: #617078;
+  color: #3d484c;
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.modal-content {
+  background-color: #546269;
+  padding: 2em;
+  border-radius: 0.5em;
+  max-width: 80%;
+  text-align: center;
+
+  button {
+    margin: 0.5em;
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.3em;
+    background-color: #617078;
+    color: #3d484c;
+    font-weight: bold;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #6f828b;
+    }
+  }
+}
+
+@keyframes molePop {
+  0% { transform: translateY(8em); }
+  100% { transform: translateY(0); }
+}
+
+@keyframes hammer {
+  0% { transform: rotate(-30deg); }
+  50% { transform: rotate(-45deg); }
+  100% { transform: rotate(-30deg); }
+}
