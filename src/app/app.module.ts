@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { GoogleChartsModule } from 'angular-google-charts';
 
 // layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
@@ -78,7 +79,8 @@ import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction'
+import interactionPlugin from '@fullcalendar/interaction';
+import { AppointmentStatisticsComponent } from './backOffice/appointment-statistics/appointment-statistics.component';
 
 
 
@@ -137,10 +139,13 @@ import interactionPlugin from '@fullcalendar/interaction'
     CalendarFormComponent,
     CalendarViewComponent,
     CalendarViewComponent,
+    AppointmentStatisticsComponent,
+
+    
 
   ],
   
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,CommonModule,FullCalendarModule,BrowserAnimationsModule],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,CommonModule,FullCalendarModule,BrowserAnimationsModule,GoogleChartsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -1,29 +1,31 @@
-<div class="container mt-4" style="margin-top: 80px;">
+<div class="container mt-5">
   <div class="card shadow-lg border-0">
-    <div class="card-header bg-primary text-white py-3 rounded-top">
+    <div class="card-header bg-primary bg-gradient text-white py-3 rounded-top">
       <h2 class="mb-0 h4">
         <i class="bi bi-calendar-event me-2"></i>
-        {{ isEditMode ? 'Edit' : 'Create' }} Calendar
+        {{ isEditMode ? 'Edit' : 'New' }} Calendar
       </h2>
     </div>
 
     <div class="card-body p-4">
-      <form [formGroup]="calendarForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="calendarForm" (ngSubmit)="onSubmit()" @fadeIn>
         <div class="row g-4">
           <!-- Owner ID -->
           <div class="col-md-6" formGroupName="owner">
             <div class="form-floating">
-              <input type="number" id="userId" class="form-control" 
-                     formControlName="userId"
+              <input type="number" class="form-control form-control-lg" 
+                     id="userId" formControlName="userId"
+                     step="1" min="1"
                      [class.is-invalid]="calendarForm.get('owner.userId')?.invalid && 
                                       (calendarForm.get('owner.userId')?.dirty || 
                                        calendarForm.get('owner.userId')?.touched)">
               <label for="userId" class="form-label">
                 <i class="bi bi-person-badge me-2"></i>Owner User ID
               </label>
-              <div class="invalid-feedback">
+              <div class="invalid-feedback d-flex align-items-center">
+                <i class="bi bi-exclamation-circle me-2"></i>
                 <span *ngIf="calendarForm.get('owner.userId')?.errors?.['required']">
-                  User ID is required
+                  Owner User ID is required
                 </span>
                 <span *ngIf="calendarForm.get('owner.userId')?.errors?.['min']">
                   Must be a positive number
@@ -35,25 +37,29 @@
           <!-- Events JSON -->
           <div class="col-12">
             <div class="form-floating">
-              <textarea 
-  id="events" 
-  class="form-control" 
-  formControlName="events" 
-  rows="5"
-  [class.is-invalid]="calendarForm.get('events')?.invalid"
-  placeholder='{"date": "event description"}'></textarea>
+              <textarea class="form-control form-control-lg" id="events" 
+                        formControlName="events" rows="5" style="height: 150px;"
+                        placeholder='{"date": "event description"}'></textarea>
               <label for="events" class="form-label">
                 <i class="bi bi-code-square me-2"></i>Events (JSON Format)
               </label>
-              <small class="form-text text-muted mt-2 d-block">
-                Example format:
-                <code class="d-block mt-2 p-2 bg-light rounded" style="white-space: pre-wrap">
+              <div class="mt-2 d-flex flex-column gap-2">
+                <small class="form-text text-muted">
+                  Example format:
+                  <button type="button" 
+                          class="btn btn-link p-0 align-baseline" 
+                          (click)="useExampleJson()"
+                          *ngIf="!isEditMode">
+                    <i class="bi bi-arrow-clockwise me-1"></i>Load example
+                  </button>
+                </small>
+                <code class="d-block p-2 bg-light rounded" style="white-space: pre-wrap">
                   {{ '{' }}
                   "2024-12-31T10:00:00": "Consultation",
                   "2024-12-31T14:00:00": "Meeting"
                   {{ '}' }}
                 </code>
-              </small>
+              </div>
             </div>
           </div>
         </div>
@@ -65,10 +71,11 @@
             <i class="bi bi-x-circle me-2"></i>Cancel
           </button>
           
-          <button type="submit" class="btn btn-success px-4 py-2"
-                  [disabled]="calendarForm.invalid">
+          <button type="submit" class="btn btn-primary px-4 py-2"
+                  [disabled]="calendarForm.invalid || isLoading">
             <i class="bi bi-save me-2"></i>
             {{ isEditMode ? 'Update' : 'Create' }} Calendar
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-2"></span>
           </button>
         </div>
 

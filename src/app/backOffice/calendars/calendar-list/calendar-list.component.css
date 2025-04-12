@@ -1,24 +1,113 @@
+/* Card Styling */
+.card {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Header Gradient */
+.bg-primary.bg-gradient {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+/* Button Transitions */
+.transition-btn {
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.3s ease;
+}
+
+.transition-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Table Styles */
+.table-dark {
+  background-color: #343a40;
+}
+
+.transition-hover {
+  transition: background-color 0.2s ease;
+}
+
+.transition-hover:hover {
+  background-color: #f8f9fa;
+}
+
 .json-preview {
-    max-height: 150px;
-    overflow-y: auto;
-    font-size: 0.875rem;
-    border: 1px solid #dee2e6;
+  max-width: 400px;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.fs-sm {
+  font-size: 0.875rem;
+}
+
+/* Search/Button Group Styles */
+.input-group-smaller {
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-group-smaller:focus-within {
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+}
+
+.input-group-smaller .form-control {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.input-group-smaller .input-group-text {
+  border-radius: 8px 0 0 8px;
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  padding: 0.5rem 1rem;
+}
+
+.btn-light {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.btn-light:hover {
+  background-color: #fff !important;
+  border-color: rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Loading States */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.4rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .bg-primary.bg-gradient .d-flex {
+    flex-direction: column;
+    gap: 1rem !important;
   }
   
-  .table-hover tbody tr:hover {
-    background-color: #f8f9fa;
+  .input-group-smaller {
+    width: 100% !important;
   }
   
-  .btn-group .btn {
-    transition: all 0.2s ease;
+  .btn.btn-light.btn-md {
+    width: 100%;
+    justify-content: center;
   }
-  
-  .btn-outline-secondary:hover {
-    background-color: #6c757d;
-    color: white !important;
+
+  .json-preview {
+    max-width: 200px;
   }
-  
-  .btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: white !important;
-  }
+}
+
+/* Empty State Styling */
+.fs-4 {
+  font-size: 1.5rem;
+}

@@ -31,5 +31,9 @@ export class AppointmentService {
   deleteAppointment(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getAppointmentStatistics(): Observable<Map<string, number>> {
+    return this.http.get<Map<string, number>>(`${this.apiUrl}/statistics`);
+  }
   
 }

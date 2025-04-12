@@ -19,6 +19,7 @@ import { AppointmentListComponent } from "./backOffice/appointments/appointment-
 import { AppointmentFormComponent } from "./backOffice/appointments/appointment-form/appointment-form.component";
 import { CalendarListComponent } from "./backOffice/calendars/calendar-list/calendar-list.component";
 import { CalendarFormComponent } from "./backOffice/calendars/calendar-form/calendar-form.component";
+import { AppointmentStatisticsComponent } from './backOffice/appointment-statistics/appointment-statistics.component';
 
 // Auth Views
 import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: "calendars", component: CalendarListComponent },
       { path: "calendars/new", component: CalendarFormComponent },
       { path: "calendars/:id/edit", component: CalendarFormComponent },
+      { path: 'appointment-statistics', component: AppointmentStatisticsComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
   },

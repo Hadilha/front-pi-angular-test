@@ -54,3 +54,61 @@
 .table-dark {
   background-color: #343a40;
 }
+
+/* Search Container Styling */
+.search-container {
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(2px);
+}
+
+.search-container:hover,
+.search-container:focus-within {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.search-container input {
+  color: white !important;
+}
+
+.search-container input::placeholder {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.search-container .form-control:focus {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Clear Button Styling */
+.btn-link {
+  transition: all 0.2s ease;
+}
+
+.btn-link:hover {
+  opacity: 0.8;
+  transform: scale(1.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-container {
+    margin-top: 1rem;
+  }
+}
+.stats-btn {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 500;
+}
+
+.stats-btn:hover {
+  background-color: #0b7dda;
+}
