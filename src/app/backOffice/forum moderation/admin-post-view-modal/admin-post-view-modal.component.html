@@ -61,7 +61,7 @@
   <div class="mt-8 border-t pt-6">
     <h4 class="text-lg font-semibold text-gray-700 mb-4">Comments</h4>
 
-    <div *ngIf="data.comments.length > 0; else noComments">
+    <div *ngIf="data && data.comments && data.comments.length > 0; else noComments">
       <div *ngFor="let comment of data.comments" class="bg-gray-50 p-4 rounded mb-4 shadow-lg hover:shadow-xl transition-shadow duration-300">
         <div class="flex justify-between items-center mb-2">
           <div>
