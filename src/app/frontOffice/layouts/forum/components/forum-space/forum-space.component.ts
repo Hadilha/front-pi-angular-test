@@ -2,31 +2,8 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
-import { Pipe, PipeTransform } from '@angular/core';
+import { Post } from '../../models/post/post.model';
 
-@Pipe({ name: 'categoryFilter' })
-export class CategoryFilterPipe implements PipeTransform {
-  transform(posts: any[], selectedCategory: string): any[] {
-    if (selectedCategory === 'All' || !selectedCategory) return posts;
-    return posts.filter((post) => post.tag === selectedCategory);
-  }
-}
-
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  tag: string;
-  author: {
-    id: number;
-    name: string;
-  };
-  createdAt: string;
-  replies: number;
-  likes: number;
-  comments: any[];
-  reactions: { [key: string]: number };
-}
 
 @Component({
   selector: 'app-forum-space',
@@ -68,7 +45,6 @@ export class ForumSpaceComponent implements OnInit {
 
   ngOnInit() {
     console.log('✅ Current user:', this.currentUser);
-    //this.getCommentCountForPost(this.selectedPost.id);
     this.http.get<any[]>('http://localhost:8089/forum/posts').subscribe({
       next: (data) => {
         this.posts = data.map((post) => ({
@@ -341,21 +317,7 @@ export class ForumSpaceComponent implements OnInit {
     this.commentBeingEdited = null;
     this.commentEditContent = '';
   }
-  /*
-  getCommentCount(postId: number) {
-    return this.http.get<number>(`http://localhost:8089/forum/comments/count/${postId}`);
-  }
-  
-  getCommentCountForPost(postId: number): void {
-    this.http.get<number>(`http://localhost:8089/forum/comments/count/${postId}`).subscribe(
-      (count) => {
-        this.selectedPost.commentCount = count; // Store the count on selectedPost
-      },
-      (error) => {
-        console.error('Error fetching comment count', error);
-      }
-    );
-  }*/
+
 
   //* React CRUD methods
 
