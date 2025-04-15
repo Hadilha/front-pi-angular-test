@@ -2,6 +2,31 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { OnInit } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ name: 'categoryFilter' })
+export class CategoryFilterPipe implements PipeTransform {
+  transform(posts: any[], selectedCategory: string): any[] {
+    if (selectedCategory === 'All' || !selectedCategory) return posts;
+    return posts.filter((post) => post.tag === selectedCategory);
+  }
+}
+
+export interface Post {
+  id: number;
+  title: string;
+  content: string;
+  tag: string;
+  author: {
+    id: number;
+    name: string;
+  };
+  createdAt: string;
+  replies: number;
+  likes: number;
+  comments: any[];
+  reactions: { [key: string]: number };
+}
 
 @Component({
   selector: 'app-forum-space',
@@ -22,11 +47,24 @@ export class ForumSpaceComponent implements OnInit {
   newPost = {
     title: '',
     content: '',
+    tag: '',
     author: '',
     createdAt: '',
     replies: 0,
     likes: 0,
   };
+
+  // In your component.ts
+  tags: string[] = [
+    'All',
+    'Discussion',
+    'Question',
+    'Help',
+    'Feedback',
+    'Other',
+  ];
+  selectedCategory: string = 'All';
+  customTag: string = '';
 
   ngOnInit() {
     console.log('✅ Current user:', this.currentUser);
@@ -45,6 +83,48 @@ export class ForumSpaceComponent implements OnInit {
     });
   }
 
+  // forum-space.component.ts
+
+  fetchPosts() {
+    if (this.selectedCategory === 'Other') {
+      this.http.get<Post[]>('http://localhost:8089/forum/posts').subscribe({
+        next: (posts) => {
+          // Filter posts that don't belong to main categories
+          const mainTags = ['Discussion', 'Question', 'Help', 'Feedback'];
+          this.posts = posts.filter(
+            (post) => !mainTags.includes(post.tag) && post.tag !== 'Custom'
+          );
+        },
+        error: (err) => {
+          console.error('Error fetching posts', err);
+        },
+      });
+    } else if (this.selectedCategory === 'All') {
+      this.http.get<Post[]>('http://localhost:8089/forum/posts').subscribe({
+        next: (posts) => {
+          this.posts = posts;
+        },
+        error: (err) => {
+          console.error('Error fetching posts', err);
+        },
+      });
+    } else {
+      // For specific tags (including custom)
+      this.http
+        .get<Post[]>(
+          `http://localhost:8089/forum/posts?tag=${this.selectedCategory}`
+        )
+        .subscribe({
+          next: (posts) => {
+            this.posts = posts;
+          },
+          error: (err) => {
+            console.error('Error fetching posts', err);
+          },
+        });
+    }
+  }
+
   //* POST CRUD methods
   getPosts() {
     this.http
@@ -58,31 +138,49 @@ export class ForumSpaceComponent implements OnInit {
   createPost() {
     if (!this.newPost.title || !this.newPost.content) return;
 
+    // Determine the final tag value
+    const finalTag =
+      this.selectedCategory === 'Custom'
+        ? this.customTag.trim()
+        : this.selectedCategory;
+
+    if (!finalTag) {
+      alert('Please select or enter a valid tag');
+      return;
+    }
+
     const postPayload = {
       title: this.newPost.title,
       content: this.newPost.content,
-      tag: 'general', // or whatever tag you want
+      tag: finalTag, // This is the crucial value
       author: {
-        id: 1, // static user ID
+        id: 1, // Static user ID
       },
     };
 
-    this.http.post('http://localhost:8089/forum/posts', postPayload).subscribe({
-      next: (createdPost) => {
-        this.posts.unshift(createdPost);
-        this.newPost = {
-          title: '',
-          content: '',
-          author: '',
-          createdAt: '',
-          replies: 0,
-          likes: 0,
-        };
-      },
-      error: (err) => {
-        console.error('❌ Failed to create post:', err);
-      },
-    });
+    this.http
+      .post<Post>('http://localhost:8089/forum/posts', postPayload)
+      .subscribe({
+        next: (createdPost) => {
+          this.posts.unshift(createdPost);
+          // Reset form values
+          this.newPost = {
+            title: '',
+            content: '',
+            tag: '', // Keep this empty
+            author: '',
+            createdAt: '',
+            replies: 0,
+            likes: 0,
+          };
+          this.customTag = '';
+          this.selectedCategory = 'Discussion'; // Reset to default
+        },
+        error: (err) => {
+          console.error('❌ Failed to create post:', err);
+          alert('Error creating post. Please check console for details.');
+        },
+      });
   }
 
   deletePost(postId: number) {
@@ -270,10 +368,10 @@ export class ForumSpaceComponent implements OnInit {
         this.currentUserReaction = reaction;
       });
   }
-  
+
   reactToPost(type: string): void {
     if (!this.selectedPost) return;
-  
+
     if (this.currentUserReaction === type) {
       // Remove existing reaction
       this.http
@@ -282,18 +380,18 @@ export class ForumSpaceComponent implements OnInit {
         )
         .subscribe(() => {
           this.currentUserReaction = null;
-  
+
           // Decrement count safely
           if (this.selectedPost.reactions?.[type]) {
             this.selectedPost.reactions[type]--;
           }
-  
+
           this.selectedPost = { ...this.selectedPost }; // Trigger UI refresh
         });
     } else {
       // Add or update reaction
       const reaction = { type };
-  
+
       this.http
         .post(
           `http://localhost:8089/forum/posts/${this.selectedPost.id}/reactions?username=${this.currentUser}`,
@@ -307,28 +405,28 @@ export class ForumSpaceComponent implements OnInit {
               this.selectedPost.reactions[this.currentUserReaction]--;
             }
           }
-  
+
           if (!this.selectedPost.reactions[type]) {
             this.selectedPost.reactions[type] = 0;
           }
-  
+
           this.selectedPost.reactions[type]++;
           this.currentUserReaction = type;
           this.selectedPost = { ...this.selectedPost }; // Trigger UI refresh
         });
     }
   }
-  
+
   openPost(post: any): void {
     this.selectedPost = post;
-  
+
     // Load comments
     this.http
       .get<Comment[]>(`http://localhost:8089/forum/comments/byPost/${post.id}`)
       .subscribe((comments) => {
         this.selectedPost.comments = comments;
       });
-  
+
     // Load reactions count first
     this.http
       .get<{ [key: string]: number }>(
@@ -336,7 +434,7 @@ export class ForumSpaceComponent implements OnInit {
       )
       .subscribe((reactionCounts) => {
         this.selectedPost.reactions = reactionCounts;
-  
+
         // THEN load user reaction and sync if necessary
         this.http
           .get<string>(
@@ -344,20 +442,18 @@ export class ForumSpaceComponent implements OnInit {
           )
           .subscribe((reaction) => {
             this.currentUserReaction = reaction;
-  
+
             // Make sure the count includes the user's reaction
             if (reaction) {
               if (!this.selectedPost.reactions[reaction]) {
                 this.selectedPost.reactions[reaction] = 1;
               }
             }
-  
+
             this.selectedPost = { ...this.selectedPost }; // Refresh view
           });
       });
   }
-  
-  
 
   newComment: string = '';
 
@@ -365,13 +461,10 @@ export class ForumSpaceComponent implements OnInit {
   reactionTypes = ['UPVOTE', 'DOWNVOTE', 'HEART', 'SAD', 'LAUGH', 'CELEBRATE'];
   currentUserReaction: string | null = null; // Current reaction of the user for selectedPost
 
-  
-
   // Used in template to style the selected reaction
   hasReacted(type: string): boolean {
     return this.currentUserReaction === type;
   }
-  
 
   // Count reactions
   getReactionCount(type: string): number {

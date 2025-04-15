@@ -90,6 +90,41 @@
                   />
                 </div>
 
+                <!-- Category Dropdown -->
+                <!-- Category Selection -->
+                <div class="mb-4">
+                  <label
+                    class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+                    >Category</label
+                  >
+                  <select
+                    [(ngModel)]="selectedCategory"
+                    name="category"
+                    required
+                    class="form-select"
+                  >
+                    <option
+                      *ngFor="let tag of tags"
+                      [value]="tag"
+                    >
+                      {{ tag }}
+                    </option>
+                    <option value="Custom">Custom</option>
+                  </select>
+                  <div *ngIf="selectedCategory === 'Custom'">
+                    <input
+                      type="text"
+                      [(ngModel)]="customTag"
+                      name="customTag"
+                      placeholder="Enter custom tag"
+                      class="form-control mt-2"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <!-- Custom Tag Input -->
+
                 <div class="mb-4">
                   <label
                     class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -126,6 +161,22 @@
           <span class="text-4xl">🔥</span>
           <span>Community Forum</span>
         </h2>
+        <!-- Category Filter Buttons -->
+        <!-- Category Filter Buttons -->
+        <div class="flex gap-3 flex-wrap mb-6">
+          <button
+            *ngFor="let tag of tags"
+            (click)="selectedCategory = tag; fetchPosts()"
+            [ngClass]="{
+              'bg-blue-600 text-white': selectedCategory === tag,
+              'bg-white text-blue-600 border border-blue-300':
+                selectedCategory !== tag
+            }"
+            class="px-4 py-2 rounded-full font-medium transition-all duration-200 shadow-sm"
+          >
+            #{{ tag }}
+          </button>
+        </div>
 
         <div class="space-y-8">
           <div
@@ -141,8 +192,8 @@
               />
               <div class="leading-tight">
                 <h4 class="text-lg font-semibold text-blueGray-800">
-                  {{ post.author?.name || 'Unknown Author' }}
-                </h4>                
+                  {{ post.author?.name || "Unknown Author" }}
+                </h4>
                 <span class="text-xs text-blueGray-400 block">{{
                   post.createdAt
                 }}</span>
@@ -172,10 +223,11 @@
                 </span>
               </div>
 
+              <!-- Dynamically display the category/tag here -->
               <span
                 class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium"
               >
-                #Discussion
+                #{{ post.tag }}
               </span>
 
               <!-- Delete Button -->
@@ -282,21 +334,20 @@
 
     <!-- Reaction Buttons -->
     <!-- Reaction Buttons -->
-<div class="flex justify-center gap-3 mt-6 flex-wrap">
-  <button
-    *ngFor="let type of reactionTypes"
-    class="flex items-center space-x-1 px-3 py-1 rounded-full border shadow-sm transition duration-200"
-    [ngClass]="{
-      'bg-blue-100 text-blue-700 border-blue-300': hasReacted(type),
-      'bg-gray-100 text-gray-600 border-gray-300': !hasReacted(type)
-    }"
-    (click)="reactToPost(type)"
-  >
-    <span>{{ getReactionEmoji(type) }}</span>
-    <span class="text-sm">{{ getReactionCount(type) }}</span>
-  </button>
-</div>
-
+    <div class="flex justify-center gap-3 mt-6 flex-wrap">
+      <button
+        *ngFor="let type of reactionTypes"
+        class="flex items-center space-x-1 px-3 py-1 rounded-full border shadow-sm transition duration-200"
+        [ngClass]="{
+          'bg-blue-100 text-blue-700 border-blue-300': hasReacted(type),
+          'bg-gray-100 text-gray-600 border-gray-300': !hasReacted(type)
+        }"
+        (click)="reactToPost(type)"
+      >
+        <span>{{ getReactionEmoji(type) }}</span>
+        <span class="text-sm">{{ getReactionCount(type) }}</span>
+      </button>
+    </div>
 
     <!-- Footer: Stats Section -->
     <div
@@ -306,7 +357,7 @@
         <i class="fas fa-comments text-blue-500"></i>
         {{ selectedPost.replies }} Replies
       </span>
-      
+
       <span class="flex items-center gap-2">
         <i class="fas fa-thumbs-up text-green-500"></i>
         {{ selectedPost.likes }} Likes
