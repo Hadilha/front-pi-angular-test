@@ -12,7 +12,7 @@ import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.c
 import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
 
 // admin views
-import { AdminDashboardComponent } from "./backOffice/admin-dashboard/admin-dashboard.component"; 
+import { AdminDashboardComponent } from "./backOffice/admin-dashboard/admin-dashboard.component";
 
 
 // auth views
@@ -26,6 +26,12 @@ import { ProfileComponent } from "./frontOffice/views/profile/profile.component"
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 import { AdminComponent } from "./backOffice/admin/admin.component";
 import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
+import {PrescriptionListComponent} from "./prescriptions/list/prescription-list.component";
+import {NoteListComponent} from "./notes/list/note-list.component";
+import {NoteFormComponent} from "./notes/form/note-form.component";
+import {PrescriptionFormComponent} from "./prescriptions/form/prescription-form.component";
+import {UpdateNoteComponent} from "./notes/update/update-note/update-note.component";
+import {UpdatePrescriptionComponent} from "./prescriptions/update/update-prescription/update-prescription.component";
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -37,7 +43,11 @@ const routes: Routes = [
       { path: "settings", component: SettingsComponent },
       { path: "tables", component: TablesComponent },
       { path: "maps", component: MapsComponent },
+      {path: "prescriptions", component: PrescriptionListComponent},
+      {path: "notes", component: NoteListComponent},
+      {path:"addnotes",component: NoteFormComponent},
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
+
     ],
   },
 
@@ -48,9 +58,15 @@ const routes: Routes = [
     children: [
       { path: "dashboard", component: AdminDashboardComponent },
       { path: "tables", component: AdminTablesComponent },
+      {path:"editnotes/:id" ,component: UpdateNoteComponent},
+      {path:"editprescriptions/:id",component: UpdatePrescriptionComponent},
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
+
+
     ],
   },
+  {path:"addprescription", component:PrescriptionFormComponent},
+
 
   // auth views
   {

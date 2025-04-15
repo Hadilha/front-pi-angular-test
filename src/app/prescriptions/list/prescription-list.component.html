@@ -1,0 +1,33 @@
+<div class="container mt-4">
+  <h2>Prescriptions List</h2>
+  <a routerLink="/prescriptions/add" class="btn btn-primary mb-3">Add New Prescription</a>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Medication</th>
+      <th>Dosage</th>
+      <th>Doctor</th>
+      <th>Patient</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let prescription of prescriptions">
+      <td>{{ prescription.prescriptionId }}</td>
+      <td>{{ prescription.medicationName }}</td>
+      <td>{{ prescription.dosage }}</td>
+      <td>{{ prescription.doctorName || prescription.doctorId }}</td>
+      <td>{{ prescription.patientName || prescription.patientId }}</td>
+      <td>
+        <a [routerLink]="['/admin/editprescriptions', prescription.prescriptionId]" class="btn btn-sm btn-warning me-2">Edit</a>
+        <button (click)="deletePrescription(prescription.prescriptionId)" class="btn btn-sm btn-danger">Delete</button>
+      </td>
+    </tr>
+    <tr *ngIf="prescriptions.length === 0">
+      <td colspan="6" class="text-center">No prescriptions found</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

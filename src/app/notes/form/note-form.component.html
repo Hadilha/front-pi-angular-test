@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h2>{{ isEditMode ? 'Edit' : 'Add' }} Patient Note</h2>
+
+  <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label for="description" class="form-label">Description</label>
+      <textarea class="form-control" id="description" formControlName="description" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="patientId" class="form-label">Patient ID</label>
+      <input type="number" class="form-control" id="patientId" formControlName="patientId">
+    </div>
+
+    <div class="mb-3">
+      <label for="doctorId" class="form-label">Doctor ID</label>
+      <input type="number" class="form-control" id="doctorId" formControlName="doctorId">
+    </div>
+
+    <div class="mb-3">
+      <label for="prescriptionId" class="form-label">Prescription ID (Optional)</label>
+      <input type="number" class="form-control" id="prescriptionId" formControlName="prescriptionId">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="noteForm.invalid">
+      {{ isEditMode ? 'Update' : 'Save' }}
+    </button>
+    <a routerLink="/notes" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>

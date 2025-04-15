@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h2>Patient Notes List</h2>
+  <a routerLink="/notes/add" class="btn btn-primary mb-3">Add New Note</a>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Description</th>
+      <th>Patient</th>
+      <th>Doctor</th>
+      <th>Created</th>
+      <th>Updated</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let note of notes">
+      <td>{{ note.noteId }}</td>
+      <td>{{ note.description }}</td>
+      <td>{{ note.patient?.name }}</td>
+      <td>{{ note.doctor?.name }}</td>
+      <td>{{ note.creationDate | date }}</td>
+      <td>{{ note.updateDate | date }}</td>
+      <td>
+        <a [routerLink]="['/admin/editnotes', note.noteId]" class="btn btn-sm btn-warning me-2">Edit</a>
+        <button (click)="deleteNote(note.noteId)" class="btn btn-sm btn-danger">Delete</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
