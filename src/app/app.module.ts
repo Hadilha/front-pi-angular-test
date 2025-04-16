@@ -1,8 +1,9 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
+import { ContentProgramComponent } from './frontOffice/content-program/content-program.component'; // ton composant
 
 // layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
@@ -22,6 +23,9 @@ import { RegisterComponent } from "./frontOffice/views/auth/register/register.co
 import { IndexComponent } from "./frontOffice/views/index/index.component";
 import { LandingComponent } from "./frontOffice/views/landing/landing.component";
 import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
+//Coaching
+
+import { HttpClientModule } from '@angular/common/http';
 
 // components for views and layouts
 
@@ -61,6 +65,12 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
+import { CoachingprogramComponent } from './backOffice/coachingprogram/coachingprogram.component';
+import { ContentprogramComponent } from './backOffice/contentprogram/contentprogram.component';
+import { CoachingProgramAjouterUpdateComponent } from './backOffice/coachingprogramajouter-update/coachingprogramajouter-update.component';
+import { ContentProgramAjouterupdateComponent } from './backOffice/content-program-ajouterupdate/content-program-ajouterupdate.component';
+import { CoachOfTheMonthComponent } from './components/coach-of-the-month/coach-of-the-month.component';
+
 
 @NgModule({
   declarations: [
@@ -110,10 +120,19 @@ import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin
     AdminTablesComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
-    AdminHeaderStatsComponent
+    AdminHeaderStatsComponent,
+    CoachingprogramComponent,
+    ContentprogramComponent,
+    ContentProgramComponent,
+    
+   
+    CoachingProgramAjouterUpdateComponent,
+         ContentProgramAjouterupdateComponent,
+         CoachOfTheMonthComponent,
+         
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,HttpClientModule,ReactiveFormsModule, RouterModule.forRoot([])], // Ajout de HttpClientModule ici
   providers: [],
   bootstrap: [AppComponent],
 })

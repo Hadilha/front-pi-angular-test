@@ -148,6 +148,47 @@
             Appointments
           </a>
         </li>
+        <li class="items-center">
+          <a
+  [routerLink]="['/backoffice/coachingprogram/programs']"
+  class="text-xs uppercase py-3 font-bold block"
+  routerLinkActive
+  #coaching="routerLinkActive"
+  [ngClass]="
+    coaching.isActive
+      ? 'text-red-600 hover:text-red-700'
+      : 'text-gray-300 hover:text-gray-500'
+  "
+>
+  <i
+    class="fas fa-table mr-2 text-sm"
+    [ngClass]="
+      coaching.isActive ? 'opacity-75' : 'text-gray-500'
+    "
+  ></i>
+  Coaching
+</a>
+        </li>
+        <a
+  [routerLink]="['/backoffice/content-program']"
+  class="text-xs uppercase py-3 font-bold block"
+  routerLinkActive
+  #coaching="routerLinkActive"
+  [ngClass]="
+    coaching.isActive
+      ? 'text-red-600 hover:text-red-700'
+      : 'text-gray-300 hover:text-gray-500'
+  "
+>
+  <i
+    class="fas fa-table mr-2 text-sm"
+    [ngClass]="
+      coaching.isActive ? 'opacity-75' : 'text-gray-500'
+    "
+  ></i>
+  programmes de patient
+</a>
+
 
         <li class="items-center">
           <a

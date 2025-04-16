@@ -1,5 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { CoachingprogramComponent } from './backOffice/coachingprogram/coachingprogram.component'; // Chemin selon ta structure
+import { ContentprogramComponent } from './backOffice/contentprogram/contentprogram.component';
+import { ContentProgramAjouterupdateComponent } from './backOffice/content-program-ajouterupdate/content-program-ajouterupdate.component';
+import { CoachingProgramAjouterUpdateComponent } from './backOffice/coachingprogramajouter-update/coachingprogramajouter-update.component';
+import { ContentProgramComponent } from './frontOffice/content-program/content-program.component';
+
 
 // layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
@@ -28,6 +34,28 @@ import { AdminComponent } from "./backOffice/admin/admin.component";
 import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
 
 const routes: Routes = [
+
+  { path: 'backoffice/coachingprogram/programs', component: CoachingprogramComponent },
+  { path: '', redirectTo: 'backoffice/coachingprogram/programs', pathMatch: 'full' },
+  
+  { path: 'backoffice/content-program', component: ContentprogramComponent }, // Define route for ContentProgramComponent
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  {
+    path: 'coaching-program',
+    component: CoachingProgramAjouterUpdateComponent
+  },
+  { path: 'coaching-programs/coachingProgram/:id', component: CoachingProgramAjouterUpdateComponent },
+
+  //{
+   // path: 'backoffice/coachingprogramajouter-update/:id',
+    //component: CoachingProgramAjouterUpdateComponent
+  //},
+  { path: 'content-programs/programcontent', component: ContentProgramAjouterupdateComponent },
+  { path: 'content-programs/programcontent/:id', component: ContentProgramAjouterupdateComponent },
+  { path: 'frontOffice/content-program', component: ContentProgramComponent },
+  
+
+  
   // Doctor Dashboard
   {
     path: "doctor",

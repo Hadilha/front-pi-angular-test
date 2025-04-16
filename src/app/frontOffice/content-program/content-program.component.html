@@ -1,0 +1,24 @@
+<div class="container">
+  <h2 class="my-4">Liste des Programmes</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Media</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of programContents">
+          <td>{{ item.title }}</td>
+          <td>{{ item.contentType }}</td>
+          <td>{{ item.contentDesc }}</td>
+          <td><a [href]="item.mediaLink" target="_blank" class="btn btn-primary btn-sm">Voir</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<video src="https://www.youtube.com/watch?v=yUecJz1NkDc" ></video>

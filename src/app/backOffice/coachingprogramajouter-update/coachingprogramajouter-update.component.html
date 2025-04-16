@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <h2 class="text-2xl font-bold mb-4">Programme de coaching</h2>
+
+  <form (ngSubmit)="onSubmit()" #programForm="ngForm">
+    <div class="form-group mb-3">
+      
+        <label>ID du coach</label>
+        <input type="number" class="form-control" name="coachId" [(ngModel)]="program.coachId" required>
+      </div>
+    <div class="form-group mb-3">
+      <label>Titre</label>
+      <input type="text" class="form-control" name="title" [(ngModel)]="program.title" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Description</label>
+      <textarea class="form-control" name="description" [(ngModel)]="program.description" required></textarea>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Date de début</label>
+      <input type="date" class="form-control" name="startDate" [(ngModel)]="program.startDate" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Date de fin</label>
+      <input type="date" class="form-control" name="endDate" [(ngModel)]="program.endDate" required>
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Participants</label>
+      <input type="number" class="form-control" name="participants" [(ngModel)]="program.participants">
+    </div>
+
+    
+
+    <div class="form-group mb-3">
+      <label>Version</label>
+      <input type="number" class="form-control" name="version" [(ngModel)]="program.version">
+    </div>
+
+    <button type="submit" class="btn btn-success">Enregistrer</button>
+  </form>
+</div>

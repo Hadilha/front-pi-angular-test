@@ -1,0 +1,12 @@
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    gap: 12px;
+  }
+  
+  input, textarea, button {
+    padding: 8px;
+    font-size: 1rem;
+  }
+  

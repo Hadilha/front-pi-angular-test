@@ -1,0 +1,83 @@
+<div>
+  <app-admin-sidebar></app-admin-sidebar>
+  <div class="relative md:ml-64 bg-blueGray-100">
+    <app-admin-navbar></app-admin-navbar>
+    <app-admin-header-stats></app-admin-header-stats>
+    <div class="px-4 md:px-10 mx-auto w-full -m-24">
+      <div class="program-content-container py-8">
+        <div class="flex justify-between items-center mb-8">
+          <h2 class="text-2xl font-bold text-gray-800">Contenu des Programmes</h2>
+          <button (click)="createProgramContent()" class="btn btn-primary flex items-center" [routerLink]="['/content-programs/programcontent']">
+            <i class="fas fa-plus mr-2"></i> Ajouter du contenu
+          </button>
+        </div>
+      
+        <!-- Message de chargement -->
+        <div *ngIf="isLoading" class="text-center py-12">
+          <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+          <p class="text-gray-600">Chargement en cours...</p>
+        </div>
+      
+        <!-- Message si aucun contenu n'est trouvé -->
+        <div *ngIf="!isLoading && programContents.length === 0" class="text-center py-12 bg-white rounded-lg shadow">
+          <i class="fas fa-inbox text-4xl text-gray-400 mb-4"></i>
+          <p class="text-gray-600">Aucun contenu trouvé.</p>
+        </div>
+      
+        <!-- Grille de cartes -->
+        <div *ngIf="!isLoading && programContents.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Carte de contenu -->
+          <div *ngFor="let content of programContents" class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+            <div class="p-6">
+              <!-- En-tête de la carte -->
+              <div class="flex justify-between items-start mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">{{ content.title }}</h3>
+                <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                  {{ content.contentType }}
+                </span>
+              </div>
+              
+              <!-- Description -->
+              <p class="text-gray-600 mb-4">{{ content.contentDesc }}</p>
+              
+              <!-- Media Link -->
+              <div class="mb-4">
+                <a [href]="content.mediaLink" target="_blank" class="text-blue-500 hover:text-blue-700 flex items-center">
+                  <i class="fas fa-link mr-2"></i>
+                  <span class="truncate">Lien vers la ressource</span>
+                </a>
+              </div>
+              
+              <!-- Métadonnées -->
+              <div class="flex flex-wrap gap-4 mb-4 text-sm text-gray-500">
+                <div class="flex items-center">
+                  <i class="fas fa-hashtag mr-2"></i>
+                  <span>ID: {{ content.contentId }}</span>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-code-branch mr-2"></i>
+                  <span>Version: {{ content.version || '1.0' }}</span>
+                </div>
+              </div>
+              
+              <!-- Actions -->
+              <div class="flex justify-end space-x-2 pt-4 border-t border-gray-100">
+                <button (click)="updateProgramContent(content.contentId)" [routerLink]="['/content-programs/programcontent', content.contentId]"
+                        class="btn btn-primary btn-sm flex items-center">
+                  <i class="fas fa-edit mr-1"></i> Modifier
+                </button>
+                <button (click)="deleteProgramContent(content.contentId)" 
+                        class="btn btn-danger btn-sm flex items-center">
+                  <i class="fas fa-trash mr-1"></i> Supprimer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <router-outlet></router-outlet>
+      <app-footer-admin></app-footer-admin>
+    </div>
+  </div>
+</div>

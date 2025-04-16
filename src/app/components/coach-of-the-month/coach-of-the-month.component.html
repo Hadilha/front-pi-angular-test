@@ -1,0 +1,13 @@
+<div class="coach-card" *ngIf="coachOfTheMonth; else noData">
+  <h2>🏆 Coach of the Month</h2>
+
+  <div class="coach-info">
+    <p><strong>ID:</strong> {{ coachOfTheMonth.coach_id }}</p>
+    <p><strong>Name:</strong> {{ coachOfTheMonth.name }}</p>
+    <!-- Tu peux ajouter d'autres champs ici si besoin -->
+  </div>
+</div>
+
+<ng-template #noData>
+  <p style="color: gray;">No coach found for this month.</p>
+</ng-template>

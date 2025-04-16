@@ -1,0 +1,35 @@
+<div class="container mt-5">
+    <h2 class="text-2xl font-bold mb-4">Programme de patient</h2>
+  
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group mb-3">
+        <label for="title">Titre</label>
+        <input id="title" formControlName="title" type="text" class="form-control" required />
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="contentType">Type de contenu</label>
+        <input id="contentType" formControlName="contentType" type="text" class="form-control" required />
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="contentDesc">Description</label>
+        <textarea id="contentDesc" formControlName="contentDesc" class="form-control" required></textarea>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="mediaLink">Lien média</label>
+        <input id="mediaLink" formControlName="mediaLink" type="text" class="form-control" required />
+      </div>
+  
+      <div formGroupName="coachingProgram" class="form-group mb-3">
+        <label for="programId">ID du programme</label>
+        <input id="programId" formControlName="programId" type="number" class="form-control" required />
+      </div>
+  
+      <button type="submit" class="btn btn-success">
+        {{ isEdit ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+    </form>
+  </div>
+  
