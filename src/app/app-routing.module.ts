@@ -35,6 +35,9 @@ import { QuizListComponent } from "./component/admin/quiz-list/quiz-list.compone
 import { QuizListUserComponent } from "./component/user/quiz-list-user/quiz-list-user.component";
 import { ScoreListUserComponent } from "./component/user/score-list-user/score-list-user.component";
 import { CombatGameComponent } from "./game/combat-game/combat-game.component";
+import { TestComponent } from "./component/admin/test/test.component";
+import { QuestionResponseComponent } from "./component/admin/question-response/question-response.component";
+import { VisualisationComponent } from "./component/admin/visualisation/visualisation.component";
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -66,6 +69,9 @@ const routes: Routes = [
       { path: 'quizzes/:quizId/questions/:questionId/choices/new', component: ChoiceFormComponent },
       { path: 'quizzes/:quizId/questions/:questionId/choices/:choiceId/edit', component: ChoiceFormComponent },
       { path: 'quizzes', component: QuizListComponent },
+      {path:'tests',component:TestComponent},
+      { path: 'question-responses', component: QuestionResponseComponent },
+      { path: 'admin/visualisation', component: VisualisationComponent },
     ],
   },
 

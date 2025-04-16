@@ -71,6 +71,12 @@ import { ScoreListUserComponent } from "./component/user/score-list-user/score-l
 import { HeaderComponent } from "./component/user/header/header.component";
 import { CombatGameComponent } from "./game/combat-game/combat-game.component";
 import { HttpClientModule } from "@angular/common/http";
+import { VisualisationComponent } from "./component/admin/visualisation/visualisation.component";
+import { TestComponent } from "./component/admin/test/test.component";
+import { QuestionResponseComponent } from "./component/admin/question-response/question-response.component";
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgChartsModule } from "ng2-charts";
 
 @NgModule({
   declarations: [
@@ -130,6 +136,9 @@ import { HttpClientModule } from "@angular/common/http";
     ScoreListUserComponent,
     HeaderComponent,
     CombatGameComponent,
+    VisualisationComponent,
+    TestComponent,
+    QuestionResponseComponent,
 
   ],
   imports: [BrowserModule,
@@ -139,7 +148,11 @@ import { HttpClientModule } from "@angular/common/http";
     ReactiveFormsModule,
     ReactiveFormsModule,
     RouterModule,
-    CommonModule,],
+    CommonModule,
+    MatProgressSpinnerModule,
+    BrowserAnimationsModule,
+    NgChartsModule,
+    BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

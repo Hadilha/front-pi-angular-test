@@ -3,7 +3,7 @@
   <div *ngIf="!isLoading">
     <h2>Quizzes</h2>
     <div class="mb-3">
-      <a routerLink="/admin/quizzes/new" class="btn btn-primary">Create New Quiz</a>
+      <a [routerLink]="['admin/quizzes/new']" class="btn btn-primary">Create New Quiz</a>
     </div>
 
 

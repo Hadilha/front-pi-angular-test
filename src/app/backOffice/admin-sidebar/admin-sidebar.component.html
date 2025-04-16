@@ -85,7 +85,7 @@
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
         <li class="items-center">
           <a
-            [routerLink]="['/admin/dashboard']"
+            [routerLink]="['admin/visualisation']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #reportAnalytics="routerLinkActive"
@@ -107,7 +107,7 @@
 
         <li class="items-center">
           <a
-            [routerLink]="['/admin/tables']"
+            [routerLink]="['/admin/quizzes']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
             #userManagement="routerLinkActive"
@@ -123,7 +123,7 @@
                 userManagement.isActive ? 'opacity-75' : 'text-gray-500'
               "
             ></i>
-            User Management
+            Quizes Management
           </a>
         </li>
 
