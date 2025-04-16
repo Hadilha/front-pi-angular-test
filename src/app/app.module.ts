@@ -72,13 +72,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 import { HttpClientModule } from '@angular/common/http';
-import { CategoryFilterPipe } from './frontOffice/layouts/forum/pipes/category-filter.pipe';
+
+import { ForumPostFormComponent } from './frontOffice/layouts/forum/components/post-form/post-form.component';
 import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
-import { PostItemComponent } from './frontOffice/layouts/forum/components/post-item/post-item.component';
-import { PostCrudComponent } from './frontOffice/layouts/forum/components/post-crud/post-crud.component';
-import { CommentListComponent } from './frontOffice/layouts/forum/components/comment-list/comment-list.component';
-import { CommentCrudComponent } from './frontOffice/layouts/forum/components/comment-crud/comment-crud.component';
-import { ReactionComponent } from './frontOffice/layouts/forum/components/reaction/reaction.component';
+import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component'; 
+
 
 @NgModule({
   declarations: [
@@ -134,13 +132,9 @@ import { ReactionComponent } from './frontOffice/layouts/forum/components/reacti
     AdminForumComponent,
     AdminPostViewModalComponent,
     ConfirmDeleteDialogComponent,
-    CategoryFilterPipe,
+    ForumPostFormComponent,
     PostListComponent,
-    PostItemComponent,
-    PostCrudComponent,
-    CommentListComponent,
-    CommentCrudComponent,
-    ReactionComponent,
+    PostDetailModalComponent,
   ],
   imports: [
     BrowserModule,
