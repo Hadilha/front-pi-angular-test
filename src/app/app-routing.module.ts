@@ -31,7 +31,8 @@ import { LandingComponent } from "./frontOffice/views/landing/landing.component"
 import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
-
+import{ VideoCallComponent } from './frontOffice/video-call/video-call.component';
+import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
 const routes: Routes = [
   // Doctor Dashboard
   {
@@ -43,6 +44,10 @@ const routes: Routes = [
       { path: "tables", component: TablesComponent },
       { path: "maps", component: MapsComponent },
       { path: 'calendar-view', component: CalendarViewComponent },
+      {path: 'video-call/appointment/:appointmentId', component: VideoCallComponent},
+      {path: 'video-call/:roomId', component: VideoCallComponent},
+      { path: 'join-video-call', component: VideoCallEntryComponent },
+  { path: ':role/video-call/:roomId', component: VideoCallComponent },
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
     ],
   },

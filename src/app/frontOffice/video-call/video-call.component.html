@@ -1,0 +1,57 @@
+<!-- src/app/frontoffice/video-call/video-call.component.html -->
+<div class="video-call-container">
+    <div class="call-header">
+      <h2>Video Consultation</h2>
+      <div class="call-status">
+        <span class="status-indicator" [ngClass]="callStatus"></span>
+        <span class="status-text">{{callStatus | titlecase}}</span>
+      </div>
+    </div>
+  
+    <div class="video-streams" [ngClass]="{'ended': callStatus === 'ended'}">
+      <!-- Remote Video (Larger) -->
+      <div class="remote-video-container">
+        <video *ngIf="remoteStream" #remoteVideo [srcObject]="remoteStream" autoplay class="remote-video"></video>
+        <div *ngIf="!remoteStream && callStatus !== 'ended'" class="waiting-message">
+          <p>Waiting for the other participant to join...</p>
+          <div class="spinner"></div>
+        </div>
+        <div *ngIf="callStatus === 'ended'" class="call-ended-message">
+          <p>Call Ended</p>
+          <button class="btn btn-primary" (click)="navigateToVideoCalls()">
+            Return to Appointments
+          </button>
+        </div>
+      </div>
+  
+      <!-- Local Video (Smaller) -->
+      <div class="local-video-container">
+        <video *ngIf="localStream" #localVideo [srcObject]="localStream" autoplay muted class="local-video"></video>
+      </div>
+  
+      <!-- Call Controls -->
+      <div class="call-controls">
+        <button class="btn control-btn mute-btn">
+          <i class="fas fa-microphone"></i>
+        </button>
+        <button class="btn control-btn video-btn">
+          <i class="fas fa-video"></i>
+        </button>
+        <button class="btn control-btn end-call-btn" (click)="endCall()">
+          <i class="fas fa-phone-slash"></i> End Call
+        </button>
+      </div>
+    </div>
+  
+    <!-- Consultation Notes (Only visible to doctor) -->
+    <div *ngIf="isDoctor" class="notes-container">
+      <h3>Consultation Notes</h3>
+      <textarea 
+        [(ngModel)]="consultationNotes" 
+        placeholder="Enter consultation notes here..." 
+        rows="5"
+        class="form-control">
+      </textarea>
+      <button class="btn btn-primary mt-2" (click)="saveNotes()">Save Notes</button>
+    </div>
+  </div>

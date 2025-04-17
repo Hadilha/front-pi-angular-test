@@ -81,6 +81,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { AppointmentStatisticsComponent } from './backOffice/appointment-statistics/appointment-statistics.component';
+import { VideoCallComponent } from './frontOffice/video-call/video-call.component';
+import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
 
 
 
@@ -140,6 +142,8 @@ import { AppointmentStatisticsComponent } from './backOffice/appointment-statist
     CalendarViewComponent,
     CalendarViewComponent,
     AppointmentStatisticsComponent,
+    VideoCallComponent,
+    VideoCallEntryComponent,
 
     
 
