@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Calendar, CalendarService } from 'src/app/services/calendar.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
@@ -8,6 +8,7 @@ import { trigger, transition, style, animate } from '@angular/animations';
   selector: 'app-calendar-form',
   templateUrl: './calendar-form.component.html',
   styleUrls: ['./calendar-form.component.css'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
@@ -32,12 +33,12 @@ export class CalendarFormComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initialize form with an owner group
+    // Initialize form with an owner group and events array
     this.calendarForm = this.fb.group({
       owner: this.fb.group({
         userId: [null, [Validators.required, Validators.min(1)]]
       }),
-      events: [''] // Will be parsed to JSON on submit
+      eventsArray: this.fb.array([])
     });
 
     const id = this.route.snapshot.paramMap.get('id');
@@ -49,17 +50,62 @@ export class CalendarFormComponent implements OnInit {
       }
       this.isEditMode = true;
       this.loadCalendar(this.calendarId);
+    } else {
+      // Add an empty event for new calendars
+      this.addEvent();
     }
+  }
+
+  // Getter for the events form array
+  get eventsArray() {
+    return this.calendarForm.get('eventsArray') as FormArray;
+  }
+
+  // Add a new event form group
+  addEvent() {
+    const eventForm = this.fb.group({
+      dateTime: ['', Validators.required],
+      description: ['', Validators.required]
+    });
+    this.eventsArray.push(eventForm);
+  }
+
+  // Remove an event at specified index
+  removeEvent(index: number) {
+    this.eventsArray.removeAt(index);
   }
 
   private loadCalendar(id: number): void {
     this.isLoading = true;
     this.calendarService.getCalendarById(id).subscribe({
       next: (cal) => {
+        // Set the owner ID
         this.calendarForm.patchValue({
-          owner: { userId: cal.owner.userId },
-          events: cal.events ? JSON.stringify(cal.events, null, 2) : ''
+          owner: { userId: cal.owner.userId }
         });
+        
+        // Clear the events array
+        while (this.eventsArray.length) {
+          this.eventsArray.removeAt(0);
+        }
+        
+        // Convert events object to array format and add to form
+        if (cal.events) {
+          Object.entries(cal.events).forEach(([dateTime, description]) => {
+            this.eventsArray.push(
+              this.fb.group({
+                dateTime: [dateTime, Validators.required],
+                description: [description, Validators.required]
+              })
+            );
+          });
+        }
+        
+        // Add one empty event if no events exist
+        if (this.eventsArray.length === 0) {
+          this.addEvent();
+        }
+        
         this.isLoading = false;
       },
       error: (err) => {
@@ -70,7 +116,7 @@ export class CalendarFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // Convert string input to number
+    // Convert string input to number for user ID
     this.calendarForm.patchValue({
       owner: { 
         userId: Number(this.calendarForm.value.owner?.userId) || null 
@@ -87,17 +133,17 @@ export class CalendarFormComponent implements OnInit {
     const formValue = { ...this.calendarForm.value };
     
     try {
-      if (formValue.events) {
-        try {
-          formValue.events = JSON.parse(formValue.events);
-        } catch (e) {
-          this.showError('Invalid JSON format for events. Please correct and try again.');
-          this.isLoading = false;
-          return;
+      // Convert events array to object format
+      const eventsObject: {[key: string]: string} = {};
+      formValue.eventsArray.forEach((event: {dateTime: string, description: string}) => {
+        if (event.dateTime && event.description) {
+          eventsObject[event.dateTime] = event.description;
         }
-      } else {
-        formValue.events = {}; // Default to empty object if not provided
-      }
+      });
+      
+      // Replace eventsArray with events object
+      delete formValue.eventsArray;
+      formValue.events = eventsObject;
 
       const calendarPayload: Calendar = formValue;
 
@@ -131,15 +177,26 @@ export class CalendarFormComponent implements OnInit {
     setTimeout(() => this.errorMessage = '', 5000);
   }
 
-  useExampleJson(): void {
-    const exampleJson = `{
-  "2024-12-31T10:00:00": "Consultation",
-  "2024-12-31T14:00:00": "Meeting"
-}`;
-    this.calendarForm.patchValue({
-      events: exampleJson
-    });
+  // Add example events
+  addExampleEvents(): void {
+    // Clear existing events
+    while (this.eventsArray.length) {
+      this.eventsArray.removeAt(0);
+    }
+    
+    // Add example events
+    this.eventsArray.push(
+      this.fb.group({
+        dateTime: ['2024-12-31T10:00:00', Validators.required],
+        description: ['Consultation', Validators.required]
+      })
+    );
+    
+    this.eventsArray.push(
+      this.fb.group({
+        dateTime: ['2024-12-31T14:00:00', Validators.required],
+        description: ['Meeting', Validators.required]
+      })
+    );
   }
-  
-  
 }

@@ -1,162 +1,247 @@
+<!-- Enhanced Appointment Form -->
+<div class="app-appointment-form">
 <div class="container mt-5">
-  <div class="card shadow-lg border-0">
-    <div class="card-header bg-primary bg-gradient text-white py-3 rounded-top">
-      <h2 class="mb-0 h4">
-        <i class="bi bi-calendar2-plus me-2"></i>
-        {{ isEditMode ? 'Edit' : 'New' }} Appointment
-      </h2>
+  <div class="card shadow border-0 rounded-4 overflow-hidden">
+    <!-- Form Header with improved gradient -->
+    <div class="card-header bg-gradient-primary text-white py-4">
+      <div class="d-flex align-items-center">
+        <div class="icon-circle bg-white bg-opacity-25 me-3">
+          <i class="bi bi-calendar2-plus"></i>
+        </div>
+        <h2 class="mb-0 h4 fw-semibold">
+          {{ isEditMode ? 'Edit' : 'New' }} Appointment
+        </h2>
+      </div>
+      <p class="text-white-50 mb-0 mt-2 small">
+        Please complete all required fields marked with *
+      </p>
     </div>
 
-    <div class="card-body p-4">
+    <!-- Form Body with improved layout -->
+    <div class="card-body p-4 p-lg-5">
       <form [formGroup]="appointmentForm" (ngSubmit)="onSubmit()" @fadeIn>
-        <div class="row g-4">
-          <!-- Patient ID -->
-          <div class="col-md-6" formGroupName="patient">
-            <div class="form-floating">
-              <input type="number" class="form-control form-control-lg" 
-                     id="patientId" formControlName="userId"
-                     step="1" min="1"
-                     [class.is-invalid]="appointmentForm.get('patient.userId')?.invalid && 
-                                      (appointmentForm.get('patient.userId')?.dirty || 
-                                       appointmentForm.get('patient.userId')?.touched)">
-              <label for="patientId" class="form-label">
-                <i class="bi bi-person-badge me-2"></i>Patient ID
-              </label>
-              <div class="invalid-feedback d-flex align-items-center">
-                <i class="bi bi-exclamation-circle me-2"></i>
-                <span *ngIf="appointmentForm.get('patient.userId')?.errors?.['required']">
-                  Patient ID is required
-                </span>
-                <span *ngIf="appointmentForm.get('patient.userId')?.errors?.['min']">
-                  Must be a positive number
-                </span>
+        <!-- Progress indicator -->
+        <div class="form-progress mb-5">
+          <div class="progress" style="height: 6px;">
+            <div class="progress-bar bg-primary" role="progressbar" 
+                 [style.width]="calculateFormProgress() + '%'" 
+                 aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+          <div class="d-flex justify-content-between mt-2">
+            <span class="small text-muted">Form Completion</span>
+            <span class="small fw-semibold">{{ calculateFormProgress() }}%</span>
+          </div>
+        </div>
+
+        <!-- Form sections with improved grouping -->
+        <div class="form-section mb-5">
+          <h4 class="text-primary mb-4 fw-semibold section-title">
+            <i class="bi bi-people me-2"></i>Participants
+          </h4>
+          <div class="row g-4">
+            <!-- Patient ID with improved UX -->
+            <div class="col-md-6" formGroupName="patient">
+              <div class="form-floating">
+                <input type="number" class="form-control form-control-lg rounded-3" 
+                       id="patientId" formControlName="userId"
+                       step="1" min="1" placeholder="Enter Patient ID"
+                       [class.is-invalid]="appointmentForm.get('patient.userId')?.invalid && 
+                                        (appointmentForm.get('patient.userId')?.dirty || 
+                                         appointmentForm.get('patient.userId')?.touched)">
+                <label for="patientId" class="form-label">
+                  <i class="bi bi-person-badge me-2"></i>Patient ID *
+                </label>
+                <div class="invalid-feedback d-flex align-items-center">
+                  <i class="bi bi-exclamation-circle me-2"></i>
+                  <span *ngIf="appointmentForm.get('patient.userId')?.errors?.['required']">
+                    Patient ID is required
+                  </span>
+                  <span *ngIf="appointmentForm.get('patient.userId')?.errors?.['min']">
+                    Must be a positive number
+                  </span>
+                </div>
+                <small class="form-text text-muted">
+                  Enter the unique identifier for the patient
+                </small>
               </div>
             </div>
-          </div>
 
-          <!-- Professional ID -->
-          <div class="col-md-6" formGroupName="professional">
-            <div class="form-floating">
-              <input type="number" class="form-control form-control-lg" 
-                     id="professionalId" formControlName="userId"
-                     step="1" min="1"
-                     [class.is-invalid]="appointmentForm.get('professional.userId')?.invalid && 
-                                      (appointmentForm.get('professional.userId')?.dirty || 
-                                       appointmentForm.get('professional.userId')?.touched)">
-              <label for="professionalId" class="form-label">
-                <i class="bi bi-briefcase me-2"></i>Professional ID
-              </label>
-              <div class="invalid-feedback d-flex align-items-center">
-                <i class="bi bi-exclamation-circle me-2"></i>
-                <span *ngIf="appointmentForm.get('professional.userId')?.errors?.['required']">
-                  Professional ID is required
-                </span>
-                <span *ngIf="appointmentForm.get('professional.userId')?.errors?.['min']">
-                  Must be a positive number
-                </span>
+            <!-- Professional ID with improved UX -->
+            <div class="col-md-6" formGroupName="professional">
+              <div class="form-floating">
+                <input type="number" class="form-control form-control-lg rounded-3" 
+                       id="professionalId" formControlName="userId"
+                       step="1" min="1" placeholder="Enter Professional ID"
+                       [class.is-invalid]="appointmentForm.get('professional.userId')?.invalid && 
+                                        (appointmentForm.get('professional.userId')?.dirty || 
+                                         appointmentForm.get('professional.userId')?.touched)">
+                <label for="professionalId" class="form-label">
+                  <i class="bi bi-briefcase me-2"></i>Professional ID *
+                </label>
+                <div class="invalid-feedback d-flex align-items-center">
+                  <i class="bi bi-exclamation-circle me-2"></i>
+                  <span *ngIf="appointmentForm.get('professional.userId')?.errors?.['required']">
+                    Professional ID is required
+                  </span>
+                  <span *ngIf="appointmentForm.get('professional.userId')?.errors?.['min']">
+                    Must be a positive number
+                  </span>
+                </div>
+                <small class="form-text text-muted">
+                  Enter the unique identifier for the healthcare professional
+                </small>
               </div>
-            </div>
-          </div>
-
-          <!-- Start Time -->
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input type="datetime-local" class="form-control form-control-lg" 
-                     id="startTime" formControlName="startTime"
-                     [class.is-invalid]="appointmentForm.get('startTime')?.invalid && 
-                                      (appointmentForm.get('startTime')?.dirty || 
-                                       appointmentForm.get('startTime')?.touched)">
-              <label for="startTime" class="form-label">
-                <i class="bi bi-clock me-2"></i>Start Time
-              </label>
-              <div class="invalid-feedback d-flex align-items-center">
-                <i class="bi bi-exclamation-circle me-2"></i>
-                <span *ngIf="appointmentForm.get('startTime')?.errors?.['required']">
-                  Start time is required
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- End Time -->
-          <div class="col-md-6">
-            <div class="form-floating">
-              <input type="datetime-local" class="form-control form-control-lg" 
-                     id="endTime" formControlName="endTime"
-                     [class.is-invalid]="appointmentForm.get('endTime')?.invalid && 
-                                      (appointmentForm.get('endTime')?.dirty || 
-                                       appointmentForm.get('endTime')?.touched)">
-              <label for="endTime" class="form-label">
-                <i class="bi bi-clock-history me-2"></i>End Time
-              </label>
-              <div class="invalid-feedback d-flex align-items-center">
-                <i class="bi bi-exclamation-circle me-2"></i>
-                <span *ngIf="appointmentForm.get('endTime')?.errors?.['required']">
-                  End time is required
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Status -->
-          <div class="col-md-6">
-            <div class="form-floating">
-              <select class="form-select form-select-lg" id="status" formControlName="status"
-                      [class.is-invalid]="appointmentForm.get('status')?.invalid && 
-                                      (appointmentForm.get('status')?.dirty || 
-                                       appointmentForm.get('status')?.touched)">
-                <option *ngFor="let status of statusOptions" [value]="status" 
-                        [ngClass]="{
-                          'text-warning': status === 'SCHEDULED',
-                          'text-success': status === 'COMPLETED',
-                          'text-danger': status === 'CANCELED'
-                        }">
-                  {{ getStatusDisplayName(status) }}
-                </option>
-              </select>
-              <label for="status" class="form-label">
-                <i class="bi bi-flag me-2"></i>Status
-              </label>
-              <div class="invalid-feedback d-flex align-items-center">
-                <i class="bi bi-exclamation-circle me-2"></i>
-                <span>Status is required</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Notes -->
-          <div class="col-12">
-            <div class="form-floating">
-              <textarea class="form-control form-control-lg" id="notes" 
-                        formControlName="notes" rows="4" style="height: 100px;"
-                        placeholder="Enter any additional notes here"></textarea>
-              <label for="notes" class="form-label">
-                <i class="bi bi-card-text me-2"></i>Notes
-              </label>
             </div>
           </div>
         </div>
 
-        <!-- Action Buttons -->
+        <!-- Time section -->
+        <div class="form-section mb-5">
+          <h4 class="text-primary mb-4 fw-semibold section-title">
+            <i class="bi bi-clock-history me-2"></i>Schedule
+          </h4>
+          <div class="row g-4">
+            <!-- Start Time with improved UX -->
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="datetime-local" class="form-control form-control-lg rounded-3" 
+                       id="startTime" formControlName="startTime" placeholder="Select start time"
+                       [class.is-invalid]="appointmentForm.get('startTime')?.invalid && 
+                                        (appointmentForm.get('startTime')?.dirty || 
+                                         appointmentForm.get('startTime')?.touched)">
+                <label for="startTime" class="form-label">
+                  <i class="bi bi-clock me-2"></i>Start Time *
+                </label>
+                <div class="invalid-feedback d-flex align-items-center">
+                  <i class="bi bi-exclamation-circle me-2"></i>
+                  <span *ngIf="appointmentForm.get('startTime')?.errors?.['required']">
+                    Start time is required
+                  </span>
+                  <span *ngIf="appointmentForm.get('startTime')?.errors?.['pastDate']">
+                    Start time must be in the future
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- End Time with improved UX -->
+            <div class="col-md-6">
+              <div class="form-floating">
+                <input type="datetime-local" class="form-control form-control-lg rounded-3" 
+                       id="endTime" formControlName="endTime" placeholder="Select end time"
+                       [class.is-invalid]="appointmentForm.get('endTime')?.invalid && 
+                                        (appointmentForm.get('endTime')?.dirty || 
+                                         appointmentForm.get('endTime')?.touched)">
+                <label for="endTime" class="form-label">
+                  <i class="bi bi-clock-history me-2"></i>End Time *
+                </label>
+                <div class="invalid-feedback d-flex align-items-center">
+                  <i class="bi bi-exclamation-circle me-2"></i>
+                  <span *ngIf="appointmentForm.get('endTime')?.errors?.['required']">
+                    End time is required
+                  </span>
+                  <span *ngIf="appointmentForm.get('endTime')?.errors?.['pastDate']">
+                    End time must be in the future
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date Range Validation with nicer alert -->
+            <div class="col-12" *ngIf="appointmentForm.errors?.['dateRange'] && 
+                                     (appointmentForm.touched || appointmentForm.dirty)">
+              <div class="alert alert-danger d-flex align-items-center p-3">
+                <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+                <div>End time must be after start time</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details section -->
+        <div class="form-section mb-5">
+          <h4 class="text-primary mb-4 fw-semibold section-title">
+            <i class="bi bi-info-circle me-2"></i>Details
+          </h4>
+          <div class="row g-4">
+            <!-- Status with improved design -->
+            <div class="col-md-6">
+              <div class="form-floating">
+                <select class="form-select form-select-lg rounded-3" id="status" formControlName="status"
+                        [class.is-invalid]="appointmentForm.get('status')?.invalid && 
+                                        (appointmentForm.get('status')?.dirty || 
+                                         appointmentForm.get('status')?.touched)">
+                  <option value="" disabled>Select a status</option>
+                  <option *ngFor="let status of statusOptions" [value]="status">
+                    {{ getStatusDisplayName(status) }}
+                  </option>
+                </select>
+                <label for="status" class="form-label">
+                  <i class="bi bi-flag me-2"></i>Status *
+                </label>
+                <div class="invalid-feedback d-flex align-items-center">
+                  <i class="bi bi-exclamation-circle me-2"></i>
+                  <span>Status is required</span>
+                </div>
+              </div>
+              <!-- Status badges -->
+              <div class="status-badges mt-3">
+                <span class="badge rounded-pill me-2 p-2"
+                      [ngClass]="{
+                        'bg-warning bg-opacity-25 text-warning border border-warning': appointmentForm.get('status')?.value === AppointmentStatus.SCHEDULED,
+                        'bg-success bg-opacity-25 text-success border border-success': appointmentForm.get('status')?.value === AppointmentStatus.COMPLETED,
+                        'bg-danger bg-opacity-25 text-danger border border-danger': appointmentForm.get('status')?.value === AppointmentStatus.CANCELED
+                      }" *ngIf="appointmentForm.get('status')?.value">
+                  <i class="bi" 
+                     [ngClass]="{
+                       'bi-calendar-check': appointmentForm.get('status')?.value === AppointmentStatus.SCHEDULED,
+                       'bi-check-circle': appointmentForm.get('status')?.value === AppointmentStatus.COMPLETED,
+                       'bi-x-circle': appointmentForm.get('status')?.value === AppointmentStatus.CANCELED
+                     }"></i>
+                  {{ getStatusDisplayName(appointmentForm.get('status')?.value) }}
+                </span>
+              </div>
+            </div>
+
+            <!-- Notes with improved UX -->
+            <div class="col-12">
+              <div class="form-floating">
+                <textarea class="form-control form-control-lg rounded-3" id="notes" 
+                          formControlName="notes" rows="4" style="height: 120px;"
+                          placeholder="Enter any additional notes here"></textarea>
+                <label for="notes" class="form-label">
+                  <i class="bi bi-card-text me-2"></i>Notes
+                </label>
+                <small class="form-text text-muted">
+                  Optional: Add any relevant information about this appointment
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons with improved design -->
         <div class="mt-5 d-flex flex-column flex-md-row gap-3 justify-content-end">
-          <button type="button" class="btn btn-outline-secondary order-1 order-md-0"
+          <button type="button" class="btn btn-outline-secondary btn-lg px-4 py-2 order-1 order-md-0"
                   routerLink="/admin/appointments">
             <i class="bi bi-x-circle me-2"></i>Cancel
           </button>
           
-          <button type="submit" class="btn btn-primary px-4 py-2"
+          <button type="submit" class="btn btn-primary btn-lg px-5 py-2"
                   [disabled]="appointmentForm.invalid || isLoading">
-            <i class="bi bi-save me-2"></i>
-            {{ isEditMode ? 'Update' : 'Create' }} Appointment
-            <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-2"></span>
+            <i class="bi" [ngClass]="isEditMode ? 'bi-pencil-square' : 'bi-plus-circle'"></i>
+            <span class="ms-2">{{ isEditMode ? 'Update' : 'Create' }} Appointment</span>
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-3"></span>
           </button>
         </div>
 
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="alert alert-danger mt-4">
-          <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
+        <!-- Error Message with improved design -->
+        <div *ngIf="errorMessage" class="alert alert-danger mt-4 d-flex align-items-center p-3 rounded-3">
+          <i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>
+          <div>{{ errorMessage }}</div>
         </div>
       </form>
     </div>
   </div>
+</div>
 </div>

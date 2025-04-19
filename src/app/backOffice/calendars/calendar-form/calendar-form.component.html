@@ -1,89 +1,208 @@
-<div class="container mt-5">
-  <div class="card shadow-lg border-0">
-    <div class="card-header bg-primary bg-gradient text-white py-3 rounded-top">
-      <h2 class="mb-0 h4">
-        <i class="bi bi-calendar-event me-2"></i>
-        {{ isEditMode ? 'Edit' : 'New' }} Calendar
-      </h2>
-    </div>
+<!-- calendar-form.component.html -->
+<div class="app-appointment-form">  <!-- you can rename this wrapper class if you like -->
+  <div class="container mt-5">
+    <div class="card shadow border-0 rounded-4 overflow-hidden">
+      <!-- Header -->
+      <div class="card-header bg-gradient-primary text-white py-4">
+        <div class="d-flex align-items-center">
+          <div class="icon-circle bg-white bg-opacity-25 me-3">
+            <i class="bi bi-calendar-event"></i>
+          </div>
+          <h2 class="mb-0 h4 fw-semibold">
+            {{ isEditMode ? 'Edit' : 'New' }} Calendar
+          </h2>
+        </div>
+      </div>
 
-    <div class="card-body p-4">
-      <form [formGroup]="calendarForm" (ngSubmit)="onSubmit()" @fadeIn>
-        <div class="row g-4">
-          <!-- Owner ID -->
-          <div class="col-md-6" formGroupName="owner">
-            <div class="form-floating">
-              <input type="number" class="form-control form-control-lg" 
-                     id="userId" formControlName="userId"
-                     step="1" min="1"
-                     [class.is-invalid]="calendarForm.get('owner.userId')?.invalid && 
-                                      (calendarForm.get('owner.userId')?.dirty || 
-                                       calendarForm.get('owner.userId')?.touched)">
-              <label for="userId" class="form-label">
-                <i class="bi bi-person-badge me-2"></i>Owner User ID
-              </label>
-              <div class="invalid-feedback d-flex align-items-center">
-                <i class="bi bi-exclamation-circle me-2"></i>
-                <span *ngIf="calendarForm.get('owner.userId')?.errors?.['required']">
-                  Owner User ID is required
-                </span>
-                <span *ngIf="calendarForm.get('owner.userId')?.errors?.['min']">
-                  Must be a positive number
-                </span>
+      <!-- Body -->
+      <div class="card-body p-4 p-lg-5">
+        <form [formGroup]="calendarForm" (ngSubmit)="onSubmit()" @fadeIn>
+
+          <!-- Owner Section -->
+          <div class="form-section mb-5">
+            <h4 class="text-primary mb-4 fw-semibold section-title">
+              <i class="bi bi-people me-2"></i>Owner
+            </h4>
+            <div class="row g-4">
+              <div class="col-md-6" formGroupName="owner">
+                <div class="form-floating">
+                  <input
+                    type="number"
+                    class="form-control form-control-lg rounded-3"
+                    id="userId"
+                    formControlName="userId"
+                    step="1"
+                    min="1"
+                    placeholder="Owner User ID"
+                    [class.is-invalid]="
+                      calendarForm.get('owner.userId')?.invalid &&
+                      (calendarForm.get('owner.userId')?.dirty ||
+                       calendarForm.get('owner.userId')?.touched)
+                    "
+                  />
+                  <label for="userId" class="form-label">
+                    <i class="bi bi-person-badge me-2"></i>Owner User ID *
+                  </label>
+                  <div class="invalid-feedback d-flex align-items-center">
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    <span *ngIf="calendarForm.get('owner.userId')?.errors?.['required']">
+                      Owner User ID is required
+                    </span>
+                    <span *ngIf="calendarForm.get('owner.userId')?.errors?.['min']">
+                      Must be a positive number
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Events JSON -->
-          <div class="col-12">
-            <div class="form-floating">
-              <textarea class="form-control form-control-lg" id="events" 
-                        formControlName="events" rows="5" style="height: 150px;"
-                        placeholder='{"date": "event description"}'></textarea>
-              <label for="events" class="form-label">
-                <i class="bi bi-code-square me-2"></i>Events (JSON Format)
-              </label>
-              <div class="mt-2 d-flex flex-column gap-2">
-                <small class="form-text text-muted">
-                  Example format:
-                  <button type="button" 
-                          class="btn btn-link p-0 align-baseline" 
-                          (click)="useExampleJson()"
-                          *ngIf="!isEditMode">
-                    <i class="bi bi-arrow-clockwise me-1"></i>Load example
+          <!-- Events Section -->
+          <div class="form-section mb-5">
+            <h4 class="text-primary mb-4 fw-semibold section-title">
+              <i class="bi bi-calendar3-event me-2"></i>Events
+            </h4>
+            <div class="card border-light bg-light">
+              <div
+                class="card-header bg-light d-flex justify-content-between align-items-center"
+              >
+                <h5 class="mb-0">
+                  <i class="bi bi-calendar3 me-2"></i>Events
+                </h5>
+                <div>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary me-2"
+                    (click)="addExampleEvents()"
+                    *ngIf="!isEditMode && eventsArray.length <= 1"
+                  >
+                    <i class="bi bi-lightning-fill me-1"></i>Add Example Events
                   </button>
-                </small>
-                <code class="d-block p-2 bg-light rounded" style="white-space: pre-wrap">
-                  {{ '{' }}
-                  "2024-12-31T10:00:00": "Consultation",
-                  "2024-12-31T14:00:00": "Meeting"
-                  {{ '}' }}
-                </code>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-primary"
+                    (click)="addEvent()"
+                  >
+                    <i class="bi bi-plus-circle me-1"></i>Add Event
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div formArrayName="eventsArray">
+                  <div
+                    *ngFor="
+                      let eventForm of eventsArray.controls;
+                      let i = index
+                    "
+                    [formGroupName]="i"
+                    class="row g-3 mb-3 pb-3 border-bottom"
+                    @fadeIn
+                  >
+                    <div class="col-md-5">
+                      <div class="form-floating">
+                        <input
+                          type="datetime-local"
+                          class="form-control form-control-lg rounded-3"
+                          [id]="'dateTime-' + i"
+                          formControlName="dateTime"
+                          [class.is-invalid]="
+                            eventForm.get('dateTime')?.invalid &&
+                            (eventForm.get('dateTime')?.dirty ||
+                             eventForm.get('dateTime')?.touched)
+                          "
+                        />
+                        <label [for]="'dateTime-' + i" class="form-label">
+                          <i class="bi bi-clock me-1"></i>Date & Time *
+                        </label>
+                        <div class="invalid-feedback d-flex align-items-center">
+                          <i class="bi bi-exclamation-circle me-2"></i>
+                          Date and time is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-5">
+                      <div class="form-floating">
+                        <input
+                          type="text"
+                          class="form-control form-control-lg rounded-3"
+                          [id]="'description-' + i"
+                          formControlName="description"
+                          [class.is-invalid]="
+                            eventForm.get('description')?.invalid &&
+                            (eventForm.get('description')?.dirty ||
+                             eventForm.get('description')?.touched)
+                          "
+                        />
+                        <label [for]="'description-' + i" class="form-label">
+                          <i class="bi bi-card-text me-1"></i>Event Description *
+                        </label>
+                        <div class="invalid-feedback d-flex align-items-center">
+                          <i class="bi bi-exclamation-circle me-2"></i>
+                          Description is required
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger w-100 h-100"
+                        (click)="removeEvent(i)"
+                        [disabled]="eventsArray.length === 1"
+                      >
+                        <i class="bi bi-trash"></i>
+                        <span class="d-none d-lg-inline ms-1">Remove</span>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div
+                    *ngIf="eventsArray.length === 0"
+                    class="text-center py-3 text-secondary"
+                  >
+                    No events yet. Click “Add Event” to start.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- Action Buttons -->
-        <div class="mt-5 d-flex flex-column flex-md-row gap-3 justify-content-end">
-          <button type="button" class="btn btn-outline-secondary order-1 order-md-0"
-                  routerLink="/admin/calendars">
-            <i class="bi bi-x-circle me-2"></i>Cancel
-          </button>
-          
-          <button type="submit" class="btn btn-primary px-4 py-2"
-                  [disabled]="calendarForm.invalid || isLoading">
-            <i class="bi bi-save me-2"></i>
-            {{ isEditMode ? 'Update' : 'Create' }} Calendar
-            <span *ngIf="isLoading" class="spinner-border spinner-border-sm ms-2"></span>
-          </button>
-        </div>
+          <!-- Actions -->
+          <div class="mt-5 d-flex flex-column flex-md-row gap-3 justify-content-end">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg px-4 py-2 order-1 order-md-0"
+              routerLink="/admin/calendars"
+            >
+              <i class="bi bi-x-circle me-2"></i>Cancel
+            </button>
+            <button
+              type="submit"
+              class="btn btn-primary btn-lg px-5 py-2"
+              [disabled]="calendarForm.invalid || isLoading"
+            >
+              <i class="bi bi-save"></i>
+              <span class="ms-2">
+                {{ isEditMode ? 'Update' : 'Create' }} Calendar
+              </span>
+              <span
+                *ngIf="isLoading"
+                class="spinner-border spinner-border-sm ms-3"
+              ></span>
+            </button>
+          </div>
 
-        <!-- Error Message -->
-        <div *ngIf="errorMessage" class="alert alert-danger mt-4">
-          <i class="bi bi-exclamation-triangle me-2"></i>{{ errorMessage }}
-        </div>
-      </form>
+          <!-- Error -->
+          <div
+            *ngIf="errorMessage"
+            class="alert alert-danger mt-4 d-flex align-items-center p-3 rounded-3"
+          >
+            <i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>
+            <div>{{ errorMessage }}</div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

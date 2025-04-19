@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { trigger, transition, style, animate } from '@angular/animations';
+
 enum AppointmentStatus {
   SCHEDULED = 'SCHEDULED',
   COMPLETED = 'COMPLETED',
@@ -13,17 +14,17 @@ enum AppointmentStatus {
   selector: 'app-appointment-form',
   templateUrl: './appointment-form.component.html',
   styleUrls: ['./appointment-form.component.css'],
+  encapsulation: ViewEncapsulation.None,
   animations: [
     trigger('fadeIn', [
       transition(':enter', [
-        style({ opacity: 0 }),
-        animate('300ms ease-in', style({ opacity: 1 }))
+        style({ opacity: 0, transform: 'translateY(10px)' }),
+        animate('300ms ease-in', style({ opacity: 1, transform: 'translateY(0)' }))
       ])
     ])
   ]
 })
-
-export class AppointmentFormComponent implements OnInit {
+export class AppointmentFormComponent implements OnInit, AfterViewInit {
   public AppointmentStatus = AppointmentStatus;
   appointmentForm: FormGroup;
   isEditMode = false;
@@ -46,21 +47,44 @@ export class AppointmentFormComponent implements OnInit {
         userId: [null, [Validators.required, Validators.min(1)]]
       }),
       startTime: ['', [Validators.required, this.futureDateValidator]],
-      endTime: ['', [Validators.required]],
+      endTime: ['', [Validators.required, this.futureDateValidator]],
       notes: [''],
       status: [AppointmentStatus.SCHEDULED, Validators.required]
     }, { validators: this.dateRangeValidator, updateOn: 'blur' });
   }
 
+  /**
+   * Calculate form completion progress
+   */
+  calculateFormProgress(): number {
+    const requiredControls = [
+      this.appointmentForm.get('patient.userId'),
+      this.appointmentForm.get('professional.userId'),
+      this.appointmentForm.get('startTime'),
+      this.appointmentForm.get('endTime'),
+      this.appointmentForm.get('status')
+    ];
+    
+    const filledControls = requiredControls.filter(control => 
+      control?.value !== null && 
+      control?.value !== undefined && 
+      control?.value !== ''
+    );
+    
+    return Math.round((filledControls.length / requiredControls.length) * 100);
+  }
+
+  /**
+   * Get status display name
+   */
   getStatusDisplayName(status: AppointmentStatus): string {
     switch(status) {
       case AppointmentStatus.SCHEDULED: return 'Scheduled';
       case AppointmentStatus.COMPLETED: return 'Completed';
       case AppointmentStatus.CANCELED: return 'Canceled';
-      default: return status;
+      default: return status as string;
     }
   }
-
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -75,6 +99,9 @@ export class AppointmentFormComponent implements OnInit {
     }
   }
 
+  /**
+   * Load appointment data for edit mode
+   */
   private loadAppointment(id: number): void {
     this.isLoading = true;
     this.appointmentService.getAppointmentById(id).subscribe({
@@ -96,55 +123,68 @@ export class AppointmentFormComponent implements OnInit {
     });
   }
 
+  /**
+   * Convert ISO string to local datetime format
+   */
   private toLocalDateTime(isoString: string): string {
     return isoString.slice(0, 16);
   }
 
+  /**
+   * Validate that date is in the future
+   */
   private futureDateValidator(control: AbstractControl): { [key: string]: any } | null {
     const selectedDate = new Date(control.value);
     return selectedDate < new Date() ? { pastDate: true } : null;
   }
 
+  /**
+   * Validate that end time is after start time
+   */
   private dateRangeValidator(control: AbstractControl): { [key: string]: any } | null {
     const start = control.get('startTime')?.value;
     const end = control.get('endTime')?.value;
     return start && end && new Date(start) >= new Date(end) ? { dateRange: true } : null;
   }
 
+  /**
+   * Handle form submission with confirmation
+   */
   onSubmit(): void {
-    // Convert string inputs to numbers
-    this.appointmentForm.patchValue({
-      patient: { 
-        userId: Number(this.appointmentForm.value.patient?.userId) || null 
-      },
-      professional: { 
-        userId: Number(this.appointmentForm.value.professional?.userId) || null 
-      }
-    });
-  
     if (this.appointmentForm.invalid) {
       this.showError('Please fill in all required fields correctly.');
       this.appointmentForm.markAllAsTouched();
       return;
     }
-  
+
+    // Optional: Add confirmation dialog
+    if (confirm(`Are you sure you want to ${this.isEditMode ? 'update' : 'create'} this appointment?`)) {
+      this.saveAppointment();
+    }
+  }
+
+  /**
+   * Save appointment data
+   */
+  private saveAppointment(): void {
     this.isLoading = true;
+    this.errorMessage = '';
     const formValue = this.appointmentForm.value;
     
     try {
       const appointmentData = {
-        patient: { userId: formValue.patient.userId },
-        professional: { userId: formValue.professional.userId },
+        patient: { userId: Number(formValue.patient.userId) },
+        professional: { userId: Number(formValue.professional.userId) },
         startTime: new Date(formValue.startTime).toISOString(),
         endTime: new Date(formValue.endTime).toISOString(),
         notes: formValue.notes,
         status: formValue.status
       };
-  
+
       const operation = this.isEditMode && this.appointmentId
         ? this.appointmentService.updateAppointment(this.appointmentId, appointmentData)
         : this.appointmentService.createAppointment(appointmentData);
-  
+
       operation.subscribe({
         next: () => {
           this.router.navigate(['/admin/appointments'], {
@@ -165,11 +205,28 @@ export class AppointmentFormComponent implements OnInit {
       this.isLoading = false;
     }
   }
-  
+
+  /**
+   * Show error message with auto-dismiss
+   */
   private showError(message: string): void {
     this.errorMessage = message;
     setTimeout(() => this.errorMessage = '', 5000);
   }
+
+  /**
+   * Mark all form controls as touched to trigger validation
+   */
+  markFormGroupTouched(formGroup: FormGroup): void {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
+  }
+
   ngAfterViewInit() {
     console.log('Form Status:', this.appointmentForm.status);
     console.log('Patient ID Control:', this.appointmentForm.get('patient.userId'));

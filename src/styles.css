@@ -8,3 +8,27 @@ body {
   margin: 0; 
   font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
+.app-appointment-form .card {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
+}
+
+.app-appointment-form .card-header {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  color: white !important;
+}
+
+.app-appointment-form .form-section {
+  background-color: #eff6ff !important;
+  border-left: 4px solid #2563eb !important;
+}
+
+.app-appointment-form .form-control,
+.app-appointment-form .form-select {
+  border: 1px solid #e2e8f0 !important;
+}
+
+.app-appointment-form .btn-primary {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+}
