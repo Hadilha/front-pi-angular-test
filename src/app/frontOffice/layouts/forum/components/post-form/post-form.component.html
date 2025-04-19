@@ -1,95 +1,94 @@
 <div class="w-full max-w-3xl mx-auto mb-12">
+  <div
+    class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
+    style="background-color: #dbeafe"
+  >
     <div
       class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
-      style="background-color: #dbeafe"
     >
-      <div
-        class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
-      >
-        <div class="flex-auto p-6 lg:p-10">
-          <h4 class="text-2xl font-semibold text-blueGray-800">
-            Want to share something?
-          </h4>
-          <p class="leading-relaxed mt-1 mb-4 text-blueGray-500">
-            Fill in the form to post your message to the community forum.
-          </p>
+      <div class="flex-auto p-6 lg:p-10">
+        <h4 class="text-2xl font-semibold text-blueGray-800">
+          Want to share something?
+        </h4>
+        <p class="leading-relaxed mt-1 mb-4 text-blueGray-500">
+          Fill in the form to post your message to the community forum.
+        </p>
 
-          <form (ngSubmit)="createPost()" #postForm="ngForm" class="mt-8">
-            <div class="mb-4">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                >Title</label
-              >
+        <form (ngSubmit)="createPost()" #postForm="ngForm" class="mt-8">
+          <div class="mb-4">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              >Title</label
+            >
+            <input
+              type="text"
+              name="title"
+              [(ngModel)]="newPost.title"
+              required
+              placeholder="Post title"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+            />
+          </div>
+
+          <!-- Category Dropdown -->
+          <!-- Category Selection -->
+          <div class="mb-4">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              >Category</label
+            >
+            <select
+              [(ngModel)]="selectedCategory"
+              name="category"
+              required
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+            >
+              <option *ngFor="let tag of tags" [value]="tag">
+                {{ tag }}
+              </option>
+              <option value="Custom">Custom</option>
+            </select>
+
+            <div *ngIf="selectedCategory === 'Custom'">
               <input
                 type="text"
-                name="title"
-                [(ngModel)]="newPost.title"
+                [(ngModel)]="customTag"
+                name="customTag"
+                placeholder="Enter custom tag"
                 required
-                placeholder="Post title"
-                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150 mt-2"
               />
             </div>
+            
+          </div>
 
-            <!-- Category Dropdown -->
-            <!-- Category Selection -->
-            <div class="mb-4">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                >Category</label
-              >
-              <select
-                [(ngModel)]="selectedCategory"
-                name="category"
-                required
-                class="form-select"
-              >
-                <option
-                  *ngFor="let tag of tags"
-                  [value]="tag"
-                >
-                  {{ tag }}
-                </option>
-                <option value="Custom">Custom</option>
-              </select>
-              <div *ngIf="selectedCategory === 'Custom'">
-                <input
-                  type="text"
-                  [(ngModel)]="customTag"
-                  name="customTag"
-                  placeholder="Enter custom tag"
-                  class="form-control mt-2"
-                  required
-                />
-              </div>
-            </div>
+          <!-- Custom Tag Input -->
 
-            <!-- Custom Tag Input -->
+          <div class="mb-4">
+            <label
+              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              >Content</label
+            >
+            <textarea
+              name="content"
+              [(ngModel)]="newPost.content"
+              rows="5"
+              required
+              placeholder="Write your thoughts here..."
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+            ></textarea>
+          </div>
 
-            <div class="mb-4">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                >Content</label
-              >
-              <textarea
-                name="content"
-                [(ngModel)]="newPost.content"
-                rows="5"
-                required
-                placeholder="Write your thoughts here..."
-                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
-              ></textarea>
-            </div>
-
-            <div class="text-center mt-6">
-              <button
-                type="submit"
-                class="bg-blueGray-800 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg transition-all duration-150"
-              >
-                Submit Post
-              </button>
-            </div>
-          </form>
-        </div>
+          <div class="text-center mt-6">
+            <button
+              type="submit"
+              class="bg-blueGray-800 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg transition-all duration-150"
+            >
+              Submit Post
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>

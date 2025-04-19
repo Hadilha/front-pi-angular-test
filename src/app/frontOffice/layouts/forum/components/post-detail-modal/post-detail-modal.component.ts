@@ -27,6 +27,8 @@ export class PostDetailModalComponent {
 
   ngOnInit() {
     this.detectCurrentUserReaction();
+    this.incrementViewCount();
+    this.fetchPostDetails();
   }
   
   detectCurrentUserReaction() {
@@ -223,4 +225,28 @@ export class PostDetailModalComponent {
         });
     }
   }
+
+  incrementViewCount() {
+    if (!this.selectedPost?.id) return;
+    
+    this.http.get(
+      `http://localhost:8089/forum/posts/${this.selectedPost.id}/view`
+    ).subscribe({
+      next: (updatedPost: any) => {
+        // You can optionally update the view count locally if you want
+        this.selectedPost.viewCount = updatedPost.viewCount;
+      },
+      error: (err) => {
+        console.error('❌ Failed to increment view count:', err);
+      }
+    });
+  }
+
+
+fetchPostDetails() {
+  this.http.get<any>(`http://localhost:8089/forum/posts/${this.selectedPost.id}`).subscribe(post => {
+      this.selectedPost = post;
+  });
+}
+  
 }
