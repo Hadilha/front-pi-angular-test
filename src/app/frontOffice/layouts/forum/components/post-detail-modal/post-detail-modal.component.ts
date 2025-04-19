@@ -13,7 +13,6 @@ export class PostDetailModalComponent {
 
   reactionTypes = ['UPVOTE', 'DOWNVOTE', 'HEART', 'SAD', 'LAUGH', 'CELEBRATE'];
 
-  //selectedPost: any = null;
   currentUser: string = 'Chiha';
   currentUserReaction: string | null = null;
 
@@ -39,10 +38,6 @@ export class PostDetailModalComponent {
     );
     this.currentUserReaction = reaction?.type || null;
   }
-  
-
-  // Optional: If you're managing a full list of posts, this should be passed or managed via parent
-  //posts: any[] = [];
 
   constructor(private http: HttpClient) {}
 
