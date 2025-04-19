@@ -76,7 +76,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ForumPostFormComponent } from './frontOffice/layouts/forum/components/post-form/post-form.component';
 import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
 import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component'; 
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -145,7 +145,8 @@ import { PostDetailModalComponent } from './frontOffice/layouts/forum/components
     MatDialogModule,
     MatButtonModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent],
