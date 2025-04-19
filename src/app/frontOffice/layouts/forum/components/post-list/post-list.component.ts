@@ -163,4 +163,42 @@ export class PostListComponent {
         });
     }
   }
+
+  reportingPost: Post | null = null;
+  reportReason: string = '';
+  
+
+  openReportModal(post: Post) {
+    this.reportingPost = post;
+    this.reportReason = '';
+  }
+  
+  closeReportModal() {
+    this.reportingPost = null;
+    this.reportReason = '';
+  }
+  
+  submitReport() {
+    if (!this.reportingPost || !this.reportReason.trim()) {
+      alert('Please provide a reason for the report.');
+      return;
+    }
+  
+    const postId = this.reportingPost.id;
+    const reason = encodeURIComponent(this.reportReason);
+  
+    this.http.post(`http://localhost:8089/forum/reports/post/${postId}?reason=${reason}`, {})
+      .subscribe({
+        next: () => {
+          alert('✅ Report submitted successfully.');
+          this.closeReportModal();
+        },
+        error: (err) => {
+          console.error('❌ Failed to submit report:', err);
+          alert('There was an error submitting the report.');
+        },
+      });
+  }
+  
+  
 }

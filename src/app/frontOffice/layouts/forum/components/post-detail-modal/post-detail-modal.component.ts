@@ -4,10 +4,9 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-post-detail-modal',
   templateUrl: './post-detail-modal.component.html',
-  styleUrls: ['./post-detail-modal.component.css']
+  styleUrls: ['./post-detail-modal.component.css'],
 })
 export class PostDetailModalComponent {
-
   @Input() posts: any[] = [];
   @Input() selectedPost: any;
 
@@ -29,10 +28,10 @@ export class PostDetailModalComponent {
     this.incrementViewCount();
     this.fetchPostDetails();
   }
-  
+
   detectCurrentUserReaction() {
     if (!this.selectedPost?.reactionsDetail) return;
-  
+
     const reaction = this.selectedPost.reactionsDetail.find(
       (r: any) => r.user.name === this.currentUser
     );
@@ -223,25 +222,78 @@ export class PostDetailModalComponent {
 
   incrementViewCount() {
     if (!this.selectedPost?.id) return;
-    
-    this.http.get(
-      `http://localhost:8089/forum/posts/${this.selectedPost.id}/view`
-    ).subscribe({
-      next: (updatedPost: any) => {
-        // You can optionally update the view count locally if you want
-        this.selectedPost.viewCount = updatedPost.viewCount;
-      },
-      error: (err) => {
-        console.error('❌ Failed to increment view count:', err);
-      }
-    });
+
+    this.http
+      .get(`http://localhost:8089/forum/posts/${this.selectedPost.id}/view`)
+      .subscribe({
+        next: (updatedPost: any) => {
+          // You can optionally update the view count locally if you want
+          this.selectedPost.viewCount = updatedPost.viewCount;
+        },
+        error: (err) => {
+          console.error('❌ Failed to increment view count:', err);
+        },
+      });
   }
 
+  fetchPostDetails() {
+    this.http
+      .get<any>(`http://localhost:8089/forum/posts/${this.selectedPost.id}`)
+      .subscribe((post) => {
+        this.selectedPost = post;
+      });
+  }
 
-fetchPostDetails() {
-  this.http.get<any>(`http://localhost:8089/forum/posts/${this.selectedPost.id}`).subscribe(post => {
-      this.selectedPost = post;
-  });
-}
+  reportingTarget: any = null;
+  reportReason: string = '';
+
+  openReportModal(target: any) {
+    this.reportingTarget = target;
+  }
+  
+
+  closeReportModal() {
+    this.reportingTarget = null;
+    this.reportReason = '';
+  }
+  
+
+  submitReport() {
+    if (!this.reportReason.trim() || !this.reportingTarget) {
+      alert('Please provide a valid reason.');
+      return;
+    }
+  
+    const reason = this.reportReason.trim();
+    let url = '';
+  
+    // Distinguish between post and comment by checking for "title"
+    const isPost = this.reportingTarget.title !== undefined;
+    const isComment = this.reportingTarget.content !== undefined && !isPost;
+  
+    if (isPost) {
+      url = `http://localhost:8089/forum/reports/post/${this.reportingTarget.id}`;
+    } else if (isComment) {
+      url = `http://localhost:8089/forum/reports/comment/${this.reportingTarget.id}`;
+    } else {
+      alert('⚠️ Unknown report target.');
+      return;
+    }
+  
+    // Send as query param, since your backend expects `@RequestParam String reason`
+    const params = { params: { reason } };
+  
+    this.http.post(url, null, params).subscribe({
+      next: () => {
+        alert('✅ Report submitted. Thank you!');
+        this.closeReportModal();
+      },
+      error: (err) => {
+        console.error('❌ Failed to submit report:', err);
+        alert('There was an error submitting your report.');
+      },
+    });
+  }
+  
   
 }

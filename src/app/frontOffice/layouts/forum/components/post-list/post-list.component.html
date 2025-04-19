@@ -1,5 +1,7 @@
 <div class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100">
-  <h2 class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2">
+  <h2
+    class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2"
+  >
     <span class="text-4xl">🔥</span>
     <span>Community Forum</span>
   </h2>
@@ -36,7 +38,9 @@
           <h4 class="text-lg font-semibold text-blueGray-800">
             {{ post.author?.name || "Unknown Author" }}
           </h4>
-          <span class="text-xs text-blueGray-400 block">{{ post.createdAt }}</span>
+          <span class="text-xs text-blueGray-400 block">{{
+            post.createdAt
+          }}</span>
         </div>
       </div>
 
@@ -61,7 +65,6 @@
             <i class="fas fa-eye text-indigo-500"></i>
             {{ post.viewCount || 0 }} Views
           </span>
-          
         </div>
 
         <span
@@ -72,10 +75,17 @@
 
         <button
           *ngIf="post.author?.name === currentUser"
-          (click)="deletePost(post.id)"
+          (click)="deletePost(post.id); $event.stopPropagation()"
           class="text-red-500 hover:text-red-700 transition-all duration-150 text-lg"
         >
           🗑️ Delete
+        </button>
+
+        <button
+          (click)="openReportModal(post); $event.stopPropagation()"
+          class="text-yellow-600 hover:text-yellow-800 transition-all duration-150 text-lg ml-4"
+        >
+          🚩 Report
         </button>
       </div>
     </div>
@@ -88,3 +98,45 @@
   [posts]="posts"
   (closeModal)="selectedPost = null"
 ></app-post-detail-modal>
+
+<!-- Report Modal -->
+<div
+  *ngIf="reportingPost"
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+>
+  <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-lg space-y-6 relative">
+    <button
+      (click)="closeReportModal()"
+      class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
+    >
+      ✖
+    </button>
+
+    <h3 class="text-xl font-bold text-blueGray-800">🚩 Report Post</h3>
+    <p class="text-blueGray-600">
+      You're reporting <strong>{{ reportingPost.title }}</strong> by
+      <strong>{{ reportingPost.author.name }}</strong>.
+    </p>
+
+    <textarea
+      [(ngModel)]="reportReason"
+      placeholder="Describe the reason for reporting this post..."
+      class="w-full border border-blueGray-300 rounded-lg p-3 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-red-400"
+    ></textarea>
+
+    <div class="flex justify-end gap-4">
+      <button
+        (click)="closeReportModal()"
+        class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="submitReport()"
+        class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+      >
+        Submit Report
+      </button>
+    </div>
+  </div>
+</div>
