@@ -77,6 +77,7 @@ import { ForumPostFormComponent } from './frontOffice/layouts/forum/components/p
 import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
 import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ReportDetailModalComponentComponent } from './backOffice/forum moderation/report-detail-modal-component/report-detail-modal-component.component';
 
 @NgModule({
   declarations: [
@@ -135,6 +136,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ForumPostFormComponent,
     PostListComponent,
     PostDetailModalComponent,
+    ReportDetailModalComponentComponent,
   ],
   imports: [
     BrowserModule,
