@@ -58,8 +58,24 @@
                 <td class="px-4 py-3 fw-medium">{{ cal.calendarId }}</td>
                 <td class="px-4 py-3">{{ cal.owner.userId }}</td>
                 <td class="px-4 py-3">
-                  <div class="json-preview bg-light p-2 rounded">
-                    <pre class="mb-0 fs-sm">{{ cal.events | json }}</pre>
+                  <!-- Improved Events Display -->
+                  <div class="d-flex flex-column">
+                    <span class="badge bg-primary mb-2">{{ formatEvents(cal.events) }}</span>
+                    
+                    <div *ngIf="cal.events && getEventCount(cal.events) > 0" class="events-preview">
+                      <div *ngFor="let title of getEventTitles(cal.events)" 
+                           class="text-truncate small mb-1 bg-light p-1 rounded">
+                        <i class="bi bi-calendar-event me-1 text-primary"></i>{{ title }}
+                      </div>
+                      
+                      <div *ngIf="getEventCount(cal.events) > 2" class="text-muted small">
+                        <i class="bi bi-three-dots me-1"></i>and {{ getEventCount(cal.events) - 2 }} more
+                      </div>
+                    </div>
+                    
+                    <div *ngIf="!cal.events || getEventCount(cal.events) === 0" class="text-muted small">
+                      <i class="bi bi-calendar-x me-1"></i>No events scheduled
+                    </div>
                   </div>
                 </td>
                 <td class="px-4 py-3 text-end">

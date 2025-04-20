@@ -41,4 +41,17 @@ export class AppointmentService {
       responseType: 'blob'
   });
 }
-}
+
+updateAppointmentTimes(id: number, startTime: Date, endTime: Date): Observable<any> {
+  // Format the dates to exactly match the expected format
+  const formatDate = (date: Date): string => {
+    // This ensures we get the exact format needed by the backend
+    return date.toISOString(); // Returns format like: "2025-04-20T14:30:00.000Z"
+  };
+
+  return this.http.patch(`${this.apiUrl}/${id}/reschedule`, {
+    startTime: formatDate(startTime),
+    endTime: formatDate(endTime)
+  });
+
+}}
