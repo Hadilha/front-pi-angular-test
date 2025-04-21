@@ -1,3 +1,28 @@
+<!-- AI Generation Section -->
+<div class="mb-6">
+  <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+    Want help writing a post?
+  </label>
+  <div class="flex">
+    <input
+      type="text"
+      [(ngModel)]="generationPrompt"
+      name="generationPrompt"
+      placeholder="Type a topic or idea..."
+      class="flex-1 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring transition-all duration-150"
+    />
+    <button
+      type="button"
+      (click)="generatePost()"
+      [disabled]="generating"
+      class="ml-2 bg-blueGray-800 text-white text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg transition-all duration-150"
+    >
+      {{ generating ? 'Generating...' : 'Generate' }}
+    </button>
+  </div>
+</div>
+
+
 <div class="w-full max-w-3xl mx-auto mb-12">
   <div
     class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
