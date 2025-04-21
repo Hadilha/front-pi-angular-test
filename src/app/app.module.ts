@@ -78,6 +78,8 @@ import { PostListComponent } from './frontOffice/layouts/forum/components/post-l
 import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component'; 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReportDetailModalComponentComponent } from './backOffice/forum moderation/report-detail-modal-component/report-detail-modal-component.component';
+import { StatsPostChartComponent } from './backOffice/forum moderation/stats-post-chart/stats-post-chart.component';
+import { NgChartsModule } from 'ng2-charts'; // add this line
 
 @NgModule({
   declarations: [
@@ -137,6 +139,7 @@ import { ReportDetailModalComponentComponent } from './backOffice/forum moderati
     PostListComponent,
     PostDetailModalComponent,
     ReportDetailModalComponentComponent,
+    StatsPostChartComponent,
   ],
   imports: [
     BrowserModule,
@@ -148,7 +151,8 @@ import { ReportDetailModalComponentComponent } from './backOffice/forum moderati
     MatButtonModule,
     MatIconModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
