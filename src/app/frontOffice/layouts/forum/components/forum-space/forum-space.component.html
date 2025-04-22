@@ -7,9 +7,7 @@
   >
     <div
       class="absolute top-0 w-full h-full bg-center bg-cover"
-      style="
-        background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80');
-      "
+      style="background-image: url('assets/img/MohamedImage.jpg')"
     >
       <span
         id="blackOverlay"
@@ -21,12 +19,12 @@
         <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
           <div class="pr-12">
             <h1 class="text-white font-semibold text-5xl">
-              Your story starts with us.
+              You're not alone. We're here to listen.
             </h1>
             <p class="mt-4 text-lg text-blueGray-200">
-              This is a simple example of a Landing Page you can build using
-              Notus Angular. It features multiple CSS components based on the
-              Tailwind CSS design system.
+              Welcome to our mental wellness forum — a safe space to share,
+              support, and connect. Your voice matters, and healing starts with
+              conversation.
             </p>
           </div>
         </div>
@@ -56,35 +54,43 @@
   <!-- Forum Section -->
   <section class="pb-20 bg-blueGray-200 pt-12">
     <div class="w-full px-4 mt-12">
-      
       <!-- Toggle Buttons -->
       <div class="flex justify-center my-6 space-x-4">
-        <button 
-        (click)="showTopPosts = false"
-        [ngClass]="showTopPosts ? 'bg-white text-gray-800' : 'bg-blue-600 text-white'"
-        class="px-4 py-2 rounded shadow"
+        <button
+          (click)="showTopPosts = false"
+          [ngClass]="
+            showTopPosts ? 'bg-white text-gray-800' : 'bg-blue-600 text-white'
+          "
+          class="px-4 py-2 rounded shadow"
         >
-        📝 All Posts
-      </button>
-      <button 
-      (click)="showTopPosts = true"
-      [ngClass]="showTopPosts ? 'bg-blue-600 text-white' : 'bg-white text-gray-800'"
-      class="px-4 py-2 rounded shadow"
+          📝 All Posts
+        </button>
+        <button
+          (click)="showTopPosts = true"
+          [ngClass]="
+            showTopPosts ? 'bg-blue-600 text-white' : 'bg-white text-gray-800'
+          "
+          class="px-4 py-2 rounded shadow"
+        >
+          🏆 Top Posts
+        </button>
+      </div>
+      <app-forum-post-form></app-forum-post-form>
+      <div *ngIf="!showTopPosts">
+        <app-post-list></app-post-list>
+      </div>
+
+      <div
+        *ngIf="showTopPosts"
+        class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100"
       >
-      🏆 Top Posts
-    </button>
-  </div>
-  <app-forum-post-form></app-forum-post-form>
-  <div *ngIf="!showTopPosts">
-    <app-post-list></app-post-list>
-  </div>
-  
-      <div *ngIf="showTopPosts" class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100">
-        <h2 class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2">
+        <h2
+          class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2"
+        >
           <span class="text-4xl">🔥</span>
           <span>Top Community Posts</span>
         </h2>
-      
+
         <div class="space-y-8">
           <div
             *ngFor="let post of topPosts"
@@ -101,18 +107,24 @@
                 <h4 class="text-lg font-semibold text-blueGray-800">
                   {{ post.author?.name || "Unknown Author" }}
                 </h4>
-                <span class="text-xs text-blueGray-400 block">{{ post.createdAt | date:'short' }}</span>
+                <span class="text-xs text-blueGray-400 block">{{
+                  post.createdAt | date : "short"
+                }}</span>
               </div>
             </div>
-      
+
             <h3 class="text-xl font-bold text-blueGray-900 mb-2">
               {{ post.title }}
             </h3>
-            <p class="text-blueGray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+            <p
+              class="text-blueGray-600 text-sm leading-relaxed mb-4 line-clamp-3"
+            >
               {{ post.content }}
             </p>
-      
-            <div class="flex items-center justify-between text-sm text-blueGray-500">
+
+            <div
+              class="flex items-center justify-between text-sm text-blueGray-500"
+            >
               <div class="flex space-x-6">
                 <span class="flex items-center">
                   <i class="fas fa-comments mr-2 text-blue-500"></i>
@@ -127,11 +139,13 @@
                   {{ post.viewCount || 0 }} Views
                 </span>
               </div>
-      
-              <span class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
+
+              <span
+                class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium"
+              >
                 #{{ post.tag }}
               </span>
-      
+
               <button
                 *ngIf="post.author?.name === currentUser"
                 (click)="deletePost(post.id)"
@@ -143,8 +157,6 @@
           </div>
         </div>
       </div>
-      
-      
     </div>
   </section>
 </main>
