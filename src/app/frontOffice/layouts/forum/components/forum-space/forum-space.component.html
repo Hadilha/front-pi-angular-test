@@ -57,28 +57,28 @@
   <section class="pb-20 bg-blueGray-200 pt-12">
     <div class="w-full px-4 mt-12">
       
-      <app-forum-post-form></app-forum-post-form>
       <!-- Toggle Buttons -->
       <div class="flex justify-center my-6 space-x-4">
         <button 
-          (click)="showTopPosts = false"
-          [ngClass]="showTopPosts ? 'bg-white text-gray-800' : 'bg-blue-600 text-white'"
-          class="px-4 py-2 rounded shadow"
+        (click)="showTopPosts = false"
+        [ngClass]="showTopPosts ? 'bg-white text-gray-800' : 'bg-blue-600 text-white'"
+        class="px-4 py-2 rounded shadow"
         >
-          📝 All Posts
-        </button>
-        <button 
-          (click)="showTopPosts = true"
-          [ngClass]="showTopPosts ? 'bg-blue-600 text-white' : 'bg-white text-gray-800'"
-          class="px-4 py-2 rounded shadow"
-        >
-          🏆 Top Posts
-        </button>
-      </div>
-      <div *ngIf="!showTopPosts">
-        <app-post-list></app-post-list>
-      </div>
-
+        📝 All Posts
+      </button>
+      <button 
+      (click)="showTopPosts = true"
+      [ngClass]="showTopPosts ? 'bg-blue-600 text-white' : 'bg-white text-gray-800'"
+      class="px-4 py-2 rounded shadow"
+      >
+      🏆 Top Posts
+    </button>
+  </div>
+  <app-forum-post-form></app-forum-post-form>
+  <div *ngIf="!showTopPosts">
+    <app-post-list></app-post-list>
+  </div>
+  
       <div *ngIf="showTopPosts" class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100">
         <h2 class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2">
           <span class="text-4xl">🔥</span>

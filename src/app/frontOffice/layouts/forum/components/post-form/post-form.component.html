@@ -1,11 +1,14 @@
 <!-- Button to Open Modal -->
-<button
-  class="bg-blueGray-800 text-white px-4 py-2 rounded shadow"
-  (click)="openModal()"
->
-  Create New Post
-</button>
-
+<div class="w-full max-w-6xl mx-auto relative">
+  <div class="flex justify-end pr-8 mb-4">
+    <button
+      class="bg-blueGray-800 text-white px-4 py-2 rounded shadow hover:bg-blueGray-900 transition"
+      (click)="openModal()"
+    >
+      Create New Post
+    </button>
+  </div>
+</div>
 <!-- Backdrop -->
 <!-- Blurred Backdrop (matching Post Detail Modal style) -->
 <div
@@ -25,9 +28,10 @@
   >
     <!-- AI Generation Section -->
     <div class="mb-6">
-      <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+      <label class="block uppercase text-white text-xs font-bold mb-2">
         Want help writing a post?
       </label>
+      
       <div class="flex">
         <input
           type="text"
