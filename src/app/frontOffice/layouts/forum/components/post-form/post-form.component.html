@@ -1,118 +1,152 @@
-<!-- AI Generation Section -->
-<div class="mb-6">
-  <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
-    Want help writing a post?
-  </label>
-  <div class="flex">
-    <input
-      type="text"
-      [(ngModel)]="generationPrompt"
-      name="generationPrompt"
-      placeholder="Type a topic or idea..."
-      class="flex-1 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring transition-all duration-150"
-    />
-    <button
-      type="button"
-      (click)="generatePost()"
-      [disabled]="generating"
-      class="ml-2 bg-blueGray-800 text-white text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg transition-all duration-150"
-    >
-      {{ generating ? 'Generating...' : 'Generate' }}
-    </button>
-  </div>
-</div>
+<!-- Button to Open Modal -->
+<button
+  class="bg-blueGray-800 text-white px-4 py-2 rounded shadow"
+  (click)="openModal()"
+>
+  Create New Post
+</button>
 
+<!-- Backdrop -->
+<!-- Blurred Backdrop (matching Post Detail Modal style) -->
+<div
+  *ngIf="isModalOpen"
+  class="fixed inset-0 bg-white/30 backdrop-blur-lg z-40 flex items-center justify-center"
+  (click)="closeModal()"
+></div>
 
-<div class="w-full max-w-3xl mx-auto mb-12">
+<!-- Modal Container -->
+<div
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-auto"
+  *ngIf="isModalOpen"
+>
   <div
-    class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
-    style="background-color: #dbeafe"
+    class="w-full max-w-3xl mx-auto mb-12"
+    (click)="$event.stopPropagation()"
   >
+    <!-- AI Generation Section -->
+    <div class="mb-6">
+      <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+        Want help writing a post?
+      </label>
+      <div class="flex">
+        <input
+          type="text"
+          [(ngModel)]="generationPrompt"
+          name="generationPrompt"
+          placeholder="Type a topic or idea..."
+          class="flex-1 border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring transition-all duration-150"
+        />
+        <button
+          type="button"
+          (click)="generatePost()"
+          [disabled]="generating"
+          class="ml-2 bg-blueGray-800 text-white text-sm font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg transition-all duration-150"
+        >
+          {{ generating ? "Generating..." : "Generate" }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Post Form Container -->
     <div
       class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
+      style="background-color: #dbeafe"
     >
-      <div class="flex-auto p-6 lg:p-10">
-        <h4 class="text-2xl font-semibold text-blueGray-800">
-          Want to share something?
-        </h4>
-        <p class="leading-relaxed mt-1 mb-4 text-blueGray-500">
-          Fill in the form to post your message to the community forum.
-        </p>
+      <div
+        class="relative flex flex-col min-w-0 break-words w-full shadow-lg rounded-lg"
+      >
+        <div class="flex-auto p-6 lg:p-10">
+          <h4 class="text-2xl font-semibold text-blueGray-800">
+            Want to share something?
+          </h4>
+          <p class="leading-relaxed mt-1 mb-4 text-blueGray-500">
+            Fill in the form to post your message to the community forum.
+          </p>
 
-        <form (ngSubmit)="createPost()" #postForm="ngForm" class="mt-8">
-          <div class="mb-4">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              >Title</label
-            >
-            <input
-              type="text"
-              name="title"
-              [(ngModel)]="newPost.title"
-              required
-              placeholder="Post title"
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
-            />
-          </div>
-
-          <!-- Category Dropdown -->
-          <!-- Category Selection -->
-          <div class="mb-4">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              >Category</label
-            >
-            <select
-              [(ngModel)]="selectedCategory"
-              name="category"
-              required
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
-            >
-              <option *ngFor="let tag of tags" [value]="tag">
-                {{ tag }}
-              </option>
-              <option value="Custom">Custom</option>
-            </select>
-
-            <div *ngIf="selectedCategory === 'Custom'">
+          <form (ngSubmit)="createPost()" #postForm="ngForm" class="mt-8">
+            <!-- Title -->
+            <div class="mb-4">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              >
+                Title
+              </label>
               <input
                 type="text"
-                [(ngModel)]="customTag"
-                name="customTag"
-                placeholder="Enter custom tag"
+                name="title"
+                [(ngModel)]="newPost.title"
                 required
-                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150 mt-2"
+                placeholder="Post title"
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
               />
             </div>
-            
-          </div>
 
-          <!-- Custom Tag Input -->
+            <!-- Category Dropdown -->
+            <div class="mb-4">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              >
+                Category
+              </label>
+              <select
+                [(ngModel)]="selectedCategory"
+                name="category"
+                required
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+              >
+                <option *ngFor="let tag of tags" [value]="tag">
+                  {{ tag }}
+                </option>
+                <option value="Custom">Custom</option>
+              </select>
 
-          <div class="mb-4">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              >Content</label
-            >
-            <textarea
-              name="content"
-              [(ngModel)]="newPost.content"
-              rows="5"
-              required
-              placeholder="Write your thoughts here..."
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
-            ></textarea>
-          </div>
+              <!-- Custom Tag Input -->
+              <div *ngIf="selectedCategory === 'Custom'" class="mt-2">
+                <input
+                  type="text"
+                  [(ngModel)]="customTag"
+                  name="customTag"
+                  placeholder="Enter custom tag"
+                  required
+                  class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+                />
+              </div>
+            </div>
 
-          <div class="text-center mt-6">
-            <button
-              type="submit"
-              class="bg-blueGray-800 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg transition-all duration-150"
-            >
-              Submit Post
-            </button>
-          </div>
-        </form>
+            <!-- Content -->
+            <div class="mb-4">
+              <label
+                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+              >
+                Content
+              </label>
+              <textarea
+                name="content"
+                [(ngModel)]="newPost.content"
+                rows="5"
+                required
+                placeholder="Write your thoughts here..."
+                class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full transition-all duration-150"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="flex justify-end gap-2 mt-4">
+              <button
+                (click)="closeModal()"
+                class="px-4 py-2 rounded bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                class="bg-blueGray-800 text-white text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg transition-all duration-150"
+              >
+                Submit Post
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>

@@ -134,4 +134,30 @@ this.newPost.content = contentMatch ? contentMatch[1].trim() : '';
         },
       });
   }
+
+  isModalOpen = false;
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+    this.resetForm();
+  }
+  
+  resetForm() {
+    this.newPost = {
+      title: '',
+      content: '',
+      tag: '',
+      author: '',
+      createdAt: '',
+      replies: 0,
+      likes: 0,
+    };
+    this.selectedCategory = 'All';
+    this.customTag = '';
+    this.generationPrompt = '';
+    this.generating = false;
+  }
 }
