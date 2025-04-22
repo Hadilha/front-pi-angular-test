@@ -18,9 +18,6 @@
       [ngClass]="{ hidden: !navbarOpen, 'block rounded shadow-lg': navbarOpen }"
     >
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-
-
-
         <!-- Meditation -->
         <li class="flex items-center group relative">
           <button class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
@@ -28,9 +25,7 @@
             <span class="text-gray-500">Meditation</span>
             <i class="fas fa-chevron-down ml-1 text-xs text-gray-500"></i>
           </button>
-
         </li>
-
 
         <!-- Doctor Chat -->
         <li class="flex items-center">
@@ -40,7 +35,29 @@
           </a>
         </li>
 
+        <!-- Calendar -->
+        <li class="flex items-center">
+          <a 
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold" 
+            [routerLink]="['/patientspace/calendar', 6]" 
+            routerLinkActive="active"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-calendar-alt text-lg leading-lg mr-2"></i>
+            <span class="text-gray-500">My Appointments</span>
+          </a>
+        </li>
 
+        <!-- Video Call -->
+        <li class="flex items-center">
+          <a 
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold" 
+            [routerLink]="['/patientspace/join-video-call']" 
+            routerLinkActive="active"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-video text-lg leading-lg mr-2"></i>
+            <span class="text-gray-500">Call</span>
+          </a>
+        </li>
 
         <!-- Resources -->
         <li class="flex items-center">
@@ -58,23 +75,22 @@
           </a>
         </li>
 
-
-
-
-
+        <!-- My Space -->
         <li class="flex items-center group relative">
           <button class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
             <i class="lg:text-blue-200 text-gray-500 fas fa-user-circle text-lg leading-lg mr-2"></i>
             <span class="text-gray-500">My Space</span>
             <i class="fas fa-chevron-down ml-1 text-xs text-gray-500"></i>
           </button>
+        </li>
 
-          <li class="flex items-center">
-            <a class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-              <i class="lg:text-blue-200 text-gray-500 fas fa-bell text-lg leading-lg"></i>
-              <span class="lg:hidden ml-2 text-gray-500">Notifications</span>
-            </a>
-          </li>
+        <!-- Notifications -->
+        <li class="flex items-center">
+          <a class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+            <i class="lg:text-blue-200 text-gray-500 fas fa-bell text-lg leading-lg mr-2"></i>
+            <span class="lg:hidden text-gray-500">Notifications</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>

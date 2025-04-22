@@ -69,6 +69,10 @@ export class CalendarViewComponent implements OnInit {
       // Enable drag and drop
       editable: true,
       eventDrop: (info) => this.handleEventDrop(info),
+      
+      // Enable resizing
+      eventResizableFromStart: true, // Allow resizing from the start of the event
+      eventResize: (info) => this.handleEventResize(info),
       droppable: false // We only need to reschedule existing events, not create new ones via drag and drop
     };
   }
@@ -146,8 +150,9 @@ export class CalendarViewComponent implements OnInit {
       info.el.style.cursor = 'pointer';
       info.el.style.borderLeft = '4px solid ' + info.event.backgroundColor;
       
-      // Add a class to make it visually apparent that it's draggable
+      // Add classes to make it visually apparent that it's draggable and resizable
       info.el.classList.add('draggable-event');
+      info.el.classList.add('resizable-event');
     }
   }
 
@@ -269,6 +274,94 @@ handleEventDrop(info: EventDropArg): void {
       });
   } else {
     // If it's not an appointment, revert the drag
+    info.revert();
+  }
+}
+
+handleEventResize(info: any): void {
+  if (info.event.extendedProps['type'] === 'appointment') {
+    const appointment = info.event.extendedProps['appointmentData'];
+    
+    // Get the new start and end times from the resized event
+    const newStartTime = info.event.start || new Date();
+    const newEndTime = info.event.end || new Date();
+    
+    // Show a temporary loading state
+    this.isLoading = true;
+    
+    // Update the appointment with new times
+    this.appointmentService.updateAppointmentTimes(appointment.appointmentId, newStartTime, newEndTime)
+      .subscribe({
+        next: (updatedAppointment) => {
+          // Update the local appointment data
+          appointment.startTime = newStartTime;
+          appointment.endTime = newEndTime;
+          
+          // Find and update the event in the events array
+          this.events = this.events.map(event => {
+            if (event.extendedProps?.type === 'appointment' && 
+                event.extendedProps?.appointmentData?.appointmentId === appointment.appointmentId) {
+              return {
+                ...event,
+                start: newStartTime,
+                end: newEndTime,
+                extendedProps: {
+                  ...event.extendedProps,
+                  appointmentData: {
+                    ...appointment,
+                    startTime: newStartTime,
+                    endTime: newEndTime
+                  }
+                }
+              };
+            }
+            return event;
+          });
+          
+          // Update the appointment in the appointments array
+          this.appointments = this.appointments.map(apt => {
+            if (apt.appointmentId === appointment.appointmentId) {
+              return {
+                ...apt,
+                startTime: newStartTime,
+                endTime: newEndTime
+              };
+            }
+            return apt;
+          });
+          
+          // Force refresh the calendar
+          this.updateCalendar();
+          
+          // Show success message
+          this.successMessage = 'Appointment duration updated successfully';
+          setTimeout(() => this.successMessage = null, 3000);
+          
+          this.isLoading = false;
+          this.cdr.detectChanges();
+        },
+        error: (err) => {
+          console.error('Failed to update appointment duration:', err);
+          
+          // Revert the resize
+          info.revert();
+          
+          // Show error message
+          this.errorMessage = 'Failed to update appointment duration: ' + 
+            (err.error && typeof err.error === 'string' ? err.error : 'Please try again');
+          
+          this.isLoading = false;
+          this.cdr.detectChanges();
+          
+          // Auto-clear error after a few seconds
+          setTimeout(() => {
+            this.errorMessage = null;
+            this.cdr.detectChanges();
+          }, 5000);
+        }
+      });
+  } else {
+    // If it's not an appointment, revert the resize
     info.revert();
   }
 }

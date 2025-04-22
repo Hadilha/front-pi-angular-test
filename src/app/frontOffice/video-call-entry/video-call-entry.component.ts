@@ -14,9 +14,8 @@ export class VideoCallEntryComponent {
 
   joinCall() {
     if (this.roomId) {
-      // Always use 'doctor' in the path, but pass the selected role as a query parameter
-      const url = `/doctor/video-call/${this.roomId}?role=${this.selectedRole}`;
-      this.router.navigateByUrl(url);
+      const path = this.selectedRole === 'doctor' ? 'doctor' : 'patientspace';
+      this.router.navigate([`/${path}/video-call/${this.roomId}`]);
     } else {
       alert('Please enter a Room ID');
     }

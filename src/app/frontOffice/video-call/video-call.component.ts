@@ -1,9 +1,9 @@
-// src/app/frontoffice/video-call/video-call.component.ts
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VideoCallService, VideoCall } from '../../services/video-call.service';
 import { PeerService } from 'src/app/services/peer.service';
 import { Subscription } from 'rxjs';
+import { AiDoctorNoteService } from 'src/app/services/ai-doctor-note.service';
 
 @Component({
   selector: 'app-video-call',
@@ -20,87 +20,82 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   callStatus = 'connecting'; // connecting, active, ended
   consultationNotes = '';
-  connectionTimeout: any;
+  isGenerating = false;
+  generatedNote = '';
 
-  // For accessing video elements directly
+  connectionTimeout: any;
+  callRetryTimer: any;
+  maxCallAttempts = 5;
+  callAttempts = 0;
+  statusUpdated = false;
+
   @ViewChild('localVideo') localVideoElement?: ElementRef;
   @ViewChild('remoteVideo') remoteVideoElement?: ElementRef;
 
   constructor(
+    private aiService: AiDoctorNoteService,
     private route: ActivatedRoute,
     private router: Router,
     private videoCallService: VideoCallService,
     private peerService: PeerService
-  ) { }
+  ) {}
 
-  navigateToVideoCalls(): void {
-    this.router.navigate(['doctor/video-calls']);
-  }
+
 
   ngOnInit(): void {
-    // For testing, use URL parameter to determine role consistently
-    const roleParam = this.route.snapshot.queryParamMap.get('role');
-    if (roleParam === 'doctor') {
-      this.isDoctor = true;
-    } else if (roleParam === 'patient') {
-      this.isDoctor = false;
-    } else {
-      // Default assignment if no role param (for production you'd use auth service)
-      // This approach ensures consistent behavior in both development and production
-      this.isDoctor = this.route.snapshot.queryParamMap.get('role') === 'doctor';
-    }
-
+    const segments = this.router.url.split('/');
+    this.isDoctor = segments.includes('doctor');
     console.log(`Role assigned: ${this.isDoctor ? 'doctor' : 'patient'}`);
 
     const roomIdParam = this.route.snapshot.paramMap.get('roomId');
     this.roomId = roomIdParam;
-    
+
     if (!this.roomId) {
-      // If no roomId, try to get from appointmentId
       const appointmentIdParam = this.route.snapshot.paramMap.get('appointmentId');
       const appointmentId = appointmentIdParam ? Number(appointmentIdParam) : null;
-      
+
       if (appointmentId && !isNaN(appointmentId)) {
         this.setupVideoCallByAppointment(appointmentId);
       } else {
-        this.router.navigate(['/appointments']);
+        this.navigateToEntry();
       }
     } else {
       this.setupVideoCallByRoomId(this.roomId);
     }
 
-    // Subscribe to streams
     this.subscriptions.push(
       this.peerService.currentStream.subscribe(stream => {
         this.localStream = stream;
         this.attachStreamToVideo('local');
       }),
-      
       this.peerService.remoteStream.subscribe(stream => {
         this.remoteStream = stream;
         this.attachStreamToVideo('remote');
-        
+
         if (stream) {
           this.callStatus = 'active';
           this.updateCallStatus('ACTIVE');
-          // Clear connection timeout if connection succeeds
-          if (this.connectionTimeout) {
-            clearTimeout(this.connectionTimeout);
-          }
+
+          if (this.connectionTimeout) clearTimeout(this.connectionTimeout);
+          if (this.callRetryTimer) clearTimeout(this.callRetryTimer);
         }
       })
     );
 
-    // Setup timeout for connection attempts
     this.connectionTimeout = setTimeout(() => {
       if (this.callStatus === 'connecting') {
         console.warn('Connection attempt timed out after 30 seconds');
-        // Optional: Show timeout message to user
+        alert('Connection timed out. Please try again.');
+        this.navigateToEntry();
       }
     }, 30000);
   }
 
-  // Helper method to attach streams to video elements
+  navigateToEntry(): void {
+    const path = this.isDoctor ? 'doctor/join-video-call' : 'patientspace/join-video-call';
+    this.router.navigate([path]);
+  }
+
   attachStreamToVideo(streamType: 'local' | 'remote'): void {
     if (streamType === 'local' && this.localVideoElement && this.localStream) {
       this.localVideoElement.nativeElement.srcObject = this.localStream;
@@ -115,37 +110,13 @@ export class VideoCallComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.roomId = response.roomId;
         console.log(`Room created with ID: ${this.roomId}`);
-        
-        this.initializePeerConnection()
-          .then(() => {
-            if (!this.isDoctor) {
-              const doctorPeerId = `doctor-${this.roomId}`;
-              let attempts = 0;
-              const maxAttempts = 5;
-              const retryDelay = 2000; // 2 seconds between retries
-  
-              const tryCall = () => {
-                attempts++;
-                console.log(`Patient calling doctor (Attempt ${attempts})`);
-                this.peerService.callPeer(doctorPeerId);
-  
-                if (attempts < maxAttempts) {
-                  setTimeout(tryCall, retryDelay);
-                } else {
-                  console.error('Max call attempts reached');
-                  // Optionally update UI to inform user
-                }
-              };
-  
-              // Initial call attempt after a short delay
-              setTimeout(tryCall, 1000);
-            }
-          })
-          .catch(error => {
-            console.error('Peer initialization failed:', error);
-          });
+        this.initializePeerConnection().then(() => this.initiateCall());
       },
-      error: (error) => console.error('Error creating video room:', error)
+      error: (error) => {
+        console.error('Error creating video room:', error);
+        alert('Failed to create video room. Please try again.');
+        this.navigateToEntry();
+      }
     });
   }
 
@@ -155,36 +126,16 @@ export class VideoCallComponent implements OnInit, OnDestroy {
         this.videoCall = videoCall;
         this.appointmentId = videoCall.appointment.appointmentId;
         console.log(`Joined room with ID: ${roomId}`);
-        
-        this.initializePeerConnection()
-          .then(() => {
-            if (!this.isDoctor) {
-              const doctorPeerId = `doctor-${this.roomId}`;
-              let attempts = 0;
-              const maxAttempts = 5;
-              const retryDelay = 2000;
-  
-              const tryCall = () => {
-                attempts++;
-                console.log(`Patient calling doctor (Attempt ${attempts})`);
-                this.peerService.callPeer(doctorPeerId);
-  
-                if (attempts < maxAttempts) {
-                  setTimeout(tryCall, retryDelay);
-                } else {
-                  console.error('Max call attempts reached');
-                }
-              };
-  
-              setTimeout(tryCall, 1000);
-            }
-          })
-          .catch(error => console.error('Peer init failed:', error));
+        this.initializePeerConnection().then(() => this.initiateCall());
       },
-      error: (error) => console.error('Error fetching video call:', error)
+      error: (error) => {
+        console.error('Error fetching video call:', error);
+        alert('Invalid room ID. Please try again.');
+        this.navigateToEntry();
+      }
     });
   }
-  // Generate a consistent user ID based on room ID and role
+
   generateUserId(): string {
     if (!this.roomId) {
       console.error('Cannot generate user ID: Room ID is null');
@@ -196,38 +147,68 @@ export class VideoCallComponent implements OnInit, OnDestroy {
   initializePeerConnection(): Promise<void> {
     const userId = this.generateUserId();
     console.log(`Initializing peer with ID: ${userId}`);
-    
-    return this.peerService.initPeer(userId)
-      .then(() => {
-        console.log('Peer initialized successfully with ID:', userId);
-      })
-      .catch(error => {
-        console.error('Error initializing peer:', error);
-        throw error; // Re-throw to handle in the caller
-      });
+    return this.peerService.initPeer(userId).then(() => {
+      console.log('Peer initialized successfully with ID:', userId);
+    }).catch(error => {
+      console.error('Error initializing peer:', error);
+      alert('Failed to initialize video call. Please try again.');
+      throw error;
+    });
   }
-  updateCallStatus(status: string): void {
-    if (this.appointmentId) {
-      this.videoCallService.updateVideoStatus(this.appointmentId, status).subscribe({
-        next: () => console.log(`Call status updated to ${status}`),
-        error: (error) => console.error('Error updating call status:', error)
-      });
+
+  initiateCall(): void {
+    if (!this.isDoctor) {
+      const doctorPeerId = `doctor-${this.roomId}`;
+      const retryDelay = 2000;
+
+      const tryCall = () => {
+        if (this.callStatus === 'active') return; // Already connected
+        this.callAttempts++;
+        console.log(`Patient calling doctor (Attempt ${this.callAttempts})`);
+        this.peerService.callPeer(doctorPeerId);
+
+        if (this.callAttempts < this.maxCallAttempts) {
+          this.callRetryTimer = setTimeout(tryCall, retryDelay);
+        } else {
+          console.error('Max call attempts reached');
+          alert('Unable to connect to doctor. Please try again.');
+          this.navigateToEntry();
+        }
+      };
+
+      setTimeout(tryCall, 1000);
     }
   }
 
+  updateCallStatus(status: string): void {
+    if (this.statusUpdated || !this.appointmentId) return;
+    this.statusUpdated = true;
+    this.videoCallService.updateVideoStatus(this.appointmentId, status).subscribe({
+      next: () => console.log(`Call status updated to ${status}`),
+      error: (error) => console.error('Error updating call status:', error)
+    });
+  }
+
   saveNotes(): void {
-    if (this.isDoctor && this.appointmentId) {
-      this.videoCallService.saveNotes(this.appointmentId, this.consultationNotes).subscribe({
-        next: () => console.log('Consultation notes saved'),
-        error: (error) => console.error('Error saving notes:', error)
-      });
+    if (this.isDoctor && this.appointmentId && this.consultationNotes.trim()) {
+      // Create a Blob from the consultation notes text
+      const blob = new Blob([this.consultationNotes], { type: 'text/plain' });
+  
+      // Create a link to trigger the download
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `consultation_notes_${this.appointmentId}.txt`; // Filename can be customized as needed
+      link.click(); // Trigger the download
+      console.log('Notes downloaded successfully');
+    } else if (this.isDoctor && !this.consultationNotes.trim()) {
+      alert('Please enter consultation notes before downloading.');
     }
   }
+  
 
   endCall(): void {
     this.callStatus = 'ended';
     this.peerService.endCall();
-    
     if (this.appointmentId) {
       this.videoCallService.endVideoCall(this.appointmentId).subscribe({
         next: () => {
@@ -235,26 +216,51 @@ export class VideoCallComponent implements OnInit, OnDestroy {
           if (this.isDoctor) {
             this.saveNotes();
           }
-          setTimeout(() => this.router.navigate(['/doctor/join-video-call']), 3000);
+          this.navigateToEntry();
         },
-        error: (error) => console.error('Error ending call:', error)
+        error: (error) => {
+          console.error('Error ending call:', error);
+          this.navigateToEntry();
+        }
       });
+    } else {
+      this.navigateToEntry();
     }
   }
 
   ngOnDestroy(): void {
-    // Clear timeout if component is destroyed
-    if (this.connectionTimeout) {
-      clearTimeout(this.connectionTimeout);
-    }
-    
+    if (this.connectionTimeout) clearTimeout(this.connectionTimeout);
+    if (this.callRetryTimer) clearTimeout(this.callRetryTimer);
+
     this.peerService.endCall();
     this.peerService.destroyPeer();
+
     this.subscriptions.forEach(sub => sub.unsubscribe());
-    
-    // Make sure call is ended properly
+
     if (this.callStatus !== 'ended' && this.appointmentId) {
       this.videoCallService.endVideoCall(this.appointmentId).subscribe();
     }
   }
+
+  generateNoteWithAI(): void {
+    if (!this.consultationNotes.trim()) {
+      alert('Please enter patient summary first.');
+      return;
+    }
+
+    this.isGenerating = true;
+    this.aiService.generateDoctorNote(this.consultationNotes).subscribe({
+      next: note => {
+        this.generatedNote = note;
+        this.consultationNotes = note;
+        this.isGenerating = false;
+      },
+      error: err => {
+        console.error(err);
+        alert('Failed to generate note.');
+        this.isGenerating = false;
+      }
+    });
+  }
+
 }

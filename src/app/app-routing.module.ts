@@ -33,6 +33,8 @@ import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patien
 import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
 import{ VideoCallComponent } from './frontOffice/video-call/video-call.component';
 import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
+import { PatientCalendarComponent } from "./frontOffice/patient-calendar/patient-calendar.component";
+
 const routes: Routes = [
   // Doctor Dashboard
   {
@@ -79,7 +81,24 @@ const routes: Routes = [
     ],
   },
   // Standalone Routes
-  { path: "patientspace", component: PatientspaceComponent },
+  
+
+
+  {
+    path: 'patientspace',
+    component: PatientspaceComponent,
+    children: [
+      { path: 'calendar/:patientId', component: PatientCalendarComponent },
+      { path: 'join-video-call', component: VideoCallEntryComponent },
+      { path: 'video-call/:roomId', component: VideoCallComponent },
+      { path: '', redirectTo: 'join-video-call', pathMatch: 'full' }, // Requires patientId; adjust if needed
+    ],
+  },
+
+
+
+
+
   { path: "profile", component: ProfileComponent },
   { path: "landing", component: LandingComponent },
   { path: "", component: IndexComponent },

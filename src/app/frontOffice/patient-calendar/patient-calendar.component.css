@@ -1,0 +1,193 @@
+.patient-calendar-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.calendar-subtitle {
+  color: #666;
+}
+
+.notification-container {
+  margin-bottom: 20px;
+}
+
+.notification {
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification.error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.notification.success {
+  background: #d4edda;
+  color: #155724;
+}
+
+.close-notification {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 50px;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 10px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.calendar-legend {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-color {
+  width: 15px;
+  height: 15px;
+  border-radius: 3px;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.appointment-status {
+  padding: 5px 10px;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.appointment-status.scheduled {
+  background: #ff9f89;
+  color: white;
+}
+
+.appointment-status.completed {
+  background: #8fbc8f;
+  color: white;
+}
+
+.appointment-status.canceled {
+  background: #cccccc;
+  color: white;
+}
+
+.appointment-status.reschedule_pending {
+  background: #ffeb3b;
+  color: black;
+}
+
+.detail-row {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.detail-label {
+  font-weight: bold;
+  flex: 0 0 100px;
+}
+
+.detail-value {
+  flex: 1;
+}
+
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.appointment-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.reschedule-btn, .cancel-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reschedule-btn {
+  background: #ff9f89;
+  color: white;
+}
+
+.cancel-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.reschedule-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

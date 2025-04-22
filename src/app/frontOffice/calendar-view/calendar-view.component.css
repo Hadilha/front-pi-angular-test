@@ -221,3 +221,32 @@
   z-index: 9999;
   border: 2px dashed #3498db;
 }
+/* Make resizable events more obvious */
+:host ::ng-deep .resizable-event::before {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  cursor: e-resize;
+}
+
+:host ::ng-deep .resizable-event::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50%;
+  cursor: w-resize;
+}
+
+:host ::ng-deep .resizable-event:hover::before,
+:host ::ng-deep .resizable-event:hover::after {
+  background-color: rgba(0, 0, 0, 0.6);
+}

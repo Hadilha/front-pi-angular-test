@@ -54,4 +54,43 @@ updateAppointmentTimes(id: number, startTime: Date, endTime: Date): Observable<a
     endTime: formatDate(endTime)
   });
 
-}}
+}
+getAppointmentsByPatientId(patientId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/patient/${patientId}`);
+}
+
+/**
+ * Request to reschedule an appointment (for patients)
+ */
+requestRescheduleAppointment(data: { appointmentId: number, startTime: string, endTime: string, reason: string }): Observable<any> {
+  return this.http.patch(`${this.apiUrl}/${data.appointmentId}/reschedule`, {
+    startTime: data.startTime,
+    endTime: data.endTime,
+    reason: data.reason
+  });
+}
+/**
+ * Cancel an appointment (for patients)
+ */
+cancelPatientAppointment(appointmentId: number): Observable<any> {
+  return this.http.put(`${this.apiUrl}/${appointmentId}/cancel`, { 
+    cancelledBy: 'PATIENT' 
+  });
+}
+
+/**
+ * Get upcoming appointments for a patient
+ */
+getUpcomingPatientAppointments(patientId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/patient/${patientId}/upcoming`);
+}
+
+/**
+ * Get past appointments for a patient
+ */
+getPastPatientAppointments(patientId: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/patient/${patientId}/past`);
+}
+
+
+}

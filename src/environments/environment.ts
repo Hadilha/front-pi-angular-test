@@ -5,12 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:8089/api',
-  qbAppId:       '105686',
-  qbAuthKey:     'ak_DpDPU9gj36hxFQ-',
-  qbAuthSecret:  'as_rWQWRaeBBBg3A3Z',
-  qbAccountKey:  'ack_rYpsr_KGCzseQNyf-uxj',
-  qbBotId:       '680256af6abf3d000142e22e'
-};
+  
+}
 
 /*
  * For easier debugging in development mode, you can import the following file

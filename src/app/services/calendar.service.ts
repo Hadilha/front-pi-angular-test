@@ -48,4 +48,15 @@ export class CalendarService {
   getCalendarsByProfessionalId(professionalId: number): Observable<Calendar[]> {
     return this.http.get<Calendar[]>(`${this.baseUrl}?professionalId=${professionalId}`);
   }
+
+  getCalendarsByPatientId(patientId: number): Observable<Calendar[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/patient/${patientId}`);
+  }
+  
+  // Get doctor's available slots (for booking)
+  getDoctorAvailability(doctorId: number, date: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/professional/${doctorId}/availability`, {
+      params: { date }
+    });
+  }
 }

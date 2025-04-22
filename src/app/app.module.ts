@@ -83,6 +83,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import { AppointmentStatisticsComponent } from './backOffice/appointment-statistics/appointment-statistics.component';
 import { VideoCallComponent } from './frontOffice/video-call/video-call.component';
 import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
+import { PatientCalendarComponent } from './frontOffice/patient-calendar/patient-calendar.component';
 
 
 
@@ -144,6 +145,7 @@ import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-ca
     AppointmentStatisticsComponent,
     VideoCallComponent,
     VideoCallEntryComponent,
+    PatientCalendarComponent,
 
     
 

@@ -1,175 +1,353 @@
+/* Video call container */
 .video-call-container {
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  padding: 1.5rem;
+  position: relative;
+  background-color: #f5f7fa; /* Subtle light gray for a clean look */
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Role-based background colors */
+.doctor-view {
+  background: linear-gradient(135deg, #e0f7fa 0%, #b3e5fc 100%); /* Professional gradient for doctors */
+}
+
+.patient-view {
+  background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); /* Soft gradient for patients */
+}
+
+/* Call header */
+.call-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Call status */
+.call-status {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: #374151;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+.status-indicator.connecting {
+  background-color: #f59e0b; /* Vibrant amber */
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.status-indicator.active {
+  background-color: #10b981; /* Modern green */
+}
+
+.status-indicator.ended {
+  background-color: #ef4444; /* Professional red */
+}
+
+/* Video container */
+.video-container {
+  display: flex;
+  flex: 1;
+  background-color: #1f2937; /* Darker, professional tone */
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Video streams */
+.video-streams {
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+}
+
+.video-streams.ended {
+  background-color: #111827; /* Darker for ended state */
+}
+
+/* Remote video */
+.remote-video-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.remote-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remote-label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Local video (Picture-in-Picture) */
+.local-video-container {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 20%;
+  max-width: 240px;
+  min-width: 160px;
+  aspect-ratio: 4/3;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+  z-index: 20;
+  transition: transform 0.3s ease;
+}
+
+.local-video-container:hover {
+  transform: scale(1.05); /* Subtle hover effect */
+}
+
+.local-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.local-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Call controls */
+.call-controls {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(17, 24, 39, 0.85); /* Darker, semi-transparent */
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.control-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.25rem;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.control-btn.mute-btn,
+.control-btn.video-btn {
+  background-color: #6b7280; /* Neutral gray */
+}
+
+.control-btn.mute-btn:hover,
+.control-btn.video-btn:hover {
+  background-color: #4b5563;
+  transform: scale(1.1);
+}
+
+.control-btn.end-call-btn {
+  background-color: #dc2626; /* Bold red */
+  width: auto;
+  border-radius: 25px;
+  padding: 0 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.control-btn.end-call-btn:hover {
+  background-color: #b91c1c;
+  transform: scale(1.05);
+}
+
+/* Waiting and ended messages */
+.waiting-message,
+.call-ended-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  height: 100%;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7));
+}
+
+.waiting-message p,
+.call-ended-message p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Notes container */
+.notes-container {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-height: 280px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  width: 100%;
+  transition: box-shadow 0.3s ease;
+}
+
+.notes-container:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12); /* Subtle hover effect */
+}
+
+.notes-container h3 {
+  margin-bottom: 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Generated note */
+.generated-note {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  max-height: 160px;
+  overflow-y: auto;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #374151;
+}
+
+/* Patient instructions */
+.patient-instructions {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.patient-instructions h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Animations */
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.2); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .video-call-container {
     padding: 1rem;
-    background-color: #f5f5f5;
   }
-  
-  .call-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 1rem;
+
+  .local-video-container {
+    width: 35%;
+    min-width: 140px;
+    bottom: 16px;
+    right: 16px;
   }
-  
-  .call-status {
-    display: flex;
-    align-items: center;
+
+  .call-controls {
+    padding: 0.5rem 1rem;
     gap: 0.5rem;
   }
-  
-  .status-indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    
-    &.connecting {
-      background-color: #f0ad4e;
-      animation: blink 1s infinite;
-    }
-    
-    &.active {
-      background-color: #5cb85c;
-    }
-    
-    &.ended {
-      background-color: #d9534f;
-    }
-  }
-  
-  .video-streams {
-    display: flex;
-    position: relative;
-    flex: 1;
-    background-color: #000;
-    border-radius: 8px;
-    overflow: hidden;
-    
-    &.ended {
-      background-color: #222;
-    }
-  }
-  
-  .remote-video-container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .remote-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .local-video-container {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    width: 25%;
-    max-width: 250px;
-    min-width: 150px;
-    aspect-ratio: 4/3;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    border: 2px solid #fff;
-    z-index: 10;
-  }
-  
-  .local-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .call-controls {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 30px;
-    z-index: 10;
-  }
-  
+
   .control-btn {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    
-    &.mute-btn, &.video-btn {
-      background-color: #444;
-      &:hover {
-        background-color: #555;
-      }
-    }
-    
-    &.end-call-btn {
-      background-color: #d9534f;
-      width: auto;
-      border-radius: 25px;
-      padding: 0 1rem;
-      
-      &:hover {
-        background-color: #c9302c;
-      }
-    }
-  }
-  
-  .waiting-message, .call-ended-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    height: 100%;
-    text-align: center;
-    
-    p {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-    }
-  }
-  
-  .spinner {
     width: 40px;
     height: 40px;
-    border: 4px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 1s ease-in-out infinite;
+    font-size: 1rem;
   }
-  
+
+  .generated-note {
+    font-size: 0.85rem;
+    padding: 0.75rem;
+  }
+
   .notes-container {
+    max-height: 200px;
     margin-top: 1rem;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
-    h3 {
-      margin-bottom: 0.5rem;
-    }
   }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
+
+  .waiting-message p,
+  .call-ended-message p {
+    font-size: 1rem;
   }
-  
-  @keyframes spin {
-    to { transform: rotate(360deg); }
+}
+
+@media (max-width: 480px) {
+  .call-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
+
+  .local-video-container {
+    width: 45%;
+    min-width: 120px;
+  }
+
+  .control-btn.end-call-btn {
+    padding: 0 1rem;
+    font-size: 0.75rem;
+  }
+}
