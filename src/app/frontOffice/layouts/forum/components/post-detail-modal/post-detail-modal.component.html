@@ -240,13 +240,52 @@
 
 <!-- Report Modal -->
 
-<div *ngIf="reportingTarget" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[10000] flex items-center justify-center">
-  <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-    <h2 class="text-lg font-semibold mb-2">Report Post</h2>
-    <textarea [(ngModel)]="reportReason" rows="4" class="w-full p-2 border rounded"></textarea>
-    <div class="flex justify-end gap-2 mt-4">
-      <button (click)="closeReportModal()" class="text-gray-500 hover:underline">Cancel</button>
-      <button (click)="submitReport()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Submit</button>
+<!-- Report Modal -->
+<div
+  *ngIf="reportingTarget"
+  class="fixed inset-0 z-[10000] bg-white/30 backdrop-blur-lg flex items-center justify-center transition-opacity duration-300 animate-fade-in"
+  (click)="closeReportModal()"
+>
+  <div
+    class="relative bg-white rounded-lg shadow-lg max-w-lg w-full p-6 transition-transform transform animate-scale-in"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="closeReportModal()"
+      class="absolute top-4 right-4 text-red-500 text-2xl hover:text-red-700 transition"
+    >
+      ×
+    </button>
+
+    <!-- Header -->
+    <h2 class="text-xl font-semibold text-blueGray-800 mb-4">
+      Report {{ reportingTarget?.title ? 'Post' : 'Comment' }}
+    </h2>
+
+    <!-- Report Reason Textarea -->
+    <textarea
+      [(ngModel)]="reportReason"
+      rows="4"
+      placeholder="Describe your reason for reporting..."
+      class="w-full p-3 text-sm border border-blueGray-200 rounded-lg focus:outline-none focus:ring"
+    ></textarea>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end gap-2 mt-6">
+      <button
+        (click)="closeReportModal()"
+        class="text-sm text-blueGray-600 hover:underline"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="submitReport()"
+        class="bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded hover:bg-red-600 transition"
+      >
+        Submit
+      </button>
     </div>
   </div>
 </div>
+
