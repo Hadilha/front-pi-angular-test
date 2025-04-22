@@ -13,7 +13,7 @@ export interface CoachingProgram {
   participants: any; // Nombre de participants
   contents?: ProgramContent[]; // Liste des contenus associés au programme (optionnel)
   
-  version?: number; // Version du programme (optionnel)
+  
 }
 
 // Interface représentant un formulaire de création/modification d'un programme de coaching

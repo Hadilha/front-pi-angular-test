@@ -70,6 +70,8 @@ import { ContentprogramComponent } from './backOffice/contentprogram/contentprog
 import { CoachingProgramAjouterUpdateComponent } from './backOffice/coachingprogramajouter-update/coachingprogramajouter-update.component';
 import { ContentProgramAjouterupdateComponent } from './backOffice/content-program-ajouterupdate/content-program-ajouterupdate.component';
 import { CoachOfTheMonthComponent } from './components/coach-of-the-month/coach-of-the-month.component';
+import { CoachProgressComponent } from './components/coach-progress/coach-progress.component';
+import { CoachComponent } from './frontOffice/layouts/coach/coach.component';
 
 
 @NgModule({
@@ -124,11 +126,11 @@ import { CoachOfTheMonthComponent } from './components/coach-of-the-month/coach-
     CoachingprogramComponent,
     ContentprogramComponent,
     ContentProgramComponent,
-    
-   
     CoachingProgramAjouterUpdateComponent,
-         ContentProgramAjouterupdateComponent,
-         CoachOfTheMonthComponent,
+    ContentProgramAjouterupdateComponent,
+    CoachOfTheMonthComponent,
+    CoachProgressComponent,
+    CoachComponent,
          
 
   ],

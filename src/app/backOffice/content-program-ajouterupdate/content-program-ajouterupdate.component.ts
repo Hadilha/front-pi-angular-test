@@ -23,12 +23,12 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm(); // ✅ appel obligatoire pour initialiser le formulaire
-
     this.route.paramMap.subscribe((params: ParamMap) => {
       const idParam = params.get('id');
       if (idParam) {
         this.isEdit = true;
         this.contentId = +idParam;
+        console.error("❌ ID invalide pour chargement");
         this.programContentService.getProgramContentById(this.contentId).subscribe({
           next: (data: ProgramContent) => {
             this.form.patchValue({
@@ -61,13 +61,24 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
     });
   }
 
+  sendEmail(): void {
+    this.programContentService.sendEmail({}).subscribe({
+      next: (response) => {
+        console.log('Message reçu :', response.message);
+        console.log('Email Sent');}});
+  }
+    
+
   onSubmit(): void {
+    console.log('Valeurs du formulaire :', this.form.value); // ✅ ici
+
     if (this.isEdit) {
       // Mise à jour du contenu
       this.programContentService.updateProgramContent(this.contentId, this.form.value)
         .subscribe({
           next: () => {
             console.log('Redirection vers la liste des contenus');
+            console.error("❌ ID manquant pour édition");
             this.router.navigateByUrl('/backoffice/content-program');
           },
           error: (err) => {
@@ -78,8 +89,11 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
       // Ajout d'un nouveau contenu
       this.programContentService.addProgramContent(this.form.value)
         .subscribe({
-          next: () => {
-            console.log('Redirection vers la liste des contenus');
+          next: (response) => {
+            console.log('Message reçu :', response.message);
+            console.log('ID du contenu :', response.contentId);
+            alert(response.message); // Facultatif : affiche le message à l'utilisateur
+            this.sendEmail();
             this.router.navigateByUrl('/backoffice/content-program');
           },
           error: (err) => {

@@ -5,8 +5,7 @@ import { ContentprogramComponent } from './backOffice/contentprogram/contentprog
 import { ContentProgramAjouterupdateComponent } from './backOffice/content-program-ajouterupdate/content-program-ajouterupdate.component';
 import { CoachingProgramAjouterUpdateComponent } from './backOffice/coachingprogramajouter-update/coachingprogramajouter-update.component';
 import { ContentProgramComponent } from './frontOffice/content-program/content-program.component';
-
-
+import { CoachProgressComponent } from './components/coach-progress/coach-progress.component';
 // layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
@@ -53,6 +52,9 @@ const routes: Routes = [
   { path: 'content-programs/programcontent', component: ContentProgramAjouterupdateComponent },
   { path: 'content-programs/programcontent/:id', component: ContentProgramAjouterupdateComponent },
   { path: 'frontOffice/content-program', component: ContentProgramComponent },
+
+  { path: 'coach/progress/:programId', component: CoachProgressComponent },
+  //{ path: 'backoffice/coachingprogram/programs/:programId', component: CoachProgressComponent },
   
 
   

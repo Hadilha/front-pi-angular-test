@@ -1,24 +1,87 @@
-<div class="container">
-  <h2 class="my-4">Liste des Programmes</h2>
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped table-hover">
-      <thead class="thead-dark">
-        <tr>
-          <th>Title</th>
-          <th>Type</th>
-          <th>Description</th>
-          <th>Media</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of programContents">
-          <td>{{ item.title }}</td>
-          <td>{{ item.contentType }}</td>
-          <td>{{ item.contentDesc }}</td>
-          <td><a [href]="item.mediaLink" target="_blank" class="btn btn-primary btn-sm">Voir</a></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container" *ngIf="!isLoading; else loading">
+  <div class="post" *ngFor="let item of programContents">
+    <div class="post-header">
+      <h3>{{ item.title }}</h3>
+      <span class="post-type">{{ item.contentType }}</span>
+    </div>
+    <div class="post-content">
+      <p>{{ item.contentDesc }}</p>
+      <!-- Si le média est une vidéo -->
+      <video *ngIf="item.mediaType === 'video'" controls class="media">
+        <source [src]="item.mediaLink" type="video/mp4">
+        Your browser does not support the video tag or the video file is missing.
+      </video>
+
+      <!-- Si le média est un iframe (YouTube, Vimeo, etc.) -->
+      <iframe *ngIf="item.mediaType === 'iframe'" 
+        [src]="getSafeMediaUrl(item.mediaLink, item.mediaType)" 
+        class="media"
+        frameborder="0" 
+        allowfullscreen>
+</iframe>
+
+
+      <!-- Si le média est une image -->
+      <img *ngIf="item.mediaType === 'image'" 
+           [src]="item.mediaLink" 
+           alt="{{ item.title }}" 
+           class="media">
+    </div>
   </div>
 </div>
-<video src="https://www.youtube.com/watch?v=yUecJz1NkDc" ></video>
+
+<!-- État de chargement -->
+<ng-template #loading>
+  <div class="loading-container">
+    <p>Loading content...</p>
+  </div>
+</ng-template>
+
+<style>
+  .container {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .post {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .post-header h3 {
+    font-size: 18px;
+    margin: 0;
+  }
+  .post-type {
+    font-size: 12px;
+    color: #666;
+    background-color: #f0f0f0;
+    padding: 4px 8px;
+    border-radius: 4px;
+  }
+  .post-content p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  .media {
+    width: 100%;
+    border-radius: 8px;
+  }
+  .loading-container {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    padding: 20px;
+  }
+</style>

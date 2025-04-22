@@ -6,7 +6,7 @@ export interface ProgramContent {
     contentType: string;
     contentDesc: string;
     mediaLink: string;
-    programId: number; // Associer à un coaching program
-    version: number;
+    programId: number; 
+   
   }
   

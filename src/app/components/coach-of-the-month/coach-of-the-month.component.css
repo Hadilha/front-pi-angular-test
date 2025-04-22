@@ -1,15 +1,26 @@
-.coach-card {
-  max-width: 400px;
-  margin: 2rem auto;
+.coach-stat-card {
+  background-color: #1e88e5;
+  color: white;
   padding: 1.5rem;
-  border: 2px solid #007bff;
-  border-radius: 10px;
-  background-color: #f5faff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  max-width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin: 20px auto;
   text-align: center;
 }
 
-.coach-info p {
-  margin: 0.5rem 0;
-  font-size: 1.1rem;
+.stat-content {
+  margin-top: 10px;
+}
+
+.program-count {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffd54f;
+}
+
+.error-message {
+  margin-top: 10px;
+  color: #ffccbc;
+  font-weight: bold;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CoachStatisticsService } from 'src/app/services/coach-statistics.service';
+import { CoachStatisticsService } from 'src/app/services/coach-statistics.service'; // Importation du service
 
 @Component({
   selector: 'app-coach-of-the-month',
@@ -7,18 +7,21 @@ import { CoachStatisticsService } from 'src/app/services/coach-statistics.servic
   styleUrls: ['./coach-of-the-month.component.css']
 })
 export class CoachOfTheMonthComponent implements OnInit {
+  coachId: number | null = null; // Exemple d'ID de coach (tu peux le remplacer dynamiquement)
+  programCount: number | null = null;
+  errorMessage: string = '';
 
-  coachOfTheMonth: any;
-
-  constructor(private coachStatisticsService: CoachStatisticsService) {}
+  constructor(private coachStatisticsService: CoachStatisticsService) { }
 
   ngOnInit(): void {
-    this.coachStatisticsService.getCoachWithMostPrograms().subscribe({
+    this.coachStatisticsService.getCoachOfTheMonth().subscribe({
       next: (data) => {
-        this.coachOfTheMonth = data;
+        this.coachId = data.coachId;
+        this.programCount = data.programCount;
       },
       error: (err) => {
-        console.error('Erreur lors de la récupération du coach du mois', err);
+        this.errorMessage = "Erreur lors de la récupération des statistiques.";
+        console.error(err);
       }
     });
   }

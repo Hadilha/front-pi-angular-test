@@ -6,11 +6,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CoachStatisticsService {
-  private apiUrl = 'http://localhost:8089/stats';
+  private apiUrl = 'http://localhost:8089/stats/coach-of-the-month';
 
   constructor(private http: HttpClient) {}
 
-  getCoachWithMostPrograms(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/coach-of-the-month`); 
-}
+  getCoachOfTheMonth(): Observable<any> {
+    return this.http.get<any>(this.apiUrl);
+  }
 }

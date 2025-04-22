@@ -7,9 +7,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CoachingProgramAjouterUpdateService {
-  private baseUrl = 'http://localhost:8089/coaching-programs'; // URL de l'API
+  private baseUrl = 'http://localhost:8089/coaching-programs'; 
+  private emailApi ='http://localhost:8089/send_email'; // Replace with your actual email API URL
 
   constructor(private http: HttpClient) {}
+
+  sendEmail(emailData: any): Observable<any> {
+    return this.http.get(this.emailApi);
+  }
 
   create(program: CoachingProgram): Observable<any> {
     return this.http.post(`${this.baseUrl}`, program);

@@ -1,0 +1,39 @@
+
+
+  <ng-template #noProgressProgram>
+    <p class="text-gray-500">Aucune progression par programme disponible.</p>
+  </ng-template>
+
+  <!-- Progression par utilisateur -->
+  <h3 class="text-xl font-bold mt-8 mb-4">Progression par utilisateur</h3>
+
+  <div *ngIf="progressData.length > 0; else noProgressUser">
+                
+    <table class="table-auto w-full border">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="px-4 py-2 text-left">Utilisateur</th>
+          <th class="px-4 py-2 text-left">Progression</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of progressData" class="border-t">
+          <td class="px-4 py-2">{{ item.user.user_id }}</td>
+          <td class="px-4 py-2">
+            <div class="w-full bg-gray-200 rounded-full h-4">
+              <div
+                class="bg-blue-600 h-4 rounded-full text-xs text-white text-center"
+                [style.width.%]="item.progressPercentage">
+                {{ item.progressPercentage | number:'1.0-0' }}%
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #noProgressUser>
+    <p class="text-gray-500">Aucune progression utilisateur disponible.</p>
+  </ng-template>
+
