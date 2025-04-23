@@ -1,0 +1,26 @@
+/* Ensure proper canvas scaling */
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  /* Container for aspect ratio */
+  .relative.h-96 {
+    position: relative;
+    height: 24rem; /* 384px */
+    min-height: 300px;
+  }
+  
+  .loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    z-index: 10;
+  }

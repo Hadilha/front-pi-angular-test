@@ -71,7 +71,36 @@ export class StatsCommentChartComponent implements AfterViewInit {
 
   private renderChart(chartId: string, config: ChartConfiguration) {
     const canvas = document.getElementById(chartId) as HTMLCanvasElement;
-    const ctx = canvas?.getContext("2d");
-    if (ctx) new Chart(ctx, config);
+    const ctx = canvas.getContext('2d');
+    
+    // Destroy existing chart
+    const existingChart = Chart.getChart(canvas);
+    if (existingChart) existingChart.destroy();
+  
+    if (ctx) {
+      new Chart(ctx, {
+        ...config,
+        options: {
+          ...config.options,
+          responsive: true,
+          maintainAspectRatio: false, // Critical for proper scaling
+          plugins: {
+            ...config.options?.plugins,
+            legend: {
+              position: 'top',
+              labels: {
+                color: '#fff',
+                font: {
+                  size: 14
+                }
+              }
+            }
+          }
+        }
+      });
+    }
   }
+
+  isLoadingCommentsPerDay = true;
+  isLoadingMostCommented = true;
 }
