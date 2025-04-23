@@ -13,6 +13,9 @@ import {
   query,
   stagger,
 } from '@angular/animations';
+import { ForumNotificationService } from 'src/app/frontOffice/layouts/forum/service/forum-notification.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-admin-forum',
   templateUrl: './admin-forum.component.html',
@@ -36,14 +39,26 @@ import {
   ],
 })
 export class AdminForumComponent implements OnInit {
+  private reportSubscription!: Subscription;
   posts: any[] = [];
   private readonly BASE_URL = 'http://localhost:8089/forum/posts'; // Update if needed
 
-  constructor(private http: HttpClient, private dialog: MatDialog) {}
+  constructor(private http: HttpClient, private dialog: MatDialog,private notificationService: ForumNotificationService,
+    private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadPosts();
     this.loadReports();
+    this.reportSubscription = this.notificationService.reportNotifications$.subscribe(
+      message => {
+        this.snackBar.open(message, 'Close', {
+          duration: 5000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+          panelClass: ['admin-snackbar']
+        });
+      }
+    );
   }
 
   loadPosts(): void {
