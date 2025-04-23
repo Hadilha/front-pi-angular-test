@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./stats-container.component.css']
 })
 export class StatsContainerComponent {
-  showCommentsCharts = true;
+  activeTab: 'comments' | 'posts' | 'reactions' = 'comments';
 
-  toggleCharts(type: 'comments' | 'posts') {
-    this.showCommentsCharts = type === 'comments';
+  setActiveTab(tab: 'comments' | 'posts' | 'reactions') {
+    this.activeTab = tab;
   }
 }

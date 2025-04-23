@@ -1,20 +1,46 @@
-<div class="chart-controls mb-6">
+<!-- stats-container.component.html -->
+<div class="space-y-6">
+  <div class="chart-controls flex gap-4 mb-6">
     <button 
-      (click)="toggleCharts('comments')"
-      [class.active]="showCommentsCharts"
-      class="toggle-button"
+      (click)="setActiveTab('comments')" 
+      [class.active]="activeTab === 'comments'"
+      class="px-6 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition-colors"
+      [attr.data-type]="'comments'"
     >
-      💬 Comment Charts
+      💬 Comments
     </button>
     
     <button 
-      (click)="toggleCharts('posts')"
-      [class.active]="!showCommentsCharts"
-      class="toggle-button"
+      (click)="setActiveTab('posts')" 
+      [class.active]="activeTab === 'posts'"
+      class="px-6 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition-colors"
+      [attr.data-type]="'posts'"
     >
-      📝 Post Charts
+      📝 Posts
+    </button>
+    
+    <button 
+      (click)="setActiveTab('reactions')" 
+      [class.active]="activeTab === 'reactions'"
+      class="px-6 py-2 rounded-lg bg-gray-700 text-white hover:bg-gray-600 transition-colors"
+      [attr.data-type]="'reactions'"
+    >
+      👍 Reactions
     </button>
   </div>
-  
-  <app-stats-comment-chart *ngIf="showCommentsCharts"></app-stats-comment-chart>
-  <app-stats-post-chart *ngIf="!showCommentsCharts"></app-stats-post-chart>
+
+  <!-- Chart Containers -->
+  <div class="space-y-6">
+    <div class="bg-gray-800 p-4 rounded-xl" *ngIf="activeTab === 'comments'">
+      <app-stats-comment-chart></app-stats-comment-chart>
+    </div>
+
+    <div class="bg-gray-800 p-4 rounded-xl" *ngIf="activeTab === 'posts'">
+      <app-stats-post-chart></app-stats-post-chart>
+    </div>
+
+    <div class="bg-gray-800 p-4 rounded-xl" *ngIf="activeTab === 'reactions'">
+      <app-stats-reaction-chart></app-stats-reaction-chart>
+    </div>
+  </div>
+</div>

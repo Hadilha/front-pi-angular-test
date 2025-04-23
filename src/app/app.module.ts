@@ -81,7 +81,8 @@ import { ReportDetailModalComponentComponent } from './backOffice/forum moderati
 import { StatsPostChartComponent } from './backOffice/forum moderation/stats-post-chart/stats-post-chart.component';
 import { NgChartsModule } from 'ng2-charts';
 import { StatsCommentChartComponent } from './backOffice/forum moderation/stats-comment-chart/stats-comment-chart.component';
-import { StatsContainerComponent } from './backOffice/forum moderation/stats-container/stats-container.component'; // add this line
+import { StatsContainerComponent } from './backOffice/forum moderation/stats-container/stats-container.component';
+import { StatsReactionChartComponent } from './backOffice/forum moderation/stats-reaction-chart/stats-reaction-chart.component'; 
 
 @NgModule({
   declarations: [
@@ -144,6 +145,7 @@ import { StatsContainerComponent } from './backOffice/forum moderation/stats-con
     StatsPostChartComponent,
     StatsCommentChartComponent,
     StatsContainerComponent,
+    StatsReactionChartComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,19 @@
+<div class="mb-6 bg-gray-800 p-4 rounded-xl">
+  <h2 class="text-lg font-semibold text-white mb-4">🎭 Reaction Types Distribution</h2>
+  <div class="chart-container h-96">
+    <div *ngIf="isLoadingDistribution" class="...">
+      ⏳ Loading...
+    </div>
+    <canvas id="reaction-distribution-chart"></canvas>
+  </div>
+</div>
+
+<div class="mb-6 bg-gray-800 p-4 rounded-xl">
+  <h2 class="text-lg font-semibold text-white mb-4">🔥 Most Reacted Posts</h2>
+  <div class="chart-container h-96">
+    <div *ngIf="isLoadingMostReacted" class="...">
+      ⏳ Loading...
+    </div>
+    <canvas id="most-reacted-posts-chart"></canvas>
+  </div>
+</div>
