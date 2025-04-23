@@ -1,5 +1,5 @@
 import { Component,OnInit, OnDestroy } from '@angular/core';
-import { ForumNotificationService } from './frontOffice/layouts/forum/service/forum-notification.service';
+import { ForumNotificationService } from './frontOffice/layouts/forum/service/forum-notification/forum-notification.service'; 
 
 @Component({
   selector: 'app-root',

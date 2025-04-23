@@ -13,7 +13,7 @@ import {
   query,
   stagger,
 } from '@angular/animations';
-import { ForumNotificationService } from 'src/app/frontOffice/layouts/forum/service/forum-notification.service';
+import { ForumNotificationService } from 'src/app/frontOffice/layouts/forum/service/forum-notification/forum-notification.service'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 @Component({
