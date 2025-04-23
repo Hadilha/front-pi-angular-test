@@ -18,10 +18,19 @@ export class ForumNotificationService {
       try {
         const data = JSON.parse(event.data);
         const user = data.user || 'Someone';
-        const postTitle = data.postTitle || 'your post';
-
-        const formattedMessage = `🗨️ ${user} has commented on your post: "${postTitle}"`;
-
+        const type = data.type || 'comment'; // default to 'comment'
+        
+        let formattedMessage = '';
+    
+        if (type === 'comment') {
+          const postTitle = data.postTitle || 'your post';
+          formattedMessage = `🗨️ ${user} has commented on your post: "${postTitle}"`;
+        } else if (type === 'report') {
+          const targetType = data.targetType || 'Post'; // "Post" or "Comment"
+          const postTitle = data.postTitle ? `: "${data.postTitle}"` : '';
+          formattedMessage = `🚩 ${user} has reported a ${targetType}${postTitle}`;
+        }
+    
         this.zone.run(() => {
           this.snackBar.open(formattedMessage, 'Close', {
             duration: 5000,
@@ -34,6 +43,7 @@ export class ForumNotificationService {
         console.error('Error parsing SSE data:', error);
       }
     });
+    
 
     this.eventSource.onerror = (error) => {
       console.error('SSE error:', error);
