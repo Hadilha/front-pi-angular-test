@@ -1,0 +1,20 @@
+<div class="chart-controls mb-6">
+    <button 
+      (click)="toggleCharts('comments')"
+      [class.active]="showCommentsCharts"
+      class="toggle-button"
+    >
+      💬 Comment Charts
+    </button>
+    
+    <button 
+      (click)="toggleCharts('posts')"
+      [class.active]="!showCommentsCharts"
+      class="toggle-button"
+    >
+      📝 Post Charts
+    </button>
+  </div>
+  
+  <app-stats-comment-chart *ngIf="showCommentsCharts"></app-stats-comment-chart>
+  <app-stats-post-chart *ngIf="!showCommentsCharts"></app-stats-post-chart>

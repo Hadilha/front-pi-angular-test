@@ -79,7 +79,9 @@ import { PostDetailModalComponent } from './frontOffice/layouts/forum/components
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReportDetailModalComponentComponent } from './backOffice/forum moderation/report-detail-modal-component/report-detail-modal-component.component';
 import { StatsPostChartComponent } from './backOffice/forum moderation/stats-post-chart/stats-post-chart.component';
-import { NgChartsModule } from 'ng2-charts'; // add this line
+import { NgChartsModule } from 'ng2-charts';
+import { StatsCommentChartComponent } from './backOffice/forum moderation/stats-comment-chart/stats-comment-chart.component';
+import { StatsContainerComponent } from './backOffice/forum moderation/stats-container/stats-container.component'; // add this line
 
 @NgModule({
   declarations: [
@@ -140,6 +142,8 @@ import { NgChartsModule } from 'ng2-charts'; // add this line
     PostDetailModalComponent,
     ReportDetailModalComponentComponent,
     StatsPostChartComponent,
+    StatsCommentChartComponent,
+    StatsContainerComponent,
   ],
   imports: [
     BrowserModule,
