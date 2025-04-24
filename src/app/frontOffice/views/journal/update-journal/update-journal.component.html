@@ -1,0 +1,83 @@
+<div class="editor-container">
+  <div class="editor-header">
+    <div class="header-content">
+      <div class="header-left">
+        <div class="meta-item">
+          <i class="fas fa-calendar-day"></i>
+          <span>{{ entryForm.value.entryDate | date: 'mediumDate' }}</span>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="mood-selector">
+          <div class="mood-options">
+            <button
+              *ngFor="let mood of moods"
+              type="button"
+              class="mood-option"
+              [class.selected]="entryForm.value.mood === mood"
+              [style.backgroundColor]="getMoodColor(mood)"
+              (click)="entryForm.patchValue({ mood: mood })"
+            >
+              <i class="mood-icon" [class]="getMoodIcon(mood)"></i>
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-icon" (click)="cancel.emit()" aria-label="Close">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="entryForm" (ngSubmit)="onSubmit()" class="editor-form">
+    <div class="form-header-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="!entryForm.valid || isSubmitting">
+        <i class="fas fa-save"></i>
+        {{ isSubmitting ? 'Saving...' : 'Save' }}
+      </button>
+    </div>
+
+    <div class="form-group floating-label">
+      <input
+        id="entryTitle"
+        type="text"
+        class="form-control"
+        formControlName="title"
+        placeholder=" "
+        required
+      >
+    </div>
+
+    <div class="editor-toolbar">
+      <button type="button" (click)="formatText('bold')" title="Bold">
+        <i class="fas fa-bold"></i>
+      </button>
+      <button type="button" (click)="formatText('italic')" title="Italic">
+        <i class="fas fa-italic"></i>
+      </button>
+      <button type="button" (click)="formatText('underline')" title="Underline">
+        <i class="fas fa-underline"></i>
+      </button>
+    </div>
+
+    <div class="form-group rich-text-container">
+      <label class="form-label">Content</label>
+
+
+      <div class="custom-editor"
+      formControlName="content"
+      contenteditable="true"
+      (focus)="saveSelection()"
+      (input)="onEditorInput($event)"
+      (blur)="saveSelection()">
+    </div>
+    </div>
+
+
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>

@@ -1,0 +1,66 @@
+<aside class="sidebar" [class.collapsed]="selectedEntry || editingEntry">
+  <section class="sidebar-section">
+    <h3 class="section-heading">
+      <i class="fas fa-filter icon"></i>
+      <span>Filtres</span>
+    </h3>
+
+    <!-- Search Filter -->
+    <div class="filter-group">
+      <div class="search-bar">
+        <input type="text" formControlName="searchQuery" placeholder="Search entries...">
+        <i class="fas fa-search"></i>
+      </div>
+    </div>
+
+    <!-- Mood Filters -->
+    <div class="filter-group">
+      <h4 class="filter-title">Mood</h4>
+      <div class="mood-filters">
+        <div *ngFor="let mood of moods"
+             class="mood-filter"
+             [class.selected]="filterForm.get('mood')?.value === mood"
+             (click)="filterForm.get('mood')?.setValue(mood)">
+          <div class="mood-bubble" [style.backgroundColor]="getMoodColor(mood)"></div>
+          <span class="mood-label">{{ mood | titlecase }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tag Filters -->
+    <div class="filter-group">
+      <h4 class="filter-title">Tags</h4>
+      <div class="tag-filters">
+        <div *ngFor="let tag of availableTags"
+             class="tag-filter"
+             [class.selected]="filterForm.get('tags')?.value?.includes(tag)"
+             (click)="toggleTagFilter(tag)">
+          {{ tag }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Date Range Filter -->
+    <div class="filter-group">
+      <h4 class="filter-title">Date Range</h4>
+      <div class="date-range-filters" formGroupName="dateRange">
+        <input type="date" formControlName="start" placeholder="Start date">
+        <span>to</span>
+        <input type="date" formControlName="end" placeholder="End date">
+      </div>
+    </div>
+
+    <!-- Favorite Filter -->
+    <div class="filter-group">
+      <label class="favorite-filter">
+        <input type="checkbox" formControlName="favorite">
+        <span>Show favorites only</span>
+      </label>
+    </div>
+
+    <!-- Reset Filters Button -->
+    <button class="reset-filters" (click)="resetFilters()">
+      Reset All Filters
+    </button>
+  </section>
+</aside>

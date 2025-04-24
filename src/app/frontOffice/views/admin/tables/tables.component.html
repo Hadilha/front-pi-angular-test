@@ -1,8 +1,10 @@
-<div class="flex flex-wrap mt-4">
-  <div class="w-full mb-12 px-4">
-    <app-card-table></app-card-table>
-  </div>
-  <div class="w-full mb-12 px-4">
-    <app-card-table color="dark"></app-card-table>
-  </div>
+<div>
+  <app-adduser
+    *ngIf="showAddUser"
+    (cancelled)="toggleView()"
+  ></app-adduser>
+  <app-cardprofiladmin
+    *ngIf="!showAddUser"
+    (viewToggled)="toggleView()"
+  ></app-cardprofiladmin>
 </div>

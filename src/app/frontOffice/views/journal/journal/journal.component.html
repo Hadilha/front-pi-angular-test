@@ -1,0 +1,72 @@
+<div class="journal-container">
+  <header class="journal-header">
+    <h1 class="journal-title">My daily journal</h1>
+    <button class="btn btn-primary"
+          (click)="newEntry()"
+          *ngIf="!editingEntry">
+    <i class="fas fa-plus"></i> New
+  </button>
+  </header>
+
+  <div class="journal-main">
+    <app-sidebar-journal
+    [journals]="journals"
+    [moods]="moods"
+    (filteredJournals)="handleFilteredJournals($event)"
+      [calendarDays]="calendarDays"
+      [selectedMood]="selectedMood"
+      [moods]="moods"
+      (daySelected)="loadEntriesForDay($event)"
+      (moodSelected)="filterByMood($event)">
+    </app-sidebar-journal>
+
+    <div class="journal-content">
+      <div *ngIf="isLoading" class="loading-state">
+        <i class="fas fa-spinner fa-spin"></i> Loading...
+      </div>
+
+      <div *ngIf="errorMessage" class="error-state">
+        <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+      </div>
+
+      <div *ngIf="!isLoading && !errorMessage && !selectedEntry && !editingEntry && filteredJournals.length === 0"
+           class="empty-state">
+        <div class="empty-content">
+          <img src="assets/img/journal-illustration.svg" alt="Journal Illustration">
+          <h2>Commencez votre voyage</h2>
+          <p>Cliquez sur "Nouvelle Entrée" pour documenter vos pensées</p>
+        </div>
+      </div>
+
+      <app-entries-list
+        *ngIf="!isLoading && !errorMessage && !selectedEntry && !editingEntry && filteredJournals.length > 0"
+        [entries]="filteredJournals"
+        (entrySelected)="selectEntry($event)">
+      </app-entries-list>
+
+        <app-show-journal
+      *ngIf="selectedEntry && !editingEntry"
+      [entry]="selectedEntry"
+      (back)="onBack()"
+      (editEntry)="onEditEntry($event)"> <!-- Add this event binding -->
+    </app-show-journal>
+      <app-add-journal
+        *ngIf="editingEntry && !editingEntry.id"
+        [entryForm]="entryForm"
+        [moods]="moods"
+        (save)="handleSaveSuccess()"
+        (cancel)="cancelEdit()">
+      </app-add-journal>
+
+
+      <app-update-journal
+        *ngIf="editingEntry?.id"
+        [entryForm]="entryForm"
+        [moods]="moods"
+        [quillConfig]="quillConfig"
+        (save)="saveEntry()"
+        (cancel)="cancelEdit()">
+      </app-update-journal>
+    </div>
+  </div>
+</div>

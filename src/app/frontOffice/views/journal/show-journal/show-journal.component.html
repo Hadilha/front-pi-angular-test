@@ -1,0 +1,45 @@
+<div class="entry-detail-view">
+  <!-- Header Section with Actions -->
+  <div class="entry-header">
+    <div class="header-actions">
+      <button class="btn btn-outline-secondary" (click)="back.emit()" aria-label="Return">
+        <i class="fas fa-arrow-left"></i> Return
+      </button>
+
+    </div>
+
+    <!-- Title and Metadata -->
+    <div class="entry-meta">
+      <span class="entry-date">
+        <i class="fas fa-calendar-day"></i>
+        {{ entry.entryDate | date: 'fullDate' }}
+      </span>
+      <span class="mood-display badge"
+            [style.backgroundColor]="getMoodColor(entry.mood)"
+            [attr.aria-label]="'Current mood: ' + entry.mood">
+        {{ entry.mood | titlecase }}
+      </span>
+    </div>
+
+  </div>
+  <h1 class="entry-title">{{ entry.title }}</h1>
+
+  <!-- Main Content -->
+  <div class="entry-content card">
+    <div class="card-body" [innerHTML]="entry.content"></div>
+  </div>
+  <div class="action-buttons">
+    <button class="btn btn-outline-primary"
+    (click)="onEdit(entry)"
+    aria-label="Edit">
+<i class="fas fa-edit"></i> Edit
+</button>
+
+    <button class="btn btn-outline-danger"
+            (click)="deleteJournalEntry(entry.id!)"
+
+            aria-label="Delete">
+      <i class="fas fa-trash"></i> Delete
+    </button>
+  </div>
+</div>

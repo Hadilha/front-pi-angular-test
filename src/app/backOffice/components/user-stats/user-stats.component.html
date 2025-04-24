@@ -1,0 +1,78 @@
+<!-- user-stats.component.html -->
+<div >
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-overlay">
+    <div class="loading-spinner"></div>
+    <p>Gathering statistics...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error" class="error-card">
+    <div class="error-icon">!</div>
+    <div class="error-message">{{ error }}</div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div *ngIf="!isLoading && !error" class="cards-grid">
+    <div class="stat-card total-users">
+      <div class="card-content">
+        <div class="card-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="card-text">
+          <h3>Total Users</h3>
+          <p>{{ stats?.totalUsers || 0 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card active-users">
+      <div class="card-content">
+        <div class="card-icon">
+          <i class="fas fa-user-check"></i>
+        </div>
+        <div class="card-text">
+          <h3>Active Users</h3>
+          <p>{{ stats?.activeUsers || 0 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card inactive-users">
+      <div class="card-content">
+        <div class="card-icon">
+          <i class="fas fa-user-clock"></i>
+        </div>
+        <div class="card-text">
+          <h3>Inactive Users</h3>
+          <p>{{ stats?.inactiveUsers || 0 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card doctors">
+      <div class="card-content">
+        <div class="card-icon">
+          <i class="fas fa-user-md"></i>
+        </div>
+        <div class="card-text">
+          <h3>Doctors</h3>
+          <p>{{ stats?.doctors || 0 }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-card patients">
+      <div class="card-content">
+        <div class="card-icon">
+          <i class="fas fa-procedures"></i>
+        </div>
+        <div class="card-text">
+          <h3>Patients</h3>
+          <p>{{ stats?.patients || 0 }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

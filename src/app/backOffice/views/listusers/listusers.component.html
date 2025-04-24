@@ -1,0 +1,38 @@
+<div class="admin-dashboard-container">
+  <div class="search-section">
+    <div class="search-wrapper">
+      <i class="fas fa-search search-icon"></i>
+      <input
+        type="text"
+        placeholder="Search users..."
+        class="search-input"
+        (keydown)="onSearch($event)"
+      />
+    </div>
+  </div>
+
+  <div *ngIf="isLoading" class="loading">
+    Loading...
+  </div>
+
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+
+  <div *ngIf="searchQuery && searchResults.length === 0 && !isLoading" class="no-results">
+    No users found matching your search.
+  </div>
+
+  <app-user-stats></app-user-stats>
+
+  <app-adduser
+    *ngIf="showAddUser"
+    (cancelled)="toggleView()"
+  ></app-adduser>
+
+  <app-cardprofiladmin
+    *ngIf="!showAddUser"
+    [searchResults]="searchResults"
+    (viewToggled)="toggleView()"
+  ></app-cardprofiladmin>
+</div>

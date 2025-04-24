@@ -5,8 +5,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
 // layouts
-import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
-import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
 
 // admin views
 import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
@@ -46,22 +44,41 @@ import { PagesDropdownComponent } from "./frontOffice/components/dropdowns/pages
 import { NotificationDropdownComponent } from "./frontOffice/components/dropdowns/notification-dropdown/notification-dropdown.component";
 import { SidebarComponent } from "./frontOffice/components/sidebar/sidebar.component";
 import { UserDropdownComponent } from "./frontOffice/components/dropdowns/user-dropdown/user-dropdown.component";
-import { RouterModule } from '@angular/router';
-import { CommonModule } from "@angular/common";
-import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
-import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
-import { FormsModule } from "@angular/forms";
+import { Router, RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
-import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 import { HomeComponent } from './frontOffice/views/home/home.component';
-import { AdminDashboardComponent } from './backOffice/admin-dashboard/admin-dashboard.component';
-import { AdminComponent } from './backOffice/admin/admin.component';
-import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.component';
-import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
-import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
-import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
-
+import { HttpClientModule } from '@angular/common/http';
+import { RoleFormatPipe } from './shared/pipes/role-format.pipe';
+import { CredentialsComponent } from "./frontOffice/views/credentials/credentials.component";
+import { StripHtmlPipe } from '../app/shared/pipes/strip-html.pipe';
+import { TruncatePipe } from './shared/pipes/truncate.pipe';
+import { QuillModule } from 'ngx-quill';
+import { LocationFinderComponent } from "./frontOffice/components/location-finder/location-finder.component";
+import { TestimonialCarouselComponent } from "./frontOffice/components/testimonial-carousel/testimonial-carousel.component";
+import { JournalComponent } from './frontOffice/views/journal/journal/journal.component';
+import { EntriesListComponent } from './frontOffice/views/journal/entries-list/entries-list.component';
+import { AddJournalComponent } from './frontOffice/views/journal/add-journal/add-journal.component';
+import { UpdateJournalComponent } from './frontOffice/views/journal/update-journal/update-journal.component';
+import { ShowJournalComponent } from './frontOffice/views/journal/show-journal/show-journal.component';
+import { CommonModule } from '@angular/common';
+import { SidebarJournalComponent } from './frontOffice/views/journal/sidebarJournal/sidebarJournal.component';
+import { ForgotpwComponent } from './frontOffice/views/auth/forgotpw/forgotpw.component';
+import { ResetpwComponent } from './frontOffice/views/auth/resetpw/resetpw.component';
+import { UserStatsComponent } from "./backOffice/components/user-stats/user-stats.component";
+import { AdduserComponent } from "./backOffice/views/adduser/adduser.component";
+import { AdminHeaderStatsComponent } from "./backOffice/components/admin-header-stats/admin-header-stats.component";
+import { AdminComponent } from "./backOffice/views/admin/admin.component";
+import { AuthComponent } from "./frontOffice/views/auth/auth.component";
+import { AdminTablesComponent } from "./backOffice/views/admin-tables/admin-tables.component";
+import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
+import { DoctorComponent } from "./frontOffice/views/doctor/doctor.component";
+import { AdminNavbarComponent } from "./backOffice/components/admin-navbar/admin-navbar.component";
+import { AdminSidebarComponent } from "./backOffice/components/admin-sidebar/admin-sidebar.component";
+import { ListusersComponent } from "./backOffice/views/listusers/listusers.component";
+import { ReportsadminComponent } from "./backOffice/views/reportsadmin/reportsadmin.component";
+import { CardprofiladminComponent } from "./backOffice/components/cardprofiladmin/cardprofiladmin.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -98,23 +115,40 @@ import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin
     LandingComponent,
     ProfileComponent,
     TestimonialCarouselComponent,
-    LocationFinderComponent,
     LoginNavbarComponent,
     PatientNavbarComponent,
     PatientspaceComponent,
     LocationFinderComponent,
     FooterComponent,
     HomeComponent,
-    AdminDashboardComponent,
     AdminComponent,
     AdminTablesComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
-    AdminHeaderStatsComponent
+    AdminHeaderStatsComponent,
+    ListusersComponent,
+    RoleFormatPipe,
+    ReportsadminComponent,
+    AdduserComponent,
+    CredentialsComponent,
+    TruncatePipe,
+    JournalComponent,
+    EntriesListComponent,
+    AddJournalComponent,
+    UpdateJournalComponent,
+    ShowJournalComponent,
+    SidebarJournalComponent,
+    ForgotpwComponent,
+    ResetpwComponent,
+    UserStatsComponent,
+    CardprofiladminComponent,
+
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule, HttpClientModule,ReactiveFormsModule,RouterModule, QuillModule.forRoot() // Single import here
+
+  ],
+  providers: [StripHtmlPipe, TruncatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

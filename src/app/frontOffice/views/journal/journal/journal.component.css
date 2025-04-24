@@ -1,0 +1,86 @@
+.journal-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f8fafc;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.journal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.journal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: rgb(66, 66, 66);
+}
+
+.btn-primary:hover {
+  background-color: var(--secondary-color);
+}
+
+.journal-main {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* Add this to prevent overflow issues */
+}
+
+.journal-content {
+  flex: 1;
+  display: flex; /* Add flex container */
+  flex-direction: column; /* Stack children vertically */
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.loading-state,
+.error-state,
+.empty-state {
+  flex: 1; /* Take remaining space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 200px); /* Adjust based on header height */
+}
+
+
+.empty-content {
+  max-width: 500px;
+}
+
+.empty-content img {
+  max-width: 200px;
+  margin-bottom: 1.5rem;
+}
+
+.empty-content h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: var(--text-color);
+}
+
+@media (max-width: 768px) {
+  .journal-sidebar {
+    width: 250px;
+  }
+}

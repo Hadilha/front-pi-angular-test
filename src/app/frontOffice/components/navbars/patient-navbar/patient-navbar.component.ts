@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,11 +9,15 @@ import { Component } from '@angular/core';
 export class PatientNavbarComponent {
   navbarOpen = false;
 
-  constructor() {}
+  constructor(private router:Router) {}
 
   ngOnInit(): void {}
 
   setNavbarOpen() {
     this.navbarOpen = !this.navbarOpen;
+  }
+  logout(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

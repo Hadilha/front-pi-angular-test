@@ -1,0 +1,287 @@
+:root {
+  --primary: #4f46e5;
+  --secondary: #6366f1;
+  --accent: #ec4899;
+  --success: #10b981;
+  --danger: #ef4444;
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --text: #1e293b;
+  --muted: #64748b;
+  --border: #e2e8f0;
+}
+
+/* Base Styles */
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui;
+  background-color: var(--surface);
+  color: var(--text);
+  line-height: 1.6;
+}
+/* Profile Header */
+.profile-header {
+  position: relative;
+  min-height: 400px;
+  /* Remove overflow: hidden */
+}
+
+.profile-header__background {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-size: cover;
+  background-position: center;
+  border-radius: 1.5rem;
+  overflow: hidden; /* Add overflow here instead */
+}
+
+/* Profile Avatar */
+.profile-avatar {
+  position: relative;
+  z-index: 3;
+  width: 160px;
+  height: 160px;
+  margin: -80px auto 1.5rem;
+  border: 4px solid var(--background);
+  border-radius: 50%;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ensure image stays within circle */
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Profile Identity */
+.profile-identity {
+  position: relative;
+  z-index: 2;
+  padding-top: 160px; /* Space for avatar */
+  text-align: center;
+}
+.profile-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Header Section */
+.profile-header {
+  position: relative;
+  height: 280px;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header__background {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+}
+
+.profile-header__wave {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px;
+  color: var(--surface);
+}
+
+/* Profile Card */
+.profile-card {
+  position: relative;
+  margin: -100px auto 0;
+  background: var(--background);
+  border-radius: 1.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border);
+}
+
+.profile-card__inner {
+  padding: 2.5rem;
+}
+
+/* Profile Identity */
+.profile-identity {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid var(--background);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  margin: -80px auto 1.5rem;
+  background: var(--surface);
+}
+
+.patient-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin: 0.5rem 0;
+  color: var(--text);
+}
+
+.patient-meta {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Medical Summary */
+.medical-summary {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 2rem 0;
+}
+
+.summary-card {
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.summary-icon {
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.summary-title {
+  font-size: 1rem;
+  color: var(--muted);
+  margin: 0.5rem 0;
+}
+
+.summary-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+/* Health Metrics */
+.health-metrics {
+  margin: 3rem 0;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.metrics-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.metric-item {
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+
+.metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.metric-label {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.metric-value {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Action Panel */
+.action-panel {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.action-btn.emergency {
+  background: var(--danger);
+  color: rgb(0, 0, 0);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.action-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.action-btn.primary {
+  background: var(--primary);
+  color: rgb(0, 0, 0);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.action-btn.secondary {
+  background: var(--secondary);
+  color: rgb(0, 0, 0);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .medical-summary,
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-card {
+    margin-top: -60px;
+  }
+
+  .action-group {
+    flex-direction: column;
+  }
+}

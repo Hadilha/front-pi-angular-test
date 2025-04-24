@@ -1,65 +1,60 @@
 <div class="container mx-auto px-4 h-full">
   <div class="flex content-center items-center justify-center h-full">
     <div class="w-full lg:w-4/12 px-4">
-      <div
-        class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0"
-      >
+      <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-200 border-0">
         <div class="rounded-t mb-0 px-6 py-6">
-
-
+          <div class="text-center mb-3">
+            <h6 class="text-blueGray-500 text-sm font-bold">Sign In</h6>
+          </div>
         </div>
         <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-          <div class="text-blueGray-400 text-center mb-3 font-bold">
-            <small>sign in with credentials</small>
-          </div>
-          <form>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="relative w-full mb-3">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
+              <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                 Username
               </label>
               <input
-                type="email"
+                type="text"
+                formControlName="username"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="Email"
+                placeholder="Username"
+                [class.border-red-500]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
               />
+              <div *ngIf="loginForm.get('username')?.errors?.['required'] && loginForm.get('username')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Username is required
+              </div>
             </div>
 
             <div class="relative w-full mb-3">
-              <label
-                class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="grid-password"
-              >
+              <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
                 Password
               </label>
               <input
                 type="password"
+                formControlName="password"
                 class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 placeholder="Password"
+                [class.border-red-500]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
               />
+              <div *ngIf="loginForm.get('password')?.errors?.['required'] && loginForm.get('password')?.touched"
+                   class="text-red-500 text-xs mt-1">
+                Password is required
+              </div>
             </div>
-            <div>
-              <label class="inline-flex items-center cursor-pointer">
-                <input
-                  id="customCheckLogin"
-                  type="checkbox"
-                  class="form-checkbox border-0 text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150 rounded"
-                />
-                <span class="ml-2 text-sm font-semibold text-blueGray-600">
-                  Remember me
-                </span>
-              </label>
+
+            <div *ngIf="errorMessage" class="text-red-500 text-center mb-3 text-sm">
+              {{ errorMessage }}
             </div>
 
             <div class="text-center mt-6">
               <button
-                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                type="button"
-                [routerLink]="['/patientspace']"
+                type="submit"
+                [disabled]="loginForm.invalid || loading"
+                class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150 disabled:opacity-50"
               >
-                Sign In
+                <span *ngIf="!loading">Sign In</span>
+                <span *ngIf="loading">Processing...</span>
               </button>
             </div>
           </form>
@@ -67,7 +62,7 @@
       </div>
       <div class="flex flex-wrap mt-6 relative">
         <div class="w-1/2">
-          <a href="javascript:void(0)" class="text-blueGray-200">
+          <a [routerLink]="['/forgotpassword']" class="text-blueGray-200 hover:text-blueGray-300">
             <small>Forgot password?</small>
           </a>
         </div>

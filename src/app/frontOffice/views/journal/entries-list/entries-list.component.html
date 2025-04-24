@@ -1,0 +1,19 @@
+<div class="entries-grid">
+  <div class="entry-card"
+       *ngFor="let entry of entries"
+       (click)="entrySelected.emit(entry)">
+    <div class="card-header">
+      <span class="entry-date">
+        {{ entry.entryDate | date: 'd MMM yyyy' }}
+      </span>
+      <span class="mood-bubble"
+            [style.backgroundColor]="getMoodColor(entry.mood)"></span>
+    </div>
+    <h3 class="entry-title">
+      {{ entry.title || 'Sans titre' }}
+    </h3>
+    <div class="entry-preview">
+      {{ entry.content || 'No content available' }}
+    </div>
+  </div>
+</div>
