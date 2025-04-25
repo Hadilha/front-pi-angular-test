@@ -45,7 +45,7 @@
               }}</span>
             </div>
           </div>
-
+      
           <h3 class="text-xl font-bold text-blueGray-900 mb-2">
             {{ post.title }}
           </h3>
@@ -54,7 +54,14 @@
           >
             {{ post.content }}
           </p>
-
+      
+          <!-- Image Display Logic -->
+          <div *ngIf="post.imageUrl">
+            <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" class="w-full rounded-lg mt-2" />
+          </div>
+          
+          
+      
           <div
             class="flex items-center justify-between text-sm text-blueGray-500"
           >
@@ -72,13 +79,13 @@
                 {{ post.viewCount || 0 }} Views
               </span>
             </div>
-
+      
             <span
               class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium"
             >
               #{{ post.tag }}
             </span>
-
+      
             <button
               *ngIf="post.author?.name === currentUser"
               (click)="deletePost(post.id); $event.stopPropagation()"
@@ -86,7 +93,7 @@
             >
               🗑️ Delete
             </button>
-
+      
             <button
               (click)="openReportModal(post); $event.stopPropagation()"
               class="text-yellow-600 hover:text-yellow-800 transition-all duration-150 text-lg ml-4"
@@ -96,6 +103,7 @@
           </div>
         </div>
       </div>
+      
     </div>
 
     <app-post-detail-modal

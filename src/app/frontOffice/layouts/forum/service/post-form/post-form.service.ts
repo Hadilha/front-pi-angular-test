@@ -45,4 +45,5 @@ export class PostFormService {
   createPost(postPayload: CreatePost): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/posts`, postPayload);
   }
+  
 }

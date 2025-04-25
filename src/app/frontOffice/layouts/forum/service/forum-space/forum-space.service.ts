@@ -20,6 +20,8 @@ export interface Post {
   totalReplies?: number;
   totalReactions?: number;
   viewCount?: number;
+  imageUrl?: string;
+
 }
 
 

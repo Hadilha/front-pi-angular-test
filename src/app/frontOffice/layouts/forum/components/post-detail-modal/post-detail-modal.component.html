@@ -43,7 +43,13 @@
         <p class="text-blueGray-700 leading-relaxed text-lg mb-6">
           {{ selectedPost.content }}
         </p>
-
+        <img
+        *ngIf="selectedPost.imageUrl"
+        [src]="selectedPost.imageUrl"
+        alt="Post Image"
+        class="w-full rounded-lg shadow mb-4"
+      />
+      
         <!-- Edit Button if current user is author -->
         <button
           *ngIf="selectedPost.author?.name === currentUser"

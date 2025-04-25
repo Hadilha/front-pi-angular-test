@@ -83,6 +83,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { StatsCommentChartComponent } from './backOffice/forum moderation/stats-comment-chart/stats-comment-chart.component';
 import { StatsContainerComponent } from './backOffice/forum moderation/stats-container/stats-container.component';
 import { StatsReactionChartComponent } from './backOffice/forum moderation/stats-reaction-chart/stats-reaction-chart.component'; 
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -159,6 +160,11 @@ import { StatsReactionChartComponent } from './backOffice/forum moderation/stats
     HttpClientModule,
     MatSnackBarModule,
     NgChartsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+      timeOut: 3000,
+      closeButton: true,
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
