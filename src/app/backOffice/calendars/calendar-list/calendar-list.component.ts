@@ -22,6 +22,9 @@ export class CalendarListComponent implements OnInit {
   searchTerm: string = '';
   errorMessage = '';
   isLoading: boolean = true;
+  currentPage: number = 0;
+  pageSize: number = 5;
+  total: number = 0;
   
   constructor(private calendarService: CalendarService, private router: Router) {}
   
@@ -51,6 +54,7 @@ export class CalendarListComponent implements OnInit {
   }
   
   filterCalendars(): void {
+    this.currentPage = 0;
     if (!this.searchTerm) {
       this.filteredCalendars = [...this.calendars];
       return;
@@ -166,4 +170,25 @@ export class CalendarListComponent implements OnInit {
     }
     return Object.keys(events).length;
   }
-}
+
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
+  }
+  
+  nextPage(): void {
+    if ((this.currentPage + 1) * this.pageSize < this.filteredCalendars.length) {
+      this.currentPage++;
+    }
+  }
+  
+  get paginatedCalendars(): Calendar[] {
+    const start = this.currentPage * this.pageSize;
+    const end = start + this.pageSize;
+    return this.filteredCalendars.slice(start, end);
+  
+    
+
+
+}}

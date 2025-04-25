@@ -110,7 +110,7 @@ export class PatientCalendarComponent implements OnInit {
         console.log('Raw appointments received:', JSON.stringify(allAppointments, null, 2));
         console.log('All appointments received:', allAppointments);
 
-        const patientAppointments = allAppointments.filter(appt => {
+        const patientAppointments = allAppointments.filter((appt: { patient: { userId: number | undefined; }; appointmentId: any; }) => {
           if (!appt.patient) {
             console.warn('Appointment missing patient data:', appt);
             return false;

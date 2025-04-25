@@ -25,6 +25,12 @@ export class AppointmentListComponent implements OnInit {
   errorMessage = '';
   isLoading = true;
 
+  paginated = true;
+  currentPage = 0;
+  pageSize = 5;
+  totalItems = 0;
+  totalPages = 0;
+
   constructor(
     private appointmentService: AppointmentService,
     private router: Router,
@@ -33,15 +39,30 @@ export class AppointmentListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(() => {
+    this.route.queryParams.subscribe(params => {
+      if (params['page']) {
+        this.currentPage = +params['page'];
+      }
+      if (params['size']) {
+        this.pageSize = +params['size'];
+      }
       this.loadAppointments();
     });
   }
 
   loadAppointments(): void {
-    this.appointmentService.getAllAppointments().subscribe({
-      next: (data: any[]) => {
-        this.appointments = data;
+    this.isLoading = true;
+    this.appointmentService.getAllAppointments(this.paginated, this.currentPage, this.pageSize).subscribe({
+      next: (data: any) => {
+        if (this.paginated) {
+          // Handle paginated response
+          this.appointments = data.content;
+          this.totalItems = data.totalElements;
+          this.totalPages = data.totalPages;
+        } else {
+          // Handle non-paginated response
+          this.appointments = data;
+        }
         this.filterAppointments();
         this.isLoading = false;
       },
@@ -51,6 +72,7 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
+
 
   filterAppointments(): void {
     if (!this.searchTerm) {
@@ -79,6 +101,14 @@ export class AppointmentListComponent implements OnInit {
       next: () => {
         this.appointments = this.appointments.filter(a => a.appointmentId !== id);
         this.filterAppointments(); // Update filtered list after deletion
+        
+        // If this was the last item on the page, go back a page (unless we're on page 0)
+        if (this.appointments.length === 0 && this.currentPage > 0) {
+          this.goToPage(this.currentPage - 1);
+        } else {
+          // Otherwise, just reload the current page
+          this.loadAppointments();
+        }
       },
       error: (err: any) => {
         this.errorMessage = 'Failed to delete appointment';
@@ -110,6 +140,65 @@ export class AppointmentListComponent implements OnInit {
     a.click();
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 0 && page < this.totalPages) {
+      this.currentPage = page;
+      // Update URL with new page
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { page: this.currentPage, size: this.pageSize },
+        queryParamsHandling: 'merge'
+      });
+      this.loadAppointments();
+    }
+  }
+
+  nextPage(): void {
+    this.goToPage(this.currentPage + 1);
+  }
+
+  previousPage(): void {
+    this.goToPage(this.currentPage - 1);
+  }
+
+  changePageSize(size: number): void {
+    this.pageSize = size;
+    this.currentPage = 0; // Reset to first page when changing page size
+    // Update URL with new size
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.currentPage, size: this.pageSize },
+      queryParamsHandling: 'merge'
+    });
+    this.loadAppointments();
+  }
+
+  togglePagination(): void {
+    this.paginated = !this.paginated;
+    this.currentPage = 0;
+    this.loadAppointments();
+  }
+
+  getPaginationIndex(index: number): number {
+    const maxPagesToShow = 5;
+    
+    // If total pages is less than maxPagesToShow, just return the index
+    if (this.totalPages <= maxPagesToShow) {
+      return index;
+    }
+    
+    // Calculate the starting page number
+    let startPage = Math.max(0, this.currentPage - Math.floor(maxPagesToShow / 2));
+    
+    // Adjust if we're near the end
+    if (startPage + maxPagesToShow > this.totalPages) {
+      startPage = this.totalPages - maxPagesToShow;
+    }
+    
+    return startPage + index;
+
   }
   
 }

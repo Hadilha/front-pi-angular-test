@@ -122,3 +122,55 @@
 .fs-4 {
   font-size: 1.5rem;
 }
+/* Add animation compatibility */
+.table-striped tr {
+  animation-duration: 0.4s;
+}
+
+/* Enhanced event items */
+.events-preview .text-truncate {
+  border-left: 4px solid #007bff;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 0.4rem;
+  background-color: rgba(0,123,255,0.05);
+  transition: all 0.2s ease;
+}
+
+.events-preview .text-truncate:hover {
+  background-color: rgba(0,123,255,0.1);
+  transform: translateX(3px);
+}
+
+/* More prominent badge */
+.badge.bg-primary {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 0.4em 0.8em;
+}
+
+/* Smoother hover transitions */
+.transition-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Better mobile spacing */
+@media (max-width: 768px) {
+  .events-preview {
+    max-width: 180px;
+  }
+  
+  .btn-group.gap-2 {
+    gap: 0.5rem !important;
+  }
+  
+  .btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Enhanced empty state */
+.text-muted .bi-calendar-x {
+  font-size: 1.2em;
+  vertical-align: middle;
+}
