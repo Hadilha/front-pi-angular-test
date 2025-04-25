@@ -1,26 +1,29 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
-import { MapsComponent } from "./frontOffice/views/admin/maps/maps.component";
-import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.component";
-import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
-import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
-import { RegisterComponent } from "./frontOffice/views/auth/register/register.component";
-import { IndexComponent } from "./frontOffice/views/index/index.component";
-import { LandingComponent } from "./frontOffice/views/landing/landing.component";
-import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
-import { JournalComponent } from "./frontOffice/views/journal/journal/journal.component";
-import { ForgotpwComponent } from "./frontOffice/views/auth/forgotpw/forgotpw.component";
-import { ResetpwComponent } from "./frontOffice/views/auth/resetpw/resetpw.component";
+import { LoginComponent } from "./frontOffice/views/login/login.component";
+import { RegisterComponent } from "./frontOffice/views/register/register.component";
+import { ProfilePatientComponent } from "./frontOffice/views/profile-patient/profile-patient.component";
+import { ForgotpwComponent } from "./frontOffice/views/forgotpw/forgotpw.component";
+import { ResetpwComponent } from "./frontOffice/views/resetpw/resetpw.component";
 import { DoctorComponent } from "./frontOffice/views/doctor/doctor.component";
 import { AdminComponent } from "./backOffice/views/admin/admin.component";
 import { ListusersComponent } from "./backOffice/views/listusers/listusers.component";
 import { AdduserComponent } from "./backOffice/views/adduser/adduser.component";
-import { AdminTablesComponent } from "./backOffice/views/admin-tables/admin-tables.component";
-import { ReportsadminComponent } from "./backOffice/views/reportsadmin/reportsadmin.component";
 import { AuthComponent } from "./frontOffice/views/auth/auth.component";
 import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
-import { CredentialsComponent } from "./frontOffice/views/credentials/credentials.component";
+import { CredentialsPatientComponent } from "./frontOffice/views/credentials-patient/credentials-patient.component";
+import { NotificationDropdownComponent } from "./frontOffice/components/dropdowns/notification-dropdown/notification-dropdown.component";
+import { IndexNavbarComponent } from "./frontOffice/components/navbars/index-navbar/index-navbar.component";
+import { TableDropdownComponent } from "./frontOffice/components/dropdowns/table-dropdown/table-dropdown.component";
+import { UserDropdownComponent } from "./frontOffice/components/dropdowns/user-dropdown/user-dropdown.component";
+import { FooterComponent } from "./frontOffice/components/footers/footer/footer.component";
+import { LocationFinderComponent } from "./frontOffice/components/location-finder/location-finder.component";
+import { HomeComponent } from "./frontOffice/views/home/home.component";
+import { profileDoctorComponent } from "./frontOffice/views/profileDoctor/profileDoctor.component";
+import { TablesDoctorComponent } from "./frontOffice/views/tablesDoctor/tables.component";
+import { StatisticsAdminComponent } from "./backOffice/views/statistics-admin/statistics-admin.component";
+import { JournalComponent } from "./frontOffice/views/journal/journal.component";
+
 //import { JournalComponent } from "./frontOffice/views/journal/journal.component";
 
 const routes: Routes = [
@@ -29,11 +32,10 @@ const routes: Routes = [
     path: "doctor",
     component: DoctorComponent,
     children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "settings", component: SettingsComponent },
-      { path: "tables", component: TablesComponent },
-      { path: "maps", component: MapsComponent },
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+      { path: "profile", component: profileDoctorComponent},
+      { path: "patientList", component: TablesDoctorComponent
+       },
+      { path: "", redirectTo: "patientList", pathMatch: "full" },
     ],
   },
 
@@ -42,13 +44,13 @@ const routes: Routes = [
     path: "admin",
     component: AdminComponent,
     children: [
-      { path: "dashboard", component: AdminComponent },
-      { path: "usermanagment", component: ListusersComponent },
+  //{ path: "usermanagment", component: LandingComponent },
+
+     { path: "usermanagment", component: ListusersComponent },
       { path: "adduser", component: AdduserComponent },
       { path: "updateuser/:id", component: AdduserComponent },
-      { path: "tables", component: AdminTablesComponent },
-      { path: "reports", component: ReportsadminComponent },
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+      { path: "statistics", component: StatisticsAdminComponent },
+      { path: "", redirectTo: "usermanagment", pathMatch: "full" },
     ],
   },
 
@@ -65,17 +67,16 @@ const routes: Routes = [
     path: "patientspace",
     component: PatientspaceComponent,
     children: [
-      { path: "profile", component: ProfileComponent },
-     { path: 'credentials',component: CredentialsComponent},
+      { path: "profile", component: ProfilePatientComponent },
+     { path: 'credentials',component: CredentialsPatientComponent},
     {path: 'journal',component: JournalComponent},
 
     ],
   },
 
-  { path: "landing", component: LandingComponent },
   {path:"forgotpassword", component:ForgotpwComponent},
   {path:"reset-password", component:ResetpwComponent},
-  { path: "", component: IndexComponent },
+  { path: "", component: HomeComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

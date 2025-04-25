@@ -41,10 +41,10 @@ export class UserService {
             this.router.navigate(['/patientspace']);
             break;
           case 'DOCTOR':
-            this.router.navigate(['/doctor/dashboard']);
+            this.router.navigate(['/doctor/patientList']);
             break;
           case 'ADMIN':
-            this.router.navigate(['/admin/dashboard']);
+            this.router.navigate(['/admin/usermanagment']);
             break;
           default:
             console.error('Unauthorized role:', role);
