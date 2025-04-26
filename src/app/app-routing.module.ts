@@ -15,9 +15,9 @@ import { TablesComponent } from "./frontOffice/views/admin/tables/tables.compone
 // Admin (Back Office) Views
 import { AdminDashboardComponent } from "./backOffice/admin-dashboard/admin-dashboard.component";
 import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
-import { AppointmentListComponent } from "./backOffice/components/appointments/appointment-list/appointment-list.component";
+import { AppointmentListComponent } from "./backOffice/views/appointment-list/appointment-list.component";
 import { AppointmentFormComponent } from "./backOffice/components/appointments/appointment-form/appointment-form.component";
-import { CalendarListComponent } from "./backOffice/components/calendars/calendar-list/calendar-list.component";
+import { CalendarListComponent } from "./backOffice/views/calendar-list/calendar-list.component";
 import { CalendarFormComponent } from "./backOffice/components/calendars/calendar-form/calendar-form.component";
 import { AppointmentStatisticsComponent } from './backOffice/components/appointment-statistics/appointment-statistics.component';
 

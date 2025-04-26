@@ -65,16 +65,12 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
-import { AppointmentListComponent } from './backOffice/components/appointments/appointment-list/appointment-list.component';
+import { AppointmentListComponent } from './backOffice/views/appointment-list/appointment-list.component';
 import { AppointmentFormComponent } from './backOffice/components/appointments/appointment-form/appointment-form.component';
-import { CalendarListComponent } from './backOffice/components/calendars/calendar-list/calendar-list.component';
+import { CalendarListComponent } from './backOffice/views/calendar-list/calendar-list.component';
 import { CalendarFormComponent } from './backOffice/components/calendars/calendar-form/calendar-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatNativeDateModule } from "@angular/material/core";
-import { MatDatepickerModule } from "@angular/material/datepicker";
-import { MatSelectModule } from "@angular/material/select";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatCardModule } from "@angular/material/card";
+
 import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid';
