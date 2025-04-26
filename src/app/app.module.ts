@@ -63,7 +63,7 @@ import { AdminDashboardComponent } from './backOffice/admin-dashboard/admin-dash
 import { AdminComponent } from './backOffice/admin/admin.component';
 import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.component';
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
-import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
+import { AdminSidebarComponent } from "./backOffice/components/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
 import { AppointmentListComponent } from './backOffice/views/appointment-list/appointment-list.component';
 import { AppointmentFormComponent } from './backOffice/components/appointments/appointment-form/appointment-form.component';

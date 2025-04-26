@@ -85,50 +85,6 @@
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
         <li class="items-center">
           <a
-            [routerLink]="['/admin/dashboard']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #reportAnalytics="routerLinkActive"
-            [ngClass]="
-              reportAnalytics.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-gray-300 hover:text-gray-500'
-            "
-          >
-            <i
-              class="fas fa-tv mr-2 text-sm"
-              [ngClass]="
-                reportAnalytics.isActive ? 'opacity-75' : 'text-gray-500'
-              "
-            ></i>
-            Reports & Analytics
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
-            [routerLink]="['/admin/tables']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #userManagement="routerLinkActive"
-            [ngClass]="
-              userManagement.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-gray-300 hover:text-gray-500'
-            "
-          >
-            <i
-              class="fas fa-tools mr-2 text-sm"
-              [ngClass]="
-                userManagement.isActive ? 'opacity-75' : 'text-gray-500'
-              "
-            ></i>
-            User Management
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
             [routerLink]="['/admin/appointments']"
             class="text-xs uppercase py-3 font-bold block"
             routerLinkActive
@@ -148,7 +104,6 @@
             Appointments
           </a>
         </li>
-
         <li class="items-center">
           <a
             [routerLink]="['/admin/calendars']"
@@ -170,97 +125,7 @@
             Calendars
           </a>
         </li>
-
-    
-        <li class="items-center">
-          <a
-            [routerLink]="['/admin/maps']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #forumManagement="routerLinkActive"
-            [ngClass]="
-              forumManagement.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-gray-300 hover:text-gray-500'
-            "
-          >
-            <i
-              class="fas fa-map-marked mr-2 text-sm"
-              [ngClass]="
-                forumManagement.isActive ? 'opacity-75' : 'text-gray-500'
-              "
-            ></i>
-            Forum Moderation
-          </a>
-        </li>
       </ul>
-
-      <!-- Divider -->
-      <hr class="my-4 md:min-w-full" />
-      <!-- Heading -->
-      <h6
-        class="md:min-w-full text-gray-400 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
-      >
-        Tools
-      </h6>
-      <!-- Navigation -->
-
-      <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-        <li class="items-center">
-          <a
-            [routerLink]="['/auth/login']"
-            class="text-gray-300 hover:text-gray-500 text-xs uppercase py-3 font-bold block"
-          >
-            <i class="fas fa-fingerprint text-gray-500 mr-2 text-sm"></i>
-            Logout
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
-            [routerLink]="['#']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #settings="routerLinkActive"
-            [ngClass]="
-              settings.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-gray-300 hover:text-gray-500'
-            "
-          >
-            <i class="fas fa-clipboard-list text-gray-500 mr-2 text-sm"
-              [ngClass]="
-                settings.isActive ? 'opacity-75' : 'text-gray-500'
-              "
-            >
-          </i>
-          Settings
-          </a>
-        </li>
-      </ul>
-
-      <!-- Divider -->
-      <hr class="my-4 md:min-w-full" />
-      <!-- Heading -->
-      <h6
-        class="md:min-w-full text-gray-400 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
-      >
-        Landing Page
-      </h6>
-      <!-- Navigation -->
-
-      <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-        <li class="items-center">
-          <a
-            [routerLink]="['/landing']"
-            class="text-gray-300 hover:text-gray-500 text-xs uppercase py-3 font-bold block"
-          >
-            <i class="fas fa-newspaper text-gray-500 mr-2 text-sm"></i>
-            Landing Page
-          </a>
-        </li>
-      </ul>
-
     </div>
   </div>
 </nav>
