@@ -6,19 +6,19 @@ import { DoctorComponent } from './frontOffice/layouts/doctor/doctor.component';
 import { AuthComponent } from './frontOffice/layouts/auth/auth.component';
 
 // doctor views
-import { DashboardComponent } from './frontOffice/views/admin/dashboard/dashboard.component';
-import { MapsComponent } from './frontOffice/views/admin/maps/maps.component';
-import { SettingsComponent } from './frontOffice/views/admin/settings/settings.component';
-import { TablesComponent } from './frontOffice/views/admin/tables/tables.component';
+import { DashboardComponent } from './frontOffice/view/admin/dashboard/dashboard.component';
+import { MapsComponent } from './frontOffice/view/admin/maps/maps.component';
+import { SettingsComponent } from './frontOffice/view/admin/settings/settings.component';
+import { TablesComponent } from './frontOffice/view/admin/tables/tables.component';
 
 // auth views
-import { LoginComponent } from './frontOffice/views/auth/login/login.component';
-import { RegisterComponent } from './frontOffice/views/auth/register/register.component';
+import { LoginComponent } from './frontOffice/view/auth/login/login.component';
+import { RegisterComponent } from './frontOffice/view/auth/register/register.component';
 
 // no layouts views
-import { IndexComponent } from './frontOffice/views/index/index.component';
-import { LandingComponent } from './frontOffice/views/landing/landing.component';
-import { ProfileComponent } from './frontOffice/views/profile/profile.component';
+import { IndexComponent } from './frontOffice/view/index/index.component';
+import { LandingComponent } from './frontOffice/view/landing/landing.component';
+import { ProfileComponent } from './frontOffice/view/profile/profile.component';
 import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patientspace.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
