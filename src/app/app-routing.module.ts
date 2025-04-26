@@ -11,9 +11,6 @@ import { MapsComponent } from './frontOffice/views/admin/maps/maps.component';
 import { SettingsComponent } from './frontOffice/views/admin/settings/settings.component';
 import { TablesComponent } from './frontOffice/views/admin/tables/tables.component';
 
-// admin views
-import { AdminDashboardComponent } from './backOffice/admin-dashboard/admin-dashboard.component';
-
 // auth views
 import { LoginComponent } from './frontOffice/views/auth/login/login.component';
 import { RegisterComponent } from './frontOffice/views/auth/register/register.component';
@@ -23,7 +20,7 @@ import { IndexComponent } from './frontOffice/views/index/index.component';
 import { LandingComponent } from './frontOffice/views/landing/landing.component';
 import { ProfileComponent } from './frontOffice/views/profile/profile.component';
 import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patientspace.component';
-import { AdminComponent } from './backOffice/admin/admin.component';
+import { AdminComponent } from './backOffice/views/admin/admin.component';
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
 import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
 
@@ -46,7 +43,6 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     children: [
-      { path: 'dashboard', component: AdminDashboardComponent },
       { path: 'forum', component: AdminForumComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

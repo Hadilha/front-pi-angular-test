@@ -55,8 +55,7 @@ import { LoginNavbarComponent } from './frontOffice/components/navbars/login-nav
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patientspace.component';
 import { HomeComponent } from './frontOffice/views/home/home.component';
-import { AdminDashboardComponent } from './backOffice/admin-dashboard/admin-dashboard.component';
-import { AdminComponent } from './backOffice/admin/admin.component';
+import { AdminComponent } from './backOffice/views/admin/admin.component';
 import { AdminNavbarComponent } from './backOffice/components/admin-navbar/admin-navbar.component';
 import { AdminSidebarComponent } from './backOffice/components/admin-sidebar/admin-sidebar.component';
 import { AdminHeaderStatsComponent } from './backOffice/components/admin-header-stats/admin-header-stats.component';
@@ -127,7 +126,6 @@ import { ToastrModule } from 'ngx-toastr';
     LocationFinderComponent,
     FooterComponent,
     HomeComponent,
-    AdminDashboardComponent,
     AdminComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
