@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 // Layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
-import { AdminComponent } from "./backOffice/admin/admin.component";
+import { AdminComponent } from "./backOffice/views/admin/admin.component";
 
 // Doctor Views
 import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
@@ -13,8 +13,7 @@ import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.c
 import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
 
 // Admin (Back Office) Views
-import { AdminDashboardComponent } from "./backOffice/admin-dashboard/admin-dashboard.component";
-import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
+
 import { AppointmentListComponent } from "./backOffice/views/appointment-list/appointment-list.component";
 import { AppointmentFormComponent } from "./backOffice/components/appointments/appointment-form/appointment-form.component";
 import { CalendarListComponent } from "./backOffice/views/calendar-list/calendar-list.component";
@@ -58,8 +57,7 @@ const routes: Routes = [
     path: "admin",
     component: AdminComponent,
     children: [
-      { path: "dashboard", component: AdminDashboardComponent },
-      { path: "tables", component: AdminTablesComponent },
+      
       { path: "appointments", component: AppointmentListComponent },
       { path: "appointments/new", component: AppointmentFormComponent },
       { path: "appointments/:id/edit", component: AppointmentFormComponent },
