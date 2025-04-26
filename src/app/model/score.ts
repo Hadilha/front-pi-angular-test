@@ -6,6 +6,7 @@ export class Score {
     user?: User;
     result?: number;
     score_type: string;
+    description?: string;
   
     constructor(data: any = {}) {
       this.score_id = data.score_id || 0;
@@ -14,7 +15,7 @@ export class Score {
       this.result = data.result || undefined;
       this.score_type = data.score_type ;
       this.name = data.name || '';
-      
+      this.description =data.desc || '';
     }
   }
   

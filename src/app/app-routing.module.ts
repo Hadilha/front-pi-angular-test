@@ -38,6 +38,8 @@ import { CombatGameComponent } from "./game/combat-game/combat-game.component";
 import { TestComponent } from "./component/admin/test/test.component";
 import { QuestionResponseComponent } from "./component/admin/question-response/question-response.component";
 import { VisualisationComponent } from "./component/admin/visualisation/visualisation.component";
+import { TakeTestComponent } from "./component/user/take-test/take-test.component";
+import { SlidingPuzzleComponent } from "./game/sliding-puzzle/sliding-puzzle.component";
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -72,6 +74,7 @@ const routes: Routes = [
       {path:'tests',component:TestComponent},
       { path: 'question-responses', component: QuestionResponseComponent },
       { path: 'admin/visualisation', component: VisualisationComponent },
+      
     ],
   },
 
@@ -86,6 +89,7 @@ const routes: Routes = [
       {path:'scorelist',component:ScoreListUserComponent},
       {path:'quizzeslist',component:QuizListUserComponent},
       {path: 'test/:id',component: QuizTestComponent},
+      {path:'taketest/:id',component:TakeTestComponent},
     ],
   },
   { path: "patientspace", component: PatientspaceComponent },
@@ -94,6 +98,7 @@ const routes: Routes = [
   { path: "", component: IndexComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
   {path:'combatgame',component:CombatGameComponent},
+  {path:'slide',component:SlidingPuzzleComponent},
 ];
 
 @NgModule({

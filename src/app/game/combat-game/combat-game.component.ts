@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AiModel } from 'src/app/model/ai-model';
 import { Score } from 'src/app/model/score';
 import { User } from 'src/app/model/user';
 import { ScoreServiceService } from 'src/app/service/score-service.service';
@@ -27,7 +28,10 @@ export class CombatGameComponent implements OnInit, OnDestroy {
     password: '12345678',
   };
   score: Score | undefined;
-
+  ai:AiModel={
+    model:"llama2",
+    prompt:"how are you?"
+  };
   constructor(private scoreservice: ScoreServiceService) {}
 
   ngOnInit(): void {
@@ -35,6 +39,23 @@ export class CombatGameComponent implements OnInit, OnDestroy {
     // Load best score from localStorage
     const savedScore = localStorage.getItem('memoryGameBestScore');
     this.bestScore = savedScore ? parseInt(savedScore) : null;
+    this.scoreservice.sendEmailGame({}).subscribe(
+      (response)=>{
+        console.log('message sent')
+      }
+    );
+
+    this.scoreservice.getResponse().subscribe(
+      {
+        next: (response) => {
+          console.log('Response:', response);
+          // Handle the response
+        },
+        error: (err) => {
+          console.error('Error:', err);
+        }
+      }
+    );
   }
 
   ngOnDestroy(): void {
@@ -131,7 +152,11 @@ export class CombatGameComponent implements OnInit, OnDestroy {
     console.log('Final Score:', this.finalScore);
   }
 
+
   saveScore(): void {
+    if(this.finalScore<40){this.score!.description="Best next time";}
+    else if(this.finalScore>40 && this.finalScore<80){this.score!.description="Best next time"}
+    else{this.score!.description="Exellent!"}
     if (this.finalScore > 0) {
       this.score = new Score({
         name: 'Memory Game',

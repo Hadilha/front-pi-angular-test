@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class QuestionServiceService {
 
-  private apiUrl = 'http://localhost:8080/api/questions';
+  private apiUrl = 'http://localhost:8089/api/questions';
 
   constructor(private http: HttpClient) { }
 

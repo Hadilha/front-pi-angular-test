@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { QuizzServiceService } from '../../../service/quizz-service.service';
 import { Quizz } from '../../../model/quizz';
 
+
+
 @Component({
   selector: 'app-quiz-list',
   templateUrl: './quiz-list.component.html',
@@ -11,12 +13,16 @@ export class QuizListComponent implements OnInit {
   quizzes: Quizz[] = [];
   isLoading = true;
   show=false;
+  info!: string;
 
-  constructor(private quizService: QuizzServiceService) { }
+  constructor(private quizService: QuizzServiceService,) { }
+
+  
 
   ngOnInit(): void {
     this.loadQuizzes();
   }
+  
 
   showButton() {
     this.show = !this.show;
@@ -47,4 +53,7 @@ export class QuizListComponent implements OnInit {
       );
     }
   }
+
+
+
 }

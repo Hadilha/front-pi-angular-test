@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class QuizzServiceService {
 
-  private apiUrl = 'http://localhost:8080/api/quizzes';
+  private apiUrl = 'http://localhost:8089/api/quizzes';
 
   constructor(private http: HttpClient) { }
 

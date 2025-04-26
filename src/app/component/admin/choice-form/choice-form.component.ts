@@ -4,7 +4,6 @@ import { ChoiceServiceService } from '../../../service/choice-service.service';
 import { QuestionServiceService } from '../../../service/question-service.service';
 import { Choice } from '../../../model/choice';
 import { Question } from '../../../model/question';
-import { RoutingService } from 'src/app/service/routing.service';
 
 @Component({
   selector: 'app-choice-form',
@@ -30,7 +29,7 @@ export class ChoiceFormComponent implements OnInit {
     private questionService: QuestionServiceService,
     private router: Router,
     private route: ActivatedRoute,
-    private routingService: RoutingService
+    
   ) {}
 
   ngOnInit(): void {
@@ -104,10 +103,10 @@ export class ChoiceFormComponent implements OnInit {
     }
   }
   goToQuizDetails(quizId: number) {
-    this.router.navigate(['admin/quizzes', quizId]);
+    this.router.navigate(['/admin/quizzes', quizId]);
   }
 
   onCancel(): void {
-    this.goToQuizDetails(this.quizId!);
+    this.router.navigate(['/admin/quizzes', this.quizId]);
   }
 }

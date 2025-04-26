@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Sliding Puzzle Game &#x1F9E9;</h1>
+  
+    <div class="stats">
+      <p>&#x23F1; Time: <span id="timer">{{ formattedTime }}</span></p>
+      <p>&#x1F522; Moves: <span id="moves">{{ moveCount }}</span></p>
+    </div>
+  
+    <div class="puzzle-grid">
+      <div 
+        *ngFor="let tile of tiles; let i = index" 
+        class="tile" 
+        [class.empty]="tile === ''"
+        (click)="moveTile(i)"
+      >
+        {{ tile !== '' ? tile : '' }}
+      </div>
+    </div>
+  
+    <div class="buttons">
+      <button (click)="shuffleTiles()">Shuffle</button>
+      <button (click)="restartGame()">Restart</button>
+    </div>
+  
+    <p *ngIf="isWin" class="win-message">You Win!</p>
+  </div>

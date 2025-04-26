@@ -3,92 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet/less" type="text/css" href="style.less" />
-  <script src="https://cdn.jsdelivr.net/npm/less@4" ></script>
 </head>
-<body >
-    <div *ngIf="Loading" id="load">
-        <div>G</div>
-        <div>N</div>
-        <div>I</div>
-        <div>D</div>
-        <div>A</div>
-        <div>O</div>
-        <div>L</div>
-    </div>
-<div class="container mt-4" *ngIf="!Loading">
-    <div *ngIf="isLoading" class="text-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
-    <div *ngIf="!isLoading && quiz && !quizCompleted" class="quiz-container">
-      <div class=" d-flex justify-content-between align-items-center mb-4">
-        <h2>{{ quiz.title }}</h2>
-
-        <div class="timer-display">
-          <span class="timer-label">Time Left:</span>
-          <div class="progress-bar-container">
-            <div class="progress-bar" [style.width.%]="(timeLeft / 300) * 100"></div>
-          </div>
-          <span class="timer-text">{{ formatTime(timeLeft) }}</span>
-        </div>
-      </div>
-  
-      <div >
-        <div>
-          <h3><span>Question {{ currentQuestionIndex + 1 }}</span></h3> of <h3><span> {{ quiz.questions?.length || 0 }}</span></h3>
-        </div>
-      </div>
-  
-      <div class="card question-card mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Question {{ currentQuestionIndex + 1 }}</h5>
-          <img *ngIf="!currentQuestion?.text" [src]="currentQuestion?.questionText" alt="Question image" class="img-fluid rounded" style="width: 200px;">
-          <p *ngIf="!currentQuestion?.text" >What do you see ?</p>
-          <p *ngIf="currentQuestion?.text" class="card-text">{{ currentQuestion?.questionText }}</p>
-          
-          <div class="choices-list">
-            <div *ngFor="let choice of currentQuestion?.choices" 
-                 class="choice-item form-check mb-2">
-              <input class="form-check-input" 
-                     type="radio" 
-                     name="choices" 
-                     [id]="'choice-' + choice.choice_id"
-                     [checked]="selectedChoiceId === choice.choice_id"
-                     (change)="selectCorrect(choice.correct,choice.choice_id!)"/>{{ choice.correct ? ' (Correct)' : '' }}
-              <label class="form-check-label" [for]="'choice-' + choice.choice_id">
-                {{ choice.text }}
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <button  
-              (click)="nextQuestion()"
-              [disabled]="selectedChoiceId === null">
-        {{ currentQuestionIndex < (quiz.questions?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz' }}
-      </button>
-    </div>
-  
-    <div *ngIf="quizCompleted" class="quiz-completed text-center">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title">Quiz Completed!</h2>
-          <p class="card-text">Your score: {{ score }} out of {{ quiz?.questions?.length || 0 }}</p>
-          <p class="card-text">Percentage: {{ (score / (quiz?.questions?.length || 2) * 100).toFixed(1) }}%</p>
-          <a class="btn btn-primary" [routerLink]="['/admin/quizzes']">
-            Back to Quizzes
-          </a>
-        </div>
-      </div>
-    </div>
-  
-    <div *ngIf="!isLoading && !quiz" class="alert alert-danger">
-      Quiz not found.
-    </div>
+<body class="bg-blueGray-100">
+    <app-patient-navbar></app-patient-navbar>
     
-  </div>
+    <main>
+        <!-- Hero Section -->
+        <div class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
+            <div class="absolute top-0 w-full h-full bg-center bg-cover" style="background-image: url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1267&q=80');">
+                <span class="w-full h-full absolute opacity-75 bg-black"></span>
+            </div>
+            
+            <!-- Loading Animation -->
+            <div *ngIf="Loading" class="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center z-50">
+                <div class="flex space-x-4">
+                    <div class="text-4xl font-bold text-white animate-bounce">G</div>
+                    <div class="text-4xl font-bold text-white animate-bounce" style="animation-delay: 0.1s">N</div>
+                    <div class="text-4xl font-bold text-white animate-bounce" style="animation-delay: 0.2s">I</div>
+                    <div class="text-4xl font-bold text-white animate-bounce" style="animation-delay: 0.3s">D</div>
+                    <div class="text-4xl font-bold text-white animate-bounce" style="animation-delay: 0.4s">A</div>
+                    <div class="text-4xl font-bold text-white animate-bounce" style="animation-delay: 0.5s">O</div>
+                    <div class="text-4xl font-bold text-white animate-bounce" style="animation-delay: 0.6s">L</div>
+                </div>
+            </div>
+
+            <!-- Quiz Container -->
+            <div *ngIf="!Loading" class="container relative mx-auto px-4 z-10">
+                <div class="items-center flex flex-wrap">
+                    <div class="w-full lg:w-8/12 px-4 ml-auto mr-auto">
+                        <div class="bg-white rounded-lg shadow-xl p-8">
+                            <!-- Loading Spinner -->
+                            <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+                                <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+                            </div>
+
+                            <!-- Quiz Content -->
+                            <div *ngIf="!isLoading && quiz && !quizCompleted">
+                                <!-- Quiz Header -->
+                                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
+                                    <h2 class="text-2xl font-bold text-blueGray-700">{{ quiz.title }}</h2>
+
+                                    <!-- Timer -->
+                                    <div class="flex flex-col w-full md:w-64">
+                                        <div class="flex justify-between text-sm text-blueGray-600 mb-1">
+                                            <span>Time Left:</span>
+                                            <span>{{ formatTime(timeLeft) }}</span>
+                                        </div>
+                                        <div class="w-full bg-blueGray-200 rounded-full h-2.5">
+                                            <div class="bg-red-500 h-2.5 rounded-full" 
+                                                 [style.width.%]="(timeLeft / 300) * 100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Question Progress -->
+                                <div class="flex items-center gap-2 mb-6 text-blueGray-600">
+                                    <span class="font-medium">Question {{ currentQuestionIndex + 1 }}</span>
+                                    <span>of</span>
+                                    <span class="font-medium">{{ quiz.questions?.length || 0 }}</span>
+                                </div>
+
+                                <!-- Question Card -->
+                                <div class="bg-blueGray-50 rounded-lg p-6 mb-6">
+                                    <h3 class="text-lg font-semibold text-blueGray-800 mb-4">Question {{ currentQuestionIndex + 1 }}</h3>
+                                    
+                                    <!-- Question Content -->
+                                    <div class="mb-6">
+                                        <img *ngIf="!currentQuestion?.text" 
+                                             [src]="currentQuestion?.questionText" 
+                                             alt="Question image" 
+                                             class="mx-auto rounded-lg max-h-48 object-contain shadow-md">
+                                        <p *ngIf="!currentQuestion?.text" class="text-center text-blueGray-600 mt-2">What do you see?</p>
+                                        <p *ngIf="currentQuestion?.text" class="text-blueGray-700">{{ currentQuestion?.questionText }}</p>
+                                    </div>
+
+                                    <!-- Choices -->
+                                    <div class="space-y-3">
+                                        <div *ngFor="let choice of currentQuestion?.choices" 
+                                             class="flex items-center p-4 border border-blueGray-200 rounded-lg hover:bg-blueGray-100 transition-colors cursor-pointer"
+                                             (click)="selectCorrect(choice.correct, choice.choice_id!)">
+                                            <input class="h-4 w-4 text-red-500 focus:ring-red-500" 
+                                                   type="radio" 
+                                                   name="choices" 
+                                                   [id]="'choice-' + choice.choice_id"
+                                                   [checked]="selectedChoiceId === choice.choice_id">
+                                            <label class="ml-3 block text-blueGray-700 cursor-pointer" [for]="'choice-' + choice.choice_id">
+                                                {{ choice.text }}
+                                                <span *ngIf="choice.correct" class="text-green-600 text-sm ml-2">(Correct)</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Next Button -->
+                                <div class="text-center">
+                                    <button 
+                                        class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        (click)="nextQuestion()"
+                                        [disabled]="selectedChoiceId === null">
+                                        {{ currentQuestionIndex < (quiz.questions?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz' }}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Completed -->
+                            <div *ngIf="quizCompleted" class="text-center py-8">
+                                <div class="bg-blueGray-50 rounded-lg p-8">
+                                    <h2 class="text-3xl font-bold text-blueGray-800 mb-4">Quiz Completed!</h2>
+                                    <div class="flex justify-center mb-6">
+                                        <div class="bg-green-100 rounded-full p-4">
+                                            <i class="fas fa-check-circle text-green-500 text-5xl"></i>
+                                        </div>
+                                    </div>
+                                    <p class="text-xl text-blueGray-700 mb-2">Your score: <span class="font-bold">{{ score }}</span> out of {{ quiz?.questions?.length || 0 }}</p>
+                                    <p class="text-xl text-blueGray-700 mb-6">Percentage: <span class="font-bold">{{ (score / (quiz?.questions?.length || 2) * 100).toFixed(1) }}%</span></p>
+                                    <a class="inline-block px-8 py-3 bg-blueGray-700 hover:bg-blueGray-800 text-white font-bold rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
+                                       [routerLink]="['/admin/quizzes']">
+                                        Back to Quizzes
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Quiz Not Found -->
+                            <div *ngIf="!isLoading && !quiz" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded">
+                                <div class="flex items-center">
+                                    <i class="fas fa-exclamation-circle mr-2"></i>
+                                    <p>Quiz not found.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wave Divider -->
+            <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0)">
+                <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+                    <polygon class="text-blueGray-100 fill-current" points="2560 0 2560 100 0 100"></polygon>
+                </svg>
+            </div>
+        </div>
+    </main>
+
+    <app-footer></app-footer>
 </body>
 </html>

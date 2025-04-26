@@ -77,6 +77,8 @@ import { QuestionResponseComponent } from "./component/admin/question-response/q
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from "ng2-charts";
+import { TestListComponent } from "./component/user/test-list/test-list.component";
+import { TakeTestComponent } from "./component/user/take-test/take-test.component";
 
 @NgModule({
   declarations: [
@@ -139,6 +141,8 @@ import { NgChartsModule } from "ng2-charts";
     VisualisationComponent,
     TestComponent,
     QuestionResponseComponent,
+    TestListComponent,
+    TakeTestComponent
 
   ],
   imports: [BrowserModule,

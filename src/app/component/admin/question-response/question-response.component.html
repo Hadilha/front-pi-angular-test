@@ -12,7 +12,9 @@
   
     <ul class="list">
       <li *ngFor="let q of responses">
-        <h5>{{ q.questionText }}:</h5> {{ q.responseText }}
+        <h5>{{q.test.name}}</h5>
+        <div><b>Question: </b> {{ q.questionText }}</div>
+          <div><b>Response: </b> {{ q.responseText }}</div>
         <span><button (click)="edit(q)">Edit</button>
         <button (click)="delete(q.qr_id!)">Delete</button></span>
       </li>

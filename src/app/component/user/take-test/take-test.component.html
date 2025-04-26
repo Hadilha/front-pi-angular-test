@@ -1,0 +1,63 @@
+<div class="container mt-4">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h2>{{ test.name }}</h2>
+      </div>
+      
+      <div class="card-body">
+        <form *ngIf="!submitted; else resultsView">
+          <div *ngFor="let qr of test.question_response" class="mb-4">
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5>Question {{ test.question_response!.indexOf(qr) + 1 }}</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ qr.questionText }}</p>
+                <div class="form-group">
+                  <label for="response-{{qr.qr_id}}">Your Answer:</label>
+                  <textarea 
+                    class="form-control" 
+                    id="response-{{qr.qr_id}}" 
+                    rows="4"
+                    [(ngModel)]="userResponses[qr.qr_id!]" 
+                    name="response-{{qr.qr_id}}"
+                    [disabled]="submitted"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-primary btn-lg" (click)="submitTest()">Submit Test</button>
+          </div>
+        </form>
+        
+        <ng-template #resultsView>
+          <div *ngFor="let qr of test.question_response" class="mb-4">
+            <div class="card">
+              <div class="card-header bg-light">
+                <h5>Question {{ test.question_response!.indexOf(qr) + 1 }}</h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text"><strong>Question:</strong> {{ qr.questionText }}</p>
+                
+                <div class="mb-3">
+                  <h6>Your Answer:</h6>
+                  <p class="user-response">{{ userResponses[qr.qr_id!] || '(No answer provided)' }}</p>
+                </div>
+                
+                <div *ngIf="qr.responseText" class="expected-answer">
+                  <h6>Expected Answer:</h6>
+                  <p>{{ qr.responseText }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-secondary" (click)="resetTest()">Try Again</button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>

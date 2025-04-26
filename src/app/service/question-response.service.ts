@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class QuestionResponseService {
 
-  private apiUrl = 'http://localhost:8080/api/question_response';
+  private apiUrl = 'http://localhost:8089/api/question_response';
 
   constructor(private http: HttpClient) { }
 

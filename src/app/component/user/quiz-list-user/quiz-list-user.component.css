@@ -157,7 +157,7 @@ body {
 /* Layout Structure=========================================*/
 
 .main {
-  background-image:url("../../../assets/bg.jpg");
+  background-image:url("/assets/bgg.jpg");
   display: flex;
   flex-direction: column;
   justify-content: center;
