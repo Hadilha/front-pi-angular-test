@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { Calendar, CalendarService } from 'src/app/services/calendar.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Calendar, CalendarService } from 'src/app/Services/calendar.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-calendar-form',

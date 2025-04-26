@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AppointmentService } from 'src/app/services/appointment.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AppointmentService } from 'src/app/Services/appointment.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-appointment-list',

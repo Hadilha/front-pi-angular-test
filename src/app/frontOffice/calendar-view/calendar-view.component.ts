@@ -1,12 +1,13 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CalendarService, Calendar as CalendarModel } from 'src/app/Services/calendar.service';
 import { CalendarOptions, EventApi, EventDropArg } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
+import { AppointmentService } from 'src/app/Services/appointment.service';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarService, Calendar as CalendarModel } from 'src/app/services/calendar.service';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { forkJoin } from 'rxjs';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import { DatePipe } from '@angular/common';
+import { forkJoin } from 'rxjs';
+
 
 interface Appointment {
   appointmentId: number;

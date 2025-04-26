@@ -1,8 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { AppointmentService } from 'src/app/Services/appointment.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 enum AppointmentStatus {
   SCHEDULED = 'SCHEDULED',

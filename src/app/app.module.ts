@@ -65,10 +65,10 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
-import { AppointmentListComponent } from './backOffice/appointments/appointment-list/appointment-list.component';
-import { AppointmentFormComponent } from './backOffice/appointments/appointment-form/appointment-form.component';
-import { CalendarListComponent } from './backOffice/calendars/calendar-list/calendar-list.component';
-import { CalendarFormComponent } from './backOffice/calendars/calendar-form/calendar-form.component';
+import { AppointmentListComponent } from './backOffice/components/appointments/appointment-list/appointment-list.component';
+import { AppointmentFormComponent } from './backOffice/components/appointments/appointment-form/appointment-form.component';
+import { CalendarListComponent } from './backOffice/components/calendars/calendar-list/calendar-list.component';
+import { CalendarFormComponent } from './backOffice/components/calendars/calendar-form/calendar-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -80,7 +80,7 @@ import { FullCalendarModule } from '@fullcalendar/angular'; // must go before pl
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { AppointmentStatisticsComponent } from './backOffice/appointment-statistics/appointment-statistics.component';
+import { AppointmentStatisticsComponent } from './backOffice/components/appointment-statistics/appointment-statistics.component';
 import { VideoCallComponent } from './frontOffice/video-call/video-call.component';
 import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
 import { PatientCalendarComponent } from './frontOffice/patient-calendar/patient-calendar.component';

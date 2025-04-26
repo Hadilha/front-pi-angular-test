@@ -1,6 +1,8 @@
+import { AppointmentService } from 'src/app/Services/appointment.service';
 import { Component, OnInit } from '@angular/core';
 import { ChartType } from 'angular-google-charts';
-import { AppointmentService } from 'src/app/services/appointment.service';
+
+
 @Component({
   selector: 'app-appointment-statistics',
   templateUrl: './appointment-statistics.component.html',

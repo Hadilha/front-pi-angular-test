@@ -1,14 +1,15 @@
+import { CalendarService, Calendar as CalendarModel } from 'src/app/Services/calendar.service';
+import { AppointmentService } from 'src/app/Services/appointment.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CalendarOptions } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import { CalendarService, Calendar as CalendarModel } from 'src/app/services/calendar.service';
-import { AppointmentService } from 'src/app/services/appointment.service';
-import { forkJoin, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { DatePipe } from '@angular/common';
+import { CalendarOptions } from '@fullcalendar/core';
+import timeGridPlugin from '@fullcalendar/timegrid';
+import dayGridPlugin from '@fullcalendar/daygrid';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin, Observable } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { map } from 'rxjs/operators';
+
 
 interface PatientAppointment {
   appointmentId: number;

@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Calendar, CalendarService } from 'src/app/services/calendar.service';
-import { Router } from '@angular/router';
+import { Calendar, CalendarService } from 'src/app/Services/calendar.service';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-calendar-list',

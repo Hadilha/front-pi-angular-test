@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { AiDoctorNoteService } from 'src/app/Services/ai-doctor-note.service';
+import { PeerService } from 'src/app/Services/peer.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VideoCallService, VideoCall } from '../../services/video-call.service';
-import { PeerService } from 'src/app/services/peer.service';
 import { Subscription } from 'rxjs';
-import { AiDoctorNoteService } from 'src/app/services/ai-doctor-note.service';
+
+import { VideoCallService, VideoCall } from '../../Services/video-call.service';
+
 
 @Component({
   selector: 'app-video-call',
