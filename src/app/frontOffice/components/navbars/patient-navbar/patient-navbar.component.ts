@@ -1,3 +1,4 @@
+import { UserService } from 'src/app/Services/user.service';
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
@@ -9,15 +10,13 @@ import { Component } from '@angular/core';
 export class PatientNavbarComponent {
   navbarOpen = false;
 
-  constructor(private router:Router) {}
+  constructor(private router:Router, private UserService : UserService) {}
 
   ngOnInit(): void {}
 
   setNavbarOpen() {
     this.navbarOpen = !this.navbarOpen;
   }
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
-  }
+  logout() {
+    this.UserService.logout();  }
 }

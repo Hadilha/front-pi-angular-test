@@ -26,7 +26,7 @@ export class LoginComponent {
   private checkSessionConflict() {
     const queryParams = new URLSearchParams(window.location.search);
     if (queryParams.has('sessionConflict')) {
-      this.errorMessage = 'Another user logged in from a different window/tab.';
+      this.errorMessage = 'Another session is active. Please log out from other sessions.';
       history.replaceState(null, '', window.location.pathname);
     }
   }
@@ -46,7 +46,6 @@ export class LoginComponent {
     if (this.loginForm.valid && !this.loading) {
       const { username, password } = this.loginForm.value;
 
-      // Check for existing session
       if (this.UserService.isLoggedIn()) {
         const currentUser = this.UserService.getCurrentUsername();
         if (currentUser && currentUser !== username) {
@@ -64,9 +63,10 @@ export class LoginComponent {
         },
         error: (err) => {
           this.loading = false;
-          this.errorMessage = err.message.replace('Login failed: ', '');
+          this.errorMessage = err.message;
           console.error('Login error:', err);
         }
       });
     }
-  }}
+  }
+}

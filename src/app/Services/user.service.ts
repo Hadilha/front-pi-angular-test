@@ -33,7 +33,6 @@ export class UserService {
       }
     });
   }
-  // Data change notification
   notifyDataChanged() {
     this.dataChanged.next();
   }
@@ -49,17 +48,18 @@ export class UserService {
   }
   isTokenValid(token: string): boolean {
     try {
-      const decoded = jwtDecode(token);
+      const decoded = jwtDecode<{ sub: string; exp: number }>(token);
       const username = decoded.sub;
       if (!username) {
         return false;
       }
-
-      return this.currentSessions.get(username) === token;
+      // Check if token is expired
+      const currentTime = Math.floor(Date.now() / 1000);
+      return decoded.exp > currentTime;
     } catch (e) {
       return false;
-    }}
-
+    }
+  }
 
   login(username: string, password: string): Observable<string> {
     localStorage.removeItem('token');
@@ -67,19 +67,19 @@ export class UserService {
     return this.http.post(
       `${this.apiUrl}/auth/login`,
       { username, password },
-      { responseType: 'text' }
+      { responseType: 'json' }
     ).pipe(
-      tap((token: string) => {
-        this.invalidateExistingSessions(username);
-        this.currentSessions.set(username, token);
-
+      tap((response: any) => {
+        const token = response.token;
         localStorage.setItem('token', token);
         const role = this.getUserRoleFromToken(token);
-        console.log('Resolved Role:', role);
-
-        switch(role) {
+        console.log('User role:', role);
+        switch (role) {
           case 'PATIENT':
-            this.router.navigate(['/patientspace']);
+            console.log('Navigating to patient space');
+            this.router.navigate(['/patientspace/profile']);
+            console.log('Navigated to patient space');
+
             break;
           case 'DOCTOR':
             this.router.navigate(['/doctor/patientList']);
@@ -92,25 +92,29 @@ export class UserService {
             this.router.navigate(['/']);
         }
       }),
-      catchError(error => throwError(() => new Error(`Login failed: ${error.message}`)))
+      catchError(error => {
+        if (error.status === 401) {
+          return throwError(() => new Error('Invalid username or password'));
+        } else if (error.status === 403) {
+          return throwError(() => new Error('Session conflict: Another session is active'));
+        }
+        return throwError(() => new Error(`Login failed: ${error.error?.error || error.message}`));
+      })
     );
   }
 
-logout(): void {
-  const token = localStorage.getItem('token');
-  if (token) {
-    try {
-      const decoded = jwtDecode<{ sub: string }>(token);
-      if (decoded.sub) {
-        this.currentSessions.delete(decoded.sub);
-      }
-    } catch (e) {
-      console.error('Token decode error on logout:', e);
+  logout(): void {
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.http.post(`${this.apiUrl}/auth/logout`, {}, {
+        headers: new HttpHeaders({ 'Authorization': `Bearer ${token}` })
+      }).subscribe({
+        error: (err) => console.error('Logout API error:', err)
+      });
     }
+    localStorage.removeItem('token');
+    this.router.navigate(['/auth/login']);
   }
-  localStorage.removeItem('token');
-  this.router.navigate(['/auth/login']);
-}
 
   registerUser(userData: any): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(
