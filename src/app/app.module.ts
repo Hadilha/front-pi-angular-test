@@ -35,7 +35,7 @@ import { CardSocialTrafficComponent } from './frontOffice/component/cards/card-s
 import { CardStatsComponent } from './frontOffice/component/cards/card-stats/card-stats.component';
 import { CardTableComponent } from './frontOffice/component/cards/card-table/card-table.component';
 import { FooterAdminComponent } from './frontOffice/component/footers/footer-admin/footer-admin.component';
-import { FooterComponent } from './frontOffice/component/footers/footer/footer.component';
+import { FooterComponent } from './frontOffice/components/footer/footer.component';
 import { FooterSmallComponent } from './frontOffice/component/footers/footer-small/footer-small.component';
 import { HeaderStatsComponent } from './frontOffice/component/headers/header-stats/header-stats.component';
 import { IndexNavbarComponent } from './frontOffice/component/navbars/index-navbar/index-navbar.component';
@@ -48,18 +48,18 @@ import { SidebarComponent } from './frontOffice/component/sidebar/sidebar.compon
 import { UserDropdownComponent } from './frontOffice/component/dropdowns/user-dropdown/user-dropdown.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
-import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
+import { TestimonialCarouselComponent } from './frontOffice/components/testimonial-carousel/testimonial-carousel.component';
+import { LocationFinderComponent } from './frontOffice/components/location-finder/location-finder.component';
 import { FormsModule } from '@angular/forms';
 import { LoginNavbarComponent } from './frontOffice/component/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/component/navbars/patient-navbar/patient-navbar.component';
-import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patientspace.component';
-import { HomeComponent } from './frontOffice/view/home/home.component';
+import { PatientspaceComponent } from './frontOffice/views/patientspace/patientspace.component';
+import { HomeComponent } from './frontOffice/views/home/home.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
 import { AdminNavbarComponent } from './backOffice/components/admin-navbar/admin-navbar.component';
 import { AdminSidebarComponent } from './backOffice/components/admin-sidebar/admin-sidebar.component';
 import { AdminHeaderStatsComponent } from './backOffice/components/admin-header-stats/admin-header-stats.component';
-import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
+import { ForumSpaceComponent } from './frontOffice/views/forum-space/forum-space.component';
 import { ForumDropdownComponent } from './frontOffice/layouts/forum/dropdown/forum-dropdown/forum-dropdown.component';
 import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -71,9 +71,9 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { ForumPostFormComponent } from './frontOffice/layouts/forum/components/post-form/post-form.component';
-import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
-import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component';
+import { ForumPostFormComponent } from './frontOffice/components/post-form/post-form.component';
+import { PostListComponent } from './frontOffice/components/post-list/post-list.component';
+import { PostDetailModalComponent } from './frontOffice/components/post-detail-modal/post-detail-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReportDetailModalComponentComponent } from './backOffice/components/report-detail-modal-component/report-detail-modal-component.component';
 import { StatsPostChartComponent } from './backOffice/components/stats-post-chart/stats-post-chart.component';

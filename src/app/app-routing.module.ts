@@ -19,10 +19,11 @@ import { RegisterComponent } from './frontOffice/view/auth/register/register.com
 import { IndexComponent } from './frontOffice/view/index/index.component';
 import { LandingComponent } from './frontOffice/view/landing/landing.component';
 import { ProfileComponent } from './frontOffice/view/profile/profile.component';
-import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patientspace.component';
+import { PatientspaceComponent } from './frontOffice/views/patientspace/patientspace.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
-import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
+import { ForumSpaceComponent } from './frontOffice/views/forum-space/forum-space.component';
 import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
+import { HomeComponent } from './frontOffice/views/home/home.component';
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -68,7 +69,7 @@ const routes: Routes = [
   { path: 'patientspace', component: PatientspaceComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'landing', component: LandingComponent },
-  { path: '', component: IndexComponent },
+  { path: '', component: HomeComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
 
