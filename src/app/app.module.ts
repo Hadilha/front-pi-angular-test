@@ -4,55 +4,36 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// layouts
-import { DoctorComponent } from './frontOffice/layouts/doctor/doctor.component';
-import { AuthComponent } from './frontOffice/layouts/auth/auth.component';
-
-// admin views
-import { DashboardComponent } from './frontOffice/view/admin/dashboard/dashboard.component';
-import { MapsComponent } from './frontOffice/view/admin/maps/maps.component';
-import { SettingsComponent } from './frontOffice/view/admin/settings/settings.component';
-import { TablesComponent } from './frontOffice/view/admin/tables/tables.component';
-
-// auth views
-import { LoginComponent } from './frontOffice/view/auth/login/login.component';
-import { RegisterComponent } from './frontOffice/view/auth/register/register.component';
-
-// no layouts views
-import { IndexComponent } from './frontOffice/view/index/index.component';
-import { LandingComponent } from './frontOffice/view/landing/landing.component';
-import { ProfileComponent } from './frontOffice/view/profile/profile.component';
-
 // components for views and layouts
 
-import { DoctorNavbarComponent } from './frontOffice/component/navbars/doctor-navbar/doctor-navbar.component';
-import { CardBarChartComponent } from './frontOffice/component/cards/card-bar-chart/card-bar-chart.component';
-import { CardLineChartComponent } from './frontOffice/component/cards/card-line-chart/card-line-chart.component';
-import { CardPageVisitsComponent } from './frontOffice/component/cards/card-page-visits/card-page-visits.component';
-import { CardProfileComponent } from './frontOffice/component/cards/card-profile/card-profile.component';
-import { CardSettingsComponent } from './frontOffice/component/cards/card-settings/card-settings.component';
-import { CardSocialTrafficComponent } from './frontOffice/component/cards/card-social-traffic/card-social-traffic.component';
-import { CardStatsComponent } from './frontOffice/component/cards/card-stats/card-stats.component';
-import { CardTableComponent } from './frontOffice/component/cards/card-table/card-table.component';
-import { FooterAdminComponent } from './frontOffice/component/footers/footer-admin/footer-admin.component';
+import { DoctorNavbarComponent } from './frontOffice/components/navbars/doctor-navbar/doctor-navbar.component';
+import { CardBarChartComponent } from './frontOffice/components/cards/card-bar-chart/card-bar-chart.component';
+import { CardLineChartComponent } from './frontOffice/components/cards/card-line-chart/card-line-chart.component';
+import { CardPageVisitsComponent } from './frontOffice/components/cards/card-page-visits/card-page-visits.component';
+import { CardProfileComponent } from './frontOffice/components/cards/card-profile/card-profile.component';
+import { CardSettingsComponent } from './frontOffice/components/cards/card-settings/card-settings.component';
+import { CardSocialTrafficComponent } from './frontOffice/components/cards/card-social-traffic/card-social-traffic.component';
+import { CardStatsComponent } from './frontOffice/components/cards/card-stats/card-stats.component';
+import { CardTableComponent } from './frontOffice/components/cards/card-table/card-table.component';
+import { FooterAdminComponent } from './frontOffice/components/footers/footer-admin/footer-admin.component';
 import { FooterComponent } from './frontOffice/components/footer/footer.component';
-import { FooterSmallComponent } from './frontOffice/component/footers/footer-small/footer-small.component';
-import { HeaderStatsComponent } from './frontOffice/component/headers/header-stats/header-stats.component';
-import { IndexNavbarComponent } from './frontOffice/component/navbars/index-navbar/index-navbar.component';
-import { MapExampleComponent } from './frontOffice/component/maps/map-example/map-example.component';
-import { IndexDropdownComponent } from './frontOffice/component/dropdowns/index-dropdown/index-dropdown.component';
-import { TableDropdownComponent } from './frontOffice/component/dropdowns/table-dropdown/table-dropdown.component';
-import { PagesDropdownComponent } from './frontOffice/component/dropdowns/pages-dropdown/pages-dropdown.component';
-import { NotificationDropdownComponent } from './frontOffice/component/dropdowns/notification-dropdown/notification-dropdown.component';
-import { SidebarComponent } from './frontOffice/component/sidebar/sidebar.component';
-import { UserDropdownComponent } from './frontOffice/component/dropdowns/user-dropdown/user-dropdown.component';
+import { FooterSmallComponent } from './frontOffice/components/footers/footer-small/footer-small.component';
+import { HeaderStatsComponent } from './frontOffice/components/headers/header-stats/header-stats.component';
+import { IndexNavbarComponent } from './frontOffice/components/navbars/index-navbar/index-navbar.component';
+import { MapExampleComponent } from './frontOffice/components/maps/map-example/map-example.component';
+import { IndexDropdownComponent } from './frontOffice/components/dropdowns/index-dropdown/index-dropdown.component';
+import { TableDropdownComponent } from './frontOffice/components/dropdowns/table-dropdown/table-dropdown.component';
+import { PagesDropdownComponent } from './frontOffice/components/dropdowns/pages-dropdown/pages-dropdown.component';
+import { NotificationDropdownComponent } from './frontOffice/components/dropdowns/notification-dropdown/notification-dropdown.component';
+import { SidebarComponent } from './frontOffice/components/sidebar/sidebar.component';
+import { UserDropdownComponent } from './frontOffice/components/dropdowns/user-dropdown/user-dropdown.component';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TestimonialCarouselComponent } from './frontOffice/components/testimonial-carousel/testimonial-carousel.component';
 import { LocationFinderComponent } from './frontOffice/components/location-finder/location-finder.component';
 import { FormsModule } from '@angular/forms';
-import { LoginNavbarComponent } from './frontOffice/component/navbars/login-navbar/login-navbar.component';
-import { PatientNavbarComponent } from './frontOffice/component/navbars/patient-navbar/patient-navbar.component';
+import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
+import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from './frontOffice/views/patientspace/patientspace.component';
 import { HomeComponent } from './frontOffice/views/home/home.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
@@ -60,7 +41,6 @@ import { AdminNavbarComponent } from './backOffice/components/admin-navbar/admin
 import { AdminSidebarComponent } from './backOffice/components/admin-sidebar/admin-sidebar.component';
 import { AdminHeaderStatsComponent } from './backOffice/components/admin-header-stats/admin-header-stats.component';
 import { ForumSpaceComponent } from './frontOffice/views/forum-space/forum-space.component';
-import { ForumDropdownComponent } from './frontOffice/layouts/forum/dropdown/forum-dropdown/forum-dropdown.component';
 import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminPostViewModalComponent } from './backOffice/components/admin-post-view-modal/admin-post-view-modal.component';
@@ -86,7 +66,6 @@ import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     CardBarChartComponent,
     CardLineChartComponent,
     IndexDropdownComponent,
@@ -108,16 +87,6 @@ import { ToastrModule } from 'ngx-toastr';
     MapExampleComponent,
     DoctorNavbarComponent,
     IndexNavbarComponent,
-    DoctorComponent,
-    AuthComponent,
-    MapsComponent,
-    SettingsComponent,
-    TablesComponent,
-    LoginComponent,
-    RegisterComponent,
-    IndexComponent,
-    LandingComponent,
-    ProfileComponent,
     TestimonialCarouselComponent,
     LocationFinderComponent,
     LoginNavbarComponent,
@@ -131,7 +100,6 @@ import { ToastrModule } from 'ngx-toastr';
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
     ForumSpaceComponent,
-    ForumDropdownComponent,
     AdminForumComponent,
     AdminPostViewModalComponent,
     ConfirmDeleteDialogComponent,
