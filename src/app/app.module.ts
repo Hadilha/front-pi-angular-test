@@ -30,7 +30,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { HomeComponent } from './frontOffice/views/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RoleFormatPipe } from './shared/pipes/role-format.pipe';
 import { CredentialsPatientComponent } from "./frontOffice/views/credentials-patient/credentials-patient.component";
 import { StripHtmlPipe } from '../app/shared/pipes/strip-html.pipe';
@@ -58,7 +58,7 @@ import { CardSettingsDoctorComponent } from "./frontOffice/components/cards/card
 import { CardSocialTrafficAdminComponent } from "./backOffice/components/cards/card-social-traffic-admin/card-social-traffic-admin.component";
 import { CardStatsAdminComponent } from "./backOffice/components/cards/card-stats-admin/card-stats-admin.component";
 import { profileDoctorComponent } from "./frontOffice/views/profileDoctor/profileDoctor.component";
-import { TablesDoctorComponent } from "./frontOffice/views/tablesDoctor/tables.component";
+import { TablesDoctorComponent } from "./frontOffice/views/tablesDoctor/tablesDoctor.component";
 import { JournalComponent } from "./frontOffice/views/journal/journal.component";
 import { EntriesListComponent } from "./frontOffice/views/entries-list/entries-list.component";
 import { UpdateJournalComponent } from "./frontOffice/views/update-journal/update-journal.component";
@@ -69,6 +69,7 @@ import { UserStatsComponent } from "./backOffice/views/user-stats/user-stats.com
 import { CardprofiladminComponent } from "./backOffice/components/cards/cardprofiladmin/cardprofiladmin.component";
 import { SidbarDoctorComponent } from "./frontOffice/components/sidbars/sidbar-doctor/sidbar-doctor.component";
 import { StatisticsAdminComponent } from "./backOffice/views/statistics-admin/statistics-admin.component";
+import { AuthInterceptor } from "./shared/http.interceptor";
 
 @NgModule({
   declarations: [
@@ -124,10 +125,20 @@ import { StatisticsAdminComponent } from "./backOffice/views/statistics-admin/st
 
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule, HttpClientModule,ReactiveFormsModule,RouterModule, QuillModule.forRoot() // Single import here
+  imports: [BrowserModule,
+     AppRoutingModule,
+     CommonModule,
+      FormsModule,
+       HttpClientModule,
+       ReactiveFormsModule,
+       RouterModule,
+       QuillModule.forRoot(),
 
   ],
-  providers: [StripHtmlPipe, TruncatePipe],
+  providers: [StripHtmlPipe, TruncatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

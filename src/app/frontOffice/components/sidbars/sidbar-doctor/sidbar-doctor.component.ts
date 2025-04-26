@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,10 +8,14 @@ import { Component } from '@angular/core';
 })
 export class SidbarDoctorComponent {
   collapseShow = "hidden";
-  constructor() {}
+  constructor(private Router:Router ) {}
 
   ngOnInit() {}
   toggleCollapseShow(classes: string) {
     this.collapseShow = classes;
+  }
+  logout() {
+    localStorage.removeItem('token');
+    this.Router.navigate(['/login']);
   }
 }

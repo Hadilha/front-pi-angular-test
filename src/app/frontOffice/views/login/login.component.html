@@ -43,9 +43,10 @@
               </div>
             </div>
 
-            <div *ngIf="errorMessage" class="text-red-500 text-center mb-3 text-sm">
-              {{ errorMessage }}
-            </div>
+           <!-- login.component.html -->
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
 
             <div class="text-center mt-6">
               <button

@@ -20,9 +20,10 @@ import { FooterComponent } from "./frontOffice/components/footers/footer/footer.
 import { LocationFinderComponent } from "./frontOffice/components/location-finder/location-finder.component";
 import { HomeComponent } from "./frontOffice/views/home/home.component";
 import { profileDoctorComponent } from "./frontOffice/views/profileDoctor/profileDoctor.component";
-import { TablesDoctorComponent } from "./frontOffice/views/tablesDoctor/tables.component";
+import { TablesDoctorComponent } from "./frontOffice/views/tablesDoctor/tablesDoctor.component";
 import { StatisticsAdminComponent } from "./backOffice/views/statistics-admin/statistics-admin.component";
 import { JournalComponent } from "./frontOffice/views/journal/journal.component";
+import { RoleGuard } from "./shared/role.guard";
 
 //import { JournalComponent } from "./frontOffice/views/journal/journal.component";
 
@@ -31,22 +32,23 @@ const routes: Routes = [
   {
     path: "doctor",
     component: DoctorComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['DOCTOR'] },
     children: [
-      { path: "profile", component: profileDoctorComponent},
-      { path: "patientList", component: TablesDoctorComponent
-       },
+      { path: "profile", component: profileDoctorComponent },
+      { path: "patientList", component: TablesDoctorComponent },
       { path: "", redirectTo: "patientList", pathMatch: "full" },
     ],
   },
 
-  //Admin Dashboard
+  // Admin Dashboard
   {
     path: "admin",
     component: AdminComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['ADMIN'] },
     children: [
-  //{ path: "usermanagment", component: LandingComponent },
-
-     { path: "usermanagment", component: ListusersComponent },
+      { path: "usermanagment", component: ListusersComponent },
       { path: "adduser", component: AdduserComponent },
       { path: "updateuser/:id", component: AdduserComponent },
       { path: "statistics", component: StatisticsAdminComponent },
@@ -63,19 +65,21 @@ const routes: Routes = [
       { path: "", redirectTo: "login", pathMatch: "full" },
     ],
   },
+
   {
     path: "patientspace",
     component: PatientspaceComponent,
+    canActivate: [RoleGuard],
+    data: { roles: ['PATIENT'] },
     children: [
       { path: "profile", component: ProfilePatientComponent },
-     { path: 'credentials',component: CredentialsPatientComponent},
-    {path: 'journal',component: JournalComponent},
-
+      { path: 'credentials', component: CredentialsPatientComponent },
+      { path: 'journal', component: JournalComponent },
     ],
   },
 
-  {path:"forgotpassword", component:ForgotpwComponent},
-  {path:"reset-password", component:ResetpwComponent},
+  { path: "forgotpassword", component: ForgotpwComponent },
+  { path: "reset-password", component: ResetpwComponent },
   { path: "", component: HomeComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];

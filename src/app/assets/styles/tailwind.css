@@ -2416,7 +2416,9 @@ select {
 .mt-48 {
   margin-top: 12rem;
 }
-
+.mt-40 {
+  margin: top 40px;;
+}
 .mr-auto {
   margin-right: auto;
 }

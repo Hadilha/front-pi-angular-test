@@ -12,9 +12,27 @@ import { User } from '../models/user.model';
 export class UserService {
   private apiUrl = 'http://localhost:8089/api';
   private dataChanged = new BehaviorSubject<void>(undefined);
+  private currentSessions = new Map<string, string>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.setupStorageListener();
+  }
+  private setupStorageListener() {
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'token') {
+        const previousUser = this.getCurrentUsername();
+        const newToken = localStorage.getItem('token');
+        const newUser = newToken ? this.getCurrentUsername() : null;
 
+        if (newUser !== previousUser) {
+          this.logout();
+          this.router.navigate(['/auth/login'], {
+            queryParams: { sessionConflict: true }
+          });
+        }
+      }
+    });
+  }
   // Data change notification
   notifyDataChanged() {
     this.dataChanged.next();
@@ -23,15 +41,38 @@ export class UserService {
   get dataChanged$(): Observable<void> {
     return this.dataChanged.asObservable();
   }
+  private invalidateExistingSessions(username: string) {
+    this.currentSessions.delete(username);
+  }
+  getCurrentSession(username: string): string | undefined {
+    return this.currentSessions.get(username);
+  }
+  isTokenValid(token: string): boolean {
+    try {
+      const decoded = jwtDecode(token);
+      const username = decoded.sub;
+      if (!username) {
+        return false;
+      }
 
-  // Authentication related methods
+      return this.currentSessions.get(username) === token;
+    } catch (e) {
+      return false;
+    }}
+
+
   login(username: string, password: string): Observable<string> {
+    localStorage.removeItem('token');
+
     return this.http.post(
       `${this.apiUrl}/auth/login`,
       { username, password },
       { responseType: 'text' }
     ).pipe(
       tap((token: string) => {
+        this.invalidateExistingSessions(username);
+        this.currentSessions.set(username, token);
+
         localStorage.setItem('token', token);
         const role = this.getUserRoleFromToken(token);
         console.log('Resolved Role:', role);
@@ -55,10 +96,21 @@ export class UserService {
     );
   }
 
-  logout(): void {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+logout(): void {
+  const token = localStorage.getItem('token');
+  if (token) {
+    try {
+      const decoded = jwtDecode<{ sub: string }>(token);
+      if (decoded.sub) {
+        this.currentSessions.delete(decoded.sub);
+      }
+    } catch (e) {
+      console.error('Token decode error on logout:', e);
+    }
   }
+  localStorage.removeItem('token');
+  this.router.navigate(['/auth/login']);
+}
 
   registerUser(userData: any): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(

@@ -162,11 +162,13 @@
 
       <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
         <li class="items-center">
+
           <a
-            [routerLink]="['/auth/login']"
-            class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
+          href="javascript:void(0)"
+            class="text-gray-300 hover:text-gray-500 text-xs uppercase py-3 font-bold block"
+            (click)="logout()"
           >
-            <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
+            <i class="fas fa-fingerprint text-gray-500 mr-2 text-sm"></i>
             Logout
           </a>
         </li>
