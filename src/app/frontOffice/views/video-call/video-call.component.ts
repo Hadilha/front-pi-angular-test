@@ -4,7 +4,7 @@ import { PeerService } from 'src/app/Services/peer.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { VideoCallService, VideoCall } from '../../Services/video-call.service';
+import { VideoCallService, VideoCall } from '../../../Services/video-call.service';
 
 
 @Component({

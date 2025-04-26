@@ -83,71 +83,7 @@
       <!-- Navigation -->
 
       <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-        <li class="items-center">
-          <a
-            [routerLink]="['/doctor/dashboard']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #reportAnalytics="routerLinkActive"
-            [ngClass]="
-              reportAnalytics.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-blueGray-700 hover:text-blueGray-500'
-            "
-          >
-            <i
-              class="fas fa-tv mr-2 text-sm"
-              [ngClass]="
-                reportAnalytics.isActive ? 'opacity-75' : 'text-blueGray-300'
-              "
-            ></i>
-            Video Call & Communications
-          </a>
-        </li>
 
-        <li class="items-center">
-          <a
-            [routerLink]="['/doctor/tables']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #userManagement="routerLinkActive"
-            [ngClass]="
-              userManagement.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-blueGray-700 hover:text-blueGray-500'
-            "
-          >
-            <i
-              class="fas fa-tools mr-2 text-sm"
-              [ngClass]="
-                userManagement.isActive ? 'opacity-75' : 'text-blueGray-300'
-              "
-            ></i>
-            Patient List
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
-            [routerLink]="['/doctor/settings']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #appointments="routerLinkActive"
-            [ngClass]="
-              appointments.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-blueGray-700 hover:text-blueGray-500'
-            "
-          >
-            <i
-              class="fas fa-table mr-2 text-sm"
-              [ngClass]="
-                appointments.isActive ? 'opacity-75' : 'text-blueGray-300'
-              "
-            ></i>
-            Appointments
-          </a>
-        </li>
         <li class="items-center">
           <a
             [routerLink]="['/doctor/calendar-view']"
@@ -192,75 +128,6 @@
           video call
         </a>
       </li>
-
-
-      <!-- Divider -->
-      <hr class="my-4 md:min-w-full" />
-      <!-- Heading -->
-      <h6
-        class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
-      >
-        Tools
-      </h6>
-      <!-- Navigation -->
-
-      <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-        <li class="items-center">
-          <a
-            [routerLink]="['/auth/login']"
-            class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-          >
-            <i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm"></i>
-            Logout
-          </a>
-        </li>
-
-        <li class="items-center">
-          <a
-            [routerLink]="['#']"
-            class="text-xs uppercase py-3 font-bold block"
-            routerLinkActive
-            #settings="routerLinkActive"
-            [ngClass]="
-              settings.isActive
-                ? 'text-red-600 hover:text-red-700'
-                : 'text-blueGray-700 hover:text-blueGray-500'
-            "
-          >
-            <i class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm"
-              [ngClass]="
-                settings.isActive ? 'opacity-75' : 'text-blueGray-300'
-              "
-            >
-          </i>
-          Settings
-            
-          </a>
-        </li>
-      </ul>
-
-      <!-- Divider -->
-      <hr class="my-4 md:min-w-full" />
-      <!-- Heading -->
-      <h6
-        class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
-      >
-        Landing Page
-      </h6>
-      <!-- Navigation -->
-
-      <ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-        <li class="items-center">
-          <a
-            [routerLink]="['/landing']"
-            class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-          >
-            <i class="fas fa-newspaper text-blueGray-300 mr-2 text-sm"></i>
-            Landing Page
-          </a>
-        </li>
-      </ul>
-
     </div>
   </div>
 </nav>

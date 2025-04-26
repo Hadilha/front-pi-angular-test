@@ -2,8 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 import { DatePipe } from '@angular/common';
 // Layouts
-import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
-import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
+import { DoctorComponent } from "./frontOffice/views/doctor/doctor.component";
 import { AdminComponent } from "./backOffice/views/admin/admin.component";
 
 // Doctor Views
@@ -20,19 +19,16 @@ import { CalendarListComponent } from "./backOffice/views/calendar-list/calendar
 import { CalendarFormComponent } from "./backOffice/components/calendars/calendar-form/calendar-form.component";
 import { AppointmentStatisticsComponent } from './backOffice/components/appointment-statistics/appointment-statistics.component';
 
-// Auth Views
-import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
-import { RegisterComponent } from "./frontOffice/views/auth/register/register.component";
+
+
 
 // Standalone Views
-import { IndexComponent } from "./frontOffice/views/index/index.component";
-import { LandingComponent } from "./frontOffice/views/landing/landing.component";
-import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
-import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
-import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
-import{ VideoCallComponent } from './frontOffice/video-call/video-call.component';
-import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
-import { PatientCalendarComponent } from "./frontOffice/patient-calendar/patient-calendar.component";
+import { HomeComponent } from "./frontOffice/views/home/home.component";
+import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
+import { CalendarViewComponent } from './frontOffice/views/calendar-view/calendar-view.component';
+import{ VideoCallComponent } from './frontOffice/views/video-call/video-call.component';
+import { VideoCallEntryComponent } from './frontOffice/views/video-call-entry/video-call-entry.component';
+import { PatientCalendarComponent } from "./frontOffice/views/patient-calendar/patient-calendar.component";
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -69,15 +65,7 @@ const routes: Routes = [
     ],
   },
   // Authentication
-  {
-    path: "auth",
-    component: AuthComponent,
-    children: [
-      { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent },
-      { path: "", redirectTo: "login", pathMatch: "full" },
-    ],
-  },
+ 
   // Standalone Routes
   
 
@@ -97,9 +85,9 @@ const routes: Routes = [
 
 
 
-  { path: "profile", component: ProfileComponent },
-  { path: "landing", component: LandingComponent },
-  { path: "", component: IndexComponent },
+
+
+  { path: "", component: HomeComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
 ];
 

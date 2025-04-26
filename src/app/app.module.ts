@@ -9,8 +9,8 @@ import { AppComponent } from "./app.component";
 import { GoogleChartsModule } from 'angular-google-charts';
 
 // layouts
-import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
-import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
+import { DoctorComponent } from "./frontOffice/views/doctor/doctor.component";
+
 
 // admin views
 import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
@@ -18,14 +18,11 @@ import { MapsComponent } from "./frontOffice/views/admin/maps/maps.component";
 import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.component";
 import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
 
-// auth views
-import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
-import { RegisterComponent } from "./frontOffice/views/auth/register/register.component";
 
-// no layouts views
-import { IndexComponent } from "./frontOffice/views/index/index.component";
-import { LandingComponent } from "./frontOffice/views/landing/landing.component";
-import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
+
+
+
+
 
 // components for views and layouts
 
@@ -52,12 +49,12 @@ import { SidebarComponent } from "./frontOffice/components/sidebar/sidebar.compo
 import { UserDropdownComponent } from "./frontOffice/components/dropdowns/user-dropdown/user-dropdown.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
-import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
-import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
+import { TestimonialCarouselComponent } from './frontOffice/components/testimonial-carousel/testimonial-carousel.component';
+import { LocationFinderComponent } from './frontOffice/components/location-finder/location-finder.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
-import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
+import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
 import { HomeComponent } from './frontOffice/views/home/home.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
 import { AdminNavbarComponent } from "./backOffice/components/admin-navbar/admin-navbar.component";
@@ -69,15 +66,15 @@ import { CalendarListComponent } from './backOffice/views/calendar-list/calendar
 import { CalendarFormComponent } from './backOffice/components/calendars/calendar-form/calendar-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { CalendarViewComponent } from './frontOffice/calendar-view/calendar-view.component';
+import { CalendarViewComponent } from './frontOffice/views/calendar-view/calendar-view.component';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { AppointmentStatisticsComponent } from './backOffice/components/appointment-statistics/appointment-statistics.component';
-import { VideoCallComponent } from './frontOffice/video-call/video-call.component';
-import { VideoCallEntryComponent } from './frontOffice/video-call-entry/video-call-entry.component';
-import { PatientCalendarComponent } from './frontOffice/patient-calendar/patient-calendar.component';
+import { VideoCallComponent } from './frontOffice/views/video-call/video-call.component';
+import { VideoCallEntryComponent } from './frontOffice/views/video-call-entry/video-call-entry.component';
+import { PatientCalendarComponent } from './frontOffice/views/patient-calendar/patient-calendar.component';
 
 
 
@@ -107,15 +104,9 @@ import { PatientCalendarComponent } from './frontOffice/patient-calendar/patient
     DoctorNavbarComponent,
     IndexNavbarComponent,
     DoctorComponent,
-    AuthComponent,
     MapsComponent,
     SettingsComponent,
     TablesComponent,
-    LoginComponent,
-    RegisterComponent,
-    IndexComponent,
-    LandingComponent,
-    ProfileComponent,
     TestimonialCarouselComponent,
     LocationFinderComponent,
     LoginNavbarComponent,
