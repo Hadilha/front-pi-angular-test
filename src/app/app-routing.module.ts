@@ -24,7 +24,6 @@ import { LandingComponent } from './frontOffice/views/landing/landing.component'
 import { ProfileComponent } from './frontOffice/views/profile/profile.component';
 import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patientspace.component';
 import { AdminComponent } from './backOffice/admin/admin.component';
-import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.component';
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
 import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
 
@@ -48,7 +47,6 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: 'dashboard', component: AdminDashboardComponent },
-      { path: 'tables', component: AdminTablesComponent },
       { path: 'forum', component: AdminForumComponent },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

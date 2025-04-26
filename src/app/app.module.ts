@@ -57,10 +57,9 @@ import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patien
 import { HomeComponent } from './frontOffice/views/home/home.component';
 import { AdminDashboardComponent } from './backOffice/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './backOffice/admin/admin.component';
-import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.component';
-import { AdminNavbarComponent } from './backOffice/admin-navbar/admin-navbar.component';
-import { AdminSidebarComponent } from './backOffice/admin-sidebar/admin-sidebar.component';
-import { AdminHeaderStatsComponent } from './backOffice/admin-header-stats/admin-header-stats.component';
+import { AdminNavbarComponent } from './backOffice/components/admin-navbar/admin-navbar.component';
+import { AdminSidebarComponent } from './backOffice/components/admin-sidebar/admin-sidebar.component';
+import { AdminHeaderStatsComponent } from './backOffice/components/admin-header-stats/admin-header-stats.component';
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
 import { ForumDropdownComponent } from './frontOffice/layouts/forum/dropdown/forum-dropdown/forum-dropdown.component';
 import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
@@ -130,7 +129,6 @@ import { ToastrModule } from 'ngx-toastr';
     HomeComponent,
     AdminDashboardComponent,
     AdminComponent,
-    AdminTablesComponent,
     AdminNavbarComponent,
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
