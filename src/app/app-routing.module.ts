@@ -26,7 +26,7 @@ import { PatientspaceComponent } from './frontOffice/layouts/patientspace/patien
 import { AdminComponent } from './backOffice/admin/admin.component';
 import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.component';
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
-import { AdminForumComponent } from './backOffice/forum moderation/admin-forum/admin-forum.component';
+import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
 
 const routes: Routes = [
   // Doctor Dashboard
@@ -69,7 +69,7 @@ const routes: Routes = [
   {
     path: 'forum',
     component: ForumSpaceComponent,
-  },  
+  },
 
   { path: 'patientspace', component: PatientspaceComponent },
   { path: 'profile', component: ProfileComponent },

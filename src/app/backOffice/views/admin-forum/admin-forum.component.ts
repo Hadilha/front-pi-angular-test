@@ -1,10 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { AdminPostViewModalComponent } from '../admin-post-view-modal/admin-post-view-modal.component';
-import { ConfirmDeleteDialogComponent } from '../confirm-delete-dialog/confirm-delete-dialog.component';
-import { MatIconModule } from '@angular/material/icon';
-import { HttpClient } from '@angular/common/http';
-import { ReportDetailModalComponentComponent } from '../report-detail-modal-component/report-detail-modal-component.component';
+import { ForumNotificationService } from 'src/app/Services/forum-notification/forum-notification.service';
 import {
   trigger,
   transition,
@@ -13,9 +7,17 @@ import {
   query,
   stagger,
 } from '@angular/animations';
-import { ForumNotificationService } from 'src/app/frontOffice/layouts/forum/service/forum-notification/forum-notification.service'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+
+import { ReportDetailModalComponentComponent } from '../../components/report-detail-modal-component/report-detail-modal-component.component';
+import { ConfirmDeleteDialogComponent } from '../../components/confirm-delete-dialog/confirm-delete-dialog.component';
+import { AdminPostViewModalComponent } from '../../components/admin-post-view-modal/admin-post-view-modal.component';
+
 @Component({
   selector: 'app-admin-forum',
   templateUrl: './admin-forum.component.html',
@@ -43,22 +45,25 @@ export class AdminForumComponent implements OnInit {
   posts: any[] = [];
   private readonly BASE_URL = 'http://localhost:8089/forum/posts'; // Update if needed
 
-  constructor(private http: HttpClient, private dialog: MatDialog,private notificationService: ForumNotificationService,
-    private snackBar: MatSnackBar) {}
+  constructor(
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private notificationService: ForumNotificationService,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.loadPosts();
     this.loadReports();
-    this.reportSubscription = this.notificationService.reportNotifications$.subscribe(
-      message => {
+    this.reportSubscription =
+      this.notificationService.reportNotifications$.subscribe((message) => {
         this.snackBar.open(message, 'Close', {
           duration: 5000,
           horizontalPosition: 'right',
           verticalPosition: 'top',
-          panelClass: ['admin-snackbar']
+          panelClass: ['admin-snackbar'],
         });
-      }
-    );
+      });
   }
 
   loadPosts(): void {

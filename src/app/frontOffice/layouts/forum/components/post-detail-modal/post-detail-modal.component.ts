@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PostDetailModalService } from '../../service/post-detail-modal/post-detail-modal.service';
+
+import { PostDetailModalService } from 'src/app/Services/post-detail-modal/post-detail-modal.service'; 
+
 
 @Component({
   selector: 'app-post-detail-modal',
@@ -45,9 +47,11 @@ export class PostDetailModalComponent {
 
   incrementViewCount() {
     if (!this.selectedPost?.id) return;
-    this.postService.incrementViewCount(this.selectedPost.id).subscribe((updatedPost) => {
-      this.selectedPost.viewCount = updatedPost.viewCount;
-    });
+    this.postService
+      .incrementViewCount(this.selectedPost.id)
+      .subscribe((updatedPost) => {
+        this.selectedPost.viewCount = updatedPost.viewCount;
+      });
   }
 
   startEditingPost() {
@@ -92,36 +96,39 @@ export class PostDetailModalComponent {
   reactToPost(type: string): void {
     if (!this.selectedPost) return;
     if (this.currentUserReaction === type) {
-      this.postService.removeReaction(this.selectedPost.id, type, this.currentUser).subscribe(() => {
-        this.currentUserReaction = null;
-        if (this.selectedPost.reactions?.[type]) {
-          this.selectedPost.reactions[type]--;
-        }
-        this.selectedPost = { ...this.selectedPost };
-      });
+      this.postService
+        .removeReaction(this.selectedPost.id, type, this.currentUser)
+        .subscribe(() => {
+          this.currentUserReaction = null;
+          if (this.selectedPost.reactions?.[type]) {
+            this.selectedPost.reactions[type]--;
+          }
+          this.selectedPost = { ...this.selectedPost };
+        });
     } else {
       const reaction = { type };
-      this.postService.addReaction(this.selectedPost.id, reaction, this.currentUser).subscribe(() => {
-        if (this.currentUserReaction) {
-          if (this.selectedPost.reactions?.[this.currentUserReaction]) {
-            this.selectedPost.reactions[this.currentUserReaction]--;
+      this.postService
+        .addReaction(this.selectedPost.id, reaction, this.currentUser)
+        .subscribe(() => {
+          if (this.currentUserReaction) {
+            if (this.selectedPost.reactions?.[this.currentUserReaction]) {
+              this.selectedPost.reactions[this.currentUserReaction]--;
+            }
           }
-        }
-        if (!this.selectedPost.reactions[type]) {
-          this.selectedPost.reactions[type] = 0;
-        }
-        this.selectedPost.reactions[type]++;
-        this.currentUserReaction = type;
-        this.selectedPost = { ...this.selectedPost };
-      });
+          if (!this.selectedPost.reactions[type]) {
+            this.selectedPost.reactions[type] = 0;
+          }
+          this.selectedPost.reactions[type]++;
+          this.currentUserReaction = type;
+          this.selectedPost = { ...this.selectedPost };
+        });
     }
   }
 
   // Use the service methods for reaction checks
   hasReacted(type: string): boolean {
-    return this.postService.hasReacted(this.currentUserReaction || "", type);
+    return this.postService.hasReacted(this.currentUserReaction || '', type);
   }
-  
 
   getReactionEmoji(type: string): string {
     return this.postService.getReactionEmoji(type);
@@ -137,13 +144,15 @@ export class PostDetailModalComponent {
         content: this.newComment.trim(),
         author: { id: 1 },
       };
-      this.postService.addComment(this.selectedPost.id, comment).subscribe((createdComment) => {
-        if (!this.selectedPost.comments) {
-          this.selectedPost.comments = [];
-        }
-        this.selectedPost.comments.push(createdComment);
-        this.newComment = '';
-      });
+      this.postService
+        .addComment(this.selectedPost.id, comment)
+        .subscribe((createdComment) => {
+          if (!this.selectedPost.comments) {
+            this.selectedPost.comments = [];
+          }
+          this.selectedPost.comments.push(createdComment);
+          this.newComment = '';
+        });
     }
   }
 
@@ -206,15 +215,17 @@ export class PostDetailModalComponent {
     }
     const reason = this.reportReason.trim();
     const targetType = this.reportingTarget.title ? 'post' : 'comment';
-    this.postService.submitReport(this.reportingTarget.id, targetType, reason).subscribe({
-      next: () => {
-        alert('✅ Report submitted. Thank you!');
-        this.closeReportModal();
-      },
-      error: (err) => {
-        console.error('❌ Failed to submit report:', err);
-        alert('There was an error submitting your report.');
-      },
-    });
+    this.postService
+      .submitReport(this.reportingTarget.id, targetType, reason)
+      .subscribe({
+        next: () => {
+          alert('✅ Report submitted. Thank you!');
+          this.closeReportModal();
+        },
+        error: (err) => {
+          console.error('❌ Failed to submit report:', err);
+          alert('There was an error submitting your report.');
+        },
+      });
   }
 }

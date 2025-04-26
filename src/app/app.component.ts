@@ -1,10 +1,11 @@
-import { Component,OnInit, OnDestroy } from '@angular/core';
-import { ForumNotificationService } from './frontOffice/layouts/forum/service/forum-notification/forum-notification.service'; 
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { ForumNotificationService } from './Services/forum-notification/forum-notification.service'; 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'piFont';

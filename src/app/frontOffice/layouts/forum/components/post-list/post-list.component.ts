@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PostListService } from '../../service/post-list/post-list.service'; 
-import { Post } from '../../service/forum-space/forum-space.service';
+
+import { PostListService } from 'src/app/Services/post-list/post-list.service'; 
+import { Post } from 'src/app/Services/forum-space/forum-space.service'; 
+
 
 @Component({
   selector: 'app-post-list',
@@ -50,11 +52,9 @@ export class PostListComponent implements OnInit {
         this.posts = posts;
       });
     } else {
-      this.postService
-        .getPosts()
-        .subscribe((posts) => {
-          this.posts = posts.filter((post) => post.tag === this.selectedCategory);
-        });
+      this.postService.getPosts().subscribe((posts) => {
+        this.posts = posts.filter((post) => post.tag === this.selectedCategory);
+      });
     }
   }
 
@@ -67,23 +67,27 @@ export class PostListComponent implements OnInit {
     });
 
     // Load reactions count first
-    this.postService.getReactionsForPost(post.id).subscribe((reactionCounts) => {
-      this.selectedPost!.reactions = reactionCounts;
+    this.postService
+      .getReactionsForPost(post.id)
+      .subscribe((reactionCounts) => {
+        this.selectedPost!.reactions = reactionCounts;
 
-      // THEN load user reaction and sync if necessary
-      this.postService.getUserReactionForPost(post.id, this.currentUser).subscribe((reaction) => {
-        this.currentUserReaction = reaction;
+        // THEN load user reaction and sync if necessary
+        this.postService
+          .getUserReactionForPost(post.id, this.currentUser)
+          .subscribe((reaction) => {
+            this.currentUserReaction = reaction;
 
-        // Make sure the count includes the user's reaction
-        if (reaction) {
-          if (!this.selectedPost!.reactions[reaction]) {
-            this.selectedPost!.reactions[reaction] = 1;
-          }
-        }
+            // Make sure the count includes the user's reaction
+            if (reaction) {
+              if (!this.selectedPost!.reactions[reaction]) {
+                this.selectedPost!.reactions[reaction] = 1;
+              }
+            }
 
-        this.selectedPost = { ...this.selectedPost! }; // Refresh view
+            this.selectedPost = { ...this.selectedPost! }; // Refresh view
+          });
       });
-    });
   }
 
   deletePost(postId: number): void {

@@ -63,11 +63,11 @@ import { AdminSidebarComponent } from './backOffice/admin-sidebar/admin-sidebar.
 import { AdminHeaderStatsComponent } from './backOffice/admin-header-stats/admin-header-stats.component';
 import { ForumSpaceComponent } from './frontOffice/layouts/forum/components/forum-space/forum-space.component';
 import { ForumDropdownComponent } from './frontOffice/layouts/forum/dropdown/forum-dropdown/forum-dropdown.component';
-import { AdminForumComponent } from './backOffice/forum moderation/admin-forum/admin-forum.component';
+import { AdminForumComponent } from './backOffice/views/admin-forum/admin-forum.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdminPostViewModalComponent } from './backOffice/forum moderation/admin-post-view-modal/admin-post-view-modal.component';
+import { AdminPostViewModalComponent } from './backOffice/components/admin-post-view-modal/admin-post-view-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ConfirmDeleteDialogComponent } from './backOffice/forum moderation/confirm-delete-dialog/confirm-delete-dialog.component';
+import { ConfirmDeleteDialogComponent } from './backOffice/components/confirm-delete-dialog/confirm-delete-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -75,14 +75,14 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { ForumPostFormComponent } from './frontOffice/layouts/forum/components/post-form/post-form.component';
 import { PostListComponent } from './frontOffice/layouts/forum/components/post-list/post-list.component';
-import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component'; 
+import { PostDetailModalComponent } from './frontOffice/layouts/forum/components/post-detail-modal/post-detail-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ReportDetailModalComponentComponent } from './backOffice/forum moderation/report-detail-modal-component/report-detail-modal-component.component';
-import { StatsPostChartComponent } from './backOffice/forum moderation/stats-post-chart/stats-post-chart.component';
+import { ReportDetailModalComponentComponent } from './backOffice/components/report-detail-modal-component/report-detail-modal-component.component';
+import { StatsPostChartComponent } from './backOffice/components/stats-post-chart/stats-post-chart.component';
 import { NgChartsModule } from 'ng2-charts';
-import { StatsCommentChartComponent } from './backOffice/forum moderation/stats-comment-chart/stats-comment-chart.component';
-import { StatsContainerComponent } from './backOffice/forum moderation/stats-container/stats-container.component';
-import { StatsReactionChartComponent } from './backOffice/forum moderation/stats-reaction-chart/stats-reaction-chart.component'; 
+import { StatsCommentChartComponent } from './backOffice/components/stats-comment-chart/stats-comment-chart.component';
+import { StatsContainerComponent } from './backOffice/components/stats-container/stats-container.component';
+import { StatsReactionChartComponent } from './backOffice/components/stats-reaction-chart/stats-reaction-chart.component';
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({

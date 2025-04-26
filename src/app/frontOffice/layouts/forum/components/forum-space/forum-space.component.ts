@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ForumService, Post } from '../../service/forum-space/forum-space.service'; 
+import { ForumService,Post } from 'src/app/Services/forum-space/forum-space.service';
+
+
 @Component({
   selector: 'app-forum-space',
   templateUrl: './forum-space.component.html',

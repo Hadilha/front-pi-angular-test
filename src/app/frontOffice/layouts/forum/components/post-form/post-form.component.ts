@@ -1,10 +1,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import {
-  PostFormService,
-  Post,
-} from '../../service/post-form/post-form.service';
-import { ImageUploadService } from '../../service/image-upload/image-upload.service';
 import { ToastrService } from 'ngx-toastr';
+
+import { ImageUploadService } from 'src/app/Services/image-upload/image-upload.service'; 
+import { PostFormService } from 'src/app/Services/post-form/post-form.service'; 
+
 
 @Component({
   selector: 'app-forum-post-form',
@@ -158,7 +157,6 @@ export class ForumPostFormComponent {
           this.toastr.error('Failed to submit post. Please try again.');
         },
       });
-      
     } catch (e) {
       console.error('⛔ Post creation cancelled due to image upload failure.');
     }
