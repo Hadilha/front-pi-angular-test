@@ -50,7 +50,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
 import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
@@ -61,13 +61,20 @@ import { AdminTablesComponent } from './backOffice/admin-tables/admin-tables.com
 import { AdminNavbarComponent } from "./backOffice/admin-navbar/admin-navbar.component";
 import { AdminSidebarComponent } from "./backOffice/admin-sidebar/admin-sidebar.component";
 import { AdminHeaderStatsComponent } from "./backOffice/admin-header-stats/admin-header-stats.component";
-import { PrescriptionListComponent } from '../app/prescriptions/list/prescription-list.component';
-import { PrescriptionFormComponent } from '../app/prescriptions/form/prescription-form.component';
-import {NoteFormComponent} from '../app/notes/form/note-form.component';
-import {NoteListComponent} from '../app/notes/list/note-list.component'
-import {HttpClientModule} from "@angular/common/http";
-import { UpdateNoteComponent } from './notes/update/update-note/update-note.component';
-import { UpdatePrescriptionComponent } from './prescriptions/update/update-prescription/update-prescription.component';
+import { HttpClientModule } from "@angular/common/http";
+import { ListNotesComponent } from './backOffice/note-management/list-notes/list-notes.component';
+import { AddNoteComponent } from './backOffice/note-management/add-note/add-note.component';
+import { UpdateNoteComponent } from './backOffice/note-management/update-note/update-note.component';
+import { DetailsNoteComponent } from './backOffice/note-management/details-note/details-note.component';
+import { PatientNotesComponent } from './backOffice/note-management/patient-notes/patient-notes.component';
+import { ListPrescriptionsComponent } from './backOffice/prescription-management/list-prescriptions/list-prescriptions.component';
+import { AddPrescriptionComponent } from './backOffice/prescription-management/add-prescription/add-prescription.component';
+import { UpdatePrescriptionComponent } from './backOffice/prescription-management/update-prescription/update-prescription.component';
+import { DetailsPrescriptionComponent } from './backOffice/prescription-management/details-prescription/details-prescription.component';
+import { PatientPrescriptionComponent } from './backOffice/prescription-management/patient-prescription/patient-prescription.component';
+import { PatientNotesDetailsComponent } from './frontOffice/patient-notes-details/patient-notes-details.component';
+import { PatientPrescriptionDetailsComponent } from './frontOffice/patient-prescription-details/patient-prescription-details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,15 +124,28 @@ import { UpdatePrescriptionComponent } from './prescriptions/update/update-presc
     AdminNavbarComponent,
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
-    PrescriptionListComponent,
-    PrescriptionFormComponent,
-    NoteFormComponent,
-    NoteListComponent,
+    ListNotesComponent,
+    AddNoteComponent,
     UpdateNoteComponent,
-    UpdatePrescriptionComponent
-
+    DetailsNoteComponent,
+    PatientNotesComponent,
+    ListPrescriptionsComponent,
+    AddPrescriptionComponent,
+    UpdatePrescriptionComponent,
+    DetailsPrescriptionComponent,
+    PatientPrescriptionComponent,
+    PatientNotesDetailsComponent,
+    PatientPrescriptionDetailsComponent
+    
   ],
-  imports: [BrowserModule, AppRoutingModule, CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

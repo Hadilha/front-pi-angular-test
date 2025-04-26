@@ -126,6 +126,33 @@
             Patient List
           </a>
         </li>
+        
+        <li class="items-center">
+          <a [routerLink]="['/doctor/notes']" class="text-xs uppercase py-3 font-bold block" routerLinkActive
+            #notesManagement="routerLinkActive" [ngClass]="
+                      notesManagement.isActive
+                        ? 'text-red-600 hover:text-red-700'
+                        : 'text-gray-300 hover:text-gray-500'
+                    ">
+            <i class="fas fa-tools mr-2 text-sm" [ngClass]="
+                        notesManagement.isActive ? 'opacity-75' : 'text-gray-500'
+                      "></i>
+            Notes Management
+          </a>
+        </li>
+        <li class="items-center">
+          <a [routerLink]="['/doctor/prescriptions']" class="text-xs uppercase py-3 font-bold block" routerLinkActive
+            #prescriptionManagement="routerLinkActive" [ngClass]="
+                      prescriptionManagement.isActive
+                        ? 'text-red-600 hover:text-red-700'
+                        : 'text-gray-300 hover:text-gray-500'
+                    ">
+            <i class="fas fa-tools mr-2 text-sm" [ngClass]="
+                        prescriptionManagement.isActive ? 'opacity-75' : 'text-gray-500'
+                      "></i>
+            Prescription management
+          </a>
+        </li>
 
         <li class="items-center">
           <a

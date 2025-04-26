@@ -1,9 +1,12 @@
 export interface User {
-  userId: number;
-  name: string;
+  id: number;
+  fullName: string;
+  email: string;
   role: Role;
 }
+
 export enum Role {
-  DOCTOR = 'doctor',
-  PATIENT = 'patient'
+  DOCTOR = 'DOCTOR',
+  COACH = 'COACH',
+  PATIENT = 'PATIENT',
 }

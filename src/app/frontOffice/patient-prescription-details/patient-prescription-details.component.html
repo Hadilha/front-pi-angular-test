@@ -1,0 +1,141 @@
+<app-index-navbar></app-index-navbar>
+<br/>
+<br/>
+<div class="px-4 md:px-10 mx-auto w-full -m-24 mt-12">
+    <div *ngIf="isLoading" class="text-center p-8">
+        <div class="inline-flex items-center space-x-2 text-gray-600">
+            <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
+            <span class="text-lg">Loading Prescription...</span>
+        </div>
+    </div>
+
+    <!-- Note Details -->
+    <div *ngIf="prescription && !isLoading"
+        class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
+        <div class="border-b pb-4">
+            <h2 class="text-2xl font-bold text-gray-800">Clinical Prescription Summary</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+            <!-- Author -->
+            <div>
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-user-md text-indigo-500 mr-2"></i>
+                    <span class="font-semibold">Author:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ prescription.doctor.fullName }}</p>
+            </div>
+
+            <!-- Diagnosis -->
+            <div>
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-stethoscope text-rose-500 mr-2"></i>
+                    <span class="font-semibold">Diagnosis:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ prescription.diagnosis || '—' }}</p>
+            </div>
+
+            <!-- Notes -->
+            <div class="col-span-full">
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-notes-medical text-rose-500 mr-2"></i>
+                    <span class="font-semibold">Notes:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ prescription.notes || 'No notes provided' }}</p>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="pt-4 border-t">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700 mt-4">
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-calendar-plus text-gray-500 mt-1 mr-2"></i>
+                    <p><span class="font-semibold text-gray-500">Created:</span> {{ prescription.creationDate |
+                        date:'MMM
+                        dd, yyyy' }}
+                    </p>
+                </div>
+
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-edit text-gray-500 mt-1 mr-2"></i>
+                    <p><span class="font-semibold text-gray-500">Last Updated:</span> {{ prescription.updateDate |
+                        date:'MMM
+                        dd, yyyy'
+                        }}</p>
+                </div>
+
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-calendar-times text-gray-500 mt-1 mr-2 mb-4"></i>
+                    <p><span class="font-semibold text-gray-500">Expiration:</span> {{ prescription.expirationDate |
+                        date:'MMM dd,yyyy' }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+        [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'">
+
+        <div class="rounded-t mb-0 px-4 py-3 border-0">
+            <h3 class="font-semibold text-lg" [ngClass]="color === 'light' ? 'text-blueGray-700' : 'text-white'">
+                Medications
+            </h3>
+        </div>
+        <div class="block w-full overflow-x-auto">
+            <div *ngIf="!isLoading && medications.length === 0" class="p-4 text-center text-sm text-gray-500">No
+                prescriptions
+                found.</div>
+
+            <table *ngIf="medications.length > 0" class="items-center w-full bg-transparent border-collapse">
+                <thead>
+                    <tr>
+                        <th
+                            class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                            #
+                        </th>
+                        <th
+                            class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                            Name
+                        </th>
+                        <th
+                            class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                            Directions
+                        </th>
+                        <th
+                            class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                            Duration (Day)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let med of medications; let index=index">
+                        <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ index+1 }}</td>
+                        <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ med.medicationName }}</td>
+                        <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ med.directions }}</td>
+                        <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ med.duration }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div *ngIf="!prescription && !isLoading" class="max-w-md mx-auto text-center p-8">
+        <div class="inline-block p-4 bg-gray-50 rounded-full">
+            <svg class="w-16 h-16 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+            </svg>
+        </div>
+        <h3 class="mt-4 text-lg font-medium text-gray-900">No prescription Found</h3>
+        <p class="mt-1 text-sm text-gray-500">The requested clinical prescription could not be found in our records.</p>
+    </div>
+</div>

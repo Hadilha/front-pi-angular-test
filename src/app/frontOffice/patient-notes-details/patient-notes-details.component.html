@@ -1,0 +1,100 @@
+<app-index-navbar></app-index-navbar>
+<br/>
+<br/>
+<div class="px-4 md:px-10 mx-auto w-full -m-24 mt-12">
+    <div *ngIf="isLoading" class="text-center p-8">
+        <div class="inline-flex items-center space-x-2 text-gray-600">
+            <svg class="animate-spin h-8 w-8 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                </path>
+            </svg>
+            <span class="text-lg">Loading Note...</span>
+        </div>
+    </div>
+
+    <!-- Note Details -->
+    <div *ngIf="note && !isLoading"
+        class="max-w-3xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-8 space-y-6">
+        <div class="border-b pb-4">
+            <h2 class="text-2xl font-bold text-gray-800">Clinical Note Summary</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
+            <!-- Author Section -->
+            <div>
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-user-md text-indigo-500 mr-2"></i>
+                    <span class="font-semibold">Author:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ note.doctor.fullName }}</p>
+            </div>
+
+            <!-- Diagnosis -->
+            <div>
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-stethoscope text-rose-500 mr-2"></i>
+                    <span class="font-semibold">Diagnosis:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ note.diagnosis || '—' }}</p>
+            </div>
+
+            <div class="col-span-full">
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-lightbulb text-amber-500 mr-2"></i>
+                    <span class="font-semibold">Treatment Guidance:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ note.guidance || 'No guidance provided' }}</p>
+            </div>
+
+            <div class="col-span-full">
+                <div class="flex items-center gap-2 text-gray-600">
+                    <i class="fas fa-notes-medical text-rose-500 mr-2"></i>
+                    <span class="font-semibold">Clinical Notes:</span>
+                </div>
+                <p class="text-gray-800 pl-6">{{ note.notes || 'No notes provided' }}</p>
+            </div>
+        </div>
+
+        <!-- Timeline Section -->
+        <div class="pt-4 border-t">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm text-gray-700 mt-4">
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-calendar-plus text-gray-500 mt-1 mr-2"></i>
+                    <p><span class="font-semibold text-gray-500">Created:</span> {{ note.creationDate | date:'MMM dd,
+                        yyyy' }}
+                    </p>
+                </div>
+
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-edit text-gray-500 mt-1 mr-2"></i>
+                    <p><span class="font-semibold text-gray-500">Last Updated:</span> {{ note.updateDate | date:'MMM dd,
+                        yyyy'
+                        }}</p>
+                </div>
+
+                <div class="flex items-start gap-2">
+                    <i class="fas fa-calendar-times text-gray-500 mt-1 mr-2 mb-4"></i>
+                    <p><span class="font-semibold text-gray-500">Expiration:</span> {{ note.expirationDate | date:'MMM
+                        dd,yyyy' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!note && !isLoading" class="max-w-md mx-auto text-center p-8">
+        <div class="inline-block p-4 bg-gray-50 rounded-full">
+            <svg class="w-16 h-16 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                </path>
+            </svg>
+        </div>
+        <h3 class="mt-4 text-lg font-medium text-gray-900">No Note Found</h3>
+        <p class="mt-1 text-sm text-gray-500">The requested clinical note could not be found in our records.</p>
+    </div>
+</div>

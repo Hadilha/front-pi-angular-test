@@ -36,7 +36,9 @@
               "node_modules/leaflet/dist/leaflet.css"
 
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/chart.js/dist/chart.umd.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -105,6 +107,6 @@
     }
   },
   "cli": {
-    "analytics": "cdb205ee-e1e2-4f6a-b958-9bf1325d0b46"
+    "analytics": false
   }
 }

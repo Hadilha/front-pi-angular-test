@@ -1,0 +1,34 @@
+.notification-dropdown {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    animation: slideDown 0.2s ease-out;
+    max-height: 480px;
+    overflow-y: auto;
+  }
+  
+  .notification-item {
+    transition: background-color 0.2s;
+  }
+  
+  .notification-item:hover {
+    background-color: #f8fafc;
+  }
+  
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .notification-bell {
+    transition: transform 0.2s;
+  }
+  
+  .notification-bell:hover {
+    transform: scale(1.1);
+  }

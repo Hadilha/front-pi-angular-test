@@ -1,0 +1,83 @@
+
+<app-index-navbar></app-index-navbar>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="px-4 md:px-10 mx-auto w-full -m-24">
+
+<div *ngIf="isLoading" class="p-4 text-center text-sm text-gray-500">Loading prescriptions...</div>
+<div *ngIf="errorMessage" class="p-4 text-center text-red-500">{{ errorMessage }}</div>
+
+<div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+    [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'">
+
+    <div class="rounded-t mb-0 px-4 py-3 border-0">
+        <h3 class="font-semibold text-lg" [ngClass]="color === 'light' ? 'text-blueGray-700' : 'text-white'">
+           My prescriptions
+        </h3>
+
+    </div>
+
+    <div class="block w-full overflow-x-auto">
+        <div *ngIf="!isLoading && prescriptions.length === 0" class="p-4 text-center text-sm text-gray-500">No
+            prescriptions
+            found.</div>
+
+        <table *ngIf="prescriptions.length > 0" class="items-center w-full bg-transparent border-collapse">
+            <thead>
+                <tr>
+                    <th
+                        class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                        #
+                    </th>
+                    <th
+                        class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                        Doctor
+                    </th>
+                    <th
+                        class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                        Diagnosis
+                    </th>
+                    <th
+                        class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                        Created
+                    </th>
+                    <th
+                        class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                        Expires
+                    </th>
+                    <th
+                        class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0">
+                        Actions
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let p of prescriptions;let index=index">
+                    <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ index+1 }}</td>
+                    <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ p.doctor.fullName }}</td>
+                    <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ p.diagnosis }}</td>
+                    <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ p.creationDate | date:'dd/MM/yyyy' }}
+                    </td>
+                    <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">{{ p.expirationDate | date:'dd/MM/yyyy'
+                        }}</td>
+                    <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">
+                        <div class="flex space-x-4">
+                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-xs"
+                                (click)="navigateToDetails(p.id)">Details</button>
+                            <button class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded text-xs"
+                                (click)="generatePrescriptionPDF(p)">Save</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>

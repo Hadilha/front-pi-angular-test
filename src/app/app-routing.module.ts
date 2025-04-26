@@ -26,67 +26,92 @@ import { ProfileComponent } from "./frontOffice/views/profile/profile.component"
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
 import { AdminComponent } from "./backOffice/admin/admin.component";
 import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
-import {PrescriptionListComponent} from "./prescriptions/list/prescription-list.component";
-import {NoteListComponent} from "./notes/list/note-list.component";
-import {NoteFormComponent} from "./notes/form/note-form.component";
-import {PrescriptionFormComponent} from "./prescriptions/form/prescription-form.component";
-import {UpdateNoteComponent} from "./notes/update/update-note/update-note.component";
-import {UpdatePrescriptionComponent} from "./prescriptions/update/update-prescription/update-prescription.component";
+import { ListNotesComponent } from "./backOffice/note-management/list-notes/list-notes.component";
+import { AddNoteComponent } from "./backOffice/note-management/add-note/add-note.component";
+import { UpdateNoteComponent } from "./backOffice/note-management/update-note/update-note.component";
+import { DetailsNoteComponent } from "./backOffice/note-management/details-note/details-note.component";
+import { PatientNotesComponent } from "./backOffice/note-management/patient-notes/patient-notes.component";
+import { ListPrescriptionsComponent } from "./backOffice/prescription-management/list-prescriptions/list-prescriptions.component";
+import { AddPrescriptionComponent } from "./backOffice/prescription-management/add-prescription/add-prescription.component";
+import { PatientPrescriptionComponent } from "./backOffice/prescription-management/patient-prescription/patient-prescription.component";
+import { UpdatePrescriptionComponent } from "./backOffice/prescription-management/update-prescription/update-prescription.component";
+import { DetailsPrescriptionComponent } from "./backOffice/prescription-management/details-prescription/details-prescription.component";
+import { PatientNotesDetailsComponent } from "./frontOffice/patient-notes-details/patient-notes-details.component";
+import { PatientPrescriptionDetailsComponent } from "./frontOffice/patient-prescription-details/patient-prescription-details.component";
 
 const routes: Routes = [
   // Doctor Dashboard
   {
-    path: "doctor",
+    path: 'doctor',
     component: DoctorComponent,
     children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "settings", component: SettingsComponent },
-      { path: "tables", component: TablesComponent },
-      { path: "maps", component: MapsComponent },
-      {path: "prescriptions", component: PrescriptionListComponent},
-      {path: "notes", component: NoteListComponent},
-      {path:"addnotes",component: NoteFormComponent},
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'tables', component: TablesComponent },
+      { path: 'maps', component: MapsComponent },
+      
 
+      { path: 'notes', component: ListNotesComponent },
+      { path: 'add-note', component: AddNoteComponent },
+     
+      { path: 'update-note/:id', component: UpdateNoteComponent },
+      { path: 'details-note/:id', component: DetailsNoteComponent },
+
+      { path: 'prescriptions', component: ListPrescriptionsComponent },
+      { path: 'add-prescription', component: AddPrescriptionComponent },
+      {
+        path: 'update-prescription/:id',
+        component: UpdatePrescriptionComponent,
+      },
+      {
+        path: 'details-prescription/:id',
+        component: DetailsPrescriptionComponent,
+      },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],
   },
 
-  //Admin Dashboard
   {
-    path: "admin",
+    path: 'admin',
     component: AdminComponent,
     children: [
-      { path: "dashboard", component: AdminDashboardComponent },
-      { path: "tables", component: AdminTablesComponent },
-      {path:"editnotes/:id" ,component: UpdateNoteComponent},
-      {path:"editprescriptions/:id",component: UpdatePrescriptionComponent},
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
-
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: AdminDashboardComponent },
+      { path: 'tables', component: AdminTablesComponent },
 
     ],
   },
-  {path:"addprescription", component:PrescriptionFormComponent},
-
 
   // auth views
   {
-    path: "auth",
+    path: 'auth',
     component: AuthComponent,
     children: [
-      { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent },
-      { path: "", redirectTo: "login", pathMatch: "full" },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: '', redirectTo: 'login', pathMatch: 'full' },
     ],
   },
-  { path: "patientspace", component: PatientspaceComponent },
-  { path: "profile", component: ProfileComponent },
-  { path: "landing", component: LandingComponent },
-  { path: "", component: IndexComponent },
-  { path: "**", redirectTo: "", pathMatch: "full" },
+  { path: 'patientspace', component: PatientspaceComponent },
+  {
+    path: 'patient-prescriptions',
+    component: PatientPrescriptionComponent,
+  },
+  {
+    path: 'details-prescription/:id',
+    component: PatientPrescriptionDetailsComponent,
+  },
+  { path: 'details-note/:id', component: PatientNotesDetailsComponent },
+  { path: 'patient-notes', component: PatientNotesComponent },
+  { path: 'profile', component: ProfileComponent },
+  { path: 'landing', component: LandingComponent },
+  { path: '', component: IndexComponent },
+  { path: '**', redirectTo: '', pathMatch: 'full' },
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
