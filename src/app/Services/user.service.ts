@@ -151,7 +151,7 @@ export class UserService {
   private getUserRoleFromToken(token: string): string | null {
     const decoded = this.decodeToken(token);
     const rawRole = decoded?.roles?.[0];
-    return rawRole ? rawRole.replace('ROLE_', '') : null;
+    return rawRole ;
   }
 
   getCurrentUserRole(): string | null {
@@ -190,6 +190,11 @@ export class UserService {
 
   getUserById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/shared_All/getUserById/${id}`).pipe(
+      map((response: any) => ({
+        ...response,
+
+        birth: new Date(response.birth).toISOString().split('T')[0]
+      })),
       catchError(error => {
         console.error('Error fetching user:', error);
         return throwError(() => error);
@@ -226,7 +231,13 @@ export class UserService {
         lastSessionDate: response.lastSessionDate ? new Date(response.lastSessionDate) : undefined,
         primaryCarePhysician: response.primaryCarePhysician,
         nextAppointment: response.nextAppointment ? new Date(response.nextAppointment) : undefined,
-        birth: response.birth ? new Date(response.birth) : undefined
+        birth: response.birth ? new Date(response.birth) : undefined,
+        contactNumber: response.contactNumber || null,
+        Specializations: response.Specializations || [],
+        experienceYears: response.experienceYears || 0,
+        profileVerified: response.profileVerified || false,
+        workingHours: response.workingHours || [],
+        password: response.password || null,
       }))
     );
   }
@@ -242,7 +253,7 @@ export class UserService {
       throw new Error('Current username is required for update');
     }
 
-    const roleValue = userData.role.replace('ROLE_', '');
+    const roleValue = userData.role;
     const url = `${this.apiUrl}/shared_D_A/updateRole/${encodeURIComponent(userData.currentUsername)}/role?newRole=${roleValue}`;
 
     return this.http.put(url, {
@@ -256,6 +267,40 @@ export class UserService {
       responseType: 'text'
     });
   }
+
+
+  updateUserDoctor(userData: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    if (!userData.currentUsername) {
+      throw new Error('Current username is required for update');
+    }
+
+    const url = `${this.apiUrl}/shared_D_A/updateUser/${userData.currentUsername}`;
+
+    return this.http.put(url, {
+      email: userData.email,
+      firstName: userData.firstname,
+      lastName: userData.lastname,
+      username: userData.username,
+      password: userData.password,
+      contactNumber: userData.contactNumber,
+      experienceYears: userData.experienceYears,
+      workingHours: userData.workingHours,
+      specializations: userData.specializations,
+      avatarUrl: userData.avatarUrl
+    }, {
+      headers,
+      responseType: 'text'
+    });
+  }
+
+
+
+
 
   updateUserpatient(userData: any, username: String): Observable<any> {
     const token = localStorage.getItem('token');

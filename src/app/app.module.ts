@@ -39,7 +39,6 @@ import { QuillModule } from 'ngx-quill';
 import { LocationFinderComponent } from "./frontOffice/components/location-finder/location-finder.component";
 import { TestimonialCarouselComponent } from "./frontOffice/components/testimonial-carousel/testimonial-carousel.component";
 
-import { CommonModule } from '@angular/common';
 import { ForgotpwComponent } from './frontOffice/views/forgotpw/forgotpw.component';
 import { ResetpwComponent } from './frontOffice/views/resetpw/resetpw.component';
 import { AdduserComponent } from "./backOffice/views/adduser/adduser.component";
@@ -67,9 +66,10 @@ import { ShowJournalComponent } from "./frontOffice/views/show-journal/show-jour
 import { SidebarJournalComponent } from "./frontOffice/components/sidbars/sidebarJournal/sidebarJournal.component";
 import { UserStatsComponent } from "./backOffice/views/user-stats/user-stats.component";
 import { CardprofiladminComponent } from "./backOffice/components/cards/cardprofiladmin/cardprofiladmin.component";
-import { SidbarDoctorComponent } from "./frontOffice/components/sidbars/sidbar-doctor/sidbar-doctor.component";
 import { StatisticsAdminComponent } from "./backOffice/views/statistics-admin/statistics-admin.component";
 import { AuthInterceptor } from "./shared/http.interceptor";
+import { CommonModule } from "@angular/common";
+import { SidbarDoctorComponent } from "./frontOffice/components/sidbars/sidbar-doctor/sidbar-doctor.component";
 
 @NgModule({
   declarations: [

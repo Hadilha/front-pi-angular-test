@@ -1,0 +1,24 @@
+.responsive-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Equivalent to Tailwind's gap-8 (8 * 0.25rem = 2rem) */
+  padding-top: 9rem; /* Replaces the <br> tags (16 * 0.25rem = 4rem) */
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 1024px) {
+  .responsive-container {
+    flex-direction: row;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  .profile-column {
+    width: 33.333%; /* 4/12 = 33.333% */
+  }
+
+  .settings-column {
+    width: 66.666%; /* 8/12 = 66.666% */
+  }
+}

@@ -1,79 +1,59 @@
 <div class="relative flex flex-col bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
   <div class="px-6">
-    <!-- Avatar & Verification Badge -->
-    <div class="flex flex-wrap justify-center">
-      <div class="w-full px-4 flex justify-center">
-        <div class="relative">
+    <!-- Avatar & Status Indicator -->
+    <div class="avatar-container">
+      <div class="avatar-wrapper">
+        <div class="avatar-image-container">
           <img
-            th:src="@{${user.avatarUrl}}"
-            src="assets/img/connect.png"
+            [src]="user.avatarUrl || 'assets/img/white.png'"
             alt="Doctor Avatar"
-            class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
+            class="avatar-image"
           />
+          <!-- Account Status Dot -->
+          <div *ngIf="user.accountStatus === 'ACTIVE'"
+               class="status-dot active">
+          </div>
         </div>
       </div>
-      <div class="w-full px-4 text-center mt-20">
-        <span
-          th:if="${user.profileVerified}"
-          class="inline-block bg-green-100 text-green-800 text-xs font-semibold px-2 py-1 rounded-full uppercase flex items-center"
-        >
-          <i class="fas fa-check-circle mr-1 text-green-500"></i> Verified
-        </span>
-        <span
-          th:unless="${user.profileVerified}"
-          class="inline-block bg-red-100 text-red-800 text-xs font-semibold px-2 py-1 rounded-full uppercase flex items-center"
-        >
-          <i class="fas fa-times-circle mr-1 text-red-500"></i> Not Verified
-        </span>
-      </div>
     </div>
 
-    <!-- Name & Account Status -->
+    <!-- Profile Information -->
     <div class="text-center mt-8">
-      <h3 class="text-2xl font-semibold leading-normal mb-1 text-blueGray-700"
-          th:text="${user.firstname} + ' ' + ${user.lastname}">
-        Dr. John Doe
+      <h3 class="text-2xl font-semibold leading-normal mb-1 text-blueGray-700">
+        {{ user.firstname }} {{ user.lastname }}
       </h3>
-      <p class="text-sm text-blueGray-400 font-bold uppercase"
-         th:text="'Status: ' + ${user.accountStatus}">
-        Status: Active
-      </p>
-      <div class="flex justify-center">
-        <i class="fas fa-check-circle text-green-500 text-lg mt-2"></i>
+      <div class="text-sm text-blueGray-400 font-bold uppercase">
+        {{ user.username }}
       </div>
     </div>
 
-    <!-- Contact & Clinic Details -->
+    <!-- Contact & Professional Details -->
     <div class="mt-6 pb-6 border-b border-blueGray-200">
       <ul class="text-center">
         <li class="inline-block mx-4 my-2">
-          <i class="fas fa-user mr-1"></i>
-          <span th:text="${user.username}">jdoe</span>
-        </li>
-        <li class="inline-block mx-4 my-2">
           <i class="fas fa-envelope mr-1"></i>
-          <span th:text="${user.email}">jdoelinic.com</span>
+          {{ user.email }}
         </li>
         <li class="inline-block mx-4 my-2">
           <i class="fas fa-phone mr-1"></i>
-          <span th:text="${user.contactNumber}">+1-234-567-890</span>
+          {{ user.contactNumber }}
         </li>
         <li class="inline-block mx-4 my-2">
           <i class="fas fa-clock mr-1"></i>
-          <span th:text="${user.workingHours}">Mon–Fri 09:00–17:00</span>
+          {{ user.workingHours }}
         </li>
       </ul>
     </div>
 
-    <!-- Professional Profile -->
+    <!-- Specialization & Experience -->
     <div class="text-center mt-6">
       <p class="text-sm text-blueGray-600 mb-2">
         <i class="fas fa-stethoscope mr-2"></i>
-        <span th:text="'Specializations: ' + ${user.specializations}">Psychiatry, CBT</span>
+        Specializations: {{ user.Specializations }}
       </p>
       <p class="text-sm text-blueGray-600 mb-2">
         <i class="fas fa-briefcase mr-2"></i>
-        <span th:text="'Experience: ' + ${user.experienceYears} + ' years'">10 years</span>
+        Experience: {{ user.experienceYears }} years
       </p>
     </div>
   </div>

@@ -1,179 +1,232 @@
-<div
-  class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
->
+<form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
+
+<div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+  <!-- Profile Header -->
   <div class="rounded-t bg-white mb-0 px-6 py-6">
-    <div class="text-center flex justify-between">
-      <h6 class="text-blueGray-700 text-xl font-bold">My account</h6>
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+
+        <div class="avatar-container mr-4">
+          <input
+            type="file"
+            #fileInput
+            (change)="handleFileInput($event)"
+            accept="image/*"
+            class="avatar-input"
+          >
+          <div
+            class="avatar-wrapper"
+            (click)="fileInput.click()"
+          >
+            <img
+              [src]="credentialsForm.value.avatarUrl"
+              alt="Doctor Avatar"
+              class="avatar-preview" />
+            <div *ngIf="credentialsForm.value.accountStatus === 'ACTIVE'"
+                 class="status-dot">
+            </div>
+            <div class="upload-overlay">
+              <svg class="upload-icon"></svg>
+            </div>
+          </div>
+          <div *ngIf="uploadError" class="upload-error">
+            {{ uploadError }}
+          </div>
+        </div>
+
+        <div class="ml-4">
+          <h6 class="text-blueGray-700 text-xl font-bold">
+            {{ credentialsForm.value.firstname }} {{ credentialsForm.value.lastname }}
+          </h6>
+          <p class="text-sm text-blueGray-400">
+            {{ credentialsForm.value.username }}
+          </p>
+          <p class="text-sm text-blueGray-400">
+            Status: {{ credentialsForm.value.accountStatus }}
+          </p>
+        </div>
+      </div>
       <button
-        class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-        type="button"
+        class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+        type="submit"
+        [disabled]="!credentialsForm.valid || isLoading"
       >
-        Settings
+        {{ isLoading ? 'Saving...' : 'Save' }}
       </button>
     </div>
   </div>
+
+  <!-- Profile Details -->
   <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-    <form>
+      <!-- Personal Information -->
       <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-        User Information
+        Personal Information
       </h6>
       <div class="flex flex-wrap">
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              Username
-            </label>
-            <input
-              type="text"
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="lucky.jesse"
-            />
-          </div>
-        </div>
-        <div class="w-full lg:w-6/12 px-4">
-          <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              Email address
-            </label>
-            <input
-              type="email"
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="jesse@example.com"
-            />
-          </div>
-        </div>
-        <div class="w-full lg:w-6/12 px-4">
-          <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
               First Name
             </label>
             <input
               type="text"
+              formControlName="firstname"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="Lucky"
             />
           </div>
         </div>
         <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
               Last Name
             </label>
             <input
               type="text"
+              formControlName="lastname"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="Jesse"
             />
           </div>
         </div>
       </div>
 
-      <hr class="mt-6 border-b-1 border-blueGray-300" />
-
+      <!-- Contact Information -->
       <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
         Contact Information
       </h6>
       <div class="flex flex-wrap">
-        <div class="w-full lg:w-12/12 px-4">
+        <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              Address
-            </label>
-            <input
-              type="text"
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-            />
-          </div>
-        </div>
-        <div class="w-full lg:w-4/12 px-4">
-          <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              City
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Email Address
             </label>
             <input
               type="email"
+              formControlName="email"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="New York"
             />
+            <div *ngIf="credentialsForm.get('email')?.errors && credentialsForm.get('email')?.touched"
+                 class="text-red-500 text-xs mt-1">
+              Valid email is required
+            </div>
           </div>
         </div>
-        <div class="w-full lg:w-4/12 px-4">
+        <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              Country
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Contact Number
             </label>
             <input
               type="text"
+              formControlName="contactNumber"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="United States"
-            />
-          </div>
-        </div>
-        <div class="w-full lg:w-4/12 px-4">
-          <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              Postal Code
-            </label>
-            <input
-              type="text"
-              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              value="Postal Code"
             />
           </div>
         </div>
       </div>
 
-      <hr class="mt-6 border-b-1 border-blueGray-300" />
-
+      <!-- Professional Information -->
       <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-        About Me
+        Professional Information
       </h6>
       <div class="flex flex-wrap">
-        <div class="w-full lg:w-12/12 px-4">
+        <div class="w-full lg:w-6/12 px-4">
           <div class="relative w-full mb-3">
-            <label
-              class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-              htmlFor="grid-password"
-            >
-              About me
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Specializations
             </label>
-            <textarea
+            <input
               type="text"
+              formControlName="Specializations"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              rows="4"
-            >
-                  A beautiful UI Kit and Admin for Angular & Tailwind CSS. It is Free
-                  and Open Source.
-                </textarea
-            >
+            />
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Experience (years)
+            </label>
+            <input
+              type="number"
+              formControlName="experienceYears"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            />
+            <div *ngIf="credentialsForm.get('experienceYears')?.errors?.['min']"
+                 class="text-red-500 text-xs mt-1">
+              Experience cannot be negative
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Working Hours
+            </label>
+            <input
+              type="text"
+              formControlName="workingHours"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+              placeholder="e.g., Mon-Fri 9:00 AM - 5:00 PM"
+            />
           </div>
         </div>
       </div>
-    </form>
+
+      <!-- Password Reset -->
+      <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+        Change Password
+      </h6>
+      <div class="flex flex-wrap">
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Current Password
+            </label>
+            <input
+              type="password"
+              formControlName="currentPassword"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            />
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              New Password
+            </label>
+            <input
+              type="password"
+              formControlName="password"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            />
+            <div *ngIf="credentialsForm.get('password')?.errors?.['minlength']"
+                 class="text-red-500 text-xs mt-1">
+              Password must be at least 8 characters
+            </div>
+          </div>
+        </div>
+        <div class="w-full lg:w-6/12 px-4">
+          <div class="relative w-full mb-3">
+            <label class="block uppercase text-blueGray-600 text-xs font-bold mb-2">
+              Confirm Password
+            </label>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="credentialsForm.errors?.['passwordMismatch']"
+        class="text-red-500 text-sm mb-4">
+        Passwords do not match
+      </div>
+
+      <div *ngIf="errorMessage" class="text-red-500 text-sm mb-4">
+        {{ errorMessage }}
+      </div>
   </div>
 </div>
+</form>

@@ -1,52 +1,42 @@
-.card {
-  @apply bg-white p-4 rounded-lg border border-gray-100 hover:border-blue-100 transition-colors duration-200 flex items-start gap-3;
+/* Avatar container */
+.avatar-container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 1rem;
+  margin-top: -2rem; /* Move entire container up */
 }
 
-.icon-container {
-  @apply w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0;
+.avatar-image-container {
+  position: relative;
+  overflow: visible; /* Ensure dot isn't clipped */
 }
 
-.badge {
-  @apply px-3 py-1.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700 inline-flex items-center;
+.avatar-image {
+  border-radius: 9999px;
+  width: 9rem;
+  height: 9rem;
+  object-fit: cover;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  border: none;
+  position: relative;
+  top: -1rem; /* Move image up */
 }
 
-.service-tag {
-  @apply px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-md text-xs font-medium transition-colors hover:bg-emerald-100;
+.status-dot {
+  position: absolute;
+  top: 71%;
+  right: 0rem; /* Position outside image */
+  transform: translateY(-50%); /* Center vertically */
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  border: 2px solid #fff;
+  z-index: 10;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
 }
 
-.specialization-tag {
-  @apply px-2.5 py-1 bg-purple-50 text-purple-700 rounded-md text-xs font-medium transition-colors hover:bg-purple-100;
-}
-
-.action-btn {
-  @apply px-5 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2;
-}
-
-.action-btn.primary {
-  @apply bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow-md;
-}
-
-.action-btn.secondary {
-  @apply bg-gray-100 text-gray-700 hover:bg-gray-200;
-}
-
-.detail-item {
-  @apply pb-3 mb-3 border-b border-gray-100 last:border-0 last:mb-0 last:pb-0;
-}
-
-.contact-info-item {
-  @apply flex items-center gap-2 text-gray-600 text-sm;
-}
-
-.card-title {
-  @apply text-base font-semibold text-gray-800 mb-2;
-}
-
-.card-subtitle {
-  @apply text-sm font-semibold text-gray-800 mb-3;
-}
-
-.text-2xs {
-  font-size: 0.65rem;
-  line-height: 1rem;
+.status-dot.active {
+  background-color: #10b981;
 }

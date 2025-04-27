@@ -55,7 +55,7 @@ export class CardprofiladminComponent implements OnInit, OnChanges {
           this.users = filteredUsers;
         } else if (currentRole === 'DOCTOR') {
           this.users = filteredUsers.filter(user =>
-            user.role !== 'ROLE_ADMIN' && user.role !== 'ROLE_DOCTOR'
+            user.role !== 'ADMIN' && user.role !== 'DOCTOR'
           );
         } else {
           this.users = [];

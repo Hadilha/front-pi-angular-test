@@ -1,81 +1,121 @@
 import { Component, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, AbstractControl } from "@angular/forms";
+import { Router } from "@angular/router";
+import { User } from "src/app/models/user.model";
+import { UserService } from "src/app/Services/user.service";
 
 @Component({
   selector: "app-card-profile-doctor",
   templateUrl: "./card-profile-doctor.component.html",
   styleUrls: ['./card-profile-doctor.css']
-
 })
 export class CardProfileDoctorComponent implements OnInit {
+  credentialsForm: FormGroup;  // Proper form declaration
+  user: User = {               // User data model
+    id: 1,                    // Add missing properties
+    role: '',
+    profileVerified: false,
+    password: '',
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+    avatarUrl: '',
+    contactNumber: '',
+    Specializations: '',
+    experienceYears: '',
+    workingHours: '',
+    accountStatus: 'ACTIVE'
+  };
+  currentusername: string = '';
+  errorMessage: string = '';   // Error handling
 
-  ngOnInit(): void {}
-  profileForm!: FormGroup;
-  countries = ['United States', 'Canada', 'UK', 'Australia'];
-  acceptedFileTypes = '.jpg,.jpeg,.png,.gif';
-
-  constructor(private fb: FormBuilder) {
-    this.createForm();
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
+  ) {
+    // Initialize form correctly
+    this.credentialsForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.minLength(8)]],
+      currentPassword: ['', Validators.required],
+      confirmPassword: ['', Validators.required],
+      firstname: ['', Validators.required],
+      lastname: ['', Validators.required],
+      avatarUrl: ['assets/img/white.png'],
+      username: ['', Validators.required],
+      contactNumber: ['', Validators.required],
+      Specializations: ['', Validators.required],
+      experienceYears: ['', [Validators.required, Validators.min(0)]],
+      workingHours: ['', Validators.required],
+      accountStatus: ['ACTIVE']
+    }, { validator: this.passwordMatchValidator });
   }
 
-  createForm() {
-    this.profileForm = this.fb.group({
-      basicInfo: this.fb.group({
-        profileImage: [''],
-        username: ['', Validators.required],
-        email: ['', [Validators.required, Validators.email]],
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
-        phone: [''],
-        gender: [''],
-        dob: [''],
-        bio: ['']
-      }),
-      clinicInfo: this.fb.group({
-        name: [''],
-        address: [''],
-        images: this.fb.array([])
-      }),
-      contactDetails: this.fb.group({
-        address1: [''],
-        address2: [''],
-        city: [''],
-        state: [''],
-        country: [''],
-        postalCode: ['']
-      }),
-      services: this.fb.array([]),
-      specializations: this.fb.array([]),
-      education: this.fb.array([]),
-      experience: this.fb.array([]),
-      awards: this.fb.array([]),
-      memberships: this.fb.array([]),
-      registrations: this.fb.array([])
+  // Password validation
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirmPassword');
+
+    if (password?.value !== confirmPassword?.value) {
+      return { 'passwordMismatch': true };
+    }
+    return null;
+  }
+
+  ngOnInit() {
+    this.loadUserData();
+  }
+
+  loadUserData() {
+    this.userService.getCurrentUser().subscribe({
+      next: (userData) => {
+        this.user = userData;  // Store user data
+        this.currentusername = this.user.username;
+
+        // Patch form values
+        this.credentialsForm.patchValue({
+          firstname: this.user.firstname,
+          lastname: this.user.lastname,
+          username: this.user.username,
+          email: this.user.email,
+          avatarUrl: this.user.avatarUrl,
+          contactNumber: this.user.contactNumber,
+          Specializations: Array.isArray(this.user.Specializations) ?
+            this.user.Specializations.join(', ') :
+            this.user.Specializations,
+          experienceYears: this.user.experienceYears,
+          workingHours: this.user.workingHours,
+          accountStatus: this.user.accountStatus || 'ACTIVE'
+        });
+      },
+      error: (err) => {
+        console.error(err);
+        this.errorMessage = 'Failed to load user data';
+      }
     });
   }
 
-  // Add form array controls
-  addService() {
-    this.services.push(this.fb.control(''));
-  }
-
-  get services() {
-    return this.profileForm.get('services') as FormArray;
-  }
-
-  // Similar methods for other form arrays...
-
-  onFileSelected(event: any, controlName: string) {
-    const file = event.target.files[0];
-    if (file) {
-      this.profileForm.get(controlName)?.setValue(file);
-    }
-  }
-
   onSubmit() {
-    if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
-      // Submit logic
+    if (this.credentialsForm.invalid) {
+      this.errorMessage = 'Please fill all required fields correctly';
+      return;
     }
+
+    const formData = {
+      ...this.credentialsForm.value,
+      Specializations: this.credentialsForm.value.Specializations.split(',').map((s: string) => s.trim()),
+      currentUsername: this.currentusername
+    };
+
+    this.userService.updateUserDoctor(formData).subscribe({
+      next: () => {
+        this.router.navigate(['/doctor/profile']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.message || 'Update failed';
+      }
+    });
   }
 }

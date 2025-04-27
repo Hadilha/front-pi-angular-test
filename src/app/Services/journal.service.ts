@@ -26,7 +26,7 @@ export class JournalService {
   private getUserRoleFromToken(token: string): string | null {
     const decoded = this.decodeToken(token);
     const rawRole = decoded?.roles?.[0];
-    return rawRole ? rawRole.replace('ROLE_', '') : null;
+    return rawRole;
   }
 
   getCurrentUserId(): number | null {

@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RoleFormatPipe implements PipeTransform {
   transform(role: string): string {
-    return role.replace('ROLE_', '').toLowerCase();
+    return role.toLowerCase();
   }
 }
