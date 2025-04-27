@@ -8,11 +8,6 @@ import { AppComponent } from "./app.component";
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
 
-// admin views
-import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
-import { MapsComponent } from "./frontOffice/views/admin/maps/maps.component";
-import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.component";
-import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
 
 // auth views
 import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
@@ -83,7 +78,6 @@ import { TakeTestComponent } from "./component/user/take-test/take-test.componen
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     CardBarChartComponent,
     CardLineChartComponent,
     IndexDropdownComponent,
@@ -107,9 +101,6 @@ import { TakeTestComponent } from "./component/user/take-test/take-test.componen
     IndexNavbarComponent,
     DoctorComponent,
     AuthComponent,
-    MapsComponent,
-    SettingsComponent,
-    TablesComponent,
     LoginComponent,
     RegisterComponent,
     IndexComponent,

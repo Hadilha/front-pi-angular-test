@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quizz } from '../../../model/quizz';
 import { interval, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuizzServiceService } from '../../../service/quizz-service.service';
-import { ScoreServiceService } from '../../../service/score-service.service';
+import { QuizzServiceService } from '../../../Services/quizz-service.service';
+import { ScoreServiceService } from '../../../Services/score-service.service';
 import { Question } from '../../../model/question';
 import { Score } from '../../../model/score';
 import { Choice } from '../../../model/choice';
 import { User } from 'src/app/model/user';
-import { ChoiceServiceService } from 'src/app/service/choice-service.service';
+import { ChoiceServiceService } from 'src/app/Services/choice-service.service';
 
 @Component({
   selector: 'app-quizz-test',

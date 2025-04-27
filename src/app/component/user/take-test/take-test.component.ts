@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Score } from 'src/app/model/score';
 import { Test } from 'src/app/model/test';
 import { User } from 'src/app/model/user';
-import { QuestionResponseService } from 'src/app/service/question-response.service';
-import { ScoreServiceService } from 'src/app/service/score-service.service';
-import { TestServiceService } from 'src/app/service/test-service.service';
+import { QuestionResponseService } from 'src/app/Services/question-response.service';
+import { ScoreServiceService } from 'src/app/Services/score-service.service';
+import { TestServiceService } from 'src/app/Services/test-service.service';
 
 @Component({
   selector: 'app-take-test',

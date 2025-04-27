@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Choice } from 'src/app/model/choice';
 import { Quizz } from 'src/app/model/quizz';
-import { ChoiceServiceService } from 'src/app/service/choice-service.service';
-import { QuizzServiceService } from 'src/app/service/quizz-service.service';
+import { ChoiceServiceService } from 'src/app/Services/choice-service.service';
+import { QuizzServiceService } from 'src/app/Services/quizz-service.service';
 
 @Component({
   selector: 'app-quiz-list-user',
@@ -51,7 +51,7 @@ export class QuizListUserComponent implements OnInit {
     }
 
     takeQuiz(id:number): void {
-      this.router.navigate(['/auth/test', id]);
+      this.router.navigate(['/patientspace/test', id]);
     }
 
     getAIResponse() {

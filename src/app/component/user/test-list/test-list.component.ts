@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Test } from '../../../model/test';
-import { TestServiceService } from '../../../service/test-service.service';
+import { TestServiceService } from '../../../Services/test-service.service';
 
 @Component({
   selector: 'app-test-list',
@@ -40,7 +40,7 @@ export class TestListComponent implements OnInit {
   }
 
   navigate(id:any){
-    this.router.navigate(['/auth/taketest', id]);
+    this.router.navigate(['/patientspace/taketest', id]);
   }
 
   loadTests(): void {

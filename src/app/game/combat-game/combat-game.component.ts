@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AiModel } from 'src/app/model/ai-model';
 import { Score } from 'src/app/model/score';
 import { User } from 'src/app/model/user';
-import { ScoreServiceService } from 'src/app/service/score-service.service';
+import { ScoreServiceService } from 'src/app/Services/score-service.service';
 
 @Component({
   selector: 'app-combat-game',

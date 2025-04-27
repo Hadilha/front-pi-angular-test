@@ -5,11 +5,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
 
-// doctor views
-import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
-import { MapsComponent } from "./frontOffice/views/admin/maps/maps.component";
-import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.component";
-import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
 
 // admin views
 import { AdminDashboardComponent } from "./backOffice/admin-dashboard/admin-dashboard.component"; 
@@ -42,19 +37,6 @@ import { TakeTestComponent } from "./component/user/take-test/take-test.componen
 import { SlidingPuzzleComponent } from "./game/sliding-puzzle/sliding-puzzle.component";
 
 const routes: Routes = [
-  // Doctor Dashboard
-  {
-    path: "doctor",
-    component: DoctorComponent,
-    children: [
-      { path: "dashboard", component: DashboardComponent },
-      { path: "settings", component: SettingsComponent },
-      { path: "tables", component: TablesComponent },
-      { path: "maps", component: MapsComponent },
-      { path: "", redirectTo: "dashboard", pathMatch: "full" },
-    ],
-  },
-
   //Admin Dashboard
   {
     path: "admin",
@@ -86,13 +68,22 @@ const routes: Routes = [
       { path: "login", component: LoginComponent },
       { path: "register", component: RegisterComponent },
       { path: "", redirectTo: "login", pathMatch: "full" },
+      
+    ],
+  },
+  { path: "patientspace",
+     component: PatientspaceComponent,
+    children:[
       {path:'scorelist',component:ScoreListUserComponent},
       {path:'quizzeslist',component:QuizListUserComponent},
       {path: 'test/:id',component: QuizTestComponent},
       {path:'taketest/:id',component:TakeTestComponent},
-    ],
-  },
-  { path: "patientspace", component: PatientspaceComponent },
+    ] },
+
+
+
+
+
   { path: "profile", component: ProfileComponent },
   { path: "landing", component: LandingComponent },
   { path: "", component: IndexComponent },

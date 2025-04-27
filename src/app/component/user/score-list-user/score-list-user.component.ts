@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Score } from 'src/app/model/score';
-import { ScoreServiceService } from 'src/app/service/score-service.service';
+import { ScoreServiceService } from 'src/app/Services/score-service.service';
 import { User } from 'src/app/model/user';
 
 @Component({
