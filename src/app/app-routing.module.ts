@@ -17,7 +17,6 @@ import { IndexNavbarComponent } from "./frontOffice/components/navbars/index-nav
 import { TableDropdownComponent } from "./frontOffice/components/dropdowns/table-dropdown/table-dropdown.component";
 import { UserDropdownComponent } from "./frontOffice/components/dropdowns/user-dropdown/user-dropdown.component";
 import { FooterComponent } from "./frontOffice/components/footers/footer/footer.component";
-import { LocationFinderComponent } from "./frontOffice/components/location-finder/location-finder.component";
 import { HomeComponent } from "./frontOffice/views/home/home.component";
 import { profileDoctorComponent } from "./frontOffice/views/profileDoctor/profileDoctor.component";
 import { TablesDoctorComponent } from "./frontOffice/views/tablesDoctor/tablesDoctor.component";
