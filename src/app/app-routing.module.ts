@@ -7,7 +7,7 @@ import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
 
 
 // admin views
-import { AdminDashboardComponent } from "./backOffice/admin-dashboard/admin-dashboard.component"; 
+import { AdminDashboardComponent } from "./backOffice/views/admin-dashboard/admin-dashboard.component"; 
 
 
 // auth views
@@ -19,8 +19,8 @@ import { IndexComponent } from "./frontOffice/views/index/index.component";
 import { LandingComponent } from "./frontOffice/views/landing/landing.component";
 import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
 import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
-import { AdminComponent } from "./backOffice/admin/admin.component";
-import { AdminTablesComponent } from "./backOffice/admin-tables/admin-tables.component";
+import { AdminComponent } from "./backOffice/views/admin/admin.component";
+import { AdminTablesComponent } from "./backOffice/components/admin-tables/admin-tables.component";
 import { QuizFormComponent } from "./component/admin/quiz-form/quiz-form.component";
 import { QuizDetailsComponent } from "./component/admin/quiz-details/quiz-details.component";
 import { QuestionFormComponent } from "./component/admin/question-form/question-form.component";
