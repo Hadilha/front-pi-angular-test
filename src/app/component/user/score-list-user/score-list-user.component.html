@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+  <script src="https://cdn.jsdelivr.net/npm/less@4" ></script>
+</head>
+<body style="background-color: #00965a;">
+    <div *ngIf="isLoading" id="load">
+        <div>G</div>
+        <div>N</div>
+        <div>I</div>
+        <div>D</div>
+        <div>A</div>
+        <div>O</div>
+        <div>L</div>
+    </div>
+<div *ngIf="!isLoading" class="yahtzee"  style=" width: 700px; margin-left: auto; margin-right: auto; width: 50%;">
+    <h1 class="yahtzee__heading">Scores</h1>
+    <div class="yahtzee__score-card">
+      <table *ngIf="userScores" >
+        <tbody class="upper">
+          <tr class="head">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Score Result</th>
+            <th>Date</th>
+          </tr>
+          <tr *ngFor="let score of userScores"> 
+            <th>{{score.name}} </th>
+            <th>{{score.score_type}} </th>
+            <th>{{score.result}}<span *ngIf="score.score_type =='Quiz'" > %</span></th>
+            <td>{{score.date | date:"EEEE,MMMM,HH" }} </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+<div class="iframe-container">
+  <iframe class="responsive-iframe" src="https://virtual.bbcmic.ro/?disc1=bs-badappl.dsd&autoboot"></iframe>
+</div>
+</html>
+

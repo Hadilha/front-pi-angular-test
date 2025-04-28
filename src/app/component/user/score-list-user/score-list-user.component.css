@@ -1,0 +1,354 @@
+
+#load {
+    position:absolute;
+    width:600px;
+    height:36px;
+    left:50%;
+    top:40%;
+    margin-left:-300px;
+    overflow:visible;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    cursor:default;
+  }
+  
+  #load div {
+    position:absolute;
+    width:20px;
+    height:36px;
+    opacity:0;
+    font-family:Helvetica, Arial, sans-serif;
+    animation:move 2s linear infinite;
+    -o-animation:move 2s linear infinite;
+    -moz-animation:move 2s linear infinite;
+    -webkit-animation:move 2s linear infinite;
+    transform:rotate(180deg);
+    -o-transform:rotate(180deg);
+    -moz-transform:rotate(180deg);
+    -webkit-transform:rotate(180deg);
+    color:#000000;
+  }
+  
+  #load div:nth-child(2) {
+    animation-delay:0.2s;
+    -o-animation-delay:0.2s;
+    -moz-animation-delay:0.2s;
+    -webkit-animation-delay:0.2s;
+  }
+  #load div:nth-child(3) {
+    animation-delay:0.4s;
+    -o-animation-delay:0.4s;
+    -webkit-animation-delay:0.4s;
+    -webkit-animation-delay:0.4s;
+  }
+  #load div:nth-child(4) {
+    animation-delay:0.6s;
+    -o-animation-delay:0.6s;
+    -moz-animation-delay:0.6s;
+    -webkit-animation-delay:0.6s;
+  }
+  #load div:nth-child(5) {
+    animation-delay:0.8s;
+    -o-animation-delay:0.8s;
+    -moz-animation-delay:0.8s;
+    -webkit-animation-delay:0.8s;
+  }
+  #load div:nth-child(6) {
+    animation-delay:1s;
+    -o-animation-delay:1s;
+    -moz-animation-delay:1s;
+    -webkit-animation-delay:1s;
+  }
+  #load div:nth-child(7) {
+    animation-delay:1.2s;
+    -o-animation-delay:1.2s;
+    -moz-animation-delay:1.2s;
+    -webkit-animation-delay:1.2s;
+  }
+  
+  @keyframes move {
+    0% {
+      left:0;
+      opacity:0;
+    }
+      35% {
+          left: 41%; 
+          -moz-transform:rotate(0deg);
+          -webkit-transform:rotate(0deg);
+          -o-transform:rotate(0deg);
+          transform:rotate(0deg);
+          opacity:1;
+      }
+      65% {
+          left:59%; 
+          -moz-transform:rotate(0deg); 
+          -webkit-transform:rotate(0deg); 
+          -o-transform:rotate(0deg);
+          transform:rotate(0deg); 
+          opacity:1;
+      }
+      100% {
+          left:100%; 
+          -moz-transform:rotate(-180deg); 
+          -webkit-transform:rotate(-180deg); 
+          -o-transform:rotate(-180deg); 
+          transform:rotate(-180deg);
+          opacity:0;
+      }
+  }
+  
+  @-moz-keyframes move {
+      0% {
+          left:0; 
+          opacity:0;
+      }
+      35% {
+          left:41%; 
+          -moz-transform:rotate(0deg); 
+          transform:rotate(0deg);
+          opacity:1;
+      }
+      65% {
+          left:59%; 
+          -moz-transform:rotate(0deg); 
+          transform:rotate(0deg);
+          opacity:1;
+      }
+      100% {
+          left:100%; 
+          -moz-transform:rotate(-180deg); 
+          transform:rotate(-180deg);
+          opacity:0;
+      }
+  }
+  
+  @-webkit-keyframes move {
+      0% {
+          left:0; 
+          opacity:0;
+      }
+      35% {
+          left:41%; 
+          -webkit-transform:rotate(0deg); 
+          transform:rotate(0deg); 
+          opacity:1;
+      }
+      65% {
+          left:59%; 
+          -webkit-transform:rotate(0deg); 
+          transform:rotate(0deg); 
+          opacity:1;
+      }
+      100% {
+          left:100%;
+          -webkit-transform:rotate(-180deg); 
+          transform:rotate(-180deg); 
+          opacity:0;
+      }
+  }
+  
+  @-o-keyframes move {
+      0% {
+          left:0; 
+          opacity:0;
+      }
+      35% {
+          left:41%; 
+          -o-transform:rotate(0deg); 
+          transform:rotate(0deg); 
+          opacity:1;
+      }
+      65% {
+          left:59%; 
+          -o-transform:rotate(0deg); 
+          transform:rotate(0deg); 
+          opacity:1;
+      }
+      100% {
+          left:100%; 
+          -o-transform:rotate(-180deg); 
+          transform:rotate(-180deg); 
+          opacity:0;
+      }
+  }
+
+
+/********************************************************************************
+*********************************************************************************
+**********************************************************************************
+**********************************************************************************
+**********************************************************************************/
+/* fonts */
+@import url(https://fonts.googleapis.com/css?family=Paytone+One);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+:root {
+  font: normal normal 9pt/1.25 Roboto;
+  font-kerning: normal;
+}
+
+@media screen {
+  :root {
+    min-height: 100vh;
+    perspective: 12in;
+    background-color: #277714;
+    background-image: radial-gradient(ellipse at 50% 25%, transparent, #0d2b06);
+  }
+}
+
+body {
+  line-height: inherit;
+}
+
+.section {
+  width: 5in;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.font-xs {
+  font-size: 0.6rem;
+}
+
+.font-sm {
+  font-size: 0.8rem;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.pad-regular {
+  padding: 0rem 0.67rem;
+}
+
+.bordered-thin {
+  border: 0.0625px solid currentColor;
+}
+
+.yahtzee {
+  padding: 1.5rem 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media screen {
+  .yahtzee {
+    background-color: white;
+    box-shadow: 0.5rem 0.5rem 0rem rgba(0, 0, 0, 0.25);
+    transform: translatez(-50rem) rotatex(35deg) rotateZ(20deg);
+    transition: transform 750ms, box-shadow 750ms;
+  }
+  .yahtzee:hover {
+    transform: none;
+    box-shadow: 0 1rem 5rem 1rem rgba(0, 0, 0, 0.25);
+  }
+}
+
+.yahtzee__heading {
+  font-family: Paytone One;
+  font-size: 3rem;
+  margin-top: -1rem;
+}
+
+.yahtzee__score-card {
+  padding: 1px;
+  border-radius: 0.125rem;
+}
+
+.yahtzee__score-card table {
+  width: 100%;
+}
+
+.head {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.head > th:nth-child(1) {
+  text-align: left;
+}
+
+.yahtzee__score-card tbody > tr > td,
+.yahtzee__score-card tbody > tr > th {
+  border: 0.0625px solid currentColor;
+}
+
+.yahtzee__score-card td,
+.yahtzee__score-card th {
+  padding: 0rem 0.67rem;
+  vertical-align: middle;
+  height: 2.25rem;
+}
+
+.how-to-score {
+  width: 15%;
+  font-size: 0.6rem;
+}
+
+.yahtzee__score-card tfoot .desc .primary {
+  text-transform: uppercase;
+}
+
+.yahtzee__score-card .lower .head th {
+  border: 0;
+}
+
+.desc {
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  text-align: left;
+}
+
+.desc .primary {
+  flex-grow: 1;
+}
+
+.alt {
+  font-size: 0.6rem;
+  text-align: center;
+  width: 35%;
+}
+
+.desc .die {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.how-to-score:empty::after {
+  content: '\002192';
+  font-size: 1.6rem;
+}
+
+input.t {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  text-align: center;
+  width: 4ch;
+  font: normal normal 12pt Indie Flower;
+}
+
+.iframe-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}

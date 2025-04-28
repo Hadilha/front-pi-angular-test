@@ -1,0 +1,97 @@
+<!-- quiz-analytics.component.html -->
+<div class="analytics-container">
+    <h2>Quiz Content Analytics</h2>
+    
+    <div class="tabs">
+      <button 
+        [class.active]="activeTab === 'quizzes'"
+        (click)="changeTab('quizzes')">
+        Quizzes
+      </button>
+      <button 
+        [class.active]="activeTab === 'questions'"
+        (click)="changeTab('questions')">
+        Questions
+      </button>
+      <button 
+        [class.active]="activeTab === 'choices'"
+        (click)="changeTab('choices')">
+        Choices
+      </button>
+    </div>
+  
+    <div class="loading-spinner" *ngIf="loading">
+      <mat-spinner diameter="50"></mat-spinner>
+      <p>Loading analytics data...</p>
+    </div>
+  
+    <div class="analytics-content" *ngIf="!loading">
+      <!-- Quiz Analytics -->
+      <div *ngIf="activeTab === 'quizzes'" class="tab-content">
+        <div class="chart-container">
+          <canvas baseChart
+            [data]="quizChartData"
+            [options]="quizChartOptions"
+            type="bar">
+          </canvas>
+        </div>
+      </div>
+  
+      <!-- Question Analytics -->
+      <div *ngIf="activeTab === 'questions'" class="tab-content">
+        <div class="chart-container">
+          <canvas baseChart
+            [data]="questionChartData"
+            [options]="questionChartOptions"
+            type="bar">
+          </canvas>
+        </div>
+      </div>
+  
+      <!-- Choice Analytics -->
+      <div *ngIf="activeTab === 'choices'" class="tab-content">
+        <div class="chart-container">
+          <canvas baseChart
+            [data]="choiceChartData"
+            [options]="choiceChartOptions"
+            type="bar">
+          </canvas>
+        </div>
+      </div>
+  
+      <!-- Summary Statistics -->
+      <div class="summary-section">
+        <h3>Key Statistics</h3>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4>Total Quizzes</h4>
+            <p>{{stats.totalQuizzes}}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Total Questions</h4>
+            <p>{{stats.totalQuestions}}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Avg Questions/Quiz</h4>
+            <p>{{stats.avgQuestionsPerQuiz}}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Most Popular Quiz</h4>
+            <p>{{stats.mostPopularQuiz}}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Hardest Question</h4>
+            <p>{{stats.hardestQuestion}}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Easiest Question</h4>
+            <p>{{stats.easiestQuestion}}</p>
+          </div>
+          <div class="stat-card">
+            <h4>Most Selected Choice</h4>
+            <p>{{stats.mostSelectedChoice}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

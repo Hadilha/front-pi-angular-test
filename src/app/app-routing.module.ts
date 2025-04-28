@@ -62,7 +62,15 @@ const routes: Routes = [
       { path: "", redirectTo: "login", pathMatch: "full" },
     ],
   },
-  { path: "patientspace", component: PatientspaceComponent },
+  { path: "patientspace", 
+    component: PatientspaceComponent,
+    children: [
+      { path: "login", component: LoginComponent },
+      { path: "register", component: RegisterComponent },
+      { path: "", redirectTo: "login", pathMatch: "full" },
+    ],
+
+   },
   { path: "profile", component: ProfileComponent },
   { path: "landing", component: LandingComponent },
   { path: "", component: IndexComponent },

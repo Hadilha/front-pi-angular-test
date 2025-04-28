@@ -1,0 +1,47 @@
+<body>
+    <main  class="main">
+        <div style="display: flex; justify-content: center;" >
+            <h1 style="margin-bottom: 50px; font-family: 'Courier New', Courier, monospace; font-size:100px;" >Quizes</h1>
+        </div>
+
+        <section  class="main" class="card-area">
+
+            <section *ngFor="let quizz of quizzes" class="card-section">
+                <div class="card">
+                    <div class="flip-card">
+                        <div class="flip-card__container">
+                            <div class="card-front" >
+                                <div class="card-front__tp card-front__tp--camping" >
+                                    <img [src]="quizz.image" style="width: 240px;"/>
+                                               
+                                </div>
+
+                                <div class="card-front__bt">
+                                    <p class="card-front__text-view card-front__text-view--camping">
+                                        {{quizz.title}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inside-page">
+                        <div class="inside-page__container">
+                            <h3 class="inside-page__heading inside-page__heading--camping">
+                                Description
+                            </h3>
+                            <p class="inside-page__text">
+                               {{quizz.description}}
+                            </p>
+                            <a [routerLink]="['/patientspace/test',quizz.quizz_id]" class="inside-page__btn inside-page__btn--camping">Take Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <app-test-list></app-test-list>
+    </main>
+    
+</body>
+
+

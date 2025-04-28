@@ -1,0 +1,56 @@
+<header class="header">
+    <div class="container">
+      <div class="logo" routerLink="/">
+        <img src="../../../assets/image.jpeg" alt="App Logo" >
+        <h1 >{{ appName }}</h1>
+      </div>
+      
+      <nav class="desktop-nav" *ngIf="!isMobileView">
+        <ul>
+          <li >
+            <a [routerLink]="['patientspace/quizzeslist']" >
+              user quiz list
+            </a>
+          </li>
+          <li >
+            <a [routerLink]="['admin/quizzes']" >
+              Admin Quiz List
+            </a>
+          </li>
+          <li >
+            <a [routerLink]="['patientspace/scorelist']" >
+                User Scores
+              </a>
+          </li>
+          <li >
+            <a [routerLink]="['patientspace/combatgame']" >
+                Game
+              </a>
+          </li>
+        </ul>
+      </nav>
+  
+      <div class="mobile-menu" *ngIf="isMobileView">
+        <button (click)="toggleMenu()" aria-label="Toggle menu">
+          <i class="material-icons">{{ menuOpen ? 'close' : 'menu' }}</i>
+        </button>
+        <div class="mobile-nav" [class.open]="menuOpen">
+          <ul>
+            <li >
+              <a >
+                Link
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="user-actions" >
+        <button *ngIf="!isLoggedIn" (click)="login()">Login</button>
+        <div class="user-profile" *ngIf="isLoggedIn">
+          <img src="../../../assets/image.jpeg" alt="User profile">
+          <span>{{ userName }}</span>
+        </div>
+      </div>
+    </div>
+  </header>

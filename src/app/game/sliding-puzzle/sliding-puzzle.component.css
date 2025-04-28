@@ -1,0 +1,84 @@
+.container {
+    text-align: center;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: #d16ba5;
+    margin-bottom: 20px;
+  }
+  
+  .puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    grid-template-rows: repeat(4, 80px);
+    gap: 8px;
+    margin: 0 auto 20px auto;
+  }
+  
+  .tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+    background: linear-gradient(to right, #f5576c, #f093fb);
+    color: white;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .tile.empty {
+    background: transparent;
+    cursor: default;
+  }
+  
+  .tile:hover {
+    transform: scale(1.05);
+  }
+  
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  #timer,
+  #moves {
+    color: #d16ba5;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-color: #d16ba5;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 12px #d16ba5aa;
+  }
+  
+  .win-message {
+    font-weight: bold;
+    color: green;
+    font-size: 1.1rem;
+  }
