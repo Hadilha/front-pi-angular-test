@@ -1,0 +1,155 @@
+/* Container Styles */
+.patient-management-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  border-radius: 1rem;
+  border: 1px solid #f3f4f6;
+  overflow: hidden;
+}
+
+/* Header Section */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: start;
+  padding: 1.5rem;
+  background: linear-gradient(to right, #f0fffa, #eefeff);
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.header-content {
+  margin-bottom: 0.75rem;
+}
+
+.header-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.header-subtitle {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.25rem;
+}
+
+/* Dropdown Styles */
+.doctor-select {
+  width: 100%;
+  padding: 0.625rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  font-size: 0.875rem;
+  color: #374151;
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+.doctor-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Main Content Area */
+.card-content {
+  display: flex;
+  flex: 1;
+  padding: 1.5rem;
+}
+
+/* Doctor Summary Panel */
+.doctor-summary-panel {
+  background: white;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.doctor-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  background: #dbeafe;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.doctor-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+/* Patient List Table */
+.patient-list-container {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  overflow: hidden;
+  width: 100%; /* Always full width now */
+}
+
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.patient-table th {
+  background-color: #f9fafb;
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.patient-table td {
+  padding: 1rem 1.25rem;
+  font-size: 0.875rem;
+  color: #1f2937;
+  border-top: 1px solid #e5e7eb;
+}
+
+.patient-table tr:hover {
+  background-color: #f9fafb;
+}
+
+/* Responsive Layout */
+@media (min-width: 640px) {
+  .card-header {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .header-content {
+    margin-bottom: 0;
+  }
+
+  .doctor-select {
+    width: 18rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-content {
+    flex-direction: row;
+  }
+
+  .doctor-summary-panel {
+    width: 33.333%;
+  }
+
+  .patient-list-container {
+    width: 100%; /* FULL WIDTH */
+  }
+}

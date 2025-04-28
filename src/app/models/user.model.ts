@@ -12,7 +12,7 @@ export interface User {
     nextAppointment?: Date;    // Optional
     birth?: Date;              // Optional
     contactNumber: string;
-    Specializations: string;
+    specializations: string;
     experienceYears: string;
     profileVerified: boolean;
     workingHours: string;

@@ -22,7 +22,7 @@ export class CardProfileDoctorComponent implements OnInit {
     email: '',
     avatarUrl: '',
     contactNumber: '',
-    Specializations: '',
+    specializations: '',
     experienceYears: '',
     workingHours: '',
     accountStatus: 'ACTIVE'
@@ -46,7 +46,7 @@ export class CardProfileDoctorComponent implements OnInit {
       avatarUrl: ['assets/img/white.png'],
       username: ['', Validators.required],
       contactNumber: ['', Validators.required],
-      Specializations: ['', Validators.required],
+      specializations: ['', Validators.required],
       experienceYears: ['', [Validators.required, Validators.min(0)]],
       workingHours: ['', Validators.required],
       accountStatus: ['ACTIVE']
@@ -82,9 +82,7 @@ export class CardProfileDoctorComponent implements OnInit {
           email: this.user.email,
           avatarUrl: this.user.avatarUrl,
           contactNumber: this.user.contactNumber,
-          Specializations: Array.isArray(this.user.Specializations) ?
-            this.user.Specializations.join(', ') :
-            this.user.Specializations,
+          specializations: this.user.specializations,
           experienceYears: this.user.experienceYears,
           workingHours: this.user.workingHours,
           accountStatus: this.user.accountStatus || 'ACTIVE'
@@ -105,7 +103,6 @@ export class CardProfileDoctorComponent implements OnInit {
 
     const formData = {
       ...this.credentialsForm.value,
-      Specializations: this.credentialsForm.value.Specializations.split(',').map((s: string) => s.trim()),
       currentUsername: this.currentusername
     };
 

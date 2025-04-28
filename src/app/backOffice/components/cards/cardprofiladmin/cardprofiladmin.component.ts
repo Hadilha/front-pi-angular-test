@@ -72,8 +72,21 @@ export class CardprofiladminComponent implements OnInit, OnChanges {
   }
 
   editUser(user: User) {
-    this.router.navigate(['/admin/updateuser', user.id]);
+    this.isEditMode = true;
+
+    // Assuming getCurrentUserRole is a getter, so accessing it like a property
+    let role = this.userService.getCurrentUserRole();
+    console.log('currentUserId:', this.currentUserId);
+    console.log("role:", role);
+
+    // Navigation based on the user's role
+    if (role === 'ADMIN') {
+      this.router.navigate(['/admin/updateuser', user.id]);
+    } else if (role === 'DOCTOR') {
+      this.router.navigate(['/doctor/updateuser', user.id]);
+    }
   }
+
 
   deleteUser(userId: number) {
     if (confirm('Are you sure you want to delete this user?')) {

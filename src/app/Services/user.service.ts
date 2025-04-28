@@ -5,10 +5,18 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user.model';
+import { Token } from '@angular/compiler';
+export interface AppointmentStats {
+  [date: string]: number;
+}
+export interface RegistrationStats {
+  [date: string]: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class UserService {
   private apiUrl = 'http://localhost:8089/api';
   private dataChanged = new BehaviorSubject<void>(undefined);
@@ -233,7 +241,7 @@ export class UserService {
         nextAppointment: response.nextAppointment ? new Date(response.nextAppointment) : undefined,
         birth: response.birth ? new Date(response.birth) : undefined,
         contactNumber: response.contactNumber || null,
-        Specializations: response.Specializations || [],
+        specializations: response.specializations || null,
         experienceYears: response.experienceYears || 0,
         profileVerified: response.profileVerified || false,
         workingHours: response.workingHours || [],
@@ -291,11 +299,12 @@ export class UserService {
       experienceYears: userData.experienceYears,
       workingHours: userData.workingHours,
       specializations: userData.specializations,
-      avatarUrl: userData.avatarUrl
+          avatarUrl: userData.avatarUrl
     }, {
       headers,
       responseType: 'text'
     });
+
   }
 
 
@@ -366,5 +375,38 @@ export class UserService {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     });
+  }
+  getUpcomingAppointments(daysAhead: number = 7): Observable<AppointmentStats> {
+    const token = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<AppointmentStats>(
+      `${this.apiUrl}/admin/analytics/appointments?daysAhead=${daysAhead}`,
+      { headers }
+    );
+  }
+
+  getRegistrationStats(daysBack: number = 7): Observable<RegistrationStats> {
+    const token = localStorage.getItem('token') || '';
+    return this.http.get<RegistrationStats>(
+      `${this.apiUrl}/admin/analytics/registrations?daysBack=${daysBack}`,
+      { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) }
+    );
+  }
+
+
+
+  getPatientsPerDoctor(doctorName: string): Observable<any[]> {
+    const token = localStorage.getItem('token') || '';
+
+    return this.http.get<any[]>(
+      `${this.apiUrl}/admin/patients-per-doctor?doctorName=${doctorName}`
+    );
+
+
+  }
+  getDoctors(): Observable<any[]> {
+    const tokenValue = localStorage.getItem('token') || '';
+    const headers = new HttpHeaders({ Authorization: `Bearer ${tokenValue}` });
+    return this.http.get<any[]>(`${this.apiUrl}/admin/doctors`, { headers });
   }
 }

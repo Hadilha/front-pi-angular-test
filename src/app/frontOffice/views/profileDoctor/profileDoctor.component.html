@@ -1,7 +1,18 @@
 <div class="responsive-container">
   <div class="profile-column">
+    <!-- Rollback Button -->
+    <button
+    class="rollback-button bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+    (click)="goBack()">
+
+    <i class="fas fa-arrow-left mr-2"></i> <!-- Font Awesome Left Arrow Icon -->
+    Back
+  </button>
+
+
     <app-card-profile-doctor></app-card-profile-doctor>
   </div>
+
   <div class="settings-column">
     <app-card-settings-doctor></app-card-settings-doctor>
   </div>

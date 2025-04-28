@@ -1,8 +1,8 @@
 .responsive-container {
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Equivalent to Tailwind's gap-8 (8 * 0.25rem = 2rem) */
-  padding-top: 9rem; /* Replaces the <br> tags (16 * 0.25rem = 4rem) */
+  gap: 2rem;
+  padding-top: 9rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -15,10 +15,31 @@
   }
 
   .profile-column {
-    width: 33.333%; /* 4/12 = 33.333% */
+    width: 33.333%;
+    position: relative; /* Added position relative to control button placement */
   }
 
   .settings-column {
-    width: 66.666%; /* 8/12 = 66.666% */
+    width: 66.666%;
   }
+}
+
+/* Styling the Rollback Button */
+.rollback-button {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+
+}
+
+.rollback-button:hover {
+  background-color: #f0f0f0;
+  text-decoration: underline;
+}
+
+.rollback-button:focus {
+  outline: none;
 }
