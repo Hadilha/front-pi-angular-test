@@ -35,6 +35,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
 import { TestimonialCarouselComponent } from './frontOffice/components/testimonial-carousel/testimonial-carousel.component';
 import { LocationFinderComponent } from './frontOffice/components/location-finder/location-finder.component';
+import { FormsModule, NgModel, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
 import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
@@ -131,6 +132,10 @@ import { TestListComponent } from "./component/user/test-list/test-list.componen
     MatProgressSpinnerModule,
     BrowserAnimationsModule,
     NgChartsModule,
+    NgModule,
+    BrowserAnimationsModule,
+    
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
