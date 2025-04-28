@@ -1,0 +1,43 @@
+.chart-controls {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .toggle-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #2d3748;
+    color: white;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .toggle-button:hover {
+    background: #4a5568;
+  }
+  
+  .toggle-button.active {
+    background: #4CAF50;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .toggle-button.active[data-type="posts"] {
+    background: #4c51bf; /* Different color for posts */
+  }
+
+  /* Add to stats-container.component.css */
+button[data-type="reactions"].active {
+  background: #FF4081; /* Pink accent for reactions */
+}
+
+.chart-container {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+}

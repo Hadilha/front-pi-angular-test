@@ -1,0 +1,297 @@
+<!-- Post Detail Modal -->
+<div
+  *ngIf="selectedPost"
+  class="fixed top-0 left-0 w-full h-full z-[9999] bg-white/30 backdrop-blur-lg flex items-center justify-center transition-opacity duration-300 animate-fade-in"
+  (click)="selectedPost = null"
+>
+  <div
+    class="relative bg-white rounded-lg shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto transition-transform transform animate-scale-in"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="selectedPost = null"
+      class="absolute top-4 right-4 text-red-500 text-3xl hover:text-red-700 transition"
+    >
+      ×
+    </button>
+
+    <!-- Modal Header with Avatar -->
+    <div class="px-6 py-4 flex items-center gap-4 bg-blueGray-100">
+      <img
+        [src]="selectedPost.avatar"
+        class="w-16 h-16 rounded-full border-4 border-blue-300 shadow-lg"
+        alt="Avatar"
+      />
+      <div>
+        <h4 class="text-xl font-semibold text-blueGray-800">
+          {{ selectedPost.author?.name }}
+        </h4>
+        <span class="text-sm text-blueGray-400">
+          {{ selectedPost.createdAt | date : "medium" }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Post Title and Content -->
+    <!-- Post Title and Content -->
+    <div class="px-6 py-4">
+      <div *ngIf="!isEditingPost; else postEditForm">
+        <h2 class="text-3xl font-bold text-blueGray-900 mb-4">
+          {{ selectedPost.title }}
+        </h2>
+        <p class="text-blueGray-700 leading-relaxed text-lg mb-6">
+          {{ selectedPost.content }}
+        </p>
+        <img
+        *ngIf="selectedPost.imageUrl"
+        [src]="selectedPost.imageUrl"
+        alt="Post Image"
+        class="w-full rounded-lg shadow mb-4"
+      />
+      
+        <!-- Edit Button if current user is author -->
+        <button
+          *ngIf="selectedPost.author?.name === currentUser"
+          (click)="startEditingPost()"
+          class="text-sm text-blue-600 hover:underline"
+        >
+          ✏️ Edit Post
+        </button>
+        <button (click)="openReportModal(selectedPost)">Report Post</button>
+      </div>
+
+      <!-- Edit Form Template -->
+      <ng-template #postEditForm>
+        <input
+          [(ngModel)]="postEditTitle"
+          class="w-full mb-2 p-2 border rounded text-lg font-bold"
+        />
+        <textarea
+          [(ngModel)]="postEditContent"
+          class="w-full p-2 border rounded text-sm"
+          rows="5"
+        ></textarea>
+        <div class="flex justify-end gap-2 mt-3">
+          <button
+            (click)="savePostEdit()"
+            class="text-sm text-green-600 hover:underline"
+          >
+            Save
+          </button>
+          <button
+            (click)="cancelPostEdit()"
+            class="text-sm text-red-600 hover:underline"
+          >
+            Cancel
+          </button>
+        </div>
+      </ng-template>
+    </div>
+
+    <!-- Reaction Buttons -->
+    <!-- Reaction Buttons -->
+    <div class="flex justify-center gap-3 mt-6 flex-wrap">
+      <button
+        *ngFor="let type of reactionTypes"
+        class="flex items-center space-x-1 px-3 py-1 rounded-full border shadow-sm transition duration-200"
+        [ngClass]="{
+          'bg-blue-100 text-blue-700 border-blue-300': hasReacted(type),
+          'bg-gray-100 text-gray-600 border-gray-300': !hasReacted(type)
+        }"
+        (click)="reactToPost(type)"
+      >
+        <span>{{ getReactionEmoji(type) }}</span>
+        <span class="text-sm">{{ getReactionCount(type) }}</span>
+      </button>
+    </div>
+
+    <!-- Footer: Stats Section -->
+    <div
+      class="flex justify-between text-sm text-blueGray-500 bg-blueGray-50 px-6 py-4"
+    >
+      <span class="flex items-center gap-2">
+        <i class="fas fa-comments text-blue-500"></i>
+        {{ selectedPost.totalReplies }} Replies
+      </span>
+
+      <span class="flex items-center gap-2">
+        <i class="fas fa-thumbs-up text-green-500"></i>
+        {{ selectedPost.totalReactions }} Reactions
+      </span>
+
+      <span class="flex items-center gap-2">
+        <i class="fas fa-eye text-indigo-500"></i>
+        {{ selectedPost.viewCount || 0 }} Views
+      </span>
+
+      <span
+        class="bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium text-xs"
+      >
+        #{{ selectedPost.tag }}
+      </span>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="px-6 py-6 border-t border-blueGray-100">
+      <h3 class="text-xl font-semibold text-blueGray-800 mb-4">Comments</h3>
+
+      <!-- List of Comments -->
+      <div *ngIf="selectedPost.comments?.length > 0; else noComments">
+        <div *ngFor="let comment of selectedPost.comments" class="mb-4">
+          <div class="flex items-start gap-4">
+            <img
+              src="https://i.pravatar.cc/36?u={{ comment.author }}"
+              alt="User"
+              class="w-9 h-9 rounded-full shadow border border-blue-200"
+            />
+
+            <div class="bg-blueGray-100 rounded-lg p-4 w-full">
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-semibold text-sm text-blueGray-800">
+                  {{ comment.author?.name }}
+                </span>
+                <span class="text-xs text-blueGray-400">
+                  {{ comment.createdAt | date : "short" }}
+                </span>
+              </div>
+
+              <!-- Comment Content or Edit Mode -->
+              <!-- Only render edit form for the selected comment -->
+              <div *ngIf="commentBeingEdited?.id !== comment.id; else editForm">
+                <p class="text-blueGray-700 text-sm mb-2">
+                  {{ comment.content }}
+                </p>
+              </div>
+              <ng-template #editForm>
+                <textarea
+                  [(ngModel)]="commentEditContent"
+                  rows="2"
+                  class="w-full p-2 text-sm border border-blueGray-300 rounded mb-2"
+                ></textarea>
+                <div class="flex gap-2 justify-end">
+                  <button
+                    (click)="saveEditedComment(comment)"
+                    class="text-xs text-green-600 hover:underline"
+                  >
+                    ✅ Save
+                  </button>
+                  <button
+                    (click)="cancelEditing()"
+                    class="text-xs text-red-600 hover:underline"
+                  >
+                    ❌ Cancel
+                  </button>
+                </div>
+              </ng-template>
+
+              <!-- Action Buttons -->
+              <!-- Show edit & delete only if currentUser is the comment author -->
+              <div
+                class="flex gap-2 items-center"
+                *ngIf="comment.author?.name === currentUser"
+              >
+                <button
+                  class="text-yellow-600 text-xs hover:underline"
+                  (click)="openReportModal(comment)"
+                >
+                  Report
+                </button>
+
+                <button
+                  (click)="startEditingComment(comment)"
+                  class="text-blue-600 text-xs hover:underline"
+                >
+                  Edit
+                </button>
+                <button
+                  (click)="deleteComment(comment)"
+                  class="text-red-600 text-xs hover:underline"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Comments Message -->
+      <ng-template #noComments>
+        <p class="text-sm text-blueGray-400">
+          No comments yet. Be the first to comment!
+        </p>
+      </ng-template>
+
+      <!-- Comment Input -->
+      <form (ngSubmit)="addComment()" class="mt-6 flex flex-col gap-3">
+        <textarea
+          [(ngModel)]="newComment"
+          name="comment"
+          required
+          rows="3"
+          placeholder="Write a comment..."
+          class="w-full rounded-lg border border-blueGray-200 p-3 text-sm focus:outline-none focus:ring"
+        ></textarea>
+        <button
+          type="submit"
+          class="self-end bg-blueGray-800 text-white text-sm font-semibold px-4 py-2 rounded hover:bg-blueGray-700 transition"
+        >
+          Post Comment
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Report Modal -->
+
+<!-- Report Modal -->
+<div
+  *ngIf="reportingTarget"
+  class="fixed inset-0 z-[10000] bg-white/30 backdrop-blur-lg flex items-center justify-center transition-opacity duration-300 animate-fade-in"
+  (click)="closeReportModal()"
+>
+  <div
+    class="relative bg-white rounded-lg shadow-lg max-w-lg w-full p-6 transition-transform transform animate-scale-in"
+    (click)="$event.stopPropagation()"
+  >
+    <!-- Close Button -->
+    <button
+      (click)="closeReportModal()"
+      class="absolute top-4 right-4 text-red-500 text-2xl hover:text-red-700 transition"
+    >
+      ×
+    </button>
+
+    <!-- Header -->
+    <h2 class="text-xl font-semibold text-blueGray-800 mb-4">
+      Report {{ reportingTarget?.title ? 'Post' : 'Comment' }}
+    </h2>
+
+    <!-- Report Reason Textarea -->
+    <textarea
+      [(ngModel)]="reportReason"
+      rows="4"
+      placeholder="Describe your reason for reporting..."
+      class="w-full p-3 text-sm border border-blueGray-200 rounded-lg focus:outline-none focus:ring"
+    ></textarea>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end gap-2 mt-6">
+      <button
+        (click)="closeReportModal()"
+        class="text-sm text-blueGray-600 hover:underline"
+      >
+        Cancel
+      </button>
+      <button
+        (click)="submitReport()"
+        class="bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded hover:bg-red-600 transition"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</div>
+

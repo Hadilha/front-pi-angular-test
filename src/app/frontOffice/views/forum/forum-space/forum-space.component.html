@@ -1,0 +1,164 @@
+<app-patient-navbar></app-patient-navbar>
+
+<main>
+  <!-- Hero Section -->
+  <div
+    class="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75"
+  >
+    <div
+      class="absolute top-0 w-full h-full bg-center bg-cover"
+      style="background-image: url('assets/img/MohamedImage.jpg')"
+    >
+      <span
+        id="blackOverlay"
+        class="w-full h-full absolute opacity-75 bg-black"
+      ></span>
+    </div>
+    <div class="container relative mx-auto">
+      <div class="items-center flex flex-wrap">
+        <div class="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
+          <div class="pr-12">
+            <h1 class="text-white font-semibold text-5xl">
+              You're not alone. We're here to listen.
+            </h1>
+            <p class="mt-4 text-lg text-blueGray-200">
+              Welcome to our mental wellness forum — a safe space to share,
+              support, and connect. Your voice matters, and healing starts with
+              conversation.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
+      style="transform: translateZ(0)"
+    >
+      <svg
+        class="absolute bottom-0 overflow-hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        preserveAspectRatio="none"
+        version="1.1"
+        viewBox="0 0 2560 100"
+        x="0"
+        y="0"
+      >
+        <polygon
+          class="text-blueGray-200 fill-current"
+          points="2560 0 2560 100 0 100"
+        ></polygon>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Forum Section -->
+  <section class="pb-20 bg-blueGray-200 pt-12">
+    <div class="w-full px-4 mt-12">
+      <!-- Toggle Buttons -->
+      <div class="flex justify-center my-6 space-x-4">
+        <button
+          (click)="showTopPosts = false"
+          [ngClass]="
+            showTopPosts ? 'bg-white text-gray-800' : 'bg-blue-600 text-white'
+          "
+          class="px-4 py-2 rounded shadow"
+        >
+          📝 All Posts
+        </button>
+        <button
+          (click)="showTopPosts = true"
+          [ngClass]="
+            showTopPosts ? 'bg-blue-600 text-white' : 'bg-white text-gray-800'
+          "
+          class="px-4 py-2 rounded shadow"
+        >
+          🏆 Top Posts
+        </button>
+      </div>
+      <app-forum-post-form></app-forum-post-form>
+      <div *ngIf="!showTopPosts">
+        <app-post-list></app-post-list>
+      </div>
+
+      <div
+        *ngIf="showTopPosts"
+        class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100"
+      >
+        <h2
+          class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2"
+        >
+          <span class="text-4xl">🔥</span>
+          <span>Top Community Posts</span>
+        </h2>
+
+        <div class="space-y-8">
+          <div
+            *ngFor="let post of topPosts"
+            class="cursor-pointer block rounded-2xl border border-blueGray-100 bg-white px-6 py-6 shadow-md hover:shadow-lg hover:border-blue-500 transition-all duration-300"
+            (click)="openPostModal(post)"
+          >
+            <div class="flex items-center mb-4 gap-4">
+              <img
+                [src]="post.avatar || 'https://i.pravatar.cc/60'"
+                alt="User"
+                class="w-14 h-14 rounded-full border border-blue-300 shadow"
+              />
+              <div class="leading-tight">
+                <h4 class="text-lg font-semibold text-blueGray-800">
+                  {{ post.author.name || "Unknown Author" }}
+                </h4>
+                <span class="text-xs text-blueGray-400 block">{{
+                  post.createdAt | date : "short"
+                }}</span>
+              </div>
+            </div>
+
+            <h3 class="text-xl font-bold text-blueGray-900 mb-2">
+              {{ post.title }}
+            </h3>
+            <p
+              class="text-blueGray-600 text-sm leading-relaxed mb-4 line-clamp-3"
+            >
+              {{ post.content }}
+            </p>
+
+            <div
+              class="flex items-center justify-between text-sm text-blueGray-500"
+            >
+              <div class="flex space-x-6">
+                <span class="flex items-center">
+                  <i class="fas fa-comments mr-2 text-blue-500"></i>
+                  {{ post.totalReplies || 0 }} replies
+                </span>
+                <span class="flex items-center">
+                  <i class="fas fa-thumbs-up mr-2 text-green-500"></i>
+                  {{ post.totalReactions || 0 }} reactions
+                </span>
+                <span class="flex items-center gap-2">
+                  <i class="fas fa-eye text-indigo-500"></i>
+                  {{ post.viewCount || 0 }} Views
+                </span>
+              </div>
+
+              <span
+                class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium"
+              >
+                #{{ post.tag }}
+              </span>
+
+              <button
+                *ngIf="post.author?.name === currentUser"
+                (click)="deletePost(post.id)"
+                class="text-red-500 hover:text-red-700 transition-all duration-150 text-lg"
+              >
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

@@ -1,0 +1,161 @@
+<div class="flex justify-center">
+  <div class="w-full max-w-6xl" style="width: 75%">
+    <div class="bg-white rounded-lg shadow-xl p-8 border border-blueGray-100">
+      <h2
+        class="text-3xl font-bold text-blueGray-800 mb-10 flex items-center gap-2"
+      >
+        <span class="text-4xl">🔥</span>
+        <span>Community Forum</span>
+      </h2>
+
+      <!-- Category Filter Buttons -->
+      <div class="flex gap-3 flex-wrap mb-6">
+        <button
+          *ngFor="let tag of tags"
+          (click)="selectedCategory = tag; fetchPosts()"
+          [ngClass]="{
+            'bg-blue-600 text-white': selectedCategory === tag,
+            'bg-white text-blue-600 border border-blue-300':
+              selectedCategory !== tag
+          }"
+          class="px-4 py-2 rounded-full font-medium transition-all duration-200 shadow-sm"
+        >
+          #{{ tag }}
+        </button>
+      </div>
+
+      <div class="space-y-8">
+        <div
+          *ngFor="let post of posts"
+          class="cursor-pointer block rounded-2xl border border-blueGray-100 bg-white px-6 py-6 shadow-md hover:shadow-lg hover:border-blue-500 transition-all duration-300"
+          (click)="openPost(post)"
+        >
+          <div class="flex items-center mb-4 gap-4">
+            <img
+              [src]="post.avatar || 'https://i.pravatar.cc/60'"
+              alt="User"
+              class="w-14 h-14 rounded-full border border-blue-300 shadow"
+            />
+            <div class="leading-tight">
+              <h4 class="text-lg font-semibold text-blueGray-800">
+                {{ post.author.name || "Unknown Author" }}
+              </h4>
+              <span class="text-xs text-blueGray-400 block">{{
+                post.createdAt
+              }}</span>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-bold text-blueGray-900 mb-2">
+            {{ post.title }}
+          </h3>
+          <p
+            class="text-blueGray-600 text-sm leading-relaxed mb-4 line-clamp-3"
+          >
+            {{ post.content }}
+          </p>
+
+          <!-- Image Display Logic -->
+          <div *ngIf="post.imageUrl">
+            <img *ngIf="post.imageUrl" [src]="post.imageUrl" alt="Post Image" class="w-full rounded-lg mt-2" />
+          </div>
+
+
+
+          <div
+            class="flex items-center justify-between text-sm text-blueGray-500"
+          >
+            <div class="flex space-x-6">
+              <span class="flex items-center">
+                <i class="fas fa-comments mr-2 text-blue-500"></i>
+                {{ post.totalReplies }} replies
+              </span>
+              <span class="flex items-center">
+                <i class="fas fa-thumbs-up mr-2 text-green-500"></i>
+                {{ post.totalReactions }} reactions
+              </span>
+              <span class="flex items-center gap-2">
+                <i class="fas fa-eye text-indigo-500"></i>
+                {{ post.viewCount || 0 }} Views
+              </span>
+            </div>
+
+            <span
+              class="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium"
+            >
+              #{{ post.tag }}
+            </span>
+
+            <button
+              *ngIf="post.author?.name === currentUser"
+              (click)="deletePost(post.id); $event.stopPropagation()"
+              class="text-red-500 hover:text-red-700 transition-all duration-150 text-lg"
+            >
+              🗑️ Delete
+            </button>
+
+            <button
+              (click)="openReportModal(post); $event.stopPropagation()"
+              class="text-yellow-600 hover:text-yellow-800 transition-all duration-150 text-lg ml-4"
+            >
+              🚩 Report
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <app-post-detail-modal
+      *ngIf="selectedPost"
+      [selectedPost]="selectedPost"
+      [posts]="posts"
+      (closeModal)="selectedPost = null"
+    ></app-post-detail-modal>
+
+    <!-- Report Modal -->
+    <div
+      *ngIf="reportingPost"
+      class="fixed top-0 left-0 w-full h-full z-[9999] bg-white/30 backdrop-blur-lg flex items-center justify-center transition-opacity duration-300 animate-fade-in"
+    >
+      <div
+        class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-lg space-y-6 relative"
+      >
+        <button
+          (click)="closeReportModal()"
+          class="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-xl"
+        >
+          ✖
+        </button>
+
+        <h3 class="text-xl font-bold text-blueGray-800">🚩 Report Post</h3>
+        <p class="text-blueGray-600">
+          You're reporting <strong>{{ reportingPost.title }}</strong> by
+          <strong>{{ reportingPost.author.name }}</strong
+          >.
+        </p>
+
+        <textarea
+          [(ngModel)]="reportReason"
+          placeholder="Describe the reason for reporting this post..."
+          class="w-full border border-blueGray-300 rounded-lg p-3 h-32 resize-none focus:outline-none focus:ring-2 focus:ring-red-400"
+        ></textarea>
+
+        <div class="flex justify-end gap-4">
+          <button
+            (click)="closeReportModal()"
+            class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300"
+          >
+            Cancel
+          </button>
+          <button
+            (click)="submitReport()"
+            class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            Submit Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

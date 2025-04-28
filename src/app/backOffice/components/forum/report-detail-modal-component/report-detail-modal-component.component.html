@@ -1,0 +1,16 @@
+<h2 class="text-xl font-bold">Report Details</h2>
+
+<div *ngIf="data">
+  <p><strong>Reporter:</strong> {{ data.reporter?.name || 'Unknown' }}</p>
+  <p><strong>Reason:</strong> {{ data.reason }}</p>
+  <p><strong>Target:</strong> 
+    <span *ngIf="data.post">Post: {{ data.post.title }}</span>
+    <span *ngIf="data.comment">Comment: "{{ data.comment.content | slice: 0 : 30 }}..."</span>
+  </p>
+  <p><strong>Date:</strong> {{ data.dateCreated | date:'short' }}</p>
+
+  <div class="modal-actions">
+    <button (click)="close()" class="bg-gray-500 text-white px-4 py-2 rounded">Close</button>
+    <!-- Add any other buttons like 'Delete' or 'Mark as Reviewed' -->
+  </div>
+</div>
