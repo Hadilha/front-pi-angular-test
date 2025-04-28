@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from "@angular/core";
-import { Chart, ChartConfiguration, ChartTypeRegistry } from "chart.js";
+
 
 @Component({
   selector: "app-card-line-chart",
@@ -7,7 +7,7 @@ import { Chart, ChartConfiguration, ChartTypeRegistry } from "chart.js";
 })
 export class CardLineChartComponent implements AfterViewInit {
   ngAfterViewInit() {
-    const config: ChartConfiguration<"line", number[], string> = {
+   /* const config: ChartConfiguration<"line", number[], string> = {
       type: "line",
       data: {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
@@ -98,6 +98,6 @@ export class CardLineChartComponent implements AfterViewInit {
 
     if (ctx) {
       new Chart(ctx, config);
-    }
+    }*/
   }
 }

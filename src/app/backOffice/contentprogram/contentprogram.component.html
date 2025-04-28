@@ -7,9 +7,7 @@
       <div class="program-content-container py-8">
         <div class="flex justify-between items-center mb-8">
           <h2 class="text-2xl font-bold text-gray-800">Contenu des Programmes</h2>
-          <button (click)="createProgramContent()" class="btn btn-primary flex items-center" [routerLink]="['/content-programs/programcontent']">
-            <i class="fas fa-plus mr-2"></i> Ajouter du contenu
-          </button>
+          
         </div>
       
         <!-- Message de chargement -->
@@ -55,8 +53,8 @@
                   <span>ID: {{ content.contentId }}</span>
                 </div>
                 
-              </div>
-              
+             
+            
               <!-- Actions -->
               <div class="flex justify-end space-x-2 pt-4 border-t border-gray-100">
                 <button (click)="updateProgramContent(content.contentId)" [routerLink]="['/content-programs/programcontent', content.contentId]"
@@ -72,7 +70,34 @@
           </div>
         </div>
       </div>
-         
+      <button (click)="createProgramContent()" class="btn btn-primary flex items-center" [routerLink]="['/content-programs/programcontent']">
+            <i class="fas fa-plus mr-2"></i> Ajouter du contenu
+          </button>
+      
+
+      <!-- Pagination -->
+<div class="flex justify-center items-center gap-4 mt-8">
+  <button 
+    (click)="goToPrevPage()" 
+    [disabled]="currentPage === 0"
+    class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded"
+  >
+    Précédent
+  </button>
+
+  <span class="text-gray-700">
+    Page {{ currentPage + 1 }} sur {{ totalPages }}
+  </span>
+
+  <button 
+    (click)="goToNextPage()" 
+    [disabled]="currentPage >= totalPages - 1"
+    class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded"
+  >
+    Suivant
+  </button>
+</div>
+
       <router-outlet></router-outlet>
       <app-footer-admin></app-footer-admin>
     </div>

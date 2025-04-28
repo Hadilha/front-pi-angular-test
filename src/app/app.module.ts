@@ -1,10 +1,10 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgChartsModule } from "ng2-charts";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ContentProgramComponent } from './frontOffice/content-program/content-program.component'; // ton composant
-
 // layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
@@ -69,9 +69,13 @@ import { CoachingprogramComponent } from './backOffice/coachingprogram/coachingp
 import { ContentprogramComponent } from './backOffice/contentprogram/contentprogram.component';
 import { CoachingProgramAjouterUpdateComponent } from './backOffice/coachingprogramajouter-update/coachingprogramajouter-update.component';
 import { ContentProgramAjouterupdateComponent } from './backOffice/content-program-ajouterupdate/content-program-ajouterupdate.component';
-import { CoachOfTheMonthComponent } from './components/coach-of-the-month/coach-of-the-month.component';
-import { CoachProgressComponent } from './components/coach-progress/coach-progress.component';
+
 import { CoachComponent } from './frontOffice/layouts/coach/coach.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { SearchProgramComponent } from './components/search-program/search-program.component';
+import { SearchContentComponent } from './components/search-content/search-content.component';
+import { FeedbackFormComponent } from './components/feedback/feedback-form/feedback-form.component';
+import { CoachFeedbackComponent } from './components/coach-feedback/coach-feedback.component';
 
 
 @NgModule({
@@ -124,17 +128,22 @@ import { CoachComponent } from './frontOffice/layouts/coach/coach.component';
     AdminSidebarComponent,
     AdminHeaderStatsComponent,
     CoachingprogramComponent,
-    ContentprogramComponent,
+   ContentprogramComponent,
     ContentProgramComponent,
     CoachingProgramAjouterUpdateComponent,
     ContentProgramAjouterupdateComponent,
-    CoachOfTheMonthComponent,
-    CoachProgressComponent,
+   
+    
     CoachComponent,
+    StatisticsComponent,
+    SearchProgramComponent,
+    SearchContentComponent,
+    FeedbackFormComponent,
+    CoachFeedbackComponent,
          
 
   ],
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,HttpClientModule,ReactiveFormsModule, RouterModule.forRoot([])], // Ajout de HttpClientModule ici
+  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,HttpClientModule,ReactiveFormsModule,NgChartsModule,  RouterModule.forRoot([])], // Ajout de HttpClientModule ici
   providers: [],
   bootstrap: [AppComponent],
 })

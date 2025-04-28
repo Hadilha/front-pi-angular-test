@@ -5,7 +5,8 @@ import { ContentprogramComponent } from './backOffice/contentprogram/contentprog
 import { ContentProgramAjouterupdateComponent } from './backOffice/content-program-ajouterupdate/content-program-ajouterupdate.component';
 import { CoachingProgramAjouterUpdateComponent } from './backOffice/coachingprogramajouter-update/coachingprogramajouter-update.component';
 import { ContentProgramComponent } from './frontOffice/content-program/content-program.component';
-import { CoachProgressComponent } from './components/coach-progress/coach-progress.component';
+import { FeedbackFormComponent } from './components/feedback/feedback-form/feedback-form.component';
+import { CoachFeedbackComponent } from './components/coach-feedback/coach-feedback.component';
 // layouts
 import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
 import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
@@ -44,7 +45,7 @@ const routes: Routes = [
     component: CoachingProgramAjouterUpdateComponent
   },
   { path: 'coaching-programs/coachingProgram/:id', component: CoachingProgramAjouterUpdateComponent },
-
+  { path: 'feedback', component: CoachFeedbackComponent },
   //{
    // path: 'backoffice/coachingprogramajouter-update/:id',
     //component: CoachingProgramAjouterUpdateComponent
@@ -53,8 +54,9 @@ const routes: Routes = [
   { path: 'content-programs/programcontent/:id', component: ContentProgramAjouterupdateComponent },
   { path: 'frontOffice/content-program', component: ContentProgramComponent },
 
-  { path: 'coach/progress/:programId', component: CoachProgressComponent },
-  //{ path: 'backoffice/coachingprogram/programs/:programId', component: CoachProgressComponent },
+  { path: 'feedback/feedback', component: FeedbackFormComponent },
+  { path: 'coach-feedback', component: CoachFeedbackComponent },
+ // { path: '', redirectTo: '/patient-feedback', pathMatch: 'full' },
   
 
   

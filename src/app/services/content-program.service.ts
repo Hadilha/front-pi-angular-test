@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { User } from 'src/app/models/User.model';
+import { ProgramContent } from 'src/app/models/content-program.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +33,9 @@ export class ProgramContentService {
       `${this.baseUrl}/programcontent`, data
     );
   }
+  getUsersByContent(contentId: number): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/${contentId}/users`);
+  }
   
 
   updateProgramContent(id: number, data: any): Observable<any> {
@@ -41,7 +45,12 @@ export class ProgramContentService {
   deleteProgramContent(id: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/programcontent/${id}`);
   }
-  getContentPrograms(): Observable<any[]> {
-    return this.http.get<any[]>(this.baseUrl);
+  getContentPrograms(page: number, size: number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}?page=${page}&size=${size}`);
   }
+  searchContents(keyword: string): Observable<ProgramContent[]> {
+    return this.http.get<ProgramContent[]>(`${this.baseUrl}/search?keyword=${keyword}`);
+  }
+  
+  
 }

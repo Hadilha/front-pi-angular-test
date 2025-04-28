@@ -22,8 +22,9 @@
     "@popperjs/core": "^2.11.8",
     "@types/leaflet": "^1.9.17",
     "bootstrap": "^5.3.5",
-    "chart.js": "^4.4.8",
+    "chart.js": "^4.4.9",
     "leaflet": "^1.9.4",
+    "ng2-charts": "^5.0.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"

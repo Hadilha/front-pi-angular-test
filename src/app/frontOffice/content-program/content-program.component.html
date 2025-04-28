@@ -1,87 +1,101 @@
-<div class="container" *ngIf="!isLoading; else loading">
-  <div class="post" *ngFor="let item of programContents">
-    <div class="post-header">
-      <h3>{{ item.title }}</h3>
-      <span class="post-type">{{ item.contentType }}</span>
+<app-patient-navbar></app-patient-navbar>
+
+<div class="content-container mx-auto px-4 py-6 max-w-7xl">
+  <!-- Loading State (plus compact) -->
+  <div *ngIf="isLoading" class="text-center py-8">
+    <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-600 mb-2"></div>
+    <p class="text-sm text-gray-600">Loading content...</p>
+  </div>
+
+  <!-- Content List (cartes plus petites) -->
+  <div *ngIf="!isLoading && programContents.length > 0" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div *ngFor="let content of programContents" class="content-item bg-blue-100 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200">
+      <div class="p-4">
+        <h3 class="text-lg font-semibold text-gray-800 mb-1 line-clamp-1">{{ content.title }}</h3>
+        <p class="text-sm text-gray-500 mb-3 line-clamp-2">{{ content.contentDesc }}</p>
+        
+        <div [ngSwitch]="content.mediaType" class="mb-3 rounded-md overflow-hidden">
+          <div *ngSwitchCase="'iframe'" class="aspect-w-16 aspect-h-9">
+            <iframe 
+              [src]="getSafeMediaUrl(content.mediaLink, content.mediaType)" 
+              class="w-full h-full"
+              frameborder="0" 
+              allowfullscreen>
+            </iframe>
+          </div>
+          <div *ngSwitchCase="'video'" class="aspect-w-16 aspect-h-9">
+            <video controls class="w-full">
+              <source [src]="content.mediaLink" type="video/mp4">
+            </video>
+          </div>
+          <div *ngSwitchCase="'image'">
+            <img [src]="content.mediaLink" [alt]="content.title" class="w-full h-auto max-h-40 object-cover rounded-md">
+          </div>
+        </div>
+
+        <button 
+          (click)="toggleFeedbackForm(content)" 
+          class="feedback-btn w-full bg-blue-600 hover:bg-blue-700 text-blue text-sm font-medium py-1.5 px-3 rounded-md transition duration-150"
+        >
+          Leave Feedback
+        </button>
+      </div>
     </div>
-    <div class="post-content">
-      <p>{{ item.contentDesc }}</p>
-      <!-- Si le média est une vidéo -->
-      <video *ngIf="item.mediaType === 'video'" controls class="media">
-        <source [src]="item.mediaLink" type="video/mp4">
-        Your browser does not support the video tag or the video file is missing.
-      </video>
+  </div>
 
-      <!-- Si le média est un iframe (YouTube, Vimeo, etc.) -->
-      <iframe *ngIf="item.mediaType === 'iframe'" 
-        [src]="getSafeMediaUrl(item.mediaLink, item.mediaType)" 
-        class="media"
-        frameborder="0" 
-        allowfullscreen>
-</iframe>
-
-
-      <!-- Si le média est une image -->
-      <img *ngIf="item.mediaType === 'image'" 
-           [src]="item.mediaLink" 
-           alt="{{ item.title }}" 
-           class="media">
+  <!-- Feedback Form (plus compact) -->
+  <div *ngIf="showFeedbackForm" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+    <div class="feedback-form bg-white rounded-lg shadow-lg max-w-md w-full p-4">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-lg font-semibold text-gray-800">Feedback: {{ selectedContent?.title }}</h3>
+        <button (click)="showFeedbackForm = false" class="text-gray-500 hover:text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      
+      <form (ngSubmit)="submitFeedback()" class="space-y-3">
+        <div class="form-group">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Rating (1-5):</label>
+          <input 
+            type="number" 
+            [(ngModel)]="feedback.rating" 
+            name="rating" 
+            min="1" 
+            max="5" 
+            required
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Comment:</label>
+          <textarea 
+            [(ngModel)]="feedback.comment" 
+            name="comment" 
+            required
+            rows="3"
+            class="w-full px-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          ></textarea>
+        </div>
+        
+        <div class="flex justify-end space-x-2 pt-1">
+          <button 
+            type="button" 
+            (click)="showFeedbackForm = false" 
+            class="cancel-btn px-3 py-1.5 text-sm border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 transition duration-150"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="cancel-btn px-3 py-1.5 text-sm border border-gray-300 text-gray-700 font-medium rounded-md hover:bg-gray-50 transition duration-150"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
-
-<!-- État de chargement -->
-<ng-template #loading>
-  <div class="loading-container">
-    <p>Loading content...</p>
-  </div>
-</ng-template>
-
-<style>
-  .container {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  .post {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    padding: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  .post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  .post-header h3 {
-    font-size: 18px;
-    margin: 0;
-  }
-  .post-type {
-    font-size: 12px;
-    color: #666;
-    background-color: #f0f0f0;
-    padding: 4px 8px;
-    border-radius: 4px;
-  }
-  .post-content p {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 10px;
-  }
-  .media {
-    width: 100%;
-    border-radius: 8px;
-  }
-  .loading-container {
-    text-align: center;
-    font-size: 16px;
-    color: #666;
-    padding: 20px;
-  }
-</style>

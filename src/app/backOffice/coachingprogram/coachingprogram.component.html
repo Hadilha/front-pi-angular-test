@@ -1,22 +1,29 @@
 <div>
   <app-admin-sidebar></app-admin-sidebar>
+  
+
 
   <div class="relative md:ml-64 bg-blueGray-100 min-h-screen">
-    <app-admin-navbar></app-admin-navbar>
+    <app-admin-navbar (searchEvent)="onSearch($event)"></app-admin-navbar>
+
     <app-admin-header-stats></app-admin-header-stats>
 
     <div class="px-4 md:px-10 mx-auto w-full -m-24">
       <div class="program-list-container py-8">
 
-        <!-- Titre + Bouton -->
-        <div class="flex justify-between items-center mb-8">
-          <h2 class="text-2xl font-bold text-gray-800">Liste des programmes de coaching</h2>
+        <!-- Global Feedback Button -->
+        <div class="flex justify-center py-8">
           <button
             class="btn btn-primary flex items-center space-x-2"
-            [routerLink]="['/coaching-program']">
-            <i class="fas fa-plus"></i>
-            <span>Ajouter un programme</span>
+            (click)="goToFeedbackPage()"
+            aria-label="Feedback">
+            <i class="fas fa-comment"></i>
+            <span> Feedback</span>
           </button>
+        </div>
+        <!-- Titre + Bouton -->
+        <div class="p-4 flex justify-between items-center">
+          <h2 class="text-2xl font-bold text-gray-800">Liste des programmes de coaching</h2>
         </div>
 
         <!-- Message de chargement -->
@@ -31,14 +38,19 @@
           <p class="text-gray-600">Aucun programme trouvé.</p>
         </div>
 
+        
+
         <!-- Grille de cartes -->
-        <div *ngIf="!isLoading && programs.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div *ngFor="let program of programs" class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow duration-300">
+        <div *ngIf="!isLoading && programs.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+          <div
+            *ngFor="let program of filteredPrograms"
+            class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg hover:scale-105 transform transition-transform duration-300">
             <div class="p-6">
               <!-- En-tête -->
               <div class="flex justify-between items-start mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">{{ program.title }}</h3>
-               
+                <h3 class="text-xl font-semibold text-gray-800">
+                  {{ program.title }}
+                </h3>
               </div>
 
               <!-- Description -->
@@ -61,24 +73,20 @@
                 <i class="fas fa-users mr-2 text-blue-500"></i>
                 <span><strong>Participants :</strong> {{ program.participants }}</span>
               </div>
-              <!-- Lien vers la progression -->
-                <a
-                class="text-sm text-blue-600 hover:underline flex items-center space-x-1"
-                [routerLink]="['/coach/progress', program.programId]">
-                <i class="fas fa-chart-line"></i>
-                <span>Voir progression</span>
-              </a>
+
               <!-- Actions -->
               <div class="flex justify-end space-x-2 pt-4 border-t border-gray-100">
                 <button
                   class="btn btn-success btn-sm flex items-center space-x-1"
-                  [routerLink]="['/coaching-programs/coachingProgram', program.programId]">
+                  [routerLink]="['/coaching-programs/coachingProgram', program.programId]"
+                  aria-label="Modifier le programme">
                   <i class="fas fa-edit"></i>
                   <span>Modifier</span>
                 </button>
                 <button
                   class="btn btn-danger btn-sm flex items-center space-x-1"
-                  (click)="onDelete(program.programId)">
+                  (click)="onDelete(program.programId)"
+                  aria-label="Supprimer le programme">
                   <i class="fas fa-trash"></i>
                   <span>Supprimer</span>
                 </button>
@@ -86,14 +94,23 @@
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- 🏆 Coach du Mois -->
-      <div class="my-8">
-        <app-coach-of-the-month></app-coach-of-the-month>
-      </div>
-       <!-- Afficher le composant de progression -->
-       
+        
+              <button
+                  class="btn btn-primary flex items-center space-x-2"
+                    [routerLink]="['/coaching-program']"
+                    aria-label="Ajouter un programme">
+                      <i class="fas fa-plus"></i>
+                      <span>Ajouter un programme</span>
+                </button>
+        <!-- Pagination -->
+        <div class="flex justify-center space-x-4 mt-8">
+          <button (click)="goToPrevPage()" [disabled]="currentPage === 0" class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded">Précédent</button>
+           <span class="text-gray-700 font-semibold">Page {{ currentPage + 1 }} sur {{ totalPages }}</span>
+         <button (click)="goToNextPage()" [disabled]="currentPage === totalPages - 1" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Suivant</button>
+        </div>
+        </div>
+        <app-statistics></app-statistics>
+        
 
       <router-outlet></router-outlet>
       <app-footer-admin></app-footer-admin>

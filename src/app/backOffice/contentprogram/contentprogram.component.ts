@@ -1,6 +1,7 @@
 import { Component , OnInit} from '@angular/core';
 import { ProgramContentService } from '../../services/content-program.service';
 import { ProgramContent } from '../../models/content-program.model';
+import { UserService } from 'src/app/services/user.service';  // Importer UserService
 
 @Component({
   selector: 'app-contentprogram',
@@ -11,18 +12,38 @@ export class ContentprogramComponent implements OnInit {
 
   programContents: ProgramContent[] = [];
   isLoading: boolean = true;
+  currentUserId!: number;
+  currentPage = 0;
+  pageSize = 2; // Nombre d'éléments par page
+  lastPage = 0;
+  totalPages: number = 0;
 
-  constructor(private programContentService: ProgramContentService) {}
+  constructor(private programContentService: ProgramContentService,
+              private userService: UserService,
+              
+              
+  ) {}
 
   ngOnInit(): void {
-    this.loadProgramContents();
+    this.currentUserId = this.userService .getCurrentUserId()!;
+    // Vérifier si l'ID est valide
+    
+      this.loadProgramContents();
+   
+    
   }
+
+  get userId(): number {
+    return this.currentUserId;
+  }
+  
 
   // Charger les contenus de programme depuis le service
   loadProgramContents(): void {
-    this.programContentService.getProgramContents().subscribe({
+    this.programContentService.getContentPrograms(this.currentPage, this.pageSize).subscribe({
       next: (data) => {
-        this.programContents = data;
+        this.programContents = data.content;      // ✅ Accès à la liste
+      this.totalPages = data.totalPages;   // mettre à jour les pages
         this.isLoading = false;
       },
       error: (error) => {
@@ -31,6 +52,20 @@ export class ContentprogramComponent implements OnInit {
       }
     });
   }
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.loadProgramContents();
+    }
+  }
+  
+  goToPrevPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+      this.loadProgramContents();
+    }
+  }
+  
  // Ajoutez ces méthodes pour résoudre les erreurs
  createProgramContent(): void {
   // Implémentez la logique pour ajouter du contenu
@@ -55,5 +90,29 @@ deleteProgramContent(contentId: number): void {
     });
   }
 }
+getUsersForContent(contentId: number): void {
+  this.programContentService.getUsersByContent(contentId).subscribe({
+    next: (data) => {
+      console.log(`Utilisateurs pour le contenu ${contentId} :`, data);
+    },
+    error: (err) => console.error('Erreur lors de la récupération des utilisateurs', err)
+  });
+}
+/*getProgramProgress(programId: number): void {
+  // Vérifier que userId et programId sont valides avant d'envoyer la requête
+  if (this.currentUserId && programId) {
+    this.programProgressService.getUserProgramProgress(this.currentUserId, programId).subscribe({
+      next: (progress) => {
+        console.log(`Progression du programme ${programId} pour l'utilisateur ${this.currentUserId} : ${progress}%`);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération de la progression', err);
+      }
+    });
+  } else {
+    console.error('ID utilisateur ou ID du programme invalide');
+  }
+}*/
+
 
 }

@@ -1,35 +1,81 @@
-<div class="container mt-5">
-    <h2 class="text-2xl font-bold mb-4">Programme de patient</h2>
-  
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="form-group mb-3">
-        <label for="title">Titre</label>
-        <input id="title" formControlName="title" type="text" class="form-control" required />
-      </div>
-  
-      <div class="form-group mb-3">
-        <label for="contentType">Type de contenu</label>
-        <input id="contentType" formControlName="contentType" type="text" class="form-control" required />
-      </div>
-  
-      <div class="form-group mb-3">
-        <label for="contentDesc">Description</label>
-        <textarea id="contentDesc" formControlName="contentDesc" class="form-control" required></textarea>
-      </div>
-  
-      <div class="form-group mb-3">
-        <label for="mediaLink">Lien média</label>
-        <input id="mediaLink" formControlName="mediaLink" type="text" class="form-control" required />
-      </div>
-  
-      <div formGroupName="coachingProgram" class="form-group mb-3">
-        <label for="programId">ID du programme</label>
-        <input id="programId" formControlName="programId" type="number" class="form-control" required />
-      </div>
-  
-      <button type="submit" class="btn btn-success">
-        {{ isEdit ? 'Mettre à jour' : 'Ajouter' }}
-      </button>
-    </form>
+<app-admin-sidebar></app-admin-sidebar>
+<div class="relative md:ml-64 bg-blueGray-100">
+  <div class="container mt-5">
+    <!-- Card contenant le formulaire -->
+    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-6">Programme de patient</h2>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <!-- Champ Titre -->
+        <div class="form-group mb-4">
+          <label for="title" class="text-sm font-medium text-gray-700">Titre</label>
+          <input id="title" formControlName="title" type="text"
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            required />
+          <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="text-red-500 text-sm mt-1">
+            <span *ngIf="form.get('title')?.errors?.['required']">Le titre est requis.</span>
+            <span *ngIf="form.get('title')?.errors?.['minlength']">Le titre doit contenir au moins 3 caractères.</span>
+          </div>
+        </div>
+
+        <!-- Champ Type de contenu -->
+        <div class="form-group mb-4">
+          <label for="contentType" class="text-sm font-medium text-gray-700">Type de contenu</label>
+          <input id="contentType" formControlName="contentType" type="text"
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            required />
+          <div *ngIf="form.get('contentType')?.invalid && form.get('contentType')?.touched"
+            class="text-red-500 text-sm mt-1">
+            <span *ngIf="form.get('contentType')?.errors?.['required']">Le type de contenu est requis.</span>
+          </div>
+        </div>
+
+        <!-- Champ Description -->
+        <div class="form-group mb-4">
+          <label for="contentDesc" class="text-sm font-medium text-gray-700">Description</label>
+          <textarea id="contentDesc" formControlName="contentDesc"
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            required></textarea>
+          <div *ngIf="form.get('contentDesc')?.invalid && form.get('contentDesc')?.touched"
+            class="text-red-500 text-sm mt-1">
+            <span *ngIf="form.get('contentDesc')?.errors?.['required']">La description est requise.</span>
+            <span *ngIf="form.get('contentDesc')?.errors?.['minlength']">La description doit contenir au moins 10
+              caractères.</span>
+          </div>
+        </div>
+
+        <!-- Champ Lien Média -->
+        <div class="form-group mb-4">
+          <label for="mediaLink" class="text-sm font-medium text-gray-700">Lien média</label>
+          <input id="mediaLink" formControlName="mediaLink" type="text"
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            required />
+          <div *ngIf="form.get('mediaLink')?.invalid && form.get('mediaLink')?.touched"
+            class="text-red-500 text-sm mt-1">
+            <span *ngIf="form.get('mediaLink')?.errors?.['required']">Le lien média est requis.</span>
+            <span *ngIf="form.get('mediaLink')?.errors?.['pattern']">Le lien doit être une URL valide.</span>
+          </div>
+        </div>
+
+        <!-- Champ ID Programme -->
+        <div formGroupName="coachingProgram" class="form-group mb-4">
+          <label for="programId" class="text-sm font-medium text-gray-700">ID du programme</label>
+          <input id="programId" formControlName="programId" type="number"
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            required />
+          <div *ngIf="form.get('coachingProgram.programId')?.invalid && form.get('coachingProgram.programId')?.touched"
+            class="text-red-500 text-sm mt-1">
+            <span *ngIf="form.get('coachingProgram.programId')?.errors?.['required']">L'ID du programme est requis.</span>
+            <span *ngIf="form.get('coachingProgram.programId')?.errors?.['min']">L'ID doit être supérieur à 0.</span>
+          </div>
+        </div>
+
+        <!-- Bouton Soumettre -->
+        <button type="submit" [disabled]="form.invalid"
+          class="btn btn-success mt-6 py-3 px-8 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300">
+          {{ isEdit ? 'Mettre à jour' : 'Ajouter' }}
+        </button>
+      </form>
+    </div>
   </div>
-  
+</div>

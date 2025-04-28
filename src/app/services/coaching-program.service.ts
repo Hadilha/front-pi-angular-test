@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CoachingProgram } from '../models/coaching-program.model';
 
@@ -30,4 +30,19 @@ export class CoachingProgramService {
   delete(program:any): Observable<any> {
     return this.http.delete(`${this.apiUrl}/coachingProgram/${program.programId}`); // DELETE /coaching-programs/{id}
   }
+  // Méthode pour récupérer les programmes avec pagination
+  getCoachingPrograms(page: number, size: number): Observable<any> {
+    const params = new HttpParams().set('page', page.toString()).set('size', size.toString());
+    return this.http.get<any>(this.apiUrl, { params });
+  }
+
+  searchPrograms(keyword: string): Observable<CoachingProgram[]> {
+    return this.http.get<CoachingProgram[]>(`${this.apiUrl}/search?keyword=${keyword}`);
+  }
+
+  getProgramDetails(programId: number): Observable<CoachingProgram> {
+    return this.http.get<CoachingProgram>(`/api/coaching-programs/${programId}`);
+  }
+  
+  
 }

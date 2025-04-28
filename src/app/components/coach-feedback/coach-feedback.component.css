@@ -1,0 +1,117 @@
+.feedback-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.feedback-card {
+  margin-bottom: 20px;
+}
+
+.diagnostic-section {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+/* Ajoutez ces styles à votre fichier CSS existant */
+.btn-primary {
+  background-color: #4CAF50; /* Vert */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background-color: #45a049; /* Vert plus foncé */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.btn-primary:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Pour le bouton "Run Diagnostic" spécifiquement */
+button[class*="bg-blue"] {
+  background-color: #2196F3; /* Bleu */
+}
+
+button[class*="bg-blue"]:hover {
+  background-color: #0b7dda; /* Bleu plus foncé */
+}
+
+/* Conservez vos styles existants */
+.feedback-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.feedback-card {
+  margin-bottom: 20px;
+}
+
+.diagnostic-section {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.card-header {
+  background-color: #007bff;
+  color: white;
+}
+
+.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}

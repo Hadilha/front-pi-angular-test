@@ -17,12 +17,14 @@ export class CoachingProgramAjouterUpdateComponent implements OnInit {
     coachId: 0,
     title: '',
     description: '',
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: '',
+    endDate: '',
     participants: 0,
-    version: 0
+    
   };
-  
+  today: string = '';
+  isEdit: boolean = false;
+
   constructor(
     private service: CoachingProgramAjouterUpdateService,
     private router: Router,
@@ -30,16 +32,31 @@ export class CoachingProgramAjouterUpdateComponent implements OnInit {
     private programService: CoachingProgramService,
     
   ) {}
-  isEdit: boolean = false;
+  
   ngOnInit(): void {
+    const now = new Date();
+    this.today = now.toISOString().split('T')[0]; // Format YYYY-MM-DD
+    // Get the 'id' parameter from the route
     const programId = this.route.snapshot.paramMap.get('id');
     console.log('ID récupéré :', programId);
     if (programId) {
       this.isEdit = true;
       this.service.getById(+programId).subscribe({
         next: data => {
-          this.program = { ...data }; // data doit contenir un champ `id`
-          console.log('Programme chargé :', this.program);
+          console.log('Réponse API complète:', data);
+          console.log('Données récupérées pour la mise à jour:', data);
+           // 1. Si ton API renvoie coachId et endDate sous les mêmes noms :
+    this.program = {
+      programId: data.programId,
+      coachId : data.coachId,
+      title   : data.title,
+      description: data.description,
+      startDate  : this.formatDateOnly(data.startDate),
+      endDate    : this.formatDateOnly(data.endDate),
+      participants: data.participants
+      // ajoute ici tous les autres champs de data dont tu as besoin
+    };
+          console.log('Vérification de this.program:', this.program); 
         },
         error: () => {
           this.errorMessage = 'Erreur de chargement du programme.';
@@ -50,26 +67,33 @@ export class CoachingProgramAjouterUpdateComponent implements OnInit {
     this.program = {
       title: '',
       description: '',
-      startDate: '',
-      endDate: '',
+      startDate:'', // Date actuelle au format YYYY-MM-DD
+      endDate: '', // Date actuelle au format YYYY-MM-DD
       participants: 0,
       coachId: 0,
-      version: 0
+      
     };
     }
   }
  
-  private formatDateOnly(dateString: string): string {
-    return new Date(dateString).toISOString().substring(0, 10);
-  }
-  
+        /** 
+       * Retourne la date au format 'YYYY-MM-DD' 
+       * à partir d’une string ou d’un Date 
+       */
+      private formatDateOnly(date: string | Date): string {
+        // Crée un objet Date quel que soit le type d’entrée
+        const d = typeof date === 'string' ? new Date(date) : date;
+        return d.toISOString().substring(0, 10);
+      }
+        
   
   
   onSubmit() {
     console.log('onSubmit triggered', this.program);
   
     this.errorMessage = null;
-  
+    console.log('CoachId soumis:', this.program.coachId);
+
     if (this.isEdit) {
       if (!this.program.programId) {
         this.errorMessage = "L'ID du programme est manquant.";

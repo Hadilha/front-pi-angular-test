@@ -6,7 +6,10 @@ export interface ProgramContent {
     contentType: string;
     contentDesc: string;
     mediaLink: string;
-    programId: number; 
+    programId: number;
+    completed: boolean;
+    users: any[];
+    user: any;
    
   }
   

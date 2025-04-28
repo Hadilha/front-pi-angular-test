@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { ProgramContentService } from 'src/app/services/content-program.service';
 import { ProgramContent } from 'src/app/models/content-program.model';
-
 @Component({
   selector: 'app-content-program-ajouterupdate',
   templateUrl: './content-program-ajouterupdate.component.html',
@@ -18,17 +17,18 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private programContentService: ProgramContentService // ✅ service injecté ici
+    private programContentService: ProgramContentService
   ) {}
 
   ngOnInit(): void {
-    this.initForm(); // ✅ appel obligatoire pour initialiser le formulaire
+    this.initForm();
     this.route.paramMap.subscribe((params: ParamMap) => {
       const idParam = params.get('id');
       if (idParam) {
         this.isEdit = true;
         this.contentId = +idParam;
-        console.error("❌ ID invalide pour chargement");
+        console.log('ID récupéré :', this.contentId);
+
         this.programContentService.getProgramContentById(this.contentId).subscribe({
           next: (data: ProgramContent) => {
             this.form.patchValue({
@@ -36,9 +36,10 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
               contentType: data.contentType,
               contentDesc: data.contentDesc,
               mediaLink: data.mediaLink,
-              coachingProgram: {
-                programId:Number
-              }
+             
+                programId: data.programId // Assure-toi que `coachingProgram` est défini
+              
+              
             });
           },
           error: err => {
@@ -51,34 +52,38 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      title: [''],
-      contentType: [''],
-      contentDesc: [''],
-      mediaLink: [''],
+      title: ['', [Validators.required, Validators.minLength(3)]],
+      contentType: ['', Validators.required],
+      contentDesc: ['', [Validators.required, Validators.minLength(10)]],
+      mediaLink: ['', [Validators.required, Validators.pattern('https?://.+')]],
       coachingProgram: this.fb.group({
-        programId: [null]
+        programId: [null, [Validators.required, Validators.min(1)]]
       })
     });
   }
 
   sendEmail(): void {
-    this.programContentService.sendEmail({}).subscribe({
+    this.programContentService.sendEmail(this.form.value).subscribe({
       next: (response) => {
         console.log('Message reçu :', response.message);
-        console.log('Email Sent');}});
+        console.log('Email Sent');
+      },
+      error: (err) => {
+        console.error('Erreur lors de l\'envoi de l\'email :', err);
+      }
+    });
   }
-    
 
   onSubmit(): void {
-    console.log('Valeurs du formulaire :', this.form.value); // ✅ ici
+    console.log('Valeurs du formulaire :', this.form.value);
+    const content: ProgramContent = this.form.value;
+  console.log('Program ID à mettre à jour :', content.programId);
 
     if (this.isEdit) {
-      // Mise à jour du contenu
       this.programContentService.updateProgramContent(this.contentId, this.form.value)
         .subscribe({
           next: () => {
             console.log('Redirection vers la liste des contenus');
-            console.error("❌ ID manquant pour édition");
             this.router.navigateByUrl('/backoffice/content-program');
           },
           error: (err) => {
@@ -86,13 +91,11 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
           }
         });
     } else {
-      // Ajout d'un nouveau contenu
       this.programContentService.addProgramContent(this.form.value)
         .subscribe({
           next: (response) => {
             console.log('Message reçu :', response.message);
-            console.log('ID du contenu :', response.contentId);
-            alert(response.message); // Facultatif : affiche le message à l'utilisateur
+            alert(response.message);
             this.sendEmail();
             this.router.navigateByUrl('/backoffice/content-program');
           },
@@ -102,6 +105,4 @@ export class ContentProgramAjouterupdateComponent implements OnInit {
         });
     }
   }
-  
-  
 }
