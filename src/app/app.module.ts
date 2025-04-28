@@ -92,6 +92,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { CardStatsComponent } from "./frontOffice/components/forum/card-stats/card-stats.component";
 import { HeaderStatsComponent } from "./frontOffice/components/forum/headers/header-stats/header-stats.component";
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -178,6 +179,7 @@ import { HeaderStatsComponent } from "./frontOffice/components/forum/headers/hea
       timeOut: 3000,
       closeButton: true,
     }),
+
   ],
 
 
