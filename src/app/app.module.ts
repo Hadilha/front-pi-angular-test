@@ -71,6 +71,8 @@ import { AuthInterceptor } from "./shared/http.interceptor";
 import { CommonModule } from "@angular/common";
 import { SidbarDoctorComponent } from "./frontOffice/components/sidbars/sidbar-doctor/sidbar-doctor.component";
 
+const quillModule = QuillModule.forRoot();
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -132,7 +134,7 @@ import { SidbarDoctorComponent } from "./frontOffice/components/sidbars/sidbar-d
        HttpClientModule,
        ReactiveFormsModule,
        RouterModule,
-       QuillModule.forRoot(),
+       quillModule,
 
   ],
   providers: [StripHtmlPipe, TruncatePipe,
