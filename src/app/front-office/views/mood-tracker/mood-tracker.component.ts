@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { NLPService, UserActivity, Program, AppUser, Goal, Achievement } from 'src/app/core/services/NLP.service';
+import { MoodTrackerService } from 'src/app/core/services/mood-tracker.service'; // Import MoodTrackerService
 
 @Component({
   selector: 'app-mood-tracker',
@@ -40,7 +41,10 @@ export class MoodTrackerComponent implements OnInit {
   goalErrorMessage: string = '';
   achievements: Achievement[] = [];
 
-  constructor(private apiService: NLPService) {}
+  constructor(
+    private nlpService: NLPService, // Renamed for clarity
+    private moodTrackerService: MoodTrackerService // Inject MoodTrackerService
+  ) {}
 
   ngOnInit(): void {
     this.loadMoods();
@@ -63,7 +67,7 @@ export class MoodTrackerComponent implements OnInit {
     }
 
     this.errorMessage = '';
-    this.apiService.logMoodEntry(this.userId, this.mood, this.intensity, this.notes).subscribe({
+    this.nlpService.logMoodEntry(this.userId, this.mood, this.intensity, this.notes).subscribe({
       next: (response: UserActivity) => {
         this.moods.push(response);
         this.mood = '';
@@ -81,15 +85,19 @@ export class MoodTrackerComponent implements OnInit {
   }
 
   loadMoods(): void {
-    this.apiService.getMoodEntries(this.userId).subscribe({
-      next: (moods: UserActivity[]) => this.moods = moods,
-      error: (err: any) => console.error('Failed to load moods', err)
+    console.log('Loading moods for userId:', this.userId);
+    this.moodTrackerService.getUserMoodHistory(this.userId).subscribe({
+      next: (moods) => {
+        this.moods = moods;
+        console.log('Moods loaded:', moods);
+      },
+      error: (err) => console.error('Failed to load moods', err)
     });
   }
 
   loadRecommendation(): void {
     this.isLoadingRecommendation = true;
-    this.apiService.getRecommendedProgram(this.userId).subscribe({
+    this.nlpService.getRecommendedProgram(this.userId).subscribe({
       next: (program: Program) => {
         this.recommendedProgram = program;
         this.isLoadingRecommendation = false;
@@ -108,7 +116,7 @@ export class MoodTrackerComponent implements OnInit {
     }
 
     this.goalErrorMessage = '';
-    this.apiService.setGoal(this.userId, this.newGoal).subscribe({
+    this.nlpService.setGoal(this.userId, this.newGoal).subscribe({
       next: (goal: Goal) => {
         this.goals.push(goal);
         this.newGoal = '';
@@ -122,14 +130,14 @@ export class MoodTrackerComponent implements OnInit {
   }
 
   loadGoals(): void {
-    this.apiService.getGoals(this.userId).subscribe({
+    this.nlpService.getGoals(this.userId).subscribe({
       next: (goals: Goal[]) => this.goals = goals,
       error: (err: any) => console.error('Failed to load goals', err)
     });
   }
 
   completeGoal(goalId: number): void {
-    this.apiService.completeGoal(goalId).subscribe({
+    this.nlpService.completeGoal(goalId).subscribe({
       next: (updatedGoal: Goal) => {
         const index = this.goals.findIndex(g => g.id === goalId);
         if (index !== -1) {
@@ -142,7 +150,7 @@ export class MoodTrackerComponent implements OnInit {
   }
 
   loadAchievements(): void {
-    this.apiService.getAchievements(this.userId).subscribe({
+    this.nlpService.getAchievements(this.userId).subscribe({
       next: (achievements: Achievement[]) => this.achievements = achievements,
       error: (err: any) => console.error('Failed to load achievements', err)
     });
