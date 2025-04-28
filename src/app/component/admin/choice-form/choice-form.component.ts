@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChoiceServiceService } from '../../../Services/choice-service.service';
-import { QuestionServiceService } from '../../../Services/question-service.service';
+import { ChoiceServiceService } from '../../../service/choice-service.service';
+import { QuestionServiceService } from '../../../service/question-service.service';
 import { Choice } from '../../../model/choice';
 import { Question } from '../../../model/question';
 

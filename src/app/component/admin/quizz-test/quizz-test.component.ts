@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Quizz } from '../../../model/quizz';
 import { interval, Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { QuizzServiceService } from '../../../Services/quizz-service.service';
-import { ScoreServiceService } from '../../../Services/score-service.service';
+import { QuizzServiceService } from '../../../service/quizz-service.service';
+import { ScoreServiceService } from '../../../service/score-service.service';
 import { Question } from '../../../model/question';
 import { Score } from '../../../model/score';
 import { Choice } from '../../../model/choice';
-import { User } from 'src/app/model/user';
-import { ChoiceServiceService } from 'src/app/Services/choice-service.service';
+import { User } from '../../../model/user';
+import { ChoiceServiceService } from '../../../service/choice-service.service';
 
 @Component({
   selector: 'app-quizz-test',
@@ -28,13 +28,10 @@ export class QuizTestComponent implements OnInit, OnDestroy {
   Loading = true;
   quizCompleted = false;
   answers:string = "This person choose these answers: ";
-  userId: number = 1; // You should get this from your auth service
-  user: User = {
-    id: 1,
-    username: 'BsisaBnina',
-    email: 'test_user@esprit.tn',
-    password: '12345678',
-  };
+  userId: User={
+    userId: 1, // You should get this from your auth service
+  } // You should get this from your auth service
+  user: number = 1; // You should get this from your auth service
 
   constructor(
     private route: ActivatedRoute,
@@ -176,9 +173,9 @@ get timerPercentage(): number {
 
     const scoreData = new Score({
       name: this.quiz?.title,
-      result: percentage,
+      result: percentage.toString(),
       score_type: "Quiz",
-      user: this.user,
+      user: {userId:1},
       date: new Date(),
     });
 

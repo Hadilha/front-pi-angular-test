@@ -27,14 +27,12 @@
             <th>Type</th>
             <th>Score Result</th>
             <th>Date</th>
-            <th>Description</th>
           </tr>
           <tr *ngFor="let score of userScores"> 
             <th>{{score.name}} </th>
             <th>{{score.score_type}} </th>
             <th>{{score.result}}<span *ngIf="score.score_type =='Quiz'" > %</span></th>
             <td>{{score.date | date:"EEEE,MMMM,HH" }} </td>
-            <td>{{score.description}}</td>
           </tr>
           
         </tbody>

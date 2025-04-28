@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { QuestionResponseService } from '../../../Services/question-response.service';
+import { QuestionResponseService } from '../../../service/question-response.service';
 import { QuestionResponse } from '../../../model/question-response';
-import { TestServiceService } from '../../../Services/test-service.service';
+import { TestServiceService } from '../../../service/test-service.service';
 import { Test } from '../../../model/test';
 
 @Component({

@@ -1,8 +1,8 @@
 // quiz-analytics.component.ts
 import { Component, OnInit } from '@angular/core';
-import { QuizzServiceService } from '../../../Services/quizz-service.service';
-import { QuestionServiceService } from '../../../Services/question-service.service';
-import { ChoiceServiceService } from 'src/app/Services/choice-service.service';
+import { QuizzServiceService } from '../../../service/quizz-service.service';
+import { QuestionServiceService } from '../../../service/question-service.service';
+import { ChoiceServiceService } from 'src/app/service/choice-service.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 

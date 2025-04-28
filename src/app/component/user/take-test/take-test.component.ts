@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Score } from 'src/app/model/score';
 import { Test } from 'src/app/model/test';
 import { User } from 'src/app/model/user';
-import { QuestionResponseService } from 'src/app/Services/question-response.service';
-import { ScoreServiceService } from 'src/app/Services/score-service.service';
-import { TestServiceService } from 'src/app/Services/test-service.service';
+import { QuestionResponseService } from 'src/app/service/question-response.service';
+import { ScoreServiceService } from 'src/app/service/score-service.service';
+import { TestServiceService } from 'src/app/service/test-service.service';
 
 @Component({
   selector: 'app-take-test',
@@ -18,12 +18,10 @@ export class TakeTestComponent {
   submitted = false;
   answers?:string="";
   allUserAnswers: string="";
-  user: User = {
-      id: 1,
-      username: 'BsisaBnina',
-      email: 'test_user@esprit.tn',
-      password: '12345678',
-    };
+  a: string="";
+  user: User ={
+    userId: 1, // You should get this from your auth service
+  } // You should get this from your auth service
     score: Score | undefined;
 
   constructor(
@@ -69,28 +67,33 @@ export class TakeTestComponent {
     this.score = new Score();
     this.score.description = sentimentResult;
     console.log(sentimentResult)*/
+    this.scoreservice.getResponse("hi").subscribe(data=>this.a=data);
   }
 
   async submitTest(): Promise<void> {
-    this.submitted = true;
-    this.collectUserAnswers();
-    if(this.score?.description!=""){
-    this.score = new Score({
-      name: 'Test',
-      result: 100,
-      score_type: 'Test',
-      user: this.user,
-      date: new Date(),
-      description: await this.analyzeSentiment(this.allUserAnswers)
-    });
-    this.scoreservice.saveScore(this.score).subscribe(
-      () => {
-        console.log('Score saved successfully');
-      },
-      (error) => {
-        console.error('Error saving score:', error);
-      }
-    );}
+    try {
+      // First await the response from the score service
+      const response = await this.scoreservice.getResponse("hi,answer with one line").toPromise();
+      
+      console.log("response generated: " + response);
+      this.submitted = true;
+      this.collectUserAnswers();
+      
+      // Create a proper score object with actual values
+      this.score = new Score({
+        name: 'Test',
+        result: response || 'default_result', // Use the actual response or a default
+        score_type: 'Test',
+        user: {userId:1},
+        date: new Date(),
+      });
+      // Save the score
+      await this.scoreservice.saveScore(this.score).toPromise();
+      console.log('Score saved successfully');
+    } catch (error) {
+      console.error('Error:', error);
+      // Handle the error appropriately (show to user, etc.)
+    }
   }
 
 

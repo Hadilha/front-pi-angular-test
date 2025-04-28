@@ -4,19 +4,9 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 
-// layouts
-import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
-import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
-
-
 // auth views
 import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
 import { RegisterComponent } from "./frontOffice/views/auth/register/register.component";
-
-// no layouts views
-import { IndexComponent } from "./frontOffice/views/index/index.component";
-import { LandingComponent } from "./frontOffice/views/landing/landing.component";
-import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
 
 // components for views and layouts
 
@@ -30,7 +20,7 @@ import { CardSocialTrafficComponent } from "./frontOffice/components/cards/card-
 import { CardStatsComponent } from "./frontOffice/components/cards/card-stats/card-stats.component";
 import { CardTableComponent } from "./frontOffice/components/cards/card-table/card-table.component";
 import { FooterAdminComponent } from "./frontOffice/components/footers/footer-admin/footer-admin.component";
-import { FooterComponent } from "./frontOffice/components/footers/footer/footer.component";
+import { FooterComponent } from "./frontOffice/components/footer/footer.component";
 import { FooterSmallComponent } from "./frontOffice/components/footers/footer-small/footer-small.component";
 import { HeaderStatsComponent } from "./frontOffice/components/headers/header-stats/header-stats.component";
 import { IndexNavbarComponent } from "./frontOffice/components/navbars/index-navbar/index-navbar.component";
@@ -43,12 +33,12 @@ import { SidebarComponent } from "./frontOffice/components/sidebar/sidebar.compo
 import { UserDropdownComponent } from "./frontOffice/components/dropdowns/user-dropdown/user-dropdown.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from "@angular/common";
-import { TestimonialCarouselComponent } from './frontOffice/testimonial-carousel/testimonial-carousel.component';
-import { LocationFinderComponent } from './frontOffice/location-finder/location-finder.component';
+import { TestimonialCarouselComponent } from './frontOffice/components/testimonial-carousel/testimonial-carousel.component';
+import { LocationFinderComponent } from './frontOffice/components/location-finder/location-finder.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
-import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
+import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
 import { HomeComponent } from './frontOffice/views/home/home.component';
 import { AdminDashboardComponent } from './backOffice/views/admin-dashboard/admin-dashboard.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
@@ -73,7 +63,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgChartsModule } from "ng2-charts";
 import { TestListComponent } from "./component/user/test-list/test-list.component";
-import { TakeTestComponent } from "./component/user/take-test/take-test.component";
+
+
 
 @NgModule({
   declarations: [
@@ -99,13 +90,8 @@ import { TakeTestComponent } from "./component/user/take-test/take-test.componen
     MapExampleComponent,
     DoctorNavbarComponent,
     IndexNavbarComponent,
-    DoctorComponent,
-    AuthComponent,
     LoginComponent,
     RegisterComponent,
-    IndexComponent,
-    LandingComponent,
-    ProfileComponent,
     TestimonialCarouselComponent,
     LocationFinderComponent,
     LoginNavbarComponent,
@@ -133,7 +119,6 @@ import { TakeTestComponent } from "./component/user/take-test/take-test.componen
     TestComponent,
     QuestionResponseComponent,
     TestListComponent,
-    TakeTestComponent
 
   ],
   imports: [BrowserModule,

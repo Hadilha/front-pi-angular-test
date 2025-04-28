@@ -1,13 +1,10 @@
 export class User {
-    id: number;
-    username: string;
-    email: string;
-    password: string;
+    userId: number;// You might want to create a Calendar interface if needed
 
-    constructor(id: number, username: string, email: string, password: string) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-        this.password = password;
+    constructor(data: any = {}) {
+        this.userId = data.userId || 1;
     }
+
+    // For compatibility with the Java getName() method
+    
 }

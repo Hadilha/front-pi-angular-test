@@ -1,14 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Choice } from 'src/app/model/choice';
-import { Quizz } from 'src/app/model/quizz';
-import { ChoiceServiceService } from 'src/app/Services/choice-service.service';
-import { QuizzServiceService } from 'src/app/Services/quizz-service.service';
+import { Choice } from '../../../model/choice';
+import { Quizz } from '../../../model/quizz';
+import { ChoiceServiceService } from '../../../service/choice-service.service';
+import { QuizzServiceService } from '../../../service/quizz-service.service';
+import { TestListComponent } from "../test-list/test-list.component";
+import { ScoreListUserComponent } from "../score-list-user/score-list-user.component";
 
 @Component({
   selector: 'app-quiz-list-user',
   templateUrl: './quiz-list-user.component.html',
-  styleUrls: ['./quiz-list-user.component.css']
+  styleUrls: ['./quiz-list-user.component.css'],
 })
 export class QuizListUserComponent implements OnInit {
 

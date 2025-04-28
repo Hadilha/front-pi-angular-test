@@ -1,24 +1,11 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
 
-// layouts
-import { DoctorComponent } from "./frontOffice/layouts/doctor/doctor.component";
-import { AuthComponent } from "./frontOffice/layouts/auth/auth.component";
-
-
 // admin views
 import { AdminDashboardComponent } from "./backOffice/views/admin-dashboard/admin-dashboard.component"; 
 
-
-// auth views
-import { LoginComponent } from "./frontOffice/views/auth/login/login.component";
-import { RegisterComponent } from "./frontOffice/views/auth/register/register.component";
-
 // no layouts views
-import { IndexComponent } from "./frontOffice/views/index/index.component";
-import { LandingComponent } from "./frontOffice/views/landing/landing.component";
-import { ProfileComponent } from "./frontOffice/views/profile/profile.component";
-import { PatientspaceComponent } from "./frontOffice/layouts/patientspace/patientspace.component";
+import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
 import { AdminComponent } from "./backOffice/views/admin/admin.component";
 import { AdminTablesComponent } from "./backOffice/components/admin-tables/admin-tables.component";
 import { QuizFormComponent } from "./component/admin/quiz-form/quiz-form.component";
@@ -35,6 +22,7 @@ import { QuestionResponseComponent } from "./component/admin/question-response/q
 import { VisualisationComponent } from "./component/admin/visualisation/visualisation.component";
 import { TakeTestComponent } from "./component/user/take-test/take-test.component";
 import { SlidingPuzzleComponent } from "./game/sliding-puzzle/sliding-puzzle.component";
+import { HomeComponent } from "./frontOffice/views/home/home.component";
 
 const routes: Routes = [
   //Admin Dashboard
@@ -60,17 +48,6 @@ const routes: Routes = [
     ],
   },
 
-  // auth views
-  {
-    path: "auth",
-    component: AuthComponent,
-    children: [
-      { path: "login", component: LoginComponent },
-      { path: "register", component: RegisterComponent },
-      { path: "", redirectTo: "login", pathMatch: "full" },
-      
-    ],
-  },
   { path: "patientspace",
      component: PatientspaceComponent,
     children:[
@@ -80,13 +57,7 @@ const routes: Routes = [
       {path:'taketest/:id',component:TakeTestComponent},
     ] },
 
-
-
-
-
-  { path: "profile", component: ProfileComponent },
-  { path: "landing", component: LandingComponent },
-  { path: "", component: IndexComponent },
+  { path: "", component: HomeComponent },
   { path: "**", redirectTo: "", pathMatch: "full" },
   {path:'combatgame',component:CombatGameComponent},
   {path:'slide',component:SlidingPuzzleComponent},

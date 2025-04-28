@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Score } from 'src/app/model/score';
-import { ScoreServiceService } from 'src/app/Services/score-service.service';
-import { User } from 'src/app/model/user';
+import { Score } from '../../../model/score';
+import { ScoreServiceService } from '../../../service/score-service.service';
+import { User } from '../../../model/user';
 
 @Component({
   selector: 'app-score-list-user',
@@ -12,12 +12,7 @@ export class ScoreListUserComponent implements OnInit {
   scores: Score[] = []; // Replace 'any' with the actual type if you have one
   isLoading = true;
   time: number = 0;
-  user: User = {
-    id: 1,
-    username: 'BsisaBnina',
-    email: 'test_user@esprit.tn',
-    password: '12345678',
-  };
+  user: number = 1; // You should get this from your auth service
 
   userScores: Score[] = [];
 
@@ -25,7 +20,7 @@ export class ScoreListUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadScores();
-    this.loadScoresByUserId(this.user.id);
+    this.loadScoresByUserId(this.user);
   }
 
   loadScores(): void {
