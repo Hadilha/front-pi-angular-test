@@ -1,0 +1,52 @@
+<div class="mood-tracker-management-container">
+    <h2>Mood Tracker Management</h2>
+  
+    <!-- User Selection Table -->
+    <div class="user-table">
+      <h3>Select a User</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+              <button (click)="selectedUserId = user.id; loadMoodEntries()">
+                View Mood Entries
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Mood Entries Table -->
+    <div class="mood-entries" *ngIf="selectedUserId">
+      <h3>Mood Entries for User ID: {{ selectedUserId }}</h3>
+      <table *ngIf="moodEntries.length > 0">
+        <thead>
+          <tr>
+            <th>Mood</th>
+            <th>Intensity</th>
+            <th>Notes</th>
+            <th>Timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let entry of moodEntries">
+            <td>{{ entry.mood }}</td>
+            <td>{{ entry.intensity }}</td>
+            <td>{{ entry.notes || '-' }}</td>
+            <td>{{ entry.timestamp | date: 'medium' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p *ngIf="moodEntries.length === 0">No mood entries found for this user.</p>
+    </div>
+  </div>

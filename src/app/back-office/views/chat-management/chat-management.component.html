@@ -1,0 +1,100 @@
+<div class="chat-management-container">
+  <h2>Chat Management - Assign Users to Groups</h2>
+
+  <div class="create-group">
+    <h3>Create a New Group</h3>
+    <div class="form-group">
+      <label for="newGroupName">Group Name:</label>
+      <input
+        id="newGroupName"
+        type="text"
+        [(ngModel)]="newGroupName"
+        placeholder="Enter group name"
+      />
+      <button (click)="createGroup()">Create Group</button>
+    </div>
+  </div>
+
+  <!-- Group Selection Table -->
+  <div class="group-table">
+    <h3>Select Groups</h3>
+    <table *ngIf="groups.length > 0">
+      <thead>
+        <tr>
+          <th>Group Name</th>
+          <th>Members</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let group of groups">
+          <td>{{ group }}</td>
+          <td>{{ getGroupMemberNames(group) }}</td>
+          <td>
+            <button
+              [ngClass]="{'selected': selectedGroups.includes(group)}"
+              (click)="selectGroup(group)"
+            >
+              {{ selectedGroups.includes(group) ? 'Selected' : 'Select' }}
+            </button>
+          </td>
+          <td>
+            <button
+              [ngClass]="{'selected': selectedGroups.includes(group)}"
+              (click)="selectGroup(group)"
+            >
+              {{ selectedGroups.includes(group) ? 'Selected' : 'Select' }}
+            </button>
+            <button class="delete-btn" (click)="deleteGroup(group)">
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="groups.length === 0" class="no-groups">
+      No groups available. Please create a group first.
+    </p>
+  </div>
+
+  <!-- User Selection Table -->
+  <div class="user-table">
+    <h3>Select Users</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button
+              [ngClass]="{'selected': selectedUserIds.includes(user.id)}"
+              (click)="selectUser(user.id)"
+            >
+              {{ selectedUserIds.includes(user.id) ? 'Selected' : 'Select' }}
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Action Buttons and Success Notification -->
+  <div class="action-section">
+    <button (click)="assignUsersToGroups()" [disabled]="selectedUserIds.length === 0 || selectedGroups.length === 0">
+      Assign Selected Users to Selected Groups
+    </button>
+    <button class="remove-btn" (click)="removeUsersFromGroups()" [disabled]="selectedUserIds.length === 0 || selectedGroups.length === 0">
+      Remove Selected Users from Selected Groups
+    </button>
+    <p *ngIf="successMessage" class="success">
+      {{ successMessage }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<!-- Floating Chat Bubble/Button -->
+<div class="chat-bubble-button" (click)="toggleChat()" [ngClass]="{'open': isChatOpen}">
+  <span class="chat-icon">💬</span>
+</div>
+
+<!-- Chat Window (shown when isChatOpen is true) -->
+<div class="chat-wrapper" *ngIf="isChatOpen" [ngClass]="{'visible': isChatOpen}">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2 class="sidebar-header">Chats</h2>
+    <!-- Private Conversations -->
+    <div class="conversation-section">
+      <h3>PRIVATE CHATS</h3>
+      <div class="conversation-list">
+        <!-- Support Bot -->
+        <div (click)="selectSupportBot()"
+             [ngClass]="{'active': receiverId === -1 && !activeGroup}"
+             class="conversation-item">
+          <div class="user-avatar">🤖</div>
+          <div class="user-info">
+            <span class="user-name">Support Bot</span>
+            <span class="last-message">I'm here to help!</span>
+          </div>
+        </div>
+        <!-- Other Users -->
+        <div *ngFor="let userId of conversations"
+             (click)="selectPrivateChat(userId)"
+             [ngClass]="{'active': userId === receiverId && !activeGroup}"
+             class="conversation-item">
+          <div class="user-avatar">U</div>
+          <div class="user-info">
+            <span class="user-name">{{ getUsername(userId) }}</span>
+            <span class="last-message">Last message preview...</span>
+          </div>
+        </div>
+        <div *ngIf="conversations.length === 0" class="no-conversations">
+          No private conversations yet.
+        </div>
+      </div>
+    </div>
+    <!-- Group Chats -->
+    <div class="conversation-section">
+      <h3>GROUP CHATS</h3>
+      <div class="conversation-list">
+        <div *ngFor="let group of groups"
+             (click)="selectGroupChat(group)"
+             [ngClass]="{'active': group === activeGroup}"
+             class="conversation-item">
+          <div class="group-avatar">G</div>
+          <div class="group-info">
+            <span class="group-name">{{ group }}</span>
+            <span class="group-members">{{ getGroupMemberNames(group) }}</span>
+          </div>
+        </div>
+        <div *ngIf="groups.length === 0" class="no-conversations">
+          No groups available.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Chat Area -->
+  <div class="chat-container">
+    <!-- Chat Header -->
+    <div class="chat-header">
+      <h3 *ngIf="receiverId">Chat with {{ getUsername(receiverId) }}</h3>
+      <h3 *ngIf="activeGroup">Group: {{ activeGroup }}</h3>
+      <h3 *ngIf="!receiverId && !activeGroup">Select a chat to start messaging</h3>
+      <button class="close-button" (click)="toggleChat()">✕</button>
+    </div>
+
+    <!-- Chat History -->
+    <div class="chat-history" *ngIf="receiverId || activeGroup">
+      <div *ngFor="let msg of messages"
+           [ngClass]="{'sent': msg.sender.id === senderId, 'received': msg.sender.id !== senderId}"
+           class="chat-bubble">
+        <div class="bubble-content">
+          <p>{{ msg.content }}</p>
+          <small>{{ msg.timestamp | date:'short' }}</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Input -->
+    <div class="chat-input" *ngIf="receiverId || activeGroup">
+      <input [(ngModel)]="newMessage"
+             (keyup.enter)="sendMessage()"
+             placeholder="Type a message..."
+             [disabled]="!receiverId && !activeGroup" />
+      <button (click)="sendMessage()" [disabled]="(!receiverId && !activeGroup) || !newMessage.trim()">Send</button>
+    </div>
+  </div>
+</div>

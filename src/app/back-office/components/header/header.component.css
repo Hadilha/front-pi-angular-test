@@ -1,0 +1,28 @@
+.topbar {
+    height: 4.375rem;
+  }
+  
+  .topbar .nav-item .nav-link {
+    height: 4.375rem;
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+  }
+  
+  .topbar .nav-item .nav-link .img-profile {
+    height: 2rem;
+    width: 2rem;
+  }
+  
+  .topbar .dropdown-menu {
+    margin-top: 0;
+  }
+  
+  .dropdown-item {
+    font-size: 0.875rem;
+    padding: 0.25rem 1.5rem;
+  }
+  
+  .dropdown-divider {
+    border-top: 1px solid #e3e6f0;
+  }

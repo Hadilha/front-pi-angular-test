@@ -3,9 +3,14 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "mindful-app": {
+    "mindful-project": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "css",
+          "standalone": false
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,21 +18,32 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/mindful-app",
+            
+            "outputPath": "dist/mindful-project",
             "index": "src/index.html",
             "main": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "allowedCommonJsDependencies": [
+            "sockjs-client",
+             "aos"
+             ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
-              "src/styles.css"
-            ],
-            "scripts": []
+            "src/styles.css",
+            "src/app/front-office/front-assests/css/main.css",
+            "src/app/back-office/back-assests/css/sb-admin-2.css"
+          ],
+            "scripts": [
+              "src/app/front-office/front-assests/vendor/bootstrap/js/bootstrap.bundle.min.js",
+              "src/app/front-office/front-assests/vendor/aos/aos.js",
+              "src/app/front-office/front-assests/vendor/glightbox/js/glightbox.min.js",
+              "src/app/front-office/front-assests/vendor/swiper/swiper-bundle.min.js",
+              "src/app/front-office/front-assests/vendor/glightbox/js/glightbox.min.js",
+              "src/app/front-office/front-assests/js/main.js",
+              "src/app/back-office/back-assests/js/sb-admin-2.js",
+              "src/app/back-office/back-assests/js/sb-admin-2.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -46,53 +62,47 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+                    
           "configurations": {
             "production": {
-              "browserTarget": "mindful-app:build:production"
+              "browserTarget": "mindful-project:build:production"
             },
             "development": {
-              "browserTarget": "mindful-app:build:development"
+              "browserTarget": "mindful-project:build:development"
             }
+
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "mindful-app:build"
+            "browserTarget": "mindful-project:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.css"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
+            "styles": ["src/styles.css"],
             "scripts": []
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

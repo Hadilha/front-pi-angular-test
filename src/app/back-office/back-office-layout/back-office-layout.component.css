@@ -1,0 +1,14 @@
+#wrapper {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  #content-wrapper {
+    flex: 1;
+    background: #f8f9fc;
+  }
+  
+  #content {
+    flex: 1 0 auto;
+    padding: 1.5rem;
+  }

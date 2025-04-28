@@ -1,0 +1,9 @@
+.sticky-footer {
+    padding: 2rem 0;
+    flex-shrink: 0;
+  }
+  
+  .copyright {
+    font-size: 0.875rem;
+    color: #858796;
+  }

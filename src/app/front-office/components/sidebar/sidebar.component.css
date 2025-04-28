@@ -1,0 +1,83 @@
+.bg-gradient-primary {
+    background: linear-gradient(180deg, #4e73df 10%, #224abe 100%);
+  }
+  
+  .sidebar {
+    width: 14rem;
+    min-height: 100vh;
+  }
+  
+  .sidebar .nav-item .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    color: #fff;
+  }
+  
+  .sidebar .nav-item .nav-link i {
+    margin-right: 0.5rem;
+  }
+  
+  .sidebar .nav-item .nav-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .sidebar .nav-item .nav-link.active {
+    background: #fff;
+    color: #4e73df;
+  }
+  
+  .sidebar-brand {
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fff;
+  }
+  
+  .sidebar-brand-icon i {
+    font-size: 2rem;
+  }
+  
+  .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+  }
+  
+  .sidebar-divider {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    margin: 0 1rem;
+  }
+  
+  #sidebarToggle {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: #fff;
+  }
+  
+  #sidebarToggle::before {
+    content: '\f104';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: #4e73df;
+  }
+  
+  #sidebar.collapsed {
+    width: 6.5rem;
+  }
+  
+  #sidebar.collapsed .sidebar-brand-text,
+  #sidebar.collapsed .sidebar-heading,
+  #sidebar.collapsed .nav-item .nav-link span {
+    display: none;
+  }
+  
+  #sidebar.collapsed .nav-item .nav-link {
+    justify-content: center;
+  }
+  
+  #sidebar.collapsed #sidebarToggle::before {
+    content: '\f105';
+  }

@@ -1,0 +1,18 @@
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    margin-left: 250px;
+    padding-top: 80px;
+    padding-bottom: 40px;
+    flex: 1;
+  }
+  
+  @media (max-width: 991px) {
+    .main-content {
+      margin-left: 0;
+    }
+  }
