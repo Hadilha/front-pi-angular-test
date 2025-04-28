@@ -1,63 +1,63 @@
 <form [formGroup]="credentialsForm" (ngSubmit)="onSubmit()">
 
-<div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
-  <!-- Profile Header -->
-  <div class="rounded-t bg-white mb-0 px-6 py-6">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center">
+  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0">
+    <!-- Profile Header -->
+    <div class="rounded-t bg-white mb-0 px-6 py-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
 
-        <div class="avatar-container mr-4">
-          <input
-            type="file"
-            #fileInput
-            (change)="handleFileInput($event)"
-            accept="image/*"
-            class="avatar-input"
-          >
-          <div
-            class="avatar-wrapper"
-            (click)="fileInput.click()"
-          >
-            <img
-              [src]="credentialsForm.value.avatarUrl"
-              alt="Doctor Avatar"
-              class="avatar-preview" />
-            <div *ngIf="credentialsForm.value.accountStatus === 'ACTIVE'"
-                 class="status-dot">
+          <div class="avatar-container mr-4">
+            <input
+              type="file"
+              #fileInput
+              (change)="handleFileInput($event)"
+              accept="image/*"
+              class="avatar-input"
+            >
+            <div
+              class="avatar-wrapper"
+              (click)="fileInput.click()"
+            >
+              <img
+                [src]="credentialsForm.value.avatarUrl"
+                alt="Doctor Avatar"
+                class="avatar-preview" />
+              <div *ngIf="credentialsForm.value.accountStatus === 'ACTIVE'"
+                   class="status-dot">
+              </div>
+              <div class="upload-overlay">
+                <svg class="upload-icon"></svg>
+              </div>
             </div>
-            <div class="upload-overlay">
-              <svg class="upload-icon"></svg>
+            <div *ngIf="uploadError" class="upload-error">
+              {{ uploadError }}
             </div>
           </div>
-          <div *ngIf="uploadError" class="upload-error">
-            {{ uploadError }}
+
+          <div class="ml-4">
+            <h6 class="text-blueGray-700 text-xl font-bold">
+              {{ credentialsForm.value.firstname }} {{ credentialsForm.value.lastname }}
+            </h6>
+            <p class="text-sm text-blueGray-400">
+              {{ credentialsForm.value.username }}
+            </p>
+            <p class="text-sm text-blueGray-400">
+              Status: {{ credentialsForm.value.accountStatus }}
+            </p>
           </div>
         </div>
-
-        <div class="ml-4">
-          <h6 class="text-blueGray-700 text-xl font-bold">
-            {{ credentialsForm.value.firstname }} {{ credentialsForm.value.lastname }}
-          </h6>
-          <p class="text-sm text-blueGray-400">
-            {{ credentialsForm.value.username }}
-          </p>
-          <p class="text-sm text-blueGray-400">
-            Status: {{ credentialsForm.value.accountStatus }}
-          </p>
-        </div>
+        <button
+          class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+          type="submit"
+          [disabled]="!credentialsForm.valid || isLoading"
+        >
+          {{ isLoading ? 'Saving...' : 'Save' }}
+        </button>
       </div>
-      <button
-        class="bg-red-600 text-white active:bg-red-700 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
-        type="submit"
-        [disabled]="!credentialsForm.valid || isLoading"
-      >
-        {{ isLoading ? 'Saving...' : 'Save' }}
-      </button>
     </div>
-  </div>
 
-  <!-- Profile Details -->
-  <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
+    <!-- Profile Details -->
+    <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
       <!-- Personal Information -->
       <h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
         Personal Information
@@ -104,7 +104,7 @@
               formControlName="email"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             />
-            <div *ngIf="credentialsForm.get('email')?.errors && credentialsForm.get('email')?.touched"
+            <div *ngIf="credentialsForm.get('email')?.errors?.['email'] && credentialsForm.get('email')?.touched"
                  class="text-red-500 text-xs mt-1">
               Valid email is required
             </div>
@@ -120,6 +120,17 @@
               formControlName="contactNumber"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             />
+            <div *ngIf="credentialsForm.get('contactNumber')?.touched && credentialsForm.get('contactNumber')?.invalid" class="text-red-500 text-xs mt-1">
+              <div *ngIf="credentialsForm.get('contactNumber')?.errors?.['required']">
+                Contact number is required.
+              </div>
+              <div *ngIf="credentialsForm.get('contactNumber')?.errors?.['minlength']">
+                Contact number must be at least 8 digits.
+              </div>
+              <div *ngIf="credentialsForm.get('contactNumber')?.errors?.['pattern']">
+                Contact number must contain only numbers.
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,7 +147,7 @@
             </label>
             <input
               type="text"
-              formControlName="Specializations"
+              formControlName="specializations"
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             />
           </div>
@@ -200,7 +211,7 @@
               class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             />
             <div *ngIf="credentialsForm.get('password')?.errors?.['minlength']"
-                 class="text-red-500 text-xs mt-1">
+            class="text-red-500 text-xs mt-1">>
               Password must be at least 8 characters
             </div>
           </div>
@@ -220,11 +231,13 @@
       </div>
 
       <div *ngIf="credentialsForm.errors?.['passwordMismatch']"
-        class="text-red-500 text-sm mb-4">
-        Passwords do not match
+      class="text-red-500 text-xs mt-1">>
+      Passwords do not match
       </div>
 
-      <div *ngIf="errorMessage" class="text-red-500 text-sm mb-4">
+      <div *ngIf="errorMessage"
+        class="text-red-500 text-xs mt-1">
+
         {{ errorMessage }}
       </div>
   </div>

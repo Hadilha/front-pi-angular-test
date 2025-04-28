@@ -24,15 +24,19 @@ export class CardSettingsDoctorComponent implements OnInit {
   ) {
     this.credentialsForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.minLength(8)]],
-      currentPassword: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      password: [''], // No validators for password
+      currentPassword: [''], // No validators initially
+      confirmPassword: [''], // No validators initially
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       avatarUrl: ['', Validators.required],
       username: ['', Validators.required],
-      contactNumber: ['', Validators.required],
-      Specializations: ['', Validators.required],
+      contactNumber: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.pattern(/^\d+$/)
+      ]],
+            specializations: ['', Validators.required],
       experienceYears: ['', [Validators.required, Validators.min(0)]],
       workingHours: ['', Validators.required],
       accountStatus: ['ACTIVE'],
@@ -65,7 +69,7 @@ export class CardSettingsDoctorComponent implements OnInit {
           email: user.email,
           avatarUrl: user.avatarUrl,
           contactNumber: user.contactNumber,
-          Specializations: user.Specializations,
+          specializations: user.specializations,
           experienceYears: parseInt(user.experienceYears, 10),
           workingHours: user.workingHours,
           accountStatus: user.accountStatus || 'ACTIVE',
@@ -81,10 +85,7 @@ export class CardSettingsDoctorComponent implements OnInit {
       }
     });
   }
-parseSpecializations(specs: string): string {
-  const cleaned = specs.replace(/[\[\]']/g, '');
-  return cleaned.split(', ').join(', ');
-}
+
 
   private formatDate(dateString: string): string {
     return new Date(dateString).toISOString().split('T')[0];
@@ -93,24 +94,45 @@ parseSpecializations(specs: string): string {
   onSubmit() {
     console.log('on submit clicked');
     console.log('Form valid:', this.credentialsForm.valid);
+
+    const password = this.credentialsForm.value.password;
+    const currentPassword = this.credentialsForm.value.currentPassword;
+    const confirmPassword = this.credentialsForm.value.confirmPassword;
+
     if (this.credentialsForm.invalid) {
       this.errorMessage = 'Please fill all required fields correctly';
       return;
     }
 
-    if (this.credentialsForm.value.password && this.credentialsForm.hasError('passwordMismatch')) {
-      this.errorMessage = 'Passwords do not match';
-      return;
+    const isPasswordChanging = password || currentPassword || confirmPassword;
+
+    if (isPasswordChanging) {
+      if (!password || !currentPassword || !confirmPassword) {
+        this.errorMessage = 'To change password, you must fill current password, new password, and confirm password';
+        return;
+      }
+
+      if (this.credentialsForm.hasError('passwordMismatch')) {
+        this.errorMessage = 'New password and confirm password do not match';
+        return;
+      }
+
+      if (password.length < 8) {
+        this.errorMessage = 'New password must be at least 8 characters';
+        return;
+      }
     }
 
     this.isLoading = true;
     this.errorMessage = '';
+
     const formData = {
       currentUsername: this.originalUsername,
       ...this.credentialsForm.value,
-      Specializations: this.credentialsForm.value.Specializations.split(',').map((s: string) => s.trim()),
-      password: this.credentialsForm.value.password || undefined
+      password: password || undefined, // Only send password if user is changing it
     };
+
+    console.log('Form data:', formData);
 
     this.userService.updateUserDoctor(formData).subscribe({
       next: () => {
@@ -124,6 +146,7 @@ parseSpecializations(specs: string): string {
       }
     });
   }
+
 
   handleFileInput(event: any) {
     const file = event.target.files[0];

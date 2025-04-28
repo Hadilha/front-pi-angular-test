@@ -36,6 +36,7 @@ const routes: Routes = [
     children: [
       { path: "profile", component: profileDoctorComponent },
       { path: "patientList", component: TablesDoctorComponent },
+      { path: "updateuser/:id", component: AdduserComponent },
       { path: "", redirectTo: "patientList", pathMatch: "full" },
     ],
   },

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from 'src/app/Services/user.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-adduser',
@@ -20,7 +21,8 @@ export class AdduserComponent {
     private fb: FormBuilder,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.userForm = this.fb.group({
       username: ['', Validators.required],
@@ -117,12 +119,18 @@ export class AdduserComponent {
   }
   handleSuccess(message: string): void {
     this.isLoading = false;
-    console.log(message);
+    console.log("in the handle succ");
+    console.log(this.userService.getCurrentUserRole()); // Debug log
 
     // Force reload user list data
     this.userService.notifyDataChanged(); // Add this line (see Step 2)
-
-    this.router.navigate(['/admin/usermanagment']);
+if (this.userService.getCurrentUserRole() === 'ADMIN') {
+      this.router.navigate(['/admin/usermanagment']); // Or appropriate route
+    }
+    else if (this.userService.getCurrentUserRole() === 'DOCTOR') {
+      this.location.back();
+      this.location.back();
+    }
   }
 
   handleError(error: any): void {
@@ -134,8 +142,21 @@ export class AdduserComponent {
   onCancel() {
     this.cancelled.emit();
     this.userForm.reset();
-    this.router.navigate(['/users']); // Or appropriate cancel route
+    this.isEditMode = false;
+
+
+    let role = this.userService.getCurrentUserRole();
+    console.log('currentUserId:', this.currentUserId);
+    console.log("role:", role);
+
+    if (role === 'ADMIN') {
+      this.router.navigate(['/admin/usermanagment']);
+    } else if (role === 'DOCTOR') {
+      this.router.navigate(['/doctor/patientList']);
+    }
   }
+
+
   private setAvailableRoles(): void {
     if (this.currentUserRole === 'DOCTOR') {
       this.availableRoles = ['PATIENT'];

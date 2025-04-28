@@ -1,105 +1,53 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
-import { Chart } from 'chart.js';
+import { Component, AfterViewInit, Input } from '@angular/core';
+import { Chart } from 'chart.js/auto';
+import { UserService, RegistrationStats } from 'src/app/Services/user.service';
+
 
 @Component({
-  selector: "app-card-bar-chart-admin",
-  templateUrl: "./card-bar-chart-admin.component.html",
+  selector: 'app-card-bar-chart-admin',
+  templateUrl: './card-bar-chart-admin.component.html',
+  styleUrls: ['./card-bar-chart-admin.component.css']
 })
-export class CardBarChartAdminComponent implements OnInit, AfterViewInit {
-  constructor() {}
+export class CardBarChartAdminComponent implements AfterViewInit {
+  @Input() daysBack: number = 7;
+  stats!: RegistrationStats;
 
-  ngOnInit() {}
+  constructor(private userService: UserService) {}
 
   ngAfterViewInit() {
-    let config: any = {
-      type: "bar",
+    this.userService.getRegistrationStats(this.daysBack).subscribe(data => {
+      this.stats = data;
+      this.renderChart();
+    });
+  }
+
+  private renderChart() {
+    const labels = Object.keys(this.stats);
+    const values = labels.map(d => this.stats[d]);
+
+    const ctx = (document.getElementById('registration-chart') as HTMLCanvasElement)
+      .getContext('2d')!;
+
+    new Chart(ctx, {
+      type: 'line',
       data: {
-        labels: [
-          "January",
-          "February",
-          "March",
-          "April",
-          "May",
-          "June",
-          "July",
-        ],
-        datasets: [
-          {
-            label: String(new Date().getFullYear()),
-            backgroundColor: "#ed64a6",
-            borderColor: "#ed64a6",
-            data: [30, 78, 56, 34, 100, 45, 13],
-            fill: false,
-            barThickness: 8,
-          },
-          {
-            label: String(new Date().getFullYear() - 1),
-            fill: false,
-            backgroundColor: "#4c51bf",
-            borderColor: "#4c51bf",
-            data: [27, 68, 86, 74, 10, 4, 87],
-            barThickness: 8,
-          },
-        ],
+        labels,
+        datasets: [{
+          label: 'New Registrations',
+          data: values,
+          borderColor: '#008B8B',
+          backgroundColor: '#3182ce',
+          fill: false,
+        }]
       },
       options: {
         maintainAspectRatio: false,
-        responsive: true,
-        plugins: {
-          title: {
-            display: false,
-            text: "Orders Chart",
-          },
-          legend: {
-            labels: {
-              color: "rgba(0,0,0,.4)",
-            },
-            align: "end",
-            position: "bottom",
-          },
-          tooltip: {
-            mode: "index",
-            intersect: false,
-          }
-        },
-        hover: {
-          mode: "nearest",
-          intersect: true,
-        },
+        plugins: { legend: { display: false } },
         scales: {
-          x: {
-            display: false,
-            title: {
-              display: true,
-              text: "Month",
-            },
-            grid: {
-              borderDash: [2],
-              borderDashOffset: 2,
-              color: "rgba(33, 37, 41, 0.3)",
-              drawBorder: true,
-            },
-          },
-          y: {
-            display: true,
-            title: {
-              display: false,
-              text: "Value",
-            },
-            grid: {
-              borderDash: [2],
-              borderDashOffset: 2,
-              color: "rgba(33, 37, 41, 0.2)",
-              drawBorder: false,
-            },
-          },
-        },
-      },
-    };
-    let ctx: any = document.getElementById("bar-chart");
-    if (ctx) {
-      ctx = ctx.getContext("2d");
-      new Chart(ctx, config);
-    }
+          x: { grid: { display: false } },
+          y: { min: 0 }
+        }
+      }
+    });
   }
 }
