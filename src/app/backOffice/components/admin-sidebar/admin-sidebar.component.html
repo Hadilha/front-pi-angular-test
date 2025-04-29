@@ -125,6 +125,48 @@
             Calendars
           </a>
         </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/quizzes']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #calendarsLink="routerLinkActive"
+            [ngClass]="
+              calendarsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar mr-2 text-sm"
+              [ngClass]="
+                calendarsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Quizzes
+          </a>
+        </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/tests']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #calendarsLink="routerLinkActive"
+            [ngClass]="
+              calendarsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar mr-2 text-sm"
+              [ngClass]="
+                calendarsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Tests
+          </a>
+        </li>
       </ul>
     </div>
   </div>

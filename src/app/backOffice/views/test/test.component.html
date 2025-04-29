@@ -1,0 +1,19 @@
+<div class="container">
+  <h2>Test Management</h2>
+
+  <form (ngSubmit)="newTest.test_id ? updateTest() : saveTest()" class="form">
+    <input [(ngModel)]="newTest.name" name="name" placeholder="Test Name" required />
+    <button type="submit">{{ newTest.test_id ? 'Update' : 'Add' }} Test</button>
+  </form>
+
+  <ul class="list">
+    <li *ngFor="let test of tests">
+      {{ test.name }}
+      <button (click)="editTest(test)">Edit</button>
+      <button (click)="deleteTest(test.test_id!)">Delete</button>
+      <div *ngFor="let q of test.question_response" >
+          <p>{{q.questionText}}</p>
+      </div>
+    </li>
+  </ul>
+</div>

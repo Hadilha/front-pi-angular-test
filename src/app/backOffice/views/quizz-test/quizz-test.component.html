@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet/less" type="text/css" href="style.less" />
+    <script src="https://cdn.jsdelivr.net/npm/less@4"></script>
+</head>
+<body>
+    <div *ngIf="Loading" id="load">
+        <div>G</div>
+        <div>N</div>
+        <div>I</div>
+        <div>D</div>
+        <div>A</div>
+        <div>O</div>
+        <div>L</div>
+    </div>
+    <div class="container mt-4" *ngIf="!Loading">
+        <div *ngIf="isLoading" class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div *ngIf="!isLoading && quiz && !quizCompleted" class="quiz-container">
+            <div class="d-flex justify-content-between align-items  mb-4">
+                <h2>{{ quiz.title }}</h2>
+                <div class="timer-display">
+                    <span class="timer-label">Time Left:</span>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" [style.width.%]="(timeLeft / 300) * 100"></div>
+                    </div>
+                    <span class="timer-text">{{ formatTime(timeLeft) }}</span>
+                </div>
+            </div>
+
+            <div>
+                <h3><span>Question {{ currentQuestionIndex + 1 }}</span></h3> of 
+                <h3><span>{{ quiz.questions?.length || 0 }}</span></h3>
+            </div>
+
+            <div *ngIf="currentQuestion" class="card question-card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Question {{ currentQuestionIndex + 1 }}</h5>
+                    <img *ngIf="!currentQuestion.text" [src]="currentQuestion.questionText" alt="Question image" class="img-fluid rounded" style="width: 200px;">
+                    <p *ngIf="!currentQuestion.text">What do you see?</p>
+                    <p *ngIf="currentQuestion.text" class="card-text">{{ currentQuestion.questionText }}</p>
+
+                    <div class="choices-list">
+                        <div *ngFor="let choice of currentQuestion.choices" 
+                             class="choice-item form-check mb-2">
+                            <input class="form-check-input" 
+                                   type="radio" 
+                                   name="choices" 
+                                   [id]="'choice-' + choice.choice_id"
+                                   [checked]="selectedChoiceId === choice.choice_id"
+                                   (change)="selectCorrect(choice.correct, choice.choice_id!)">{{ choice.correct ? ' (Correct)' : '' }}
+                            <label class="form-check-label" [for]="'choice-' + choice.choice_id">
+                                {{ choice.text }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary" 
+                    (click)="nextQuestion()"
+                    [disabled]="selectedChoiceId === null">
+                {{ currentQuestionIndex < (quiz.questions?.length || 0) - 1 ? 'Next Question' : 'Finish Quiz' }}
+            </button>
+        </div>
+
+        <div *ngIf="quizCompleted && quiz" class="quiz-completed text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Quiz Completed!</h2>
+                    <p class="card-text">Your score: {{ score }} out of {{ quiz.questions?.length || 0 }}</p>
+                    <p class="card-text">Percentage: {{ (score / (quiz.questions?.length || 1) * 100).toFixed(1) }}%</p>
+                    <a class="btn-primary" [routerLink]="['/patientspace/quizzeslist']">
+                        Back to Quizzes
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="!isLoading && !quiz" class="alert alert-danger">
+            Quiz not found.
+        </div>
+    </div>
+</body>
+</html>

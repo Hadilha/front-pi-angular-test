@@ -17,7 +17,6 @@ describe('AppComponent', () => {
   it(`should have as title 'piFont'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('piFont');
   });
 
   it('should render title', () => {

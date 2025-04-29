@@ -1,83 +1,77 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { HttpClientModule } from "@angular/common/http";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { AppRoutingModule } from "./app-routing.module";
-import { AppComponent } from "./app.component";
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 import { GoogleChartsModule } from 'angular-google-charts';
-
-// layouts
-import { DoctorComponent } from "./frontOffice/views/doctor/doctor.component";
-
-
-// admin views
-import { DashboardComponent } from "./frontOffice/views/admin/dashboard/dashboard.component";
-import { MapsComponent } from "./frontOffice/views/admin/maps/maps.component";
-import { SettingsComponent } from "./frontOffice/views/admin/settings/settings.component";
-import { TablesComponent } from "./frontOffice/views/admin/tables/tables.component";
-
-
-
-
-
-
-
-// components for views and layouts
-
-import { DoctorNavbarComponent } from "./frontOffice/components/navbars/doctor-navbar/doctor-navbar.component";
-import { CardBarChartComponent } from "./frontOffice/components/cards/card-bar-chart/card-bar-chart.component";
-import { CardLineChartComponent } from "./frontOffice/components/cards/card-line-chart/card-line-chart.component";
-import { CardPageVisitsComponent } from "./frontOffice/components/cards/card-page-visits/card-page-visits.component";
-import { CardProfileComponent } from "./frontOffice/components/cards/card-profile/card-profile.component";
-import { CardSettingsComponent } from "./frontOffice/components/cards/card-settings/card-settings.component";
-import { CardSocialTrafficComponent } from "./frontOffice/components/cards/card-social-traffic/card-social-traffic.component";
-import { CardStatsComponent } from "./frontOffice/components/cards/card-stats/card-stats.component";
-import { CardTableComponent } from "./frontOffice/components/cards/card-table/card-table.component";
-import { FooterAdminComponent } from "./frontOffice/components/footers/footer-admin/footer-admin.component";
-import { FooterComponent } from "./frontOffice/components/footers/footer/footer.component";
-import { FooterSmallComponent } from "./frontOffice/components/footers/footer-small/footer-small.component";
-import { HeaderStatsComponent } from "./frontOffice/components/headers/header-stats/header-stats.component";
-import { IndexNavbarComponent } from "./frontOffice/components/navbars/index-navbar/index-navbar.component";
-import { MapExampleComponent } from "./frontOffice/components/maps/map-example/map-example.component";
-import { IndexDropdownComponent } from "./frontOffice/components/dropdowns/index-dropdown/index-dropdown.component";
-import { TableDropdownComponent } from "./frontOffice/components/dropdowns/table-dropdown/table-dropdown.component";
-import { PagesDropdownComponent } from "./frontOffice/components/dropdowns/pages-dropdown/pages-dropdown.component";
-import { NotificationDropdownComponent } from "./frontOffice/components/dropdowns/notification-dropdown/notification-dropdown.component";
-import { SidebarComponent } from "./frontOffice/components/sidebar/sidebar.component";
-import { UserDropdownComponent } from "./frontOffice/components/dropdowns/user-dropdown/user-dropdown.component";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { CommonModule } from "@angular/common";
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { NgChartsModule } from 'ng2-charts';
+import { DoctorComponent } from './frontOffice/views/doctor/doctor.component';
+import { DashboardComponent } from './frontOffice/views/admin/dashboard/dashboard.component';
+import { MapsComponent } from './frontOffice/views/admin/maps/maps.component';
+import { SettingsComponent } from './frontOffice/views/admin/settings/settings.component';
+import { TablesComponent } from './frontOffice/views/admin/tables/tables.component';
+import { DoctorNavbarComponent } from './frontOffice/components/navbars/doctor-navbar/doctor-navbar.component';
+import { CardBarChartComponent } from './frontOffice/components/cards/card-bar-chart/card-bar-chart.component';
+import { CardLineChartComponent } from './frontOffice/components/cards/card-line-chart/card-line-chart.component';
+import { CardPageVisitsComponent } from './frontOffice/components/cards/card-page-visits/card-page-visits.component';
+import { CardProfileComponent } from './frontOffice/components/cards/card-profile/card-profile.component';
+import { CardSettingsComponent } from './frontOffice/components/cards/card-settings/card-settings.component';
+import { CardSocialTrafficComponent } from './frontOffice/components/cards/card-social-traffic/card-social-traffic.component';
+import { CardStatsComponent } from './frontOffice/components/cards/card-stats/card-stats.component';
+import { CardTableComponent } from './frontOffice/components/cards/card-table/card-table.component';
+import { FooterAdminComponent } from './frontOffice/components/footers/footer-admin/footer-admin.component';
+import { FooterComponent } from './frontOffice/components/footers/footer/footer.component';
+import { FooterSmallComponent } from './frontOffice/components/footers/footer-small/footer-small.component';
+import { HeaderStatsComponent } from './frontOffice/components/headers/header-stats/header-stats.component';
+import { IndexNavbarComponent } from './frontOffice/components/navbars/index-navbar/index-navbar.component';
+import { MapExampleComponent } from './frontOffice/components/maps/map-example/map-example.component';
+import { IndexDropdownComponent } from './frontOffice/components/dropdowns/index-dropdown/index-dropdown.component';
+import { TableDropdownComponent } from './frontOffice/components/dropdowns/table-dropdown/table-dropdown.component';
+import { PagesDropdownComponent } from './frontOffice/components/dropdowns/pages-dropdown/pages-dropdown.component';
+import { NotificationDropdownComponent } from './frontOffice/components/dropdowns/notification-dropdown/notification-dropdown.component';
+import { SidebarComponent } from './frontOffice/components/sidebar/sidebar.component';
+import { UserDropdownComponent } from './frontOffice/components/dropdowns/user-dropdown/user-dropdown.component';
 import { TestimonialCarouselComponent } from './frontOffice/components/testimonial-carousel/testimonial-carousel.component';
 import { LocationFinderComponent } from './frontOffice/components/location-finder/location-finder.component';
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { LoginNavbarComponent } from './frontOffice/components/navbars/login-navbar/login-navbar.component';
 import { PatientNavbarComponent } from './frontOffice/components/navbars/patient-navbar/patient-navbar.component';
-import { PatientspaceComponent } from "./frontOffice/views/patientspace/patientspace.component";
+import { PatientspaceComponent } from './frontOffice/views/patientspace/patientspace.component';
 import { HomeComponent } from './frontOffice/views/home/home.component';
 import { AdminComponent } from './backOffice/views/admin/admin.component';
-import { AdminNavbarComponent } from "./backOffice/components/admin-navbar/admin-navbar.component";
-import { AdminSidebarComponent } from "./backOffice/components/admin-sidebar/admin-sidebar.component";
-import { AdminHeaderStatsComponent } from "./backOffice/components/admin-header-stats/admin-header-stats.component";
+import { AdminNavbarComponent } from './backOffice/components/admin-navbar/admin-navbar.component';
+import { AdminSidebarComponent } from './backOffice/components/admin-sidebar/admin-sidebar.component';
+import { AdminHeaderStatsComponent } from './backOffice/components/admin-header-stats/admin-header-stats.component';
 import { AppointmentListComponent } from './backOffice/views/appointment-list/appointment-list.component';
 import { AppointmentFormComponent } from './backOffice/components/appointments/appointment-form/appointment-form.component';
 import { CalendarListComponent } from './backOffice/views/calendar-list/calendar-list.component';
 import { CalendarFormComponent } from './backOffice/components/calendars/calendar-form/calendar-form.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 import { CalendarViewComponent } from './frontOffice/views/calendar-view/calendar-view.component';
-import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin from '@fullcalendar/interaction';
 import { AppointmentStatisticsComponent } from './backOffice/components/appointment-statistics/appointment-statistics.component';
 import { VideoCallComponent } from './frontOffice/views/video-call/video-call.component';
 import { VideoCallEntryComponent } from './frontOffice/views/video-call-entry/video-call-entry.component';
 import { PatientCalendarComponent } from './frontOffice/views/patient-calendar/patient-calendar.component';
-
-
-
+import { CombatGameComponent } from './frontOffice/views/combat-game/combat-game.component';
+import { SlidingPuzzleComponent } from './frontOffice/views/sliding-puzzle/sliding-puzzle.component';
+import { QuizListUserComponent } from './frontOffice/views/quiz-list-user/quiz-list-user.component';
+import { ScoreListUserComponent } from './frontOffice/views/score-list-user/score-list-user.component';
+import { TakeTestComponent } from './frontOffice/views/take-test/take-test.component';
+import { TestListComponent } from './frontOffice/views/test-list/test-list.component';
+import { QuizFormComponent } from './backOffice/views/quiz-form/quiz-form.component';
+import { QuizListComponent } from './backOffice/views/quiz-list/quiz-list.component';
+import { QuizTestComponent } from './backOffice/views/quizz-test/quizz-test.component';
+import { ChoiceFormComponent } from './backOffice/views/choice-form/choice-form.component';
+import { VisualisationComponent } from './backOffice/views/visualisation/visualisation.component';
+import {QuestionResponseComponent } from './backOffice/views/question-response/question-response.component';
+import {QuestionFormComponent } from './backOffice/views/question-form/question-form.component';
+import { TestComponent } from './backOffice/views/test/test.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,8 +106,6 @@ import { PatientCalendarComponent } from './frontOffice/views/patient-calendar/p
     LoginNavbarComponent,
     PatientNavbarComponent,
     PatientspaceComponent,
-    LocationFinderComponent,
-    FooterComponent,
     HomeComponent,
     AdminComponent,
     AdminNavbarComponent,
@@ -124,17 +116,43 @@ import { PatientCalendarComponent } from './frontOffice/views/patient-calendar/p
     CalendarListComponent,
     CalendarFormComponent,
     CalendarViewComponent,
-    CalendarViewComponent,
     AppointmentStatisticsComponent,
     VideoCallComponent,
     VideoCallEntryComponent,
     PatientCalendarComponent,
-
-    
-
+    CombatGameComponent,
+    SlidingPuzzleComponent,
+    QuizListUserComponent,
+    ScoreListUserComponent,
+    TakeTestComponent,
+    TestListComponent,
+    QuizFormComponent,
+    QuizListComponent,
+    QuizTestComponent,
+    ChoiceFormComponent,
+    VisualisationComponent,
+    QuestionFormComponent,
+    QuestionResponseComponent,
+    QuestionFormComponent,
+    TestComponent
   ],
-  
-  imports: [BrowserModule, AppRoutingModule,CommonModule, FormsModule,ReactiveFormsModule,HttpClientModule,RouterModule.forRoot([]), BrowserAnimationsModule,CommonModule,FullCalendarModule,BrowserAnimationsModule,GoogleChartsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    RouterModule.forRoot([]),
+    BrowserAnimationsModule,
+    FullCalendarModule,
+    GoogleChartsModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    NgChartsModule,
+    
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

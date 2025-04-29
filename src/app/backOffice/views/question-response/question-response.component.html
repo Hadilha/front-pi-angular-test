@@ -1,0 +1,23 @@
+<div class="container">
+    <h2>Question Responses</h2>
+  
+    <form (ngSubmit)="newResponse.qr_id ? update() : save()" class="form">
+      <input [(ngModel)]="newResponse.questionText" name="questionText" placeholder="Question" required />
+      <input [(ngModel)]="newResponse.responseText" name="responseText" placeholder="Response" required />
+      <select [(ngModel)]="newResponse.test" name="test" required>
+        <option *ngFor="let t of tests" [ngValue]="t">{{ t.name }}</option>
+      </select>
+      <button type="submit">{{ newResponse.qr_id ? 'Update' : 'Add' }}</button>
+    </form>
+  
+    <ul class="list">
+      <li *ngFor="let q of responses">
+        <h5>{{q.test.name}}</h5>
+        <div><b>Question: </b> {{ q.questionText }}</div>
+          <div><b>Response: </b> {{ q.responseText }}</div>
+        <span><button (click)="edit(q)">Edit</button>
+        <button (click)="delete(q.qr_id!)">Delete</button></span>
+      </li>
+    </ul>
+  </div>
+  
