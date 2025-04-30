@@ -7,7 +7,7 @@ import { UserService } from 'src/app/Services/user/user.service';
   styleUrls: ['./card-page-visits-admin.component.css']
 })
 export class CardPageVisitsAdminComponent implements OnInit {
-  doctorName: string = 'Dr. Alice Brown';  // Default doctor
+  doctorName: string = 'doctor';  // Default doctor
   patients: any[] = [];  // Array to store the list of patients
   doctors: any[] = [];  // Array to store the list of doctors
 

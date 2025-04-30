@@ -42,10 +42,10 @@ export class AppointmentFormComponent implements OnInit, AfterViewInit {
   ) {
     this.appointmentForm = this.fb.group({
       patient: this.fb.group({
-        userId: [null, [Validators.required, Validators.min(1)]]
+        id: [null, [Validators.required, Validators.min(1)]]
       }),
       professional: this.fb.group({
-        userId: [null, [Validators.required, Validators.min(1)]]
+        id: [null, [Validators.required, Validators.min(1)]]
       }),
       startTime: ['', [Validators.required, this.futureDateValidator]],
       endTime: ['', [Validators.required, this.futureDateValidator]],
@@ -108,8 +108,8 @@ export class AppointmentFormComponent implements OnInit, AfterViewInit {
     this.appointmentService.getAppointmentById(id).subscribe({
       next: (appointment) => {
         this.appointmentForm.patchValue({
-          patient: { userId: appointment.patient.userId },
-          professional: { userId: appointment.professional.userId },
+          patient: { id: appointment.patient.userId },
+          professional: { id: appointment.professional.userId },
           startTime: this.toLocalDateTime(appointment.startTime),
           endTime: this.toLocalDateTime(appointment.endTime),
           notes: appointment.notes,

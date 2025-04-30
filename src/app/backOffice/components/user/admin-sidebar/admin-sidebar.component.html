@@ -241,8 +241,10 @@
   <a
     [routerLink]="['/admin/quizzes']"
     routerLinkActive
-
+    #quiz="routerLinkActive"
+    [ngClass]="quiz.isActive ? 'text-red-600 hover:text-red-700' : 'text-gray-300 hover:text-gray-500'"
     class="text-xs uppercase py-3 font-bold block"
+
 
   >
     <i class="fas fa-table text-sm mr-2">
@@ -256,7 +258,8 @@
   <a
     [routerLink]="['/admin/tests']"
     routerLinkActive
-
+    #test="routerLinkActive"
+    [ngClass]="test.isActive ? 'text-red-600 hover:text-red-700' : 'text-gray-300 hover:text-gray-500'"
     class="text-xs uppercase py-3 font-bold block"
 
   >
@@ -268,7 +271,8 @@
   <a
     [routerLink]="['/admin/question-responses']"
     routerLinkActive
-
+    #question="routerLinkActive"
+    [ngClass]="question.isActive ? 'text-red-600 hover:text-red-700' : 'text-gray-300 hover:text-gray-500'"
     class="text-xs uppercase py-3 font-bold block"
 
   >
@@ -276,6 +280,20 @@
     Question Responses managment
   </a>
         </li>
+<li>
+  <a
+    [routerLink]="['/admin/visualisation']"
+    routerLinkActive
+    #visualisation="routerLinkActive"
+    [ngClass]="visualisation.isActive ? 'text-red-600 hover:text-red-700' : 'text-gray-300 hover:text-gray-500'"
+    class="text-xs uppercase py-3 font-bold block"
+
+  >
+    <i class="fas fa-table text-sm mr-2" [ngClass]="program.isActive ? 'opacity-75' : 'text-gray-500'"></i>
+    visualisation
+  </a>
+        </li>
+
       </ul>
 
       <!-- Divider -->
@@ -294,6 +312,7 @@
             Logout
           </a>
         </li>
+
 
       </ul>
 

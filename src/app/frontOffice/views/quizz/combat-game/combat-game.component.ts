@@ -175,6 +175,7 @@ export class CombatGameComponent implements OnInit, OnDestroy {
           console.error('Error saving score:', error);
         }
       );
+      this.scoreservice.sendEmailGame;
     }
   }
 

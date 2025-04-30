@@ -58,7 +58,7 @@ import { Location } from '@angular/common';
       console.log('Form valid:', this.credentialsForm.valid);
       console.log('Form values:', this.credentialsForm.value);
 console.log(this.credentialsForm.valid);
-      if (this.credentialsForm.valid) {
+
         this.isLoading = true;
         this.userService.updateUserpatient(this.credentialsForm.value, this.currentusername)
           .subscribe({
@@ -72,6 +72,6 @@ console.log(this.credentialsForm.valid);
               this.isLoading = false;
             }
           });
-      }
+
     }
   }
