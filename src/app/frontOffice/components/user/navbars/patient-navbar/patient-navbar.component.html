@@ -1,5 +1,5 @@
-<nav class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white ">
-  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between bg-white ">
+<nav class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white">
+  <div class="container px-4 mx-auto flex flex-wrap items-center justify-between bg-white">
     <div class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
       <a [routerLink]="['/']" class="text-gray-500 text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase flex items-center">
         <img src="assets/img/logpp.jpg" alt="MindFull Logo" class="h-8 w-8 mr-2">
@@ -20,8 +20,6 @@
     >
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
 
-
-
         <!-- Meditation -->
         <li class="flex items-center">
           <a
@@ -34,11 +32,6 @@
           </a>
         </li>
 
-
-
-
-
-
         <!-- Community -->
         <li class="flex items-center">
           <a
@@ -49,6 +42,8 @@
             Community
           </a>
         </li>
+
+        <!-- Appointments -->
         <li class="flex items-center">
           <a
             class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
@@ -59,6 +54,7 @@
             <span class="text-gray-500">My Appointments</span>
           </a>
         </li>
+
         <!-- Video Call -->
         <li class="flex items-center">
           <a
@@ -71,6 +67,7 @@
           </a>
         </li>
 
+        <!-- Notes -->
         <li class="flex items-center">
           <a
             class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
@@ -82,43 +79,86 @@
           </a>
         </li>
 
+        <!-- Mood Tracker -->
         <li class="flex items-center">
           <a
             class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
             [routerLink]="['/patientspace/mood_tarcker']"
             routerLinkActive="active"
           >
-            <i class="lg:text-blue-200 text-gray-500 fas fa-spa es-medical text-lg leading-lg mr-2"></i>
+            <i class="lg:text-blue-200 text-gray-500 fas fa-smile text-lg leading-lg mr-2"></i>
             <span class="text-gray-500">Mood tracker</span>
           </a>
         </li>
 
+        <!-- Quizzes -->
+        <li class="flex items-center">
+          <a
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            [routerLink]="['/patientspace/quizzeslist']"
+            routerLinkActive="active"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-question-circle text-lg leading-lg mr-2"></i>
+            <span class="text-gray-500">Quizz</span>
+          </a>
+        </li>
 
+        <!-- Scores -->
+        <li class="flex items-center">
+          <a
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            [routerLink]="['/patientspace/scorelist']"
+            routerLinkActive="active"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-star text-lg leading-lg mr-2"></i>
+            <span class="text-gray-500">Score</span>
+          </a>
+        </li>
 
+        <!-- Memory Game -->
+        <li class="flex items-center">
+          <a
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            [routerLink]="['/patientspace/combatgame']"
+            routerLinkActive="active"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-gamepad text-lg leading-lg mr-2"></i>
+            <span class="text-gray-500"> Memory Game</span>
+          </a>
+        </li>
 
+        <!-- Slide Game -->
+        <li class="flex items-center">
+          <a
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            [routerLink]="['/patientspace/SlidingPuzzle']"
+            routerLinkActive="active"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-puzzle-piece text-lg leading-lg mr-2"></i>
+            <span class="text-gray-500"> Slide Game</span>
+          </a>
+        </li>
+
+        <!-- Profile -->
         <li class="flex items-center group relative">
           <button class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold" [routerLink]="['/patientspace/profile']">
             <i class="lg:text-blue-200 text-gray-500 fas fa-user-circle text-lg leading-lg mr-2"></i>
             <span class="text-gray-500">My Space</span>
           </button>
+        </li>
 
-          <li class="flex items-center">
-            <a class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
-              <i class="lg:text-blue-200 text-gray-500 fas fa-bell text-lg leading-lg"></i>
-              <span class="lg:hidden ml-2 text-gray-500">Notifications</span>
-            </a>
-          </li>
-
-          <li class="flex items-center">
-            <a
+        <!-- Logout -->
+        <li class="flex items-center">
+          <a
             href="javascript:void(0)"
-            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"  (click)="logout()">
-              <i class="lg:text-blue-200 text-gray-500 fas fa-sign-out-alt text-lg leading-lg"></i>
-              <span class="lg:hidden ml-2 text-gray-500">Logout</span>
-            </a>
-          </li>
+            class="lg:text-white hover:text-blue-200 text-gray-500 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+            (click)="logout()"
+          >
+            <i class="lg:text-blue-200 text-gray-500 fas fa-sign-out-alt text-lg leading-lg"></i>
+            <span class="lg:hidden ml-2 text-gray-500">Logout</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-

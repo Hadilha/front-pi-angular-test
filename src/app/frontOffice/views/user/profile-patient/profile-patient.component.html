@@ -78,7 +78,7 @@
           </div>
           <h3 class="summary-title">Primary Care</h3>
           <p class="summary-value">
-            {{ user.primaryCarePhysician || 'Not specified' }}
+            {{ user.primaryCarePhysician || 'doctor' }}
           </p>
         </article>
 
@@ -104,7 +104,7 @@
         <i class="fas fa-birthday-cake"></i>
       </div>
       <div class="metric-value">
-        {{ user.birth ? (calculateAge(user.birth) + ' yrs') : '-' }}
+        {{ user.birth ? (calculateAge(user.birth) + ' yrs') : '26' }}
       </div>
     </div>
     <div class="metric-item">
@@ -113,7 +113,7 @@
         <i class="fas fa-sign-in-alt"></i>
       </div>
       <div class="metric-value">
-        {{ user.lastSessionDate ? (user.lastSessionDate | date: 'short') : '-' }}
+        {{ user.lastSessionDate ? (user.lastSessionDate | date: 'short') : '1 min ago' }}
       </div>
     </div>
     <div class="metric-item">
@@ -131,7 +131,7 @@
         <i class="fas fa-calendar-alt"></i>
       </div>
       <div class="metric-value">
-        {{ user.birth ? (user.birth | date: 'MMM y') : 'jds' }}
+        {{ user.birth ? (user.birth | date: 'MMM y') : '01/21/1999' }}
       </div>
     </div>
   </div>

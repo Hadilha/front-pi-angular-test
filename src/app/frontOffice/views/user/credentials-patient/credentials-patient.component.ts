@@ -2,6 +2,7 @@
   import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   import { UserService } from 'src/app/Services/user/user.service';
   import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
   @Component({
     selector: 'app-credentials-patient',
@@ -17,7 +18,8 @@
     constructor(
       private fb: FormBuilder,
       private userService: UserService,
-      public  router: Router
+      public  router: Router,
+      private location: Location
     ) {
       this.credentialsForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -49,7 +51,9 @@
         error: (err) => console.error(err)
       });
     }
-
+    goBack(): void {
+      this.router.navigate(['/patientspace/profile']);
+    }
     onSubmit() {
       console.log('Form valid:', this.credentialsForm.valid);
       console.log('Form values:', this.credentialsForm.value);

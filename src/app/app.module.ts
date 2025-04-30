@@ -129,6 +129,22 @@ import { CoachingProgramAjouterUpdateComponent } from "./backOffice/views/coashi
 import { ContentProgramAjouterupdateComponent } from "./backOffice/views/coashing/content-program-ajouterupdate/content-program-ajouterupdate.component";
 import { ContentprogramComponent } from "./backOffice/views/coashing/contentprogram/contentprogram.component";
 import { ContentProgramComponent } from "./frontOffice/views/coashing/contentprogram/contentprogram.component";
+import { CombatGameComponent } from "./frontOffice/views/quizz/combat-game/combat-game.component";
+import { SlidingPuzzleComponent } from "./frontOffice/views/quizz/sliding-puzzle/sliding-puzzle.component";
+import { QuizListUserComponent } from "./frontOffice/views/quizz/quiz-list-user/quiz-list-user.component";
+import { ScoreListUserComponent } from "./frontOffice/views/quizz/score-list-user/score-list-user.component";
+import { TakeTestComponent } from "./frontOffice/views/quizz/take-test/take-test.component";
+import { TestListComponent } from "./frontOffice/views/quizz/test-list/test-list.component";
+import { QuizFormComponent } from "./backOffice/views/quizz/quiz-form/quiz-form.component";
+import { QuizListComponent } from "./backOffice/views/quizz/quiz-list/quiz-list.component";
+import { QuizTestComponent } from "./backOffice/views/quizz/quizz-test/quizz-test.component";
+import { ChoiceFormComponent } from "./backOffice/views/quizz/choice-form/choice-form.component";
+import { VisualisationComponent } from "./backOffice/views/quizz/visualisation/visualisation.component";
+import { QuestionFormComponent } from "./backOffice/views/quizz/question-form/question-form.component";
+import { QuestionResponseComponent } from "./backOffice/views/quizz/question-response/question-response.component";
+import { TestComponent } from "./backOffice/views/quizz/test/test.component";
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -233,7 +249,22 @@ import { ContentProgramComponent } from "./frontOffice/views/coashing/contentpro
     ContentProgramAjouterupdateComponent,
     ContentprogramComponent,
     ContentprogramComponent,
-    ContentProgramComponent
+    ContentProgramComponent,
+    CombatGameComponent,
+    SlidingPuzzleComponent,
+    QuizListUserComponent,
+    ScoreListUserComponent,
+    TakeTestComponent,
+    TestListComponent,
+    QuizFormComponent,
+    QuizListComponent,
+    QuizTestComponent,
+    ChoiceFormComponent,
+    VisualisationComponent,
+    QuestionFormComponent,
+    QuestionResponseComponent,
+    QuestionFormComponent,
+    TestComponent
 
 
 
@@ -255,6 +286,9 @@ import { ContentProgramComponent } from "./frontOffice/views/coashing/contentpro
     MatButtonModule,
     MatIconModule,
     MatSnackBarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
     NgChartsModule,
     ReactiveFormsModule,
     FullCalendarModule,

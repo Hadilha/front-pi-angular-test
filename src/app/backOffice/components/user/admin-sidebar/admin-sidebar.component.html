@@ -233,10 +233,49 @@
 
           >
             <i class="fas fa-table text-sm mr-2" [ngClass]="program.isActive ? 'opacity-75' : 'text-gray-500'"></i>
-            Programmes de patient
+             patient Programmes
           </a>
         </li>
 
+<li>
+  <a
+    [routerLink]="['/admin/quizzes']"
+    routerLinkActive
+
+    class="text-xs uppercase py-3 font-bold block"
+
+  >
+    <i class="fas fa-table text-sm mr-2">
+
+    </i>
+    quizzs managment
+  </a>
+        </li>
+
+<li>
+  <a
+    [routerLink]="['/admin/tests']"
+    routerLinkActive
+
+    class="text-xs uppercase py-3 font-bold block"
+
+  >
+    <i class="fas fa-table text-sm mr-2" [ngClass]="program.isActive ? 'opacity-75' : 'text-gray-500'"></i>
+    Tests managment
+  </a>
+        </li>
+<li>
+  <a
+    [routerLink]="['/admin/question-responses']"
+    routerLinkActive
+
+    class="text-xs uppercase py-3 font-bold block"
+
+  >
+    <i class="fas fa-table text-sm mr-2" [ngClass]="program.isActive ? 'opacity-75' : 'text-gray-500'"></i>
+    Question Responses managment
+  </a>
+        </li>
       </ul>
 
       <!-- Divider -->

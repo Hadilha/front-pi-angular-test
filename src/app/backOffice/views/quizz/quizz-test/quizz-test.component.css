@@ -1,0 +1,708 @@
+/* quiz-test.component.css */
+:root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --success-color: #4cc9f0;
+    --danger-color: #f72585;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --warning-color: #f8961e;
+    --info-color: #4895ef;
+  }
+  
+  .quiz-container {
+    max-width: 800px;
+    margin: 0 auto;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .quiz-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    animation: slideDown 0.4s ease-out;
+  }
+  
+  @keyframes slideDown {
+    from { transform: translateY(-30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .timer {
+    background-color: var(--dark-color);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    animation: pulse 1s infinite alternate;
+    color: var(--dark-color);
+  }
+  
+  @keyframes pulse {
+    from { box-shadow: 0 0 0 0 rgba(248, 37, 133, 0.4); }
+    to { box-shadow: 0 0 0 10px rgba(248, 37, 133, 0); }
+  }
+  
+  .progress {
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    background-color: #e9ecef;
+    overflow: visible;
+  }
+  
+  .progress-bar {
+    background: linear-gradient(90deg, var(--info-color), var(--success-color));
+    border-radius: 5px;
+    position: relative;
+    transition: width 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  }
+  
+  .progress-bar::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -3px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--success-color);
+    border-radius: 50%;
+    border: 3px solid white;
+  }
+  
+  .question-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 2rem;
+  }
+  
+  .question-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  }
+  
+  .card-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    padding: 1.25rem;
+  }
+  
+  .card-title {
+    font-weight: 600;
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .choices-list {
+    margin-top: 1.5rem;
+  }
+  
+  .choice-item {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background-color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .choice-item:hover {
+    border-color: var(--info-color);
+    transform: translateX(10px);
+    box-shadow: 0 4px 8px rgba(72, 149, 239, 0.2);
+  }
+  
+  .choice-item[class*='bg-light'] {
+    border-color: var(--primary-color);
+    background-color: rgba(67, 97, 238, 0.05);
+  }
+  
+  .form-check-input {
+    width: 1.25em;
+    height: 1.25em;
+    margin-top: 0.15em;
+    border: 2px solid #adb5bd;
+    transition: all 0.2s ease;
+  }
+  
+  .form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  .form-check-label {
+    margin-left: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--dark-color);
+    cursor: pointer;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(67, 97, 238, 0.4);
+  }
+  
+  .btn-primary:disabled {
+    background-color: #067804;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  .quiz-completed {
+    max-width: 500px;
+    margin: 2rem auto;
+    animation: bounceIn 0.6s;
+  }
+  
+  @keyframes bounceIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  
+  .score-display {
+    font-weight: bold;
+    margin: 2rem 0;
+    text-align: center;
+  }
+  
+  .score-display div:first-child {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+  }
+  
+  .score-display div:last-child {
+    font-size: 1.5rem;
+    color: var(--dark-color);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .quiz-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .timer {
+      margin-top: 0.5rem;
+      color: var(--primary-color);
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .choice-item {
+      padding: 0.75rem 1rem;
+    }
+  }
+
+  /* Timer Progress Circle Styles */
+.timer-container {
+    position: relative;
+    width: 60px;
+    height: 60px;
+  }
+  
+  .timer-circle {
+    transform: rotate(-90deg);
+    width: 100%;
+    height: 100%;
+  }
+  
+  .timer-background {
+    fill: none;
+    stroke: #e9ecef;
+    stroke-width: 6;
+  }
+  
+  .timer-progress {
+    fill: none;
+    stroke: var(--danger-color);
+    stroke-width: 6;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear;
+  }
+  
+  .timer-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--dark-color);
+  }
+  
+  /* Replace existing .timer styles with this */
+  .timer-display {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .timer-label {
+    font-size: 0.9rem;
+    color: var(--dark-color);
+    margin-right: 5px;
+  }
+  /* Add to your existing CSS */
+.timer-display {
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  /* Color changes based on time remaining */
+  .timer-progress {
+    transition: stroke-dashoffset 1s linear, stroke 0.5s ease;
+  }
+  
+  .timer-progress[stroke-dashoffset^="3"] { /* When > 30% time left */
+    stroke: var(--success-color);
+  }
+  .timer-progress[stroke-dashoffset^="6"] { /* When 30%-60% time left */
+    stroke: var(--warning-color);
+  }
+  .timer-progress[stroke-dashoffset^="9"] { /* When < 30% time left */
+    stroke: var(--danger-color);
+    animation: pulse 0.5s infinite;
+  }
+
+  
+#load {
+  position:absolute;
+  width:600px;
+  height:36px;
+  left:50%;
+  top:40%;
+  margin-left:-300px;
+  overflow:visible;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  cursor:default;
+}
+
+#load div {
+  position:absolute;
+  width:20px;
+  height:36px;
+  opacity:0;
+  font-family:Helvetica, Arial, sans-serif;
+  animation:move 2s linear infinite;
+  -o-animation:move 2s linear infinite;
+  -moz-animation:move 2s linear infinite;
+  -webkit-animation:move 2s linear infinite;
+  transform:rotate(180deg);
+  -o-transform:rotate(180deg);
+  -moz-transform:rotate(180deg);
+  -webkit-transform:rotate(180deg);
+  color:#000000;
+}
+
+#load div:nth-child(2) {
+  animation-delay:0.2s;
+  -o-animation-delay:0.2s;
+  -moz-animation-delay:0.2s;
+  -webkit-animation-delay:0.2s;
+}
+#load div:nth-child(3) {
+  animation-delay:0.4s;
+  -o-animation-delay:0.4s;
+  -webkit-animation-delay:0.4s;
+  -webkit-animation-delay:0.4s;
+}
+#load div:nth-child(4) {
+  animation-delay:0.6s;
+  -o-animation-delay:0.6s;
+  -moz-animation-delay:0.6s;
+  -webkit-animation-delay:0.6s;
+}
+#load div:nth-child(5) {
+  animation-delay:0.8s;
+  -o-animation-delay:0.8s;
+  -moz-animation-delay:0.8s;
+  -webkit-animation-delay:0.8s;
+}
+#load div:nth-child(6) {
+  animation-delay:1s;
+  -o-animation-delay:1s;
+  -moz-animation-delay:1s;
+  -webkit-animation-delay:1s;
+}
+#load div:nth-child(7) {
+  animation-delay:1.2s;
+  -o-animation-delay:1.2s;
+  -moz-animation-delay:1.2s;
+  -webkit-animation-delay:1.2s;
+}
+
+@keyframes move {
+  0% {
+    left:0;
+    opacity:0;
+  }
+    35% {
+        left: 41%; 
+        -moz-transform:rotate(0deg);
+        -webkit-transform:rotate(0deg);
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg);
+        opacity:1;
+    }
+    65% {
+        left:59%; 
+        -moz-transform:rotate(0deg); 
+        -webkit-transform:rotate(0deg); 
+        -o-transform:rotate(0deg);
+        transform:rotate(0deg); 
+        opacity:1;
+    }
+    100% {
+        left:100%; 
+        -moz-transform:rotate(-180deg); 
+        -webkit-transform:rotate(-180deg); 
+        -o-transform:rotate(-180deg); 
+        transform:rotate(-180deg);
+        opacity:0;
+    }
+}
+
+@-moz-keyframes move {
+    0% {
+        left:0; 
+        opacity:0;
+    }
+    35% {
+        left:41%; 
+        -moz-transform:rotate(0deg); 
+        transform:rotate(0deg);
+        opacity:1;
+    }
+    65% {
+        left:59%; 
+        -moz-transform:rotate(0deg); 
+        transform:rotate(0deg);
+        opacity:1;
+    }
+    100% {
+        left:100%; 
+        -moz-transform:rotate(-180deg); 
+        transform:rotate(-180deg);
+        opacity:0;
+    }
+}
+
+@-webkit-keyframes move {
+    0% {
+        left:0; 
+        opacity:0;
+    }
+    35% {
+        left:41%; 
+        -webkit-transform:rotate(0deg); 
+        transform:rotate(0deg); 
+        opacity:1;
+    }
+    65% {
+        left:59%; 
+        -webkit-transform:rotate(0deg); 
+        transform:rotate(0deg); 
+        opacity:1;
+    }
+    100% {
+        left:100%;
+        -webkit-transform:rotate(-180deg); 
+        transform:rotate(-180deg); 
+        opacity:0;
+    }
+}
+
+@-o-keyframes move {
+    0% {
+        left:0; 
+        opacity:0;
+    }
+    35% {
+        left:41%; 
+        -o-transform:rotate(0deg); 
+        transform:rotate(0deg); 
+        opacity:1;
+    }
+    65% {
+        left:59%; 
+        -o-transform:rotate(0deg); 
+        transform:rotate(0deg); 
+        opacity:1;
+    }
+    100% {
+        left:100%; 
+        -o-transform:rotate(-180deg); 
+        transform:rotate(-180deg); 
+        opacity:0;
+    }
+}
+
+
+/********************************************************************************
+*********************************************************************************
+**********************************************************************************
+**********************************************************************************
+**********************************************************************************/
+/* fonts */
+@import url(https://fonts.googleapis.com/css?family=Paytone+One);
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+:root {
+font: normal normal 9pt/1.25 Roboto;
+font-kerning: normal;
+}
+
+@media screen {
+:root {
+  min-height: 100vh;
+  perspective: 12in;
+  background-color: #277714;
+  background-image: radial-gradient(ellipse at 50% 25%, transparent, #0d2b06);
+}
+}
+
+body {
+line-height: inherit;
+}
+
+.section {
+width: 5in;
+margin-left: auto;
+margin-right: auto;
+}
+
+.font-xs {
+font-size: 0.6rem;
+}
+
+.font-sm {
+font-size: 0.8rem;
+}
+
+.font-bold {
+font-weight: 700;
+}
+
+.pad-regular {
+padding: 0rem 0.67rem;
+}
+
+.bordered-thin {
+border: 0.0625px solid currentColor;
+}
+
+.yahtzee {
+padding: 1.5rem 1.5rem;
+margin-top: 2rem;
+margin-bottom: 2rem;
+}
+
+@media screen {
+.yahtzee {
+  background-color: white;
+  box-shadow: 0.5rem 0.5rem 0rem rgba(0, 0, 0, 0.25);
+  transform: translatez(-50rem) rotatex(35deg) rotateZ(20deg);
+  transition: transform 750ms, box-shadow 750ms;
+}
+.yahtzee:hover {
+  transform: none;
+  box-shadow: 0 1rem 5rem 1rem rgba(0, 0, 0, 0.25);
+}
+}
+
+.yahtzee__heading {
+font-family: Paytone One;
+font-size: 3rem;
+margin-top: -1rem;
+}
+
+.yahtzee__score-card {
+padding: 1px;
+border-radius: 0.125rem;
+}
+
+.yahtzee__score-card table {
+width: 100%;
+}
+
+.head {
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+}
+
+.head > th:nth-child(1) {
+text-align: left;
+}
+
+.yahtzee__score-card tbody > tr > td,
+.yahtzee__score-card tbody > tr > th {
+border: 0.0625px solid currentColor;
+}
+
+.yahtzee__score-card td,
+.yahtzee__score-card th {
+padding: 0rem 0.67rem;
+vertical-align: middle;
+height: 2.25rem;
+}
+
+.how-to-score {
+width: 15%;
+font-size: 0.6rem;
+}
+
+.yahtzee__score-card tfoot .desc .primary {
+text-transform: uppercase;
+}
+
+.yahtzee__score-card .lower .head th {
+border: 0;
+}
+
+.desc {
+font-weight: 700;
+display: flex;
+align-items: center;
+text-align: left;
+}
+
+.desc .primary {
+flex-grow: 1;
+}
+
+.alt {
+font-size: 0.6rem;
+text-align: center;
+width: 35%;
+}
+
+.desc .die {
+font-size: 2rem;
+line-height: 1;
+}
+
+.how-to-score:empty::after {
+content: '\002192';
+font-size: 1.6rem;
+}
+
+input.t {
+border: 0;
+margin: 0;
+padding: 0;
+outline: 0;
+text-align: center;
+width: 4ch;
+font: normal normal 12pt Indie Flower;
+}
+
+/* Replace or update your existing timer styles with these */
+.timer-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.progress-bar-container {
+  width: 200px; /* Increased from 150px */
+  height: 16px; /* Increased from 10px */
+  background-color: #f0f0f0;
+  border-radius: 8px; /* More rounded corners */
+  overflow: hidden;
+  margin: 0 12px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #4cc9f0, #4361ee);
+  transition: width 1s linear, background-color 0.5s ease;
+  box-shadow: 0 2px 5px rgba(67, 97, 238, 0.3);
+}
+
+/* Color change thresholds */
+.progress-bar[style*="width: 30%"] {
+  background: linear-gradient(90deg, #f8961e, #f72585);
+  animation: pulse 0.5s infinite;
+}
+
+.progress-bar[style*="width: 15%"] {
+  background: linear-gradient(90deg, #f72585, #7209b7);
+  animation: pulse 0.3s infinite;
+}
+
+.timer-text {
+  font-weight: bold;
+  font-size: 1.1rem;
+  min-width: 60px;
+  text-align: center;
+  color: #333;
+}
+
+.timer-label {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Enhanced pulse animation */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.02); opacity: 0.9; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Glow effect when time is critical */
+.progress-bar[style*="width: 15%"] {
+  box-shadow: 0 0 10px rgba(242, 34, 114, 0.6);
+}

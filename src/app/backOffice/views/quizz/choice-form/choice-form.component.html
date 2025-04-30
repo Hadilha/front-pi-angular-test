@@ -1,0 +1,33 @@
+<div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  
+  <div *ngIf="!isLoading" class="container mt-4">
+    <h2>{{ isEditMode ? 'Edit Choice' : 'Add New Choice' }}</h2>
+    <h4 *ngIf="question">For Question: {{ question.questionText }}</h4>
+    
+    <form (ngSubmit)="onSubmit()" class="mt-4">
+      <div class="mb-3">
+        <label for="choiceText" class="form-label">Choice Text</label>
+        <input type="text" class="form-control" id="choiceText" 
+               [(ngModel)]="choice.text" name="choiceText" required>
+      </div>
+  
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="isCorrect" 
+               [(ngModel)]="choice.correct" name="isCorrect">
+        <label class="form-check-label" for="isCorrect">Correct Answer</label>
+      </div>
+  
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary" [disabled]="!choice.text.trim()">
+          {{ isEditMode ? 'Update' : 'Create' }}
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">
+          Cancel
+        </button>
+      </div>
+    </form>
+  </div>

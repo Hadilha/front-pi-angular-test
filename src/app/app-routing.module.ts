@@ -57,6 +57,21 @@ import { CoachingprogramComponent } from "./backOffice/views/coashing/coachingpr
 import { CoachFeedbackComponent } from "./backOffice/components/coashing/coach-feedback/coach-feedback.component";
 import { ContentProgramAjouterupdateComponent } from "./backOffice/views/coashing/content-program-ajouterupdate/content-program-ajouterupdate.component";
 import { FeedbackFormComponent } from "./backOffice/components/coashing/feedback/feedback-form/feedback-form.component";
+import { CombatGameComponent } from "./frontOffice/views/quizz/combat-game/combat-game.component";
+import { SlidingPuzzleComponent } from "./frontOffice/views/quizz/sliding-puzzle/sliding-puzzle.component";
+import { QuizListUserComponent } from "./frontOffice/views/quizz/quiz-list-user/quiz-list-user.component";
+import { ScoreListUserComponent } from "./frontOffice/views/quizz/score-list-user/score-list-user.component";
+import { TakeTestComponent } from "./frontOffice/views/quizz/take-test/take-test.component";
+import { TestListComponent } from "./frontOffice/views/quizz/test-list/test-list.component";
+import { QuizTestComponent } from "./backOffice/views/quizz/quizz-test/quizz-test.component";
+import { QuizFormComponent } from "./backOffice/views/quizz/quiz-form/quiz-form.component";
+import { QuizDetailsComponent } from "./backOffice/views/quizz/quiz-details/quiz-details.component";
+import { QuestionFormComponent } from "./backOffice/views/quizz/question-form/question-form.component";
+import { ChoiceFormComponent } from "./backOffice/views/quizz/choice-form/choice-form.component";
+import { VisualisationComponent } from "./backOffice/views/quizz/visualisation/visualisation.component";
+import { QuizListComponent } from "./backOffice/views/quizz/quiz-list/quiz-list.component";
+import { TestComponent } from "./backOffice/views/quizz/test/test.component";
+import { QuestionResponseComponent } from "./backOffice/views/quizz/question-response/question-response.component";
 
 //import { JournalComponent } from "./frontOffice/views/journal/journal.component";
 
@@ -135,6 +150,17 @@ const routes: Routes = [
 
       { path: 'feedback/feedback', component: FeedbackFormComponent },
       { path: 'coach-feedback', component: CoachFeedbackComponent },
+      { path: 'quizzes/new', component: QuizFormComponent },
+      { path: 'quizzes/:id', component: QuizDetailsComponent },
+      { path: 'quizzes/edit/:id', component: QuizFormComponent },
+      { path: 'quizzes/:quizId/questions/new', component: QuestionFormComponent },
+      { path: 'quizzes/:quizId/questions/:questionId/edit', component: QuestionFormComponent },
+      { path: 'quizzes/:quizId/questions/:questionId/choices/new', component: ChoiceFormComponent },
+      { path: 'quizzes/:quizId/questions/:questionId/choices/:choiceId/edit', component: ChoiceFormComponent },
+      {path:'visualisation',component:VisualisationComponent},
+      { path: 'quizzes', component: QuizListComponent },
+      {path:'tests',component:TestComponent},
+      { path: 'question-responses', component: QuestionResponseComponent },
 
 
 
@@ -176,6 +202,13 @@ const routes: Routes = [
     { path: 'patient-notes', component: PatientNotesComponent },
     {path:"mood_tarcker", component:MoodTrackerComponent},
     { path: 'frontOffice/content-program', component: ContentProgramComponent },
+    { path: 'combatgame', component: CombatGameComponent },
+    { path: 'SlidingPuzzle', component: SlidingPuzzleComponent },
+    {path:'quizzeslist',component:QuizListUserComponent},
+    {path:'scorelist',component:ScoreListUserComponent},
+    {path:'taketest/:id',component:TakeTestComponent},
+    { path: 'testlist', component: TestListComponent },
+    {path:'quizztest/:id',component:QuizTestComponent},
 
     ],
 
