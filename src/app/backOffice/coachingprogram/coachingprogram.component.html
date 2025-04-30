@@ -43,56 +43,58 @@
         <!-- Grille de cartes -->
         <div *ngIf="!isLoading && programs.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
           <div
-            *ngFor="let program of filteredPrograms"
-            class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg hover:scale-105 transform transition-transform duration-300">
-            <div class="p-6">
-              <!-- En-tête -->
-              <div class="flex justify-between items-start mb-4">
-                <h3 class="text-xl font-semibold text-gray-800">
-                  {{ program.title }}
-                </h3>
-              </div>
+  *ngFor="let program of filteredPrograms"
+  class="relative flex flex-col min-w-0 break-words bg-white w-full shadow-xl rounded-lg overflow-hidden mt-10"
+>
 
-              <!-- Description -->
-              <p class="text-gray-600 mb-4">{{ program.description }}</p>
+  <!-- Program Info -->
+  <div class="px-6 text-center mt-6">
+    <h3 class="text-2xl font-bold text-blueGray-800 mb-2">
+      {{ program.title }}
+    </h3>
+    <p class="text-sm text-blueGray-500 mb-4 line-clamp-2">
+      {{ program.description }}
+    </p>
 
-              <!-- Dates -->
-              <div class="flex flex-wrap gap-4 mb-4">
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fas fa-calendar-alt mr-2 text-blue-500"></i>
-                  <span><strong>Début :</strong> {{ program.startDate | date:'dd/MM/yyyy' }}</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500">
-                  <i class="fas fa-calendar-check mr-2 text-blue-500"></i>
-                  <span><strong>Fin :</strong> {{ program.endDate | date:'dd/MM/yyyy' }}</span>
-                </div>
-              </div>
+    <div class="flex justify-center py-4 border-t border-blueGray-100">
+      <div class="mx-4 text-center">
+        <span class="block text-lg font-semibold text-blueGray-700">
+          {{ program.participants }}
+        </span>
+        <span class="text-xs text-blueGray-400">Participants</span>
+      </div>
+      <div class="mx-4 text-center">
+        <span class="block text-lg font-semibold text-blueGray-700">
+          {{ program.startDate | date:'dd/MM/yyyy' }}
+        </span>
+        <span class="text-xs text-blueGray-400">Start Date</span>
+      </div>
+      <div class="mx-4 text-center">
+        <span class="block text-lg font-semibold text-blueGray-700">
+          {{ program.endDate | date:'dd/MM/yyyy' }}
+        </span>
+        <span class="text-xs text-blueGray-400">End Date</span>
+      </div>
+    </div>
+  </div>
 
-              <!-- Participants -->
-              <div class="flex items-center text-sm text-gray-500 mb-4">
-                <i class="fas fa-users mr-2 text-blue-500"></i>
-                <span><strong>Participants :</strong> {{ program.participants }}</span>
-              </div>
+  <!-- Actions -->
+  <div class="px-6 py-4 border-t border-blueGray-200 flex justify-end gap-3">
+    <a
+      [routerLink]="['/coaching-programs/coachingProgram', program.programId]"
+      class="text-sm bg-blueGray-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+    >
+      ✏️ Modifier
+    </a>
+    <button
+      (click)="onDelete(program.programId)"
+      class="text-sm bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
+    >
+      🗑️ Supprimer
+    </button>
+  </div>
+</div>
 
-              <!-- Actions -->
-              <div class="flex justify-end space-x-2 pt-4 border-t border-gray-100">
-                <button
-                  class="btn btn-success btn-sm flex items-center space-x-1"
-                  [routerLink]="['/coaching-programs/coachingProgram', program.programId]"
-                  aria-label="Modifier le programme">
-                  <i class="fas fa-edit"></i>
-                  <span>Modifier</span>
-                </button>
-                <button
-                  class="btn btn-danger btn-sm flex items-center space-x-1"
-                  (click)="onDelete(program.programId)"
-                  aria-label="Supprimer le programme">
-                  <i class="fas fa-trash"></i>
-                  <span>Supprimer</span>
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
         
               <button
