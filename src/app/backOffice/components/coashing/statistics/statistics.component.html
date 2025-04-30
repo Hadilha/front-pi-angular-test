@@ -1,0 +1,83 @@
+<div class="container mx-auto mt-8 px-4 max-w-7xl">
+
+  <!-- Section Participants - Optimisée -->
+  <div class="card bg-white rounded-2xl shadow-xl mb-10 overflow-hidden border border-gray-100 transition-all hover:shadow-2xl">
+    <div class="card-header bg-gradient-to-r from-indigo-600 to-blue-600 py-5 px-8">
+      <div class="flex items-center space-x-4">
+        <div class="bg-white/20 p-3 rounded-xl shadow-inner">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-white" viewBox="0 0 20 20" fill="currentColor">
+            <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v1h8v-1zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-1a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v1h-3zM4.75 12.094A5.973 5.973 0 004 15v1H1v-1a3 3 0 013.75-2.906z" />
+          </svg>
+        </div>
+        <div>
+          <h4 class="text-2xl font-bold text- tracking-tight">Participants par programme</h4>
+          <p class="text-blue-100 text-sm mt-1">Répartition des inscrits par programme de formation</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-1 md:p-6">
+      <div class="chart-container relative" style="height: 65vh; min-height: 400px">
+        <canvas baseChart
+                [data]="barChartData"
+                [options]="barChartOptions"
+                chartType="bar">
+        </canvas>
+      </div>
+    </div>
+    <div class="card-footer bg-gray-50/80 px-6 py-4 border-t border-gray-200">
+      <div class="flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
+        <div class="text-sm text-gray-600 flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+                  Actualisé le {{ today | date:'dd/MM/yyyy à HH:mm' }}
+        </div>
+        <!-- ... (contenu existant) ... -->
+
+<!-- ... (suite du contenu) ... -->
+      </div>
+    </div>
+  </div>
+
+  
+
+</div>
+
+<style>
+  .btn-outline-blue {
+    padding: 0.5rem 1rem;
+    border: 1px solid #2563eb;
+    color: #2563eb;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+  }
+  .btn-outline-blue:hover {
+    background-color: #eff6ff;
+    border-color: #1d4ed8;
+    color: #1d4ed8;
+  }
+  .btn-outline-green {
+    padding: 0.5rem 1rem;
+    border: 1px solid #059669;
+    color: #059669;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+  }
+  .btn-outline-green:hover {
+    background-color: #ecfdf5;
+    border-color: #047857;
+    color: #047857;
+  }
+  .chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+  }
+</style>

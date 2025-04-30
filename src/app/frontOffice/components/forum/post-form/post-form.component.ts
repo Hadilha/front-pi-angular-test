@@ -164,8 +164,10 @@ export class ForumPostFormComponent {
 
   isModalOpen = false;
   openModal() {
+    console.log(this.isModalOpen);
     console.log('Opening modal'); // Add this
     this.isModalOpen = true;
+    console.log(this.isModalOpen);
   }
 
   closeModal() {

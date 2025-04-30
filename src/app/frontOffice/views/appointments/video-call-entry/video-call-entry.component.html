@@ -1,0 +1,14 @@
+<div class="entry-form">
+    <h2>Join Video Call</h2>
+    
+    <label for="role">Select Your Role:</label>
+    <select id="role" [(ngModel)]="selectedRole">
+      <option value="doctor">Doctor</option>
+      <option value="patient">Patient</option>
+    </select>
+    
+    <label for="roomId">Room ID:</label>
+    <input id="roomId" [(ngModel)]="roomId" placeholder="Enter Room ID">
+    
+    <button (click)="joinCall()">Join Call</button>
+  </div>

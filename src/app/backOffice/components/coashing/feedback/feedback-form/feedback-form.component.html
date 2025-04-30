@@ -1,0 +1,5 @@
+<form (ngSubmit)="submitFeedback()">
+  <input type="number" [(ngModel)]="rating" name="rating" required />
+  <textarea [(ngModel)]="comment" name="comment" required></textarea>
+  <button type="submit">Envoyer Feedback</button>
+</form>

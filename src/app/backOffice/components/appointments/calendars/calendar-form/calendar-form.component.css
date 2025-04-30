@@ -1,0 +1,63 @@
+/* Card Shadow */
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Input and Select Focus */
+.form-control:focus, .form-select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Button Hover Effects */
+.btn-primary {
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+}
+
+.btn-outline-secondary {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+/* Invalid Input Shadow */
+.form-control.is-invalid, .form-select.is-invalid {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Spinner Color */
+.spinner-border {
+  color: #fff;
+}
+
+/* Alert Shadow */
+.alert {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Validation Feedback Alignment */
+.invalid-feedback {
+  display: flex;
+  align-items: center;
+}
+
+/* Textarea specific styles */
+.form-floating textarea.form-control {
+  font-family: Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.875rem;
+}
+
+/* Code example styles */
+code {
+  font-family: Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.875rem;
+}

@@ -20,3 +20,8 @@ export interface User {
 
 
 }
+export enum Role {
+  DOCTOR = 'DOCTOR',
+  COACH = 'COACH',
+  PATIENT = 'PATIENT',
+}

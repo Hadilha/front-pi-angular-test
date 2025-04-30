@@ -91,7 +91,44 @@ import { NgChartsModule } from 'ng2-charts';
 import { ToastrModule } from 'ngx-toastr';
 import { CardStatsComponent } from "./frontOffice/components/forum/card-stats/card-stats.component";
 import { HeaderStatsComponent } from "./frontOffice/components/forum/headers/header-stats/header-stats.component";
+import { AppointmentListComponent } from "./backOffice/views/appointments/appointment-list/appointment-list.component";
+import { AppointmentFormComponent } from "./backOffice/components/appointments/appointments/appointment-form/appointment-form.component";
+import { CalendarListComponent } from "./backOffice/views/appointments/calendar-list/calendar-list.component";
+import { CalendarFormComponent } from "./backOffice/components/appointments/calendars/calendar-form/calendar-form.component";
+import { CalendarViewComponent } from "./frontOffice/views/appointments/calendar-view/calendar-view.component";
+import { AppointmentStatisticsComponent } from "./backOffice/components/appointments/appointment-statistics/appointment-statistics.component";
+import { VideoCallComponent } from "./frontOffice/views/appointments/video-call/video-call.component";
+import { VideoCallEntryComponent } from "./frontOffice/views/appointments/video-call-entry/video-call-entry.component";
+import { PatientCalendarComponent } from "./frontOffice/views/appointments/patient-calendar/patient-calendar.component";
+import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 
+import { GoogleChartsModule } from 'angular-google-charts';
+import { ListNotesComponent } from "./backOffice/components/prescription_note/note-management/list-notes/list-notes.component";
+import { AddNoteComponent } from "./backOffice/components/prescription_note/note-management/add-note/add-note.component";
+import { UpdateNoteComponent } from "./backOffice/components/prescription_note/note-management/update-note/update-note.component";
+import { DetailsNoteComponent } from "./backOffice/components/prescription_note/note-management/details-note/details-note.component";
+import { PatientNotesComponent } from "./backOffice/components/prescription_note/note-management/patient-notes/patient-notes.component";
+import { ListPrescriptionsComponent } from "./backOffice/components/prescription_note/prescription-management/list-prescriptions/list-prescriptions.component";
+import { AddPrescriptionComponent } from "./backOffice/components/prescription_note/prescription-management/add-prescription/add-prescription.component";
+import { UpdatePrescriptionComponent } from "./backOffice/components/prescription_note/prescription-management/update-prescription/update-prescription.component";
+import { DetailsPrescriptionComponent } from "./backOffice/components/prescription_note/prescription-management/details-prescription/details-prescription.component";
+import { PatientPrescriptionComponent } from "./backOffice/components/prescription_note/prescription-management/patient-prescription/patient-prescription.component";
+import { PatientNotesDetailsComponent } from "./frontOffice/components/prescription_note/patient-notes-details/patient-notes-details.component";
+import { PatientPrescriptionDetailsComponent } from "./frontOffice/components/prescription_note/patient-prescription-details/patient-prescription-details.component";
+import { ChatManagementComponent } from "./backOffice/views/Chat/chat-management/chat-management.component";
+import { MoodTrackerManagementComponent } from "./backOffice/views/Chat/mood-tracker-management/mood-tracker-management.component";
+import { ChatBubbleComponent } from "./frontOffice/components/chat/message-bubble/chat-bubble.component";
+import { MoodTrackerComponent } from "./frontOffice/views/chat/mood-tracker/mood-tracker.component";
+import { CoachFeedbackComponent } from "./backOffice/components/coashing/coach-feedback/coach-feedback.component";
+import { FeedbackFormComponent } from "./backOffice/components/coashing/feedback/feedback-form/feedback-form.component";
+import { SearchContentComponent } from "./backOffice/components/coashing/search-content/search-content.component";
+import { SearchProgramComponent } from "./backOffice/components/coashing/search-program/search-program.component";
+import { StatisticsComponent } from "./backOffice/components/coashing/statistics/statistics.component";
+import { CoachingprogramComponent } from "./backOffice/views/coashing/coachingprogram/coachingprogram.component";
+import { CoachingProgramAjouterUpdateComponent } from "./backOffice/views/coashing/coachingprogramajouter-update/coachingprogramajouter-update.component";
+import { ContentProgramAjouterupdateComponent } from "./backOffice/views/coashing/content-program-ajouterupdate/content-program-ajouterupdate.component";
+import { ContentprogramComponent } from "./backOffice/views/coashing/contentprogram/contentprogram.component";
+import { ContentProgramComponent } from "./frontOffice/views/coashing/contentprogram/contentprogram.component";
 
 @NgModule({
   declarations: [
@@ -157,7 +194,52 @@ import { HeaderStatsComponent } from "./frontOffice/components/forum/headers/hea
     StatsContainerComponent,
     StatsReactionChartComponent,
     CardStatsComponent,
-    HeaderStatsComponent
+    HeaderStatsComponent,
+    AppointmentListComponent,
+    AppointmentFormComponent,
+    CalendarListComponent,
+    CalendarFormComponent,
+    CalendarViewComponent,
+    CalendarViewComponent,
+    AppointmentStatisticsComponent,
+    VideoCallComponent,
+    VideoCallEntryComponent,
+    PatientCalendarComponent,
+    ListNotesComponent,
+    AddNoteComponent,
+    UpdateNoteComponent,
+    DetailsNoteComponent,
+    PatientNotesComponent,
+    ListPrescriptionsComponent,
+    AddPrescriptionComponent,
+    UpdatePrescriptionComponent,
+    DetailsPrescriptionComponent,
+    PatientPrescriptionComponent,
+    PatientNotesDetailsComponent,
+    PatientPrescriptionDetailsComponent,
+    ChatManagementComponent,
+    MoodTrackerManagementComponent,
+    ChatBubbleComponent,
+    ChatManagementComponent,
+    MoodTrackerManagementComponent,
+    MoodTrackerComponent,
+    CoachFeedbackComponent,
+    FeedbackFormComponent,
+    SearchContentComponent,
+    SearchProgramComponent,
+    StatisticsComponent,
+    CoachingprogramComponent,
+    CoachingProgramAjouterUpdateComponent,
+    ContentProgramAjouterupdateComponent,
+    ContentprogramComponent,
+    ContentprogramComponent,
+    ContentProgramComponent
+
+
+
+
+
+
 
   ],
   imports: [
@@ -174,6 +256,9 @@ import { HeaderStatsComponent } from "./frontOffice/components/forum/headers/hea
     MatIconModule,
     MatSnackBarModule,
     NgChartsModule,
+    ReactiveFormsModule,
+    FullCalendarModule,
+    GoogleChartsModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       timeOut: 3000,
@@ -190,6 +275,7 @@ import { HeaderStatsComponent } from "./frontOffice/components/forum/headers/hea
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 
   ],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent , ContentprogramComponent],
+
 })
 export class AppModule {}

@@ -36,7 +36,7 @@ export class CardSettingsDoctorComponent implements OnInit {
         Validators.minLength(8),
         Validators.pattern(/^\d+$/)
       ]],
-            specializations: ['', Validators.required],
+      specializations: ['', Validators.required],
       experienceYears: ['', [Validators.required, Validators.min(0)]],
       workingHours: ['', Validators.required],
       accountStatus: ['ACTIVE'],

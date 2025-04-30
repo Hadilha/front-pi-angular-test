@@ -1,0 +1,40 @@
+<div class="statistics-container">
+    <h2>Appointment Statistics</h2>
+    
+    <div class="actions">
+      <button (click)="refresh()" class="refresh-btn">
+        <i class="fa fa-refresh"></i> Refresh Data
+      </button>
+      <a routerLink="/admin/appointments" class="back-btn">
+        <i class="fa fa-arrow-left"></i> Back to Appointments
+      </a>
+    </div>
+    
+    <div *ngIf="loading" class="loading">
+      <p>Loading statistics...</p>
+    </div>
+    
+    <div *ngIf="error" class="error">
+      <p>Error loading statistics. Please try again later.</p>
+    </div>
+    
+    <div *ngIf="!loading && !error" class="charts-container">
+      <div class="chart pie-chart">
+        <google-chart
+          [type]="pieChartType"
+          [data]="pieChartData"
+          [options]="pieChartOptions"
+          [columns]="chartColumnNames">
+        </google-chart>
+      </div>
+      
+      <div class="chart bar-chart">
+        <google-chart
+          [type]="barChartType"
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [columns]="chartColumnNames">
+        </google-chart>
+      </div>
+    </div>
+  </div>

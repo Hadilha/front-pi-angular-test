@@ -93,7 +93,7 @@ export class UserService {
             this.router.navigate(['/doctor/patientList']);
             break;
           case 'ADMIN':
-            this.router.navigate(['/admin/usermanagment']);
+            this.router.navigate(['/admin/statistics']);
             break;
           default:
             console.error('Unauthorized role:', role);
@@ -408,5 +408,9 @@ export class UserService {
     const tokenValue = localStorage.getItem('token') || '';
     const headers = new HttpHeaders({ Authorization: `Bearer ${tokenValue}` });
     return this.http.get<any[]>(`${this.apiUrl}/admin/doctors`, { headers });
+  }
+
+  getUsersByRole(role: string): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/users/role/${role}`);
   }
 }

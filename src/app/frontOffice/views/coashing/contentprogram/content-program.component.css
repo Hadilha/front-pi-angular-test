@@ -1,0 +1,121 @@
+/* Container principal */
+.content-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* État de chargement */
+.loading {
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Cartes de contenu */
+.content-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid #e5e7eb;
+}
+
+.content-item:hover {
+  transform: translateY(-2px);
+}
+
+/* Media embarqué */
+.media-container {
+  background-color: #f9fafb;
+}
+
+.media-container iframe,
+.media-container video,
+.media-container img {
+  transition: opacity 0.3s ease;
+}
+
+.media-container iframe {
+  min-height: 200px;
+}
+
+.media-container video {
+  background-color: #000;
+}
+
+.media-container img {
+  object-fit: contain;
+  background-color: #f3f4f6;
+}
+
+/* Boutons */
+.feedback-btn {
+  letter-spacing: 0.025em;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.feedback-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Formulaire de feedback */
+.feedback-form {
+  animation: slideUp 0.25s ease-out;
+  border: 1px solid #e5e7eb;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Champs de formulaire */
+.form-group input,
+.form-group textarea {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Boutons du formulaire */
+.submit-btn {
+  letter-spacing: 0.025em;
+}
+
+.cancel-btn {
+  transition: background-color 0.2s ease;
+}
+
+/* Overlay */
+.fixed.inset-0 {
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .content-item {
+    margin-bottom: 1.5rem;
+  }
+
+  .feedback-form {
+    width: 95%;
+    margin: 0 auto;
+  }
+}
+
+/* Correction des styles manquants */
+.text- {
+  color: white; /* Correction pour la classe text- manquante */
+  }

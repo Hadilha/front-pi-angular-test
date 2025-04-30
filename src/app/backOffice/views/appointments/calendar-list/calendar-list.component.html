@@ -1,0 +1,106 @@
+<div class="container mt-5 pt-5" style="margin-top: 80px;">
+  <!-- Header Section with Integrated Search -->
+  <div class="row align-items-center mb-4 g-3 bg-primary bg-gradient text-white p-3 rounded-3 shadow-sm">
+    <div class="col-md-6">
+      <h2 class="mb-0 fw-bold"><i class="bi bi-calendar3 me-2"></i>Calendars</h2>
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex align-items-center gap-3 justify-content-end">
+        <div class="flex-grow-1" style="max-width: 300px;">
+          <div class="input-group input-group-smaller">
+            <span class="input-group-text bg-light border-0 pe-1 ps-3">
+              <i class="bi bi-search text-primary"></i>
+            </span>
+            <input type="text" 
+                   class="form-control border-0 shadow-none bg-light py-2" 
+                   placeholder="Search calendars..." 
+                   [(ngModel)]="searchTerm"
+                   (input)="filterCalendars()">
+          </div>
+        </div>
+        <button routerLink="/admin/calendars/new" 
+                class="btn btn-light btn-md flex-shrink-0 text-primary fw-semibold d-flex align-items-center">
+          <i class="bi bi-plus-circle me-2"></i>New Calendar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5 mx-3 bg-light rounded-3 shadow-sm">
+    <div class="spinner-border text-primary spinner-border-lg" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-muted">Fetching calendars...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage" class="alert alert-danger mx-3 d-flex align-items-center rounded-3 shadow-sm">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+  </div>
+
+  <!-- Table Container -->
+  <div *ngIf="!isLoading && !errorMessage" class="mx-3">
+    <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0 table-striped">
+            <thead class="table-dark text-white">
+              <tr>
+                <th class="py-3 px-4 border-bottom fw-semibold">ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Professional ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Events</th>
+                <th class="py-3 px-4 border-bottom fw-semibold text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cal of filteredCalendars"  class="border-light transition-hover">
+                <td class="px-4 py-3 fw-medium">{{ cal.calendarId }}</td>
+                <td class="px-4 py-3">{{ cal.owner.userId }}</td>
+                <td class="px-4 py-3">
+                  <!-- Improved Events Display -->
+                  <div class="d-flex flex-column">
+                    <span class="badge bg-primary mb-2">{{ formatEvents(cal.events) }}</span>
+                    
+                    <div *ngIf="cal.events && getEventCount(cal.events) > 0" class="events-preview">
+                      <div *ngFor="let title of getEventTitles(cal.events)" 
+                           class="text-truncate small mb-1 bg-light p-1 rounded">
+                        <i class="bi bi-calendar-event me-1 text-primary"></i>{{ title }}
+                      </div>
+                      
+                      <div *ngIf="getEventCount(cal.events) > 2" class="text-muted small">
+                        <i class="bi bi-three-dots me-1"></i>and {{ getEventCount(cal.events) - 2 }} more
+                      </div>
+                    </div>
+                    
+                    <div *ngIf="!cal.events || getEventCount(cal.events) === 0" class="text-muted small">
+                      <i class="bi bi-calendar-x me-1"></i>No events scheduled
+                    </div>
+                  </div>
+                </td>
+                <td class="px-4 py-3 text-end">
+                  <div class="btn-group gap-2">
+                    <button (click)="editCalendar(cal)" 
+                            class="btn btn-outline-primary px-3 py-2 d-flex align-items-center transition-btn">
+                      <i class="bi bi-pencil me-2"></i>Edit
+                    </button>
+                    <button (click)="deleteCalendar(cal.calendarId)" 
+                            class="btn btn-outline-danger px-3 py-2 d-flex align-items-center transition-btn">
+                      <i class="bi bi-trash me-2"></i>Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredCalendars.length === 0" class="border-light">
+                <td colspan="4" class="text-center text-muted py-5 bg-light rounded-bottom">
+                  <i class="bi bi-{{ searchTerm ? 'search' : 'calendar-x' }} me-2 fs-4"></i>
+                  {{ searchTerm ? 'No matches found for "' + searchTerm + '"' : 'No calendars available' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

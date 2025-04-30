@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ForumService,Post } from 'src/app/Services/forum-space/forum-space.service';
+import { UserService } from 'src/app/Services/user/user.service';
 
 
 @Component({
@@ -11,17 +12,17 @@ export class ForumSpaceComponent implements OnInit {
   posts: Post[] = [];
   topPosts: Post[] = [];
   selectedPost: Post | null = null;
-  currentUser: string = 'Chiha';
+  currentUser = this.userService.getCurrentUsername() ;
   currentUserReaction: string | null = null;
   isModalOpen: boolean = false;
   selectedCategory: string = 'All';
   showTopPosts: boolean = false;
   isEditingPost: boolean = false;
 
-  constructor(private forumService: ForumService) {}
+  constructor(private forumService: ForumService, private userService : UserService) {}
 
   ngOnInit() {
-    console.log('✅ Current user:', this.currentUser);
+    console.log('✅ Current usernameee:', this.userService.getCurrentUsername());
     this.loadPosts();
     this.loadTopPosts();
   }
@@ -50,7 +51,7 @@ export class ForumSpaceComponent implements OnInit {
 
   fetchCurrentUserReaction(postId: number) {
     this.forumService
-      .getUserReaction(postId, this.currentUser)
+      .getUserReaction(postId, this.currentUser!)
       .subscribe((reaction) => {
         this.currentUserReaction = reaction;
       });

@@ -1,0 +1,13 @@
+.text-gradient {
+    background: linear-gradient(to right, #4c51bf, #667eea);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .card {
+    transition: transform 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  

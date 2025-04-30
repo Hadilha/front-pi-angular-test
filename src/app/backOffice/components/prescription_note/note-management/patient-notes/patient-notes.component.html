@@ -1,0 +1,93 @@
+
+<br/><br/><br/><br/><br/>
+
+<div class="px-4 md:px-10 mx-auto w-full -m-24">
+  <div
+    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded mt-6 px-4"
+    [ngClass]="color === 'light' ? 'bg-white' : 'bg-red-900 text-white'"
+  >
+    <div class="rounded-t mb-0 px-4 py-3 border-0">
+      <div class="flex flex-wrap items-center">
+        <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+          <h3
+            class="font-semibold text-lg"
+            [ngClass]="color === 'light' ? 'text-blueGray-700' : 'text-white'"
+          >
+            Notes
+          </h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="block w-full overflow-x-auto">
+      <table class="items-center w-full bg-transparent border-collapse">
+        <thead>
+          <tr>
+            <th
+              class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0"
+              [ngClass]="color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-red-800 text-red-300 border-red-700'"
+            >
+              Author
+            </th>
+            <th
+              class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0"
+              [ngClass]="color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-red-800 text-red-300 border-red-700'"
+            >
+              Diagnosis
+            </th>
+            <th
+              class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0"
+              [ngClass]="color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-red-800 text-red-300 border-red-700'"
+            >
+              Guidance
+            </th>
+            <th
+              class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0"
+              [ngClass]="color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-red-800 text-red-300 border-red-700'"
+            >
+              Created At
+            </th>
+            <th
+              class="px-6 py-3 text-xs uppercase font-semibold text-left border border-solid border-l-0 border-r-0"
+              [ngClass]="color === 'light' ? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100' : 'bg-red-800 text-red-300 border-red-700'"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let note of notes">
+            <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">
+              {{ note.doctor?.username || 'Unknown' }}
+            </td>
+            <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">
+              {{ note.diagnosis || '—' }}
+            </td>
+            <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">
+              {{ note.guidance || '—' }}
+            </td>
+            <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">
+              {{ note.creationDate | date: 'dd/MM/yyyy' }}
+            </td>
+            <td class="border-t-0 px-6 py-4 text-xs whitespace-nowrap">
+              <div class="flex space-x-4">
+                <button
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-xs"
+                  (click)="navigateToDetails(note.id ?? 0)"
+                >
+                  Details
+                </button>
+                <button
+                  class="bg-indigo-500 hover:bg-indigo-600 text-white px-3 py-1 rounded text-xs"
+                  (click)="generateNotePDF(note)"
+                >
+                  Save
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

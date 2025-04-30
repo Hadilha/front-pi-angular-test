@@ -1,0 +1,78 @@
+<div class="video-call-container" [ngClass]="{'doctor-view': isDoctor, 'patient-view': !isDoctor}">
+  <div class="call-header">
+    <h2>{{ isDoctor ? 'Doctor Video Consultation' : 'Patient Video Consultation' }}</h2>
+    <div class="call-status">
+      <span class="status-indicator" [ngClass]="callStatus"></span>
+      <span class="status-text">{{ callStatus | titlecase }}</span>
+    </div>
+  </div>
+
+  <div class="video-streams" [ngClass]="{'ended': callStatus === 'ended'}">
+    <!-- Remote Video (Larger) -->
+    <div class="remote-video-container">
+      <video #remoteVideo autoplay playsinline></video>
+      <p class="remote-label">{{ isDoctor ? 'Patient' : 'Doctor' }}</p>
+      <div *ngIf="!remoteStream && callStatus !== 'ended'" class="waiting-message">
+        <p>Waiting for {{ isDoctor ? 'patient' : 'doctor' }} to join...</p>
+        <div class="spinner"></div>
+      </div>
+      <div *ngIf="callStatus === 'ended'" class="call-ended-message">
+        <p>Call Ended</p>
+        <button class="btn btn-primary" (click)="navigateToEntry()">
+          Return to {{ isDoctor ? 'Appointments' : 'Patient Space' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Local Video (Smaller) -->
+    <div class="local-video-container">
+      <video #localVideo autoplay muted playsinline></video>
+      <p class="local-label">You</p>
+    </div>
+
+    <!-- Call Controls -->
+    <div class="call-controls">
+      <button class="btn control-btn mute-btn">
+        <i class="fas fa-microphone"></i>
+      </button>
+      <button class="btn control-btn video-btn">
+        <i class="fas fa-video"></i>
+      </button>
+      <button class="btn control-btn end-call-btn" (click)="endCall()">
+        <i class="fas fa-phone-slash"></i> End Call
+      </button>
+    </div>
+  </div>
+
+  <!-- Doctor-Specific UI -->
+  <div *ngIf="isDoctor" class="notes-container">
+    <h3>Consultation Notes</h3>
+    <textarea 
+      [(ngModel)]="consultationNotes" 
+      placeholder="Enter consultation notes here..." 
+      rows="5"
+      class="form-control"
+    ></textarea>
+    <button class="btn btn-primary mt-2" (click)="saveNotes()" [disabled]="!consultationNotes.trim()">Download Notes</button>
+    
+    <!-- AI Generated Notes Button -->
+    <button 
+      class="btn btn-secondary mt-2" 
+      (click)="generateNoteWithAI()" 
+      [disabled]="isGenerating || !consultationNotes.trim()">
+      <span *ngIf="isGenerating">Generating...</span>
+      <span *ngIf="!isGenerating">Generate AI Notes</span>
+    </button>
+
+    <div *ngIf="generatedNote" class="generated-note">
+      <h4>Generated Notes</h4>
+      <p>{{ generatedNote }}</p>
+    </div>
+  </div>
+
+  <!-- Patient-Specific UI -->
+  <div *ngIf="!isDoctor" class="patient-instructions">
+    <h3>Instructions</h3>
+    <p>Please wait for the doctor to provide guidance during the consultation.</p>
+  </div>
+</div>

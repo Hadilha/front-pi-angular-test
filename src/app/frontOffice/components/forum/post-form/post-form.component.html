@@ -11,7 +11,11 @@
 </div>
 <!-- Backdrop -->
 <!-- Blurred Backdrop (matching Post Detail Modal style) -->
-
+<div
+  *ngIf="isModalOpen"
+  class="fixed inset-0 bg-white/30 backdrop-blur-lg z-40 flex items-center justify-center"
+  (click)="closeModal()"
+></div>
 
 <!-- Modal Container -->
 <div
@@ -159,5 +163,5 @@
         </div>
       </div>
     </div>
-  </div>
+  </div>
 </div>

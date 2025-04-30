@@ -1,0 +1,129 @@
+<div class="mood-tracker-container" [ngClass]="{'dark-mode': darkMode}">
+  <!-- Dark Mode Toggle -->
+  <div class="theme-toggle">
+    <button (click)="toggleDarkMode()" class="btn btn-theme">
+      {{ darkMode ? '☀️ Light Mode' : '🌙 Dark Mode' }}
+    </button>
+  </div>
+
+  <!-- Mood Logging Form -->
+  <div class="card mood-form">
+    <h2>Log Your Mood</h2>
+    <form (ngSubmit)="logMood()" class="form-group">
+      <div class="form-field">
+        <label for="mood">Mood</label>
+        <select id="mood" [(ngModel)]="mood" name="mood" class="form-control">
+          <option value="" disabled>Select a mood</option>
+          <option *ngFor="let moodOption of moodsList" [value]="moodOption">
+            {{ moodIcons[moodOption] }} {{ moodOption }}
+          </option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="intensity">Intensity (1-10)</label>
+        <input type="range" id="intensity" [(ngModel)]="intensity" name="intensity" min="1" max="10" class="intensity-slider" [style.--intensity]="((intensity - 1) / 9) * 100 + '%'" />
+        <span class="intensity-value">{{ intensity }}</span>
+      </div>
+      <div class="form-field">
+        <label for="notes">Notes</label>
+        <textarea id="notes" [(ngModel)]="notes" name="notes" class="form-control" placeholder="How are you feeling?" rows="3"></textarea>
+      </div>
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+      <button type="submit" class="btn btn-primary">Log Mood</button>
+    </form>
+  </div>
+
+  <!-- Daily Goals -->
+  <div class="card daily-goals">
+    <h2>Daily Goals</h2>
+    <div class="goal-form">
+      <form (ngSubmit)="setGoal()" class="form-group">
+        <div class="form-field">
+          <label for="newGoal">Set a New Goal</label>
+          <input type="text" id="newGoal" [(ngModel)]="newGoal" name="newGoal" class="form-control" placeholder="e.g., Meditate for 5 minutes" />
+        </div>
+        <div class="error-message" *ngIf="goalErrorMessage">{{ goalErrorMessage }}</div>
+        <button type="submit" class="btn btn-primary">Add Goal</button>
+      </form>
+    </div>
+    <div class="goals-list">
+      <h3>Your Goals</h3>
+      <div *ngIf="goals.length > 0; else noGoals">
+        <div *ngFor="let goal of goals" class="goal-item" [ngClass]="{'completed': goal.completed, 'high-priority': goal.priority === 1, 'medium-priority': goal.priority === 2, 'low-priority': goal.priority === 3}">
+          <span>{{ goal.description }}</span>
+          <span class="priority-label">Priority: {{ goal.priority === 1 ? 'High' : goal.priority === 2 ? 'Medium' : 'Low' }}</span>
+          <button *ngIf="!goal.completed" (click)="completeGoal(goal.id)" class="btn btn-success">Complete</button>
+          <span *ngIf="goal.completed" class="completed-label">Completed on {{ goal.completedAt | date:'short' }}</span>
+        </div>
+      </div>
+      <ng-template #noGoals>
+        <p class="no-data">No goals set yet. Add a goal to get started!</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Mood History -->
+  <div class="card mood-history">
+    <h2>Mood History</h2>
+    <div class="table-container">
+      <table *ngIf="moods.length > 0; else noMoods">
+        <thead>
+          <tr>
+            <th>Mood</th>
+            <th>Intensity</th>
+            <th>Notes</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mood of moods">
+            <td>{{ moodIcons[mood.mood] }} {{ mood.mood }}</td>
+            <td>{{ mood.intensity }}</td>
+            <td>{{ mood.notes }}</td>
+            <td>{{ mood.timestamp | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noMoods>
+        <p class="no-data">No mood entries yet. Log a mood to get started!</p>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Achievements -->
+  <div class="card achievements">
+    <h2>Achievements</h2>
+    <div *ngIf="achievements.length > 0; else noAchievements">
+      <div *ngFor="let achievement of achievements" class="achievement-item">
+        <h3>{{ achievement.title }} 🏆</h3>
+        <p>{{ achievement.description }}</p>
+        <p>Achieved on {{ achievement.achievedAt | date:'shortDate' }}</p>
+      </div>
+    </div>
+    <ng-template #noAchievements>
+      <p class="no-data">No achievements yet. Keep logging your moods to earn some!</p>
+      <!-- Removed the img tag referencing achievement-placeholder.svg -->
+    </ng-template>
+  </div>
+
+  <!-- Recommended Program -->
+  <div class="card recommendation">
+    <h2>Recommended Program</h2>
+    <div *ngIf="isLoadingRecommendation" class="loading-spinner">
+      <div class="spinner"></div>
+      <p>Loading recommendation...</p>
+    </div>
+    <div *ngIf="!isLoadingRecommendation && recommendedProgram; else noRecommendation">
+      <div class="program-card">
+        <h3>{{ recommendedProgram.title }}</h3>
+        <p>{{ recommendedProgram.description }}</p>
+        <p><strong>Start Date:</strong> {{ recommendedProgram.startDate | date:'shortDate' }}</p>
+        <p><strong>End Date:</strong> {{ recommendedProgram.endDate | date:'shortDate' }}</p>
+        <p><strong>Participants:</strong> {{ recommendedProgram.participants }}</p>
+      </div>
+    </div>
+    <ng-template #noRecommendation>
+      <p class="no-data">Log a few moods to get a personalized program recommendation.</p>
+    </ng-template>
+  </div>
+</div>

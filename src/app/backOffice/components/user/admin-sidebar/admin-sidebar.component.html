@@ -125,7 +125,117 @@
           </a>
         </li>
 
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/appointments']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #appointmentsLink="routerLinkActive"
+            [ngClass]="
+              appointmentsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar-alt mr-2 text-sm"
+              [ngClass]="
+                appointmentsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Appointments
+          </a>
+        </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/calendars']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #calendarsLink="routerLinkActive"
+            [ngClass]="
+              calendarsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar mr-2 text-sm"
+              [ngClass]="
+                calendarsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Calendars
+          </a>
+        </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/ChatManagement']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #calendarsLink="routerLinkActive"
+            [ngClass]="
+              calendarsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar mr-2 text-sm"
+              [ngClass]="
+                calendarsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Chat Management
+          </a>
+        </li>
+        <li class="items-center">
+          <a
+            [routerLink]="['/admin/MoodTrackerManagement']"
+            class="text-xs uppercase py-3 font-bold block"
+            routerLinkActive
+            #calendarsLink="routerLinkActive"
+            [ngClass]="
+              calendarsLink.isActive
+                ? 'text-red-600 hover:text-red-700'
+                : 'text-gray-300 hover:text-gray-500'
+            "
+          >
+            <i
+              class="fas fa-calendar mr-2 text-sm"
+              [ngClass]="
+                calendarsLink.isActive ? 'opacity-75' : 'text-gray-500'
+              "
+            ></i>
+            Mood Tracker Management
+          </a>
+        </li>
+        <li>
+          <a
+            [routerLink]="['/admin/backoffice/coachingprogram/programs']"
+            routerLinkActive
+            #coaching="routerLinkActive"
+            [ngClass]="coaching.isActive ? 'text-red-600 hover:text-red-700' : 'text-gray-300 hover:text-gray-500'"
+            class="text-xs uppercase py-3 font-bold block"
 
+          >
+            <i class="fas fa-table text-sm mr-2" [ngClass]="coaching.isActive ? 'opacity-75' : 'text-gray-500'"></i>
+            Coaching
+          </a>
+        </li>
+
+        <li>
+          <a
+            [routerLink]="['/admin/backoffice/content-program']"
+            routerLinkActive
+            #program="routerLinkActive"
+            [ngClass]="program.isActive ? 'text-red-600 hover:text-red-700' : 'text-gray-300 hover:text-gray-500'"
+            class="text-xs uppercase py-3 font-bold block"
+
+          >
+            <i class="fas fa-table text-sm mr-2" [ngClass]="program.isActive ? 'opacity-75' : 'text-gray-500'"></i>
+            Programmes de patient
+          </a>
+        </li>
 
       </ul>
 

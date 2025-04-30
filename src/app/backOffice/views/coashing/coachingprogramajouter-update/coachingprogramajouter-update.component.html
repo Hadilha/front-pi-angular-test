@@ -1,0 +1,122 @@
+<app-admin-sidebar></app-admin-sidebar>
+
+<div class="relative md:ml-64 bg-blueGray-100">
+  <div class="container mt-10 px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-gray-800 mb-6">Programme de coaching</h2>
+
+    <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300">
+      <form (ngSubmit)="onSubmit()" #programForm="ngForm">
+        
+        <!-- Champ No du coach -->
+        <div class="form-group mb-6">
+          <label class="text-sm font-medium text-gray-700">Coach</label>
+          <input 
+            type="number" 
+            name="coachId" 
+            [(ngModel)]="program.coachId"
+            #coachId="ngModel" 
+            required 
+            min="1"
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" 
+          >
+          <div *ngIf="coachId.invalid && (coachId.dirty || coachId.touched)" class="text-red-500 text-sm mt-1">
+            <div *ngIf="coachId.errors?.['required']">Le numéro du coach est requis.</div>
+            <div *ngIf="coachId.errors?.['min']">Le numéro du coach doit être supérieur à 0.</div>
+          </div>
+        </div>
+
+        <!-- Champ Titre -->
+        <div class="form-group mb-6">
+          <label class="text-sm font-medium text-gray-700">Titre</label>
+          <input 
+            type="text" 
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" 
+            name="title" 
+            [(ngModel)]="program.title" 
+            #title="ngModel"
+            required 
+            minlength="3"
+          >
+          <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-red-500 text-sm mt-1">
+            <div *ngIf="title.errors?.['required']">Le titre est requis.</div>
+            <div *ngIf="title.errors?.['minlength']">Le titre doit comporter au moins 3 caractères.</div>
+          </div>
+        </div>
+
+        <!-- Champ Description -->
+        <div class="form-group mb-6">
+          <label class="text-sm font-medium text-gray-700">Description</label>
+          <textarea 
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" 
+            name="description" 
+            [(ngModel)]="program.description" 
+            #description="ngModel"
+            required
+          ></textarea>
+          <div *ngIf="description.invalid && (description.dirty || description.touched)" class="text-red-500 text-sm mt-1">
+            <div *ngIf="description.errors?.['required']">La description est requise.</div>
+          </div>
+        </div>
+
+        <!-- Champ Date de début -->
+        <div class="form-group mb-6">
+          <label class="text-sm font-medium text-gray-700">Date de début</label>
+          <input 
+            type="date" 
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" 
+            name="startDate" 
+            [(ngModel)]="program.startDate" 
+            #startDate="ngModel"
+            required
+          >
+          <div *ngIf="startDate.invalid && (startDate.dirty || startDate.touched)" class="text-red-500 text-sm mt-1">
+            <div *ngIf="startDate.errors?.['required']">La date de début est requise.</div>
+          </div>
+        </div>
+
+        <!-- Champ Date de fin -->
+<div class="form-group mb-6">
+  <label class="text-sm font-medium text-gray-700">Date de fin</label>
+  <input 
+    type="date" 
+    class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" 
+    name="endDate" 
+    [(ngModel)]="program.endDate" 
+    #endDate="ngModel"
+    required
+    [min]="today"
+  >
+  <div *ngIf="endDate.invalid && (endDate.dirty || endDate.touched)" class="text-red-500 text-sm mt-1">
+    <div *ngIf="endDate.errors?.['required']">La date de fin est requise.</div>
+    <div *ngIf="endDate.errors?.['min']">La date de fin ne peut pas être dans le passé.</div>
+  </div>
+</div>
+
+        <!-- Champ Participants -->
+        <div class="form-group mb-6">
+          <label class="text-sm font-medium text-gray-700">Participants</label>
+          <input 
+            type="number" 
+            class="form-control p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 w-full" 
+            name="participants" 
+            [(ngModel)]="program.participants" 
+            #participants="ngModel"
+            min="0"
+          >
+          <div *ngIf="participants.invalid && (participants.dirty || participants.touched)" class="text-red-500 text-sm mt-1">
+            <div *ngIf="participants.errors?.['min']">Le nombre de participants ne peut pas être négatif.</div>
+          </div>
+        </div>
+
+        <!-- Bouton Soumettre -->
+        <button 
+          type="submit" 
+          class="btn btn-success mt-6 py-3 px-8 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
+          [disabled]="programForm.invalid"
+        >
+          {{ isEdit ? 'Mettre à jour' : 'Ajouter' }}
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

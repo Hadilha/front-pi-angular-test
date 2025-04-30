@@ -1,0 +1,179 @@
+<div class="container mt-5 pt-5" style="margin-top: 80px;">
+  <!-- Search Header -->
+  <div class="row align-items-center mb-4 g-3 bg-primary bg-gradient text-white p-3 rounded-3 shadow-sm">
+    <div class="col-md-4">
+      <h2 class="mb-0 fw-bold"><i class="bi bi-calendar-event me-2"></i>Appointments</h2>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group rounded-3 search-container">
+        <span class="input-group-text bg-transparent border-0">
+          <i class="bi bi-search text-white"></i>
+        </span>
+        <input type="text" 
+               class="form-control bg-transparent border-0 text-white" 
+               placeholder="Search appointments..." 
+               [(ngModel)]="searchTerm"
+               (input)="filterAppointments()"
+               style="outline: none; box-shadow: none;">
+        <button class="btn btn-link text-white" 
+                type="button" 
+                (click)="searchTerm = ''; filterAppointments()" 
+                *ngIf="searchTerm">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-4 text-md-end">
+      <div class="d-flex flex-wrap justify-content-end gap-2">
+        <button routerLink="/admin/appointments/new" 
+                class="btn btn-light btn-md text-primary fw-semibold">
+          <i class="bi bi-plus-circle me-2"></i>New Appointment
+        </button>
+        <button class="btn btn-info text-white" 
+                routerLink="/admin/appointment-statistics">
+          <i class="bi bi-bar-chart me-2"></i>Statistics
+        </button>
+        <button class="btn btn-success text-white" 
+                (click)="exportToExcel()">
+          <i class="bi bi-file-earmark-excel me-2"></i>Export
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination Toggle -->
+  <div class="mb-3 d-flex justify-content-end">
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="paginationToggle" 
+             [(ngModel)]="paginated" (change)="togglePagination()">
+      <label class="form-check-label" for="paginationToggle">
+        Enable Pagination
+      </label>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="text-center py-5 mx-3 bg-light rounded-3 shadow-sm">
+    <div class="spinner-border text-primary spinner-border-lg" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-muted">Fetching appointments...</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="errorMessage" class="alert alert-danger mx-3 d-flex align-items-center rounded-3 shadow-sm">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+  </div>
+
+  <!-- Appointment Table -->
+  <div *ngIf="!isLoading && !errorMessage" class="mx-3" [@fadeIn]>
+    <div class="card border-0 shadow-lg rounded-3 overflow-hidden">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0 table-striped">
+            <thead class="table-dark text-white">
+              <tr>
+                <th class="py-3 px-4 border-bottom fw-semibold">ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Patient ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Professional ID</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Start Time</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">End Time</th>
+                <th class="py-3 px-4 border-bottom fw-semibold">Status</th>
+                <th class="py-3 px-4 border-bottom fw-semibold text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appt of filteredAppointments" class="border-light transition-hover">
+                <td class="px-4 py-3 fw-medium">{{ appt.appointmentId }}</td>
+                <td class="px-4 py-3">{{ appt.patient?.userId }}</td>
+                <td class="px-4 py-3">{{ appt.professional?.userId }}</td>
+                <td class="px-4 py-3">{{ appt.startTime | date:'MMM d, yyyy, h:mm a' }}</td>
+                <td class="px-4 py-3">{{ appt.endTime | date:'MMM d, yyyy, h:mm a' }}</td>
+                <td class="px-4 py-3">
+                  <span class="badge rounded-pill py-2 px-3 text-uppercase fw-semibold" [ngClass]="{
+                    'bg-warning text-dark': appt.status === 'SCHEDULED',
+                    'bg-success text-white': appt.status === 'COMPLETED',
+                    'bg-danger text-white': appt.status === 'CANCELLED'
+                  }">
+                    {{ appt.status | titlecase }}
+                  </span>
+                </td>
+                <td class="px-4 py-3 text-end">
+                  <div class="btn-group gap-2">
+                    <button (click)="editAppointment(appt.appointmentId)" 
+                            class="btn btn-outline-primary px-3 py-2 d-flex align-items-center transition-btn">
+                      <i class="bi bi-pencil me-2"></i>Edit
+                    </button>
+                    <button (click)="deleteAppointment(appt.appointmentId)" 
+                            class="btn btn-outline-danger px-3 py-2 d-flex align-items-center transition-btn">
+                      <i class="bi bi-trash me-2"></i>Delete
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="filteredAppointments.length === 0" class="border-light">
+                <td colspan="7" class="text-center text-muted py-5 bg-light rounded-bottom">
+                  <i class="bi bi-calendar-x me-2 fs-4"></i>
+                  {{ searchTerm ? 'No matching appointments found' : 'No appointments found' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pagination Controls -->
+    <div *ngIf="paginated && totalPages > 0" class="d-flex justify-content-between align-items-center mt-4">
+      <div class="d-flex align-items-center">
+        <select class="form-select form-select-sm me-2" 
+                [(ngModel)]="pageSize" 
+                (change)="changePageSize(pageSize)">
+          <option [value]="5">5 per page</option>
+          <option [value]="10">10 per page</option>
+          <option [value]="25">25 per page</option>
+          <option [value]="50">50 per page</option>
+        </select>
+        <span class="text-muted">
+          Showing {{ appointments.length ? (currentPage * pageSize) + 1 : 0 }}-{{ (currentPage * pageSize) + appointments.length }} of {{ totalItems }} appointments
+        </span>
+      </div>
+      
+      <nav aria-label="Appointment pagination">
+        <ul class="pagination mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 0">
+            <button class="page-link" (click)="goToPage(0)" [disabled]="currentPage === 0">
+              <i class="bi bi-chevron-double-left"></i>
+            </button>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === 0">
+            <button class="page-link" (click)="previousPage()" [disabled]="currentPage === 0">
+              <i class="bi bi-chevron-left"></i>
+            </button>
+          </li>
+          
+          <!-- Page Numbers -->
+          <ng-container *ngFor="let page of [].constructor(totalPages > 5 ? 5 : totalPages); let i = index">
+            <li class="page-item" *ngIf="getPaginationIndex(i) < totalPages" 
+                [class.active]="getPaginationIndex(i) === currentPage">
+              <button class="page-link" (click)="goToPage(getPaginationIndex(i))">
+                {{ getPaginationIndex(i) + 1 }}
+              </button>
+            </li>
+          </ng-container>
+          
+          <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+            <button class="page-link" (click)="nextPage()" [disabled]="currentPage === totalPages - 1">
+              <i class="bi bi-chevron-right"></i>
+            </button>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
+            <button class="page-link" (click)="goToPage(totalPages - 1)" [disabled]="currentPage === totalPages - 1">
+              <i class="bi bi-chevron-double-right"></i>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
