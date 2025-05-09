@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
 
 export interface ProgramStat {
   programTitle:      string;
@@ -10,7 +12,9 @@ export interface ProgramStat {
 
 @Injectable({ providedIn: 'root' })
 export class StatisticsService {
-  private baseUrl = 'http://localhost:8089/api/statistics';
+  //private baseUrl = 'http://localhost:8089/api/statistics';
+  private readonly baseUrl = `${environment.apiUrl}/statistics`;
+
 
   constructor(private http: HttpClient) {}
 

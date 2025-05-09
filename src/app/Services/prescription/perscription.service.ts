@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {  HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
 interface PrescriptionRequestDTO {
   patientId: number;
   doctorId: number;
@@ -24,7 +26,9 @@ interface MedicationDTO {
   providedIn: 'root',
 })
 export class PerscriptionService {
-  private apiUrl = 'http://localhost:8089/api/prescriptions';
+  //private apiUrl = 'http://localhost:8089/api/prescriptions';
+  private readonly apiUrl = `${environment.apiUrl}/prescriptions`;
+
 
   constructor(private http: HttpClient) {}
 

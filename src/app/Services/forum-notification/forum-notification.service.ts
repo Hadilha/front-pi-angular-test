@@ -1,6 +1,7 @@
 import { Injectable, NgZone } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,8 @@ import { Subject } from 'rxjs';
 export class ForumNotificationService {
   private eventSource: EventSource | null = null;
   private reportNotificationSubject = new Subject<string>();
+
+  private readonly apiUrl = `${environment.apiUrl}`;
 
   // Observable for report notifications
   public reportNotifications$ = this.reportNotificationSubject.asObservable();
@@ -17,7 +20,9 @@ export class ForumNotificationService {
   connect(): void {
     if (this.eventSource) return;
 
-    this.eventSource = new EventSource('http://localhost:8089/api/notifications/subscribe');
+    //this.eventSource = new EventSource('http://localhost:8089/api/');
+    this.eventSource = new EventSource(`${this.apiUrl}/notifications/subscribe`);
+
 
     this.eventSource.addEventListener('notification', (event: MessageEvent) => {
       try {
@@ -29,7 +34,7 @@ export class ForumNotificationService {
         if (type === 'comment') {
           const postTitle = data.postTitle || 'your post';
           const message = `🗨️ ${user} has commented on your post: "${postTitle}"`;
-          
+
           this.zone.run(() => {
             this.snackBar.open(message, 'Close', {
               duration: 5000,
@@ -44,7 +49,7 @@ export class ForumNotificationService {
           const targetType = data.targetType || 'Post';
           const postTitle = data.postTitle ? `: "${data.postTitle}"` : '';
           const message = `🚩 ${user} has reported a ${targetType}${postTitle}`;
-          
+
           this.zone.run(() => {
             this.reportNotificationSubject.next(message);
           });

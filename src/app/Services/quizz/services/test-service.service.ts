@@ -2,13 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Test } from 'src/app/models/quizz/test';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestServiceService {
 
-  private apiUrl = 'http://localhost:8089/api/tests';
+  //private apiUrl = 'http://localhost:8089/api/tests';
+  private readonly apiUrl = `${environment.apiUrl}/tests`;
+
 
   constructor(private http: HttpClient) { }
 

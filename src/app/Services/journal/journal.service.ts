@@ -4,12 +4,14 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode';
 import { Journal } from 'src/app/models/journal.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JournalService {
-  private apiUrl = 'http://localhost:8089/api/patient';
+
+  private readonly apiUrl = `${environment.apiUrl}/patient`;
 
   constructor(private http: HttpClient) { }
 
@@ -170,7 +172,7 @@ export class JournalService {
   }*/
     correctGrammarStream(sentence: string): Observable<string> {
       return new Observable<string>(observer => {
-        fetch(`http://localhost:8089/api/shared_All/grammar/correct`, {
+        fetch(`${this.apiUrl}/shared_All/grammar/correct`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ sentence })

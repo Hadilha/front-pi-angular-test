@@ -2,13 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Choice } from 'src/app/models/quizz/choice';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChoiceServiceService {
 
-  private apiUrl = 'http://localhost:8089/api/choices';
+  //private apiUrl = 'http://localhost:8089/api/choices';
+  private readonly apiUrl = `${environment.apiUrl}/choices`;
+
 
   constructor(private http: HttpClient) { }
 

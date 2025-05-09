@@ -3,14 +3,17 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { ProgramContent } from 'src/app/models/content-program.model';
+import { environment } from 'src/environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ProgramContentService {
 
-  private baseUrl = 'http://localhost:8089/program-contents';
-  private emailApi ='http://localhost:8089/send_email'; // Replace with your actual email API URL
+  // Replace with your actual email API URL
 
+  private readonly baseUrl = `${environment.url}/program-content`;
+  private readonly emailApi = `${environment.url}/send_email`;
 
 
 

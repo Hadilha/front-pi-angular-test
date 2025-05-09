@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
 
 export interface Post {
   id: number;
@@ -29,7 +31,9 @@ export interface Post {
   providedIn: 'root',
 })
 export class ForumService {
-  private apiUrl = 'http://localhost:8089/forum';
+  //private apiUrl = 'http://localhost:8089/forum';
+  private readonly apiUrl = `${environment.url}/forum`;
+
 
   constructor(private http: HttpClient) {}
 

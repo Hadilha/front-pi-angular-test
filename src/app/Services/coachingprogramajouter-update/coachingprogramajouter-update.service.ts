@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CoachingProgram } from 'src/app/models/coaching-program.model';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoachingProgramAjouterUpdateService {
-  private baseUrl = 'http://localhost:8089/coaching-programs';
-  private emailApi ='http://localhost:8089/send_email'; // Replace with your actual email API URL
+  private readonly baseUrl = `${environment.url}/coaching-programs`;
+  private readonly emailApi = `${environment.url}/send_email`;
+// Replace with your actual email API URL
 
   constructor(private http: HttpClient) {}
 

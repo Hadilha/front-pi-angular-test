@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { CoachingProgram } from 'src/app/models/coaching-program.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CoachingProgramService {
-  private apiUrl = 'http://localhost:8089/coaching-programs';
+  private readonly apiUrl = `${environment.url}/coaching-programs`;
+
 
   constructor(private http: HttpClient) {}
 

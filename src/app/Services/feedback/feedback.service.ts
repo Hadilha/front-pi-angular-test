@@ -2,14 +2,19 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FeedbackService {
 
-  private apiUrl = 'http://localhost:8089/feedback';
-  private aiApiUrl = 'http://localhost:8089/api/ai';  // Adjust this if necessary
+  // Adjust this if necessary
+
+
+
+  private readonly apiUrl = `${environment.url}/feedback`;
+  private readonly aiApiUrl = `${environment.aiUrl}`;
 
   constructor(private http: HttpClient) { }
 

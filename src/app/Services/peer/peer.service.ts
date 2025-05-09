@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import Peer, { MediaConnection } from 'peerjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import Peer, { MediaConnection } from 'peerjs';
 export class PeerService {
   private peer: Peer | undefined;
   private mediaCall: MediaConnection | undefined;
-  
+
   public currentStream = new BehaviorSubject<MediaStream | null>(null);
   public remoteStream = new BehaviorSubject<MediaStream | null>(null);
 

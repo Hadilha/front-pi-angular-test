@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
+
 export interface VideoRoomDTO {
   roomId: string;
   appointmentId: number;
@@ -28,7 +29,7 @@ export interface VideoCall {
   providedIn: 'root'
 })
 export class VideoCallService {
-  
+
   private apiUrl = `${environment.apiUrl}/video-calls`;
 
   constructor(private http: HttpClient) {}

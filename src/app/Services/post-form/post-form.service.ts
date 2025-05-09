@@ -2,6 +2,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
 
 export interface Post {
   id: number;
@@ -33,17 +35,20 @@ export interface CreatePost {
   providedIn: 'root',
 })
 export class PostFormService {
-  private apiUrl = 'http://localhost:8089/forum';
+  //private apiUrl = 'http://localhost:8089/forum';
+  private readonly apiUrl = `${environment.apiUrl}/forum`;
+  private readonly aiUrl = `${environment.apiUrl}`;
+
 
   constructor(private http: HttpClient) {}
 
   generatePostContent(prompt: string): Observable<{ result: string }> {
-    return this.http.post<{ result: string }>('http://localhost:8089/api/ai/generate-post', { prompt });
+    return this.http.post<{ result: string }>(`${this.aiUrl}/ai/generate-post`, { prompt });
   }
 
   // Use CreatePost interface for the payload type
   createPost(postPayload: CreatePost): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/posts`, postPayload);
   }
-  
+
 }

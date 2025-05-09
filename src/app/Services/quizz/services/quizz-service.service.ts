@@ -2,13 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Quizz } from 'src/app/models/quizz/quizz';
+import { environment } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizzServiceService {
 
-  private apiUrl = 'http://localhost:8089/api/quizzes';
+  //private apiUrl = 'http://localhost:8089/api/quizzes';
+  private readonly apiUrl = `${environment.apiUrl}/quizzes`;
+
 
   constructor(private http: HttpClient) { }
 

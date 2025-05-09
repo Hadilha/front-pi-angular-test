@@ -5,6 +5,7 @@ import * as SockJS from 'sockjs-client';
 import {  HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of, Subject } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 export interface Message {
   id?: number;
   groupName?: string | null;
@@ -18,8 +19,15 @@ export interface Message {
   providedIn: 'root',
 })
 export class ChatService {
-  private REST_API = 'http://localhost:8089/api';
-  private WS_ENDPOINT = 'http://localhost:8089/ws';
+
+  private readonly REST_API = `${environment.apiUrl}`;
+  private readonly WS_ENDPOINT = `${environment.wsUrl}`;
+
+
+
+
+
+
   private stompClient: Client | null = null;
   public messageStream$ = new Subject<Message>();
   private groupUpdateSubject = new Subject<void>();

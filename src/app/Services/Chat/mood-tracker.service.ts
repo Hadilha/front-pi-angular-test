@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface UserActivity {
   id?: number;
@@ -15,7 +16,8 @@ export interface UserActivity {
   providedIn: 'root',
 })
 export class MoodTrackerService {
-  private readonly API_URL = 'http://localhost:8089/api/mood-tracker';
+  private readonly API_URL = `${environment.apiUrl}/mood-tracker`;
+
 
   constructor(private http: HttpClient) {}
 

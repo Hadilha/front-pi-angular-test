@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ProgramContent } from 'src/app/models/content-program.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProgramContentService {
-  private baseUrl = 'http://localhost:8089/program-contents';
-
+  private readonly baseUrl = `${environment.url}/program-contents`;
   constructor(private http: HttpClient) {}
 
   // Get all content

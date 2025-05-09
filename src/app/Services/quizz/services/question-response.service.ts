@@ -2,13 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { QuestionResponse } from 'src/app/models/quizz/question-response';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuestionResponseService {
 
-  private apiUrl = 'http://localhost:8089/api/question_response';
+  //private apiUrl = 'http://localhost:8089/api/question_response';
+  private readonly apiUrl = `${environment.apiUrl}/question_response`;
 
   constructor(private http: HttpClient) { }
 

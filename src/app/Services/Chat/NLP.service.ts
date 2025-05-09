@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 export interface AppUser {
   id: number;
@@ -51,7 +52,9 @@ export interface Achievement {
   providedIn: 'root'
 })
 export class NLPService {
-  private API_URL = 'http://localhost:8089/api';
+
+  private readonly API_URL = `${environment.apiUrl}`;
+
 
   constructor(private http: HttpClient) {}
 

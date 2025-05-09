@@ -5,6 +5,7 @@ import { Note } from 'src/app/models/Note.model';
 import {  HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 
 import { catchError, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -12,7 +13,9 @@ import { catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class NoteService {
-  private apiUrl = 'http://localhost:8089/api/notes'; // Adjust to your backend URL
+  //private apiUrl = 'http://localhost:8089/api/notes'; // Adjust to your backend URL
+  private readonly apiUrl = `${environment.apiUrl}/notes`; // Adjust to your backend URL
+
 
   constructor(private http: HttpClient) {}
 

@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Score } from 'src/app/models/quizz/score';
+import { environment } from 'src/environments/environment';
+
 
 
 @Injectable({
@@ -9,11 +11,18 @@ import { Score } from 'src/app/models/quizz/score';
 })
 export class ScoreServiceService {
 
-  private apiUrl = 'http://localhost:8089/api/scores';
+  /*private apiUrl = 'http://localhost:8089/api/scores';
   private apiUrl2 = 'http://localhost:8089/api/scores/user';
   private aiApi = 'http://localhost:8089/ai';
   private emailApiGame ='http://localhost:8089/send_email_game'
-  private emailApiQuiz ='http://localhost:8089/send_email_quiz'
+  private emailApiQuiz ='http://localhost:8089/send_email_quiz'*/
+  private readonly apiUrl = `${environment.url}/api/scores`;
+  private readonly apiUrl2 = `${environment.apiUrl}/scores/user`;
+  private readonly aiApi = `${environment.aiUrl}`;
+  private readonly emailApiGame = `${environment.url}/send_email_game`;
+  private readonly emailApiQuiz = `${environment.url}/send_email_quiz`;
+
+
   private headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });

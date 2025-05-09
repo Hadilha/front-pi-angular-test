@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { Token } from '@angular/compiler';
 import { User } from 'src/app/models/user.model';
+import { environment } from 'src/environments/environment';
+
 export interface AppointmentStats {
   [date: string]: number;
 }
@@ -18,7 +20,9 @@ export interface RegistrationStats {
 })
 
 export class UserService {
-  private apiUrl = 'http://localhost:8089/api';
+  //private apiUrl = 'http://localhost:8089/api';
+  private readonly apiUrl = `${environment.apiUrl}`;
+
   private dataChanged = new BehaviorSubject<void>(undefined);
   private currentSessions = new Map<string, string>();
 
