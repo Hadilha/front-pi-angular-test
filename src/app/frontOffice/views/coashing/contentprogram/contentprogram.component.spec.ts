@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContentprogramComponent } from './contentprogram.component';
+import { ContentProgramComponent } from './contentprogram.component';
 
-describe('ContentprogramComponent', () => {
-  let component: ContentprogramComponent;
-  let fixture: ComponentFixture<ContentprogramComponent>;
+describe('ContentProgramComponent', () => {
+  let component: ContentProgramComponent;
+  let fixture: ComponentFixture<ContentProgramComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ContentprogramComponent]
+      declarations: [ContentProgramComponent]
     });
-    fixture = TestBed.createComponent(ContentprogramComponent);
+    fixture = TestBed.createComponent(ContentProgramComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

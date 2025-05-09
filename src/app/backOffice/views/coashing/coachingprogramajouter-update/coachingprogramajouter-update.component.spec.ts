@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoachingprogramajouterUpdateComponent } from './coachingprogramajouter-update.component';
+import { CoachingProgramAjouterUpdateComponent } from './coachingprogramajouter-update.component';
 
-describe('CoachingprogramajouterUpdateComponent', () => {
-  let component: CoachingprogramajouterUpdateComponent;
-  let fixture: ComponentFixture<CoachingprogramajouterUpdateComponent>;
+describe('CoachingProgramajouterUpdateComponent', () => {
+  let component: CoachingProgramAjouterUpdateComponent;
+  let fixture: ComponentFixture<CoachingProgramAjouterUpdateComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CoachingprogramajouterUpdateComponent]
+      declarations: [CoachingProgramAjouterUpdateComponent]
     });
-    fixture = TestBed.createComponent(CoachingprogramajouterUpdateComponent);
+    fixture = TestBed.createComponent(CoachingProgramAjouterUpdateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

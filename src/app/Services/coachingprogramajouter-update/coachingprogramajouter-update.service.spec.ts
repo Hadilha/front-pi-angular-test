@@ -7,7 +7,7 @@ describe('CoachingprogramajouterUpdateService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CoachingprogramajouterUpdateService);
+    service = TestBed.inject(CoachingProgramAjouterUpdateService);
   });
 
   it('should be created', () => {
